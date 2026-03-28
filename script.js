@@ -8,6 +8,7 @@ const liveContainer = document.getElementById("live");
 
 const channelLogo = document.getElementById("channel-logo");
 const channelName = document.getElementById("channel-name");
+const channelHandle = document.getElementById("channel-handle");
 const subscriberCount = document.getElementById("subscriber-count");
 
 async function loadChannel(){
@@ -22,15 +23,22 @@ const channel = data.items[0];
 channelLogo.src = channel.snippet.thumbnails.high.url;
 channelName.innerText = channel.snippet.title;
 
-const subs = Number(channel.statistics.subscriberCount).toLocaleString();
+if(channel.snippet.customUrl){
+channelHandle.innerText = "@" + channel.snippet.customUrl;
+}else{
+channelHandle.innerText = "@channel";
+}
 
+const subs = Number(channel.statistics.subscriberCount).toLocaleString();
 subscriberCount.innerText = `${subs} subscribers`;
 
 }
 
+
+
 async function loadVideos(){
 
-const url = `${API}/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=20`;
+const url = `${API}/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=25`;
 
 const res = await fetch(url);
 const data = await res.json();
@@ -47,13 +55,12 @@ const title = item.snippet.title;
 const thumb = item.snippet.thumbnails.medium.url;
 
 
-// HERO
+/* HERO */
+
 if(!heroSet){
 
 hero.innerHTML = `
 <iframe
-width="100%"
-height="400"
 src="https://www.youtube.com/embed/${videoId}"
 frameborder="0"
 allowfullscreen>
@@ -65,60 +72,56 @@ heroSet = true;
 }
 
 
-// SHORTS
+/* SHORTS */
+
 if(index < VIDEO_LIMIT){
 
 shortsContainer.innerHTML += `
 <a href="https://youtube.com/watch?v=${videoId}" target="_blank" class="short-card">
-
 <img src="${thumb}">
 <p class="video-title">${title}</p>
-
 </a>
 `;
 
 }
 
 
-// VIDEOS
+/* VIDEOS */
+
 if(index < VIDEO_LIMIT){
 
 videosContainer.innerHTML += `
 <a href="https://youtube.com/watch?v=${videoId}" target="_blank" class="video-card">
-
 <img src="${thumb}">
 <p class="video-title">${title}</p>
-
 </a>
 `;
 
 }
 
 
-// TRENDING (4 video saja)
+/* TRENDING */
+
 if(index < TRENDING_LIMIT){
 
 trendingContainer.innerHTML += `
 <a href="https://youtube.com/watch?v=${videoId}" target="_blank" class="trend-card">
-
 <img src="${thumb}">
 <p class="video-title">${title}</p>
-
 </a>
 `;
 
 }
 
 
-// PAST LIVE
+/* PAST LIVE */
+
 if(title.toLowerCase().includes("live") && liveCount < 6){
 
 liveContainer.innerHTML += `
 <a href="https://youtube.com/watch?v=${videoId}" target="_blank" class="video-card">
-
 <img src="${thumb}">
 <p class="video-title">${title}</p>
-
 </a>
 `;
 
