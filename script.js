@@ -1,28 +1,36 @@
+// CHANNEL INFO
+
 fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_KEY}`)
 .then(res=>res.json())
 .then(data=>{
 
+if(!data.items) return
+
 let channel=data.items[0]
 
-document.getElementById("channel-logo").src=
+document.getElementById("channel-logo").src =
 channel.snippet.thumbnails.medium.url
 
-document.getElementById("channel-name").innerText=
+document.getElementById("channel-name").innerText =
 channel.snippet.title
 
-document.getElementById("subscriber-count").innerText=
-channel.statistics.subscriberCount+" subscribers"
+document.getElementById("subscriber-count").innerText =
+Number(channel.statistics.subscriberCount).toLocaleString() + " subscribers"
 
-document.getElementById("channel-desc").innerText=
+document.getElementById("channel-desc").innerText =
 channel.snippet.description
 
 })
 
 
 
+// VIDEOS
+
 fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&maxResults=20&order=date&type=video&key=${API_KEY}`)
 .then(res=>res.json())
 .then(data=>{
+
+if(!data.items) return
 
 let videos=data.items
 
@@ -36,7 +44,10 @@ loadSections(videos)
 function loadHero(video){
 
 document.getElementById("hero-video").innerHTML=`
-<iframe src="https://www.youtube.com/embed/${video.id.videoId}" allowfullscreen></iframe>
+<iframe 
+src="https://www.youtube.com/embed/${video.id.videoId}" 
+allowfullscreen>
+</iframe>
 `
 
 }
@@ -51,6 +62,8 @@ let liveHTML=""
 let trendingHTML=""
 
 videos.forEach((v,index)=>{
+
+if(!v.id.videoId) return
 
 let videoId=v.id.videoId
 
@@ -82,35 +95,12 @@ document.getElementById("trending").innerHTML=trendingHTML
 
 
 function openVideo(id){
-window.location="https://youtube.com/watch?v="+id
+window.open("https://youtube.com/watch?v="+id,"_blank")
 }
 
 
 
-/* MORE BUTTON */
-
-const moreBtn = document.getElementById("more-btn");
-const desc = document.querySelector(".channel-desc");
-
-let expanded = false;
-
-if(moreBtn){
-
-moreBtn.addEventListener("click",()=>{
-
-if(!expanded){
-desc.style.maxHeight="none"
-moreBtn.innerText="Less"
-expanded=true
-}else{
-desc.style.maxHeight="45px"
-moreBtn.innerText="More"
-expanded=false
-}
-
-})
-
-}
+/* POPUP */
 
 const moreBtn = document.getElementById("more-btn");
 
@@ -120,10 +110,10 @@ moreBtn.addEventListener("click",()=>{
 
 document.getElementById("info-popup").style.display="flex"
 
-document.getElementById("popup-title").innerText=
+document.getElementById("popup-title").innerText =
 document.getElementById("channel-name").innerText
 
-document.getElementById("popup-desc").innerText=
+document.getElementById("popup-desc").innerText =
 document.getElementById("channel-desc").innerText
 
 })
@@ -131,12 +121,17 @@ document.getElementById("channel-desc").innerText
 }
 
 
+const closePopup = document.getElementById("close-popup")
 
-/* CLOSE POPUP */
+if(closePopup){
 
-document.getElementById("close-popup").onclick=function(){
+closePopup.onclick=function(){
 document.getElementById("info-popup").style.display="none"
 }
+
+}
+
+
 
 window.addEventListener("keydown",(e)=>{
 
