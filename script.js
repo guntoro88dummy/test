@@ -11,12 +11,11 @@ const name = document.getElementById("channel-name");
 const handle = document.getElementById("channel-handle");
 const subs = document.getElementById("subscriber-count");
 
-
 async function loadChannel(){
 
-const url = `${API}/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
+try{
 
-const res = await fetch(url);
+const res = await fetch(`${API}/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
 const data = await res.json();
 
 const ch = data.items[0];
@@ -32,20 +31,24 @@ handle.innerText = ch.snippet.title;
 
 subs.innerText = Number(ch.statistics.subscriberCount).toLocaleString()+" subscribers";
 
+}catch(e){
+console.log("Channel load error",e);
 }
 
-
+}
 
 async function loadVideos(){
 
-const url = `${API}/search?part=snippet,id&channelId=${CHANNEL_ID}&order=date&maxResults=20&type=video&key=${API_KEY}`;
+try{
 
-const res = await fetch(url);
+const res = await fetch(`${API}/search?part=snippet,id&channelId=${CHANNEL_ID}&order=date&maxResults=20&type=video&key=${API_KEY}`);
 const data = await res.json();
 
 let heroSet=false;
 
 data.items.forEach((item,i)=>{
+
+if(!item.id.videoId) return;
 
 const id=item.id.videoId;
 const title=item.snippet.title;
@@ -65,17 +68,7 @@ heroSet=true;
 
 }
 
-
-
 if(i<VIDEO_LIMIT){
-
-shorts.innerHTML+=`
-<a href="https://youtube.com/watch?v=${id}" target="_blank" class="short-card">
-<img src="${thumb}">
-<p class="video-title">${title}</p>
-</a>
-`;
-
 
 videos.innerHTML+=`
 <a href="https://youtube.com/watch?v=${id}" target="_blank" class="video-card">
@@ -84,9 +77,14 @@ videos.innerHTML+=`
 </a>
 `;
 
+shorts.innerHTML+=`
+<a href="https://youtube.com/watch?v=${id}" target="_blank" class="short-card">
+<img src="${thumb}">
+<p class="video-title">${title}</p>
+</a>
+`;
+
 }
-
-
 
 if(i<TRENDING_LIMIT){
 
@@ -101,18 +99,22 @@ trending.innerHTML+=`
 
 });
 
+}catch(e){
+console.log("Video load error",e);
 }
 
-
+}
 
 async function loadLive(){
 
-const url=`${API}/search?part=snippet&channelId=${CHANNEL_ID}&eventType=completed&type=video&maxResults=6&key=${API_KEY}`;
+try{
 
-const res=await fetch(url);
+const res=await fetch(`${API}/search?part=snippet&channelId=${CHANNEL_ID}&eventType=completed&type=video&maxResults=6&key=${API_KEY}`);
 const data=await res.json();
 
 data.items.forEach(v=>{
+
+if(!v.id.videoId) return;
 
 const id=v.id.videoId;
 const title=v.snippet.title;
@@ -127,9 +129,11 @@ live.innerHTML+=`
 
 });
 
+}catch(e){
+console.log("Live load error",e);
 }
 
-
+}
 
 loadChannel();
 loadVideos();
