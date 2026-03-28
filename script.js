@@ -144,13 +144,6 @@ live.innerHTML+=`
 
 }
 
-
-
-loadChannel();
-loadVideos();
-loadLive();
-
-
 const popup = document.getElementById("popup");
 const moreBtn = document.getElementById("more-btn");
 const closePopup = document.getElementById("close-popup");
@@ -164,3 +157,10 @@ if(e.key==="Escape"){
 popup.style.display="none";
 }
 });
+
+
+loadChannel();
+loadVideos();
+loadLive();
+
+
