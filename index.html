@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,28 +15,33 @@
 
 <body>
 
-<!-- HEADER -->
 <header class="header">
 <div class="logo">
-<img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg">
-<span>AJI MANGKARA</span>
+<h2>AJI MANGKARA</h2>
 </div>
 </header>
-
 
 <div class="container">
 
 <!-- LEFT CONTENT -->
-<div class="main">
+<div class="left">
 
-<!-- HERO VIDEO -->
-<section class="hero">
+<!-- HERO + TRENDING -->
+<div class="top-section">
+
+<div class="hero">
 <div id="hero-video"></div>
-</section>
+</div>
 
+<div class="trending">
+<h3>🔥 Sedang Trending</h3>
+<div id="trending"></div>
+</div>
+
+</div>
 
 <!-- CHANNEL INFO -->
-<section class="channel-info">
+<div class="channel-info">
 
 <div class="channel-header">
 
@@ -52,18 +58,16 @@
 
 <p id="channel-desc"></p>
 
-</section>
-
+</div>
 
 <!-- SHORTS -->
 <section>
 
 <h3>Shorts</h3>
 
-<div id="shorts" class="video-grid"></div>
+<div id="shorts" class="shorts-scroll"></div>
 
 </section>
-
 
 <!-- VIDEOS -->
 <section>
@@ -74,36 +78,26 @@
 
 </section>
 
-
-<!-- PAST LIVE -->
+<!-- LIVE -->
 <section>
 
-<h3>Past Live Streams</h3>
+<h3>Past Live Streaming</h3>
 
 <div id="live" class="video-grid"></div>
 
 </section>
 
-
 </div>
-
 
 <!-- SIDEBAR -->
-<aside class="sidebar">
+<div class="sidebar">
 
-<div class="trending">
-<h3>🔥 Sedang Trending</h3>
-<div id="trending"></div>
+<div class="ads">PASANG IKLAN</div>
+<div class="ads">PASANG IKLAN</div>
+<div class="ads">PASANG IKLAN</div>
+<div class="ads">PASANG IKLAN</div>
+
 </div>
-
-
-<div class="ads">PASANG IKLAN DISINI</div>
-<div class="ads">PASANG IKLAN DISINI</div>
-<div class="ads">PASANG IKLAN DISINI</div>
-<div class="ads">PASANG IKLAN DISINI</div>
-
-
-</aside>
 
 </div>
 
@@ -111,4 +105,5 @@
 <script src="script.js"></script>
 
 </body>
+
 </html>
