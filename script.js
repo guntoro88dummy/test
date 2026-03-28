@@ -111,3 +111,37 @@ expanded=false
 })
 
 }
+
+const moreBtn = document.getElementById("more-btn");
+
+if(moreBtn){
+
+moreBtn.addEventListener("click",()=>{
+
+document.getElementById("info-popup").style.display="flex"
+
+document.getElementById("popup-title").innerText=
+document.getElementById("channel-name").innerText
+
+document.getElementById("popup-desc").innerText=
+document.getElementById("channel-desc").innerText
+
+})
+
+}
+
+
+
+/* CLOSE POPUP */
+
+document.getElementById("close-popup").onclick=function(){
+document.getElementById("info-popup").style.display="none"
+}
+
+window.addEventListener("keydown",(e)=>{
+
+if(e.key==="Escape"){
+document.getElementById("info-popup").style.display="none"
+}
+
+})
