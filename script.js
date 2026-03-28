@@ -36,8 +36,7 @@ loadSections(videos)
 function loadHero(video){
 
 document.getElementById("hero-video").innerHTML=`
-<iframe src="https://www.youtube.com/embed/${video.id.videoId}">
-</iframe>
+<iframe src="https://www.youtube.com/embed/${video.id.videoId}" allowfullscreen></iframe>
 `
 
 }
@@ -86,24 +85,9 @@ function openVideo(id){
 window.location="https://youtube.com/watch?v="+id
 }
 
-const moreBtn = document.getElementById("more-btn");
-const desc = document.querySelector(".channel-desc-wrap");
 
-if(moreBtn){
 
-moreBtn.addEventListener("click", () => {
-
-if(desc.style.maxHeight === "none"){
-desc.style.maxHeight = "60px";
-moreBtn.innerText = "More";
-}else{
-desc.style.maxHeight = "none";
-moreBtn.innerText = "Less";
-}
-
-});
-
-}
+/* MORE BUTTON */
 
 const moreBtn = document.getElementById("more-btn");
 const desc = document.querySelector(".channel-desc");
