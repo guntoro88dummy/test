@@ -104,3 +104,26 @@ moreBtn.innerText = "Less";
 });
 
 }
+
+const moreBtn = document.getElementById("more-btn");
+const desc = document.querySelector(".channel-desc");
+
+let expanded = false;
+
+if(moreBtn){
+
+moreBtn.addEventListener("click",()=>{
+
+if(!expanded){
+desc.style.maxHeight="none"
+moreBtn.innerText="Less"
+expanded=true
+}else{
+desc.style.maxHeight="45px"
+moreBtn.innerText="More"
+expanded=false
+}
+
+})
+
+}
