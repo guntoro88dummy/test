@@ -1,95 +1,141 @@
-document.addEventListener("DOMContentLoaded", function () {
+// CONFIG dari config.js
+const API = "https://www.googleapis.com/youtube/v3";
 
-const heroContainer = document.getElementById("hero")
-const videosContainer = document.getElementById("videos")
-const trendingContainer = document.getElementById("trending")
-const shortsContainer = document.getElementById("shorts")
-const liveContainer = document.getElementById("live")
+// ambil elemen
+const hero = document.getElementById("hero-video");
+const trendingContainer = document.getElementById("trending");
+const shortsContainer = document.getElementById("shorts");
+const videosContainer = document.getElementById("videos");
+const liveContainer = document.getElementById("live");
 
-async function loadVideos(){
+// channel info
+const channelLogo = document.getElementById("channel-logo");
+const channelName = document.getElementById("channel-name");
+const subscriberCount = document.getElementById("subscriber-count");
 
-const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&maxResults=20&order=date&type=video&key=${API_KEY}`
 
-const res = await fetch(url)
-const data = await res.json()
+// LOAD CHANNEL INFO
+async function loadChannel() {
 
-const videos = data.items
+const url = `${API}/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
 
-let videosHTML = ""
-let trendingHTML = ""
-let shortsHTML = ""
-let liveHTML = ""
+const res = await fetch(url);
+const data = await res.json();
 
-let heroSet = false
+const channel = data.items[0];
 
-videos.forEach((v,index)=>{
+channelLogo.src = channel.snippet.thumbnails.high.url;
+channelName.innerText = channel.snippet.title;
 
-const videoId = v.id.videoId || v.id
+const subs = Number(channel.statistics.subscriberCount).toLocaleString();
+subscriberCount.innerText = `${subs} subscribers`;
 
-if(!videoId) return
+}
 
-const thumb = v.snippet.thumbnails.medium.url
-const title = v.snippet.title
 
-const card = `
-<div class="video-card" onclick="openVideo('${videoId}')">
-<img src="${thumb}">
-<p>${title}</p>
-</div>
-`
 
-// hero video
+// LOAD VIDEOS
+async function loadVideos() {
+
+const url = `${API}/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=20`;
+
+const res = await fetch(url);
+const data = await res.json();
+
+let heroSet = false;
+
+data.items.forEach((item,index)=>{
+
+if(item.id.kind !== "youtube#video") return;
+
+const videoId = item.id.videoId;
+const title = item.snippet.title;
+const thumb = item.snippet.thumbnails.medium.url;
+
+
+// HERO
 if(!heroSet){
 
-heroContainer.innerHTML = `
-<div class="hero-video" onclick="openVideo('${videoId}')">
-<img src="${v.snippet.thumbnails.high.url}">
-<div class="hero-play">▶</div>
-<h2>${title}</h2>
-</div>
-`
+hero.innerHTML = `
+<iframe
+width="100%"
+height="400"
+src="https://www.youtube.com/embed/${videoId}"
+frameborder="0"
+allowfullscreen>
+</iframe>
+`;
 
-heroSet = true
+heroSet = true;
+
 }
 
-// videos
+
+// SHORTS (rasio tinggi)
 if(index < VIDEO_LIMIT){
-videosHTML += card
+
+shortsContainer.innerHTML += `
+<a href="https://youtube.com/watch?v=${videoId}" target="_blank" class="short-card">
+
+<img src="${thumb}">
+<p>${title}</p>
+
+</a>
+`;
+
 }
 
-// trending
+
+// VIDEOS
+if(index < VIDEO_LIMIT){
+
+videosContainer.innerHTML += `
+<a href="https://youtube.com/watch?v=${videoId}" target="_blank" class="video-card">
+
+<img src="${thumb}">
+<p>${title}</p>
+
+</a>
+`;
+
+}
+
+
+// TRENDING
 if(index < TRENDING_LIMIT){
-trendingHTML += card
+
+trendingContainer.innerHTML += `
+<a href="https://youtube.com/watch?v=${videoId}" target="_blank" class="trend-card">
+
+<img src="${thumb}">
+<p>${title}</p>
+
+</a>
+`;
+
 }
 
-// shorts (simple filter portrait)
-const thumbW = v.snippet.thumbnails.medium.width
-const thumbH = v.snippet.thumbnails.medium.height
 
-if(thumbH > thumbW){
-shortsHTML += card
-}
-
-// live (simple detect title)
+// PAST LIVE (dummy filter sementara)
 if(title.toLowerCase().includes("live")){
-liveHTML += card
-}
 
-})
+liveContainer.innerHTML += `
+<a href="https://youtube.com/watch?v=${videoId}" target="_blank" class="video-card">
 
-videosContainer.innerHTML = videosHTML
-trendingContainer.innerHTML = trendingHTML
-shortsContainer.innerHTML = shortsHTML
-liveContainer.innerHTML = liveHTML
+<img src="${thumb}">
+<p>${title}</p>
 
-}
-
-loadVideos()
-
-})
-
-function openVideo(id){
-
-window.open(`https://youtube.com/watch?v=${id}`,"_blank")
+</a>
+`;
 
 }
+
+});
+
+}
+
+
+
+// INIT
+loadChannel();
+loadVideos();
