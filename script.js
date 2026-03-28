@@ -149,3 +149,18 @@ live.innerHTML+=`
 loadChannel();
 loadVideos();
 loadLive();
+
+
+const popup = document.getElementById("popup");
+const moreBtn = document.getElementById("more-btn");
+const closePopup = document.getElementById("close-popup");
+
+moreBtn.onclick = () => popup.style.display = "flex";
+
+closePopup.onclick = () => popup.style.display = "none";
+
+document.addEventListener("keydown",(e)=>{
+if(e.key==="Escape"){
+popup.style.display="none";
+}
+});
