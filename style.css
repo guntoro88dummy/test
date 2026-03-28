@@ -228,3 +228,13 @@ color:white;
 padding:5px 10px;
 cursor:pointer;
 }
+
+.video-card a{
+color:white;
+text-decoration:none;
+font-weight:500;
+}
+
+.video-card a:hover{
+color:#aaa;
+}
