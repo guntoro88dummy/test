@@ -1,290 +1,111 @@
 body{
 background:#0f0f0f;
 color:white;
-font-family:Roboto, sans-serif;
+font-family:Roboto,Arial, sans-serif;
 margin:0;
-}
-
-/* HEADER */
-
-.header{
-padding:15px 25px;
-border-bottom:1px solid #222;
-}
-
-/* CONTAINER */
-
-.container{
-max-width:1500px;
-margin:auto;
-padding:20px;
-}
-
-/* HERO + TRENDING */
-
-.hero-row{
-display:grid;
-grid-template-columns:2fr 1fr;
-gap:20px;
-}
-
-.hero iframe{
-width:100%;
-height:400px;
-border-radius:12px;
-}
-
-/* TRENDING */
-
-.trending{
-background:#111;
-padding:15px;
-border-radius:10px;
-}
-
-#trending{
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-
-.trending .video-card{
-display:flex;
-gap:10px;
-align-items:flex-start;
-}
-
-.trending .video-card img{
-width:140px;
-aspect-ratio:16/9;
-object-fit:cover;
-border-radius:8px;
-}
-
-.trending .video-card h4{
-font-size:12px;
-margin:0;
-line-height:1.3;
-}
-
-.trending .video-card p{
-font-size:11px;
-color:#aaa;
-margin:3px 0 0 0;
 }
 
 /* CHANNEL */
 
 .channel-info{
-margin:20px 0;
+margin-top:20px;
 }
 
 .channel-header{
 display:flex;
-align-items:center;
-justify-content:space-between;
 gap:15px;
-background:#111;
-padding:15px;
-border-radius:10px;
-}
-
-.channel-header div{
-flex:1;
+align-items:flex-start;
 }
 
 #channel-logo{
-width:65px;
-height:65px;
-object-fit:cover;
+width:60px;
+height:60px;
 border-radius:50%;
 }
 
-button{
-background:white;
+.channel-main{
+flex:1;
+}
+
+.channel-title-row{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.channel-title-row h2{
+font-size:20px;
+margin:0;
+}
+
+.subscribe-btn{
+background:#cc0000;
+color:white;
 border:none;
 padding:8px 16px;
 border-radius:20px;
 cursor:pointer;
-font-weight:600;
+font-weight:500;
 }
 
-/* CONTENT ROW */
-
-.content-row{
-display:grid;
-grid-template-columns:4fr 1fr;
-gap:25px;
+.subscribe-btn:hover{
+background:#e60000;
 }
 
-.left-content{
-display:flex;
-flex-direction:column;
+#subscriber-count{
+color:#aaa;
+font-size:13px;
+margin-top:3px;
 }
 
-/* SHORTS */
-
-.shorts{
-display:grid;
-grid-template-columns:repeat(6,1fr);
-gap:12px;
-}
-
-.shorts .video-card{
-width:100%;
-}
-
-.shorts img{
-width:100%;
-aspect-ratio:9/16;
-object-fit:cover;
-border-radius:10px;
-}
-
-/* VIDEOS */
-
-.videos{
-display:grid;
-grid-template-columns:repeat(6,1fr);
-gap:12px;
-}
-
-.video-card img{
-width:100%;
-aspect-ratio:16/9;
-object-fit:cover;
-border-radius:8px;
-}
-
-.video-card{
-cursor:pointer;
-font-size:12px;
-transition:0.2s;
-}
-
-.video-card:hover{
-transform:scale(1.03);
-}
-
-/* TRENDING TEXT */
-
-.video-card h4{
-font-size:12px;
-margin:5px 0;
-}
-
-/* ADS */
-
-.right-ads{
-display:flex;
-flex-direction:column;
-gap:20px;
-}
-
-.ads{
-background:white;
-color:red;
-padding:35px 10px;
-text-align:center;
-border-radius:10px;
-font-weight:bold;
-}
-
-/* TEXT */
-
-h3{
-margin-top:25px;
-margin-bottom:12px;
-font-size:16px;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:1200px){
-
-.videos{
-grid-template-columns:repeat(4,1fr);
-}
-
-.shorts{
-grid-template-columns:repeat(4,1fr);
-}
-
-}
-
-@media(max-width:768px){
-
-.hero-row{
-grid-template-columns:1fr;
-}
-
-.content-row{
-grid-template-columns:1fr;
-}
-
-.videos{
-grid-template-columns:repeat(2,1fr);
-}
-
-.shorts{
-grid-template-columns:repeat(3,1fr);
-}
-
-.right-ads{
-display:none;
-}
-
-}
-/* CHANNEL INFO */
-
-.channel-text{
-flex:1;
-}
+/* SOCIAL */
 
 .channel-links{
 display:flex;
-gap:10px;
+gap:8px;
 margin-top:8px;
-flex-wrap:wrap;
 }
 
 .social-btn{
 background:#222;
-padding:6px 12px;
-border-radius:20px;
-font-size:12px;
-text-decoration:none;
-color:white;
+width:32px;
+height:32px;
 display:flex;
 align-items:center;
-gap:5px;
-}
-
-.social-btn:hover{
-background:#333;
+justify-content:center;
+border-radius:50%;
+color:white;
+text-decoration:none;
 }
 
 .sawer-btn{
-background:#fff;
-color:#000;
+background:white;
+color:black;
 border:none;
 padding:6px 14px;
 border-radius:20px;
 font-size:12px;
 cursor:pointer;
-font-weight:600;
 }
 
-.channel-desc-wrap{
+/* DESC */
+
+.channel-desc{
 margin-top:10px;
-max-height:60px;
+max-height:45px;
 overflow:hidden;
 }
 
 #more-btn{
-font-size:12px;
-color:#3ea6ff;
-cursor:pointer;
 display:block;
 margin-top:5px;
+color:#3ea6ff;
+cursor:pointer;
+font-size:13px;
+}
+
+/* YOUTUBE FONT STYLE */
+
+h3{
+font-weight:500;
 }
