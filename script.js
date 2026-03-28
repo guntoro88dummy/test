@@ -1,4 +1,6 @@
+// ============================
 // CHANNEL INFO
+// ============================
 
 fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_KEY}`)
 .then(res=>res.json())
@@ -15,7 +17,7 @@ document.getElementById("channel-name").innerText =
 channel.snippet.title
 
 document.getElementById("subscriber-count").innerText =
-Number(channel.statistics.subscriberCount).toLocaleString() + " subscribers"
+Number(channel.statistics.subscriberCount).toLocaleString()+" subscribers"
 
 document.getElementById("channel-desc").innerText =
 channel.snippet.description
@@ -24,7 +26,9 @@ channel.snippet.description
 
 
 
-// VIDEOS
+// ============================
+// LOAD VIDEOS
+// ============================
 
 fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&maxResults=20&order=date&type=video&key=${API_KEY}`)
 .then(res=>res.json())
@@ -41,18 +45,28 @@ loadSections(videos)
 
 
 
+// ============================
+// HERO VIDEO
+// ============================
+
 function loadHero(video){
 
 document.getElementById("hero-video").innerHTML=`
+
 <iframe 
-src="https://www.youtube.com/embed/${video.id.videoId}" 
+src="https://www.youtube.com/embed/${video.id.videoId}"
 allowfullscreen>
 </iframe>
+
 `
 
 }
 
 
+
+// ============================
+// VIDEO SECTIONS
+// ============================
 
 function loadSections(videos){
 
@@ -94,21 +108,29 @@ document.getElementById("trending").innerHTML=trendingHTML
 
 
 
+// ============================
+// OPEN VIDEO
+// ============================
+
 function openVideo(id){
 window.open("https://youtube.com/watch?v="+id,"_blank")
 }
 
 
 
-/* POPUP */
+// ============================
+// POPUP INFO
+// ============================
 
-const moreBtn = document.getElementById("more-btn");
+const moreBtn = document.getElementById("more-btn")
+const popup = document.getElementById("info-popup")
+const popupClose = document.getElementById("popup-close")
 
-if(moreBtn){
+if(moreBtn && popup){
 
 moreBtn.addEventListener("click",()=>{
 
-document.getElementById("info-popup").style.display="flex"
+popup.style.display="flex"
 
 document.getElementById("popup-title").innerText =
 document.getElementById("channel-name").innerText
@@ -121,22 +143,31 @@ document.getElementById("channel-desc").innerText
 }
 
 
-const closePopup = document.getElementById("close-popup")
 
-if(closePopup){
+// ============================
+// CLOSE POPUP BUTTON
+// ============================
 
-closePopup.onclick=function(){
-document.getElementById("info-popup").style.display="none"
+if(popupClose){
+
+popupClose.addEventListener("click",()=>{
+
+popup.style.display="none"
+
+})
+
 }
 
-}
 
 
+// ============================
+// ESC CLOSE
+// ============================
 
-window.addEventListener("keydown",(e)=>{
+document.addEventListener("keydown",(e)=>{
 
-if(e.key==="Escape"){
-document.getElementById("info-popup").style.display="none"
+if(e.key==="Escape" && popup){
+popup.style.display="none"
 }
 
 })
