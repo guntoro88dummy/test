@@ -1,21 +1,16 @@
-// CONFIG dari config.js
 const API = "https://www.googleapis.com/youtube/v3";
 
-// ambil elemen
 const hero = document.getElementById("hero-video");
 const trendingContainer = document.getElementById("trending");
 const shortsContainer = document.getElementById("shorts");
 const videosContainer = document.getElementById("videos");
 const liveContainer = document.getElementById("live");
 
-// channel info
 const channelLogo = document.getElementById("channel-logo");
 const channelName = document.getElementById("channel-name");
 const subscriberCount = document.getElementById("subscriber-count");
 
-
-// LOAD CHANNEL INFO
-async function loadChannel() {
+async function loadChannel(){
 
 const url = `${API}/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
 
@@ -28,14 +23,12 @@ channelLogo.src = channel.snippet.thumbnails.high.url;
 channelName.innerText = channel.snippet.title;
 
 const subs = Number(channel.statistics.subscriberCount).toLocaleString();
+
 subscriberCount.innerText = `${subs} subscribers`;
 
 }
 
-
-
-// LOAD VIDEOS
-async function loadVideos() {
+async function loadVideos(){
 
 const url = `${API}/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=20`;
 
@@ -43,6 +36,7 @@ const res = await fetch(url);
 const data = await res.json();
 
 let heroSet = false;
+let liveCount = 0;
 
 data.items.forEach((item,index)=>{
 
@@ -71,14 +65,14 @@ heroSet = true;
 }
 
 
-// SHORTS (rasio tinggi)
+// SHORTS
 if(index < VIDEO_LIMIT){
 
 shortsContainer.innerHTML += `
 <a href="https://youtube.com/watch?v=${videoId}" target="_blank" class="short-card">
 
 <img src="${thumb}">
-<p>${title}</p>
+<p class="video-title">${title}</p>
 
 </a>
 `;
@@ -93,7 +87,7 @@ videosContainer.innerHTML += `
 <a href="https://youtube.com/watch?v=${videoId}" target="_blank" class="video-card">
 
 <img src="${thumb}">
-<p>${title}</p>
+<p class="video-title">${title}</p>
 
 </a>
 `;
@@ -101,14 +95,14 @@ videosContainer.innerHTML += `
 }
 
 
-// TRENDING
+// TRENDING (4 video saja)
 if(index < TRENDING_LIMIT){
 
 trendingContainer.innerHTML += `
 <a href="https://youtube.com/watch?v=${videoId}" target="_blank" class="trend-card">
 
 <img src="${thumb}">
-<p>${title}</p>
+<p class="video-title">${title}</p>
 
 </a>
 `;
@@ -116,17 +110,19 @@ trendingContainer.innerHTML += `
 }
 
 
-// PAST LIVE (dummy filter sementara)
-if(title.toLowerCase().includes("live")){
+// PAST LIVE
+if(title.toLowerCase().includes("live") && liveCount < 6){
 
 liveContainer.innerHTML += `
 <a href="https://youtube.com/watch?v=${videoId}" target="_blank" class="video-card">
 
 <img src="${thumb}">
-<p>${title}</p>
+<p class="video-title">${title}</p>
 
 </a>
 `;
+
+liveCount++;
 
 }
 
@@ -134,8 +130,5 @@ liveContainer.innerHTML += `
 
 }
 
-
-
-// INIT
 loadChannel();
 loadVideos();
