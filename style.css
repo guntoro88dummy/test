@@ -51,13 +51,17 @@ margin-bottom:15px;
 
 .trend-card{
 display:flex;
-gap:10px;
-margin-bottom:12px;
+gap:12px;
+margin-bottom:14px;
+align-items:flex-start;
 }
 
 .trend-card img{
-width:120px;
-border-radius:6px;
+width:140px;
+aspect-ratio:16/9;
+object-fit:cover;
+border-radius:8px;
+transition:transform .3s ease;
 }
 
 .video-title{
@@ -188,6 +192,7 @@ width:160px;
 height:280px;
 object-fit:cover;
 border-radius:10px;
+transition:transform .3s ease;
 }
 
 .videos{
@@ -198,7 +203,16 @@ gap:12px;
 
 .video-card img{
 width:100%;
+aspect-ratio:16/9;
+object-fit:cover;
 border-radius:6px;
+transition:transform .3s ease;
+}
+
+.video-card:hover img,
+.trend-card:hover img,
+.short-card:hover img{
+transform:scale(1.08);
 }
 
 .popup{
