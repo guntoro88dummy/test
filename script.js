@@ -1,4 +1,3 @@
-
 // CHANNEL INFO
 
 fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_KEY}`)
@@ -34,7 +33,7 @@ fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHA
 let videos=data.items
 
 loadHero(videos[0])
-loadVideos(videos)
+loadSections(videos)
 
 })
 
@@ -52,15 +51,21 @@ document.getElementById("hero-video").innerHTML=`
 }
 
 
-function loadVideos(videos){
 
-let html=""
+function loadSections(videos){
 
-videos.slice(0,6).forEach(v=>{
+let videosHTML=""
+let shortsHTML=""
+let liveHTML=""
+let trendingHTML=""
 
-html+=`
+videos.forEach((v,index)=>{
 
-<div class="video-card" onclick="openVideo('${v.id.videoId}')">
+let videoId=v.id.videoId
+
+let videoCard=`
+
+<div class="video-card" onclick="openVideo('${videoId}')">
 
 <img src="${v.snippet.thumbnails.medium.url}">
 
@@ -70,17 +75,31 @@ html+=`
 
 `
 
+if(index<6){
+videosHTML+=videoCard
+}
+
+if(index<6){
+shortsHTML+=videoCard
+}
+
+if(index<6){
+liveHTML+=videoCard
+}
+
+if(index<4){
+trendingHTML+=videoCard
+}
+
 })
 
-document.getElementById("videos").innerHTML=html
-
-document.getElementById("shorts").innerHTML=html
-
-document.getElementById("live").innerHTML=html
-
-document.getElementById("trending").innerHTML=html
+document.getElementById("videos").innerHTML=videosHTML
+document.getElementById("shorts").innerHTML=shortsHTML
+document.getElementById("live").innerHTML=liveHTML
+document.getElementById("trending").innerHTML=trendingHTML
 
 }
+
 
 
 function openVideo(id){
