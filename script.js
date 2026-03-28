@@ -1,5 +1,3 @@
-// CHANNEL INFO
-
 fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_KEY}`)
 .then(res=>res.json())
 .then(data=>{
@@ -22,12 +20,8 @@ channel.snippet.description
 
 
 
-// VIDEO DATA
-
 fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&maxResults=20&order=date&type=video&key=${API_KEY}`)
-
 .then(res=>res.json())
-
 .then(data=>{
 
 let videos=data.items
@@ -42,10 +36,8 @@ loadSections(videos)
 function loadHero(video){
 
 document.getElementById("hero-video").innerHTML=`
-
 <iframe src="https://www.youtube.com/embed/${video.id.videoId}">
 </iframe>
-
 `
 
 }
@@ -63,33 +55,21 @@ videos.forEach((v,index)=>{
 
 let videoId=v.id.videoId
 
-let videoCard=`
+let card=`
 
 <div class="video-card" onclick="openVideo('${videoId}')">
 
 <img src="${v.snippet.thumbnails.medium.url}">
-
 <p>${v.snippet.title}</p>
 
 </div>
 
 `
 
-if(index<6){
-videosHTML+=videoCard
-}
-
-if(index<6){
-shortsHTML+=videoCard
-}
-
-if(index<6){
-liveHTML+=videoCard
-}
-
-if(index<4){
-trendingHTML+=videoCard
-}
+if(index<6) videosHTML+=card
+if(index<6) shortsHTML+=card
+if(index<6) liveHTML+=card
+if(index<4) trendingHTML+=card
 
 })
 
@@ -103,8 +83,5 @@ document.getElementById("trending").innerHTML=trendingHTML
 
 
 function openVideo(id){
-
-window.location=
-"https://youtube.com/watch?v="+id
-
+window.location="https://youtube.com/watch?v="+id
 }
