@@ -24,12 +24,10 @@ const ch = data.items[0];
 logo.src = ch.snippet.thumbnails.high.url;
 name.innerText = ch.snippet.title;
 
-/* HANDLE FIX */
-
 if(ch.snippet.customUrl){
-handle.innerText = "@" + ch.snippet.customUrl;
+handle.innerText = ch.snippet.customUrl;
 }else{
-handle.innerText = "@" + ch.snippet.title.replace(/\s/g,'').toLowerCase();
+handle.innerText = ch.snippet.title;
 }
 
 subs.innerText = Number(ch.statistics.subscriberCount).toLocaleString()+" subscribers";
@@ -53,9 +51,6 @@ const id=item.id.videoId;
 const title=item.snippet.title;
 const thumb=item.snippet.thumbnails.medium.url;
 
-
-/* HERO */
-
 if(!heroSet){
 
 hero.innerHTML=`
@@ -70,9 +65,6 @@ heroSet=true;
 
 }
 
-
-/* SHORTS */
-
 if(i<VIDEO_LIMIT){
 
 shorts.innerHTML+=`
@@ -82,13 +74,6 @@ shorts.innerHTML+=`
 </a>
 `;
 
-}
-
-
-/* VIDEOS */
-
-if(i<VIDEO_LIMIT){
-
 videos.innerHTML+=`
 <a href="https://youtube.com/watch?v=${id}" target="_blank" class="video-card">
 <img src="${thumb}">
@@ -97,9 +82,6 @@ videos.innerHTML+=`
 `;
 
 }
-
-
-/* TRENDING */
 
 if(i<TRENDING_LIMIT){
 
@@ -117,8 +99,6 @@ trending.innerHTML+=`
 }
 
 
-
-/* LOAD PAST LIVE */
 
 async function loadLive(){
 
@@ -144,6 +124,8 @@ live.innerHTML+=`
 
 }
 
+
+
 const popup = document.getElementById("popup");
 const moreBtn = document.getElementById("more-btn");
 const closePopup = document.getElementById("close-popup");
@@ -162,5 +144,3 @@ popup.style.display="none";
 loadChannel();
 loadVideos();
 loadLive();
-
-
