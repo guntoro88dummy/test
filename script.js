@@ -1,15 +1,16 @@
 const API = "https://www.googleapis.com/youtube/v3";
 
 const hero = document.getElementById("hero-video");
-const trendingContainer = document.getElementById("trending");
-const shortsContainer = document.getElementById("shorts");
-const videosContainer = document.getElementById("videos");
-const liveContainer = document.getElementById("live");
+const trending = document.getElementById("trending");
+const shorts = document.getElementById("shorts");
+const videos = document.getElementById("videos");
+const live = document.getElementById("live");
 
-const channelLogo = document.getElementById("channel-logo");
-const channelName = document.getElementById("channel-name");
-const channelHandle = document.getElementById("channel-handle");
-const subscriberCount = document.getElementById("subscriber-count");
+const logo = document.getElementById("channel-logo");
+const name = document.getElementById("channel-name");
+const handle = document.getElementById("channel-handle");
+const subs = document.getElementById("subscriber-count");
+
 
 async function loadChannel(){
 
@@ -18,19 +19,20 @@ const url = `${API}/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_
 const res = await fetch(url);
 const data = await res.json();
 
-const channel = data.items[0];
+const ch = data.items[0];
 
-channelLogo.src = channel.snippet.thumbnails.high.url;
-channelName.innerText = channel.snippet.title;
+logo.src = ch.snippet.thumbnails.high.url;
+name.innerText = ch.snippet.title;
 
-if(channel.snippet.customUrl){
-channelHandle.innerText = "@" + channel.snippet.customUrl;
+/* HANDLE FIX */
+
+if(ch.snippet.customUrl){
+handle.innerText = "@" + ch.snippet.customUrl;
 }else{
-channelHandle.innerText = "@channel";
+handle.innerText = "@" + ch.snippet.title.replace(/\s/g,'').toLowerCase();
 }
 
-const subs = Number(channel.statistics.subscriberCount).toLocaleString();
-subscriberCount.innerText = `${subs} subscribers`;
+subs.innerText = Number(ch.statistics.subscriberCount).toLocaleString()+" subscribers";
 
 }
 
@@ -38,46 +40,43 @@ subscriberCount.innerText = `${subs} subscribers`;
 
 async function loadVideos(){
 
-const url = `${API}/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=25`;
+const url = `${API}/search?part=snippet,id&channelId=${CHANNEL_ID}&order=date&maxResults=20&type=video&key=${API_KEY}`;
 
 const res = await fetch(url);
 const data = await res.json();
 
-let heroSet = false;
-let liveCount = 0;
+let heroSet=false;
 
-data.items.forEach((item,index)=>{
+data.items.forEach((item,i)=>{
 
-if(item.id.kind !== "youtube#video") return;
-
-const videoId = item.id.videoId;
-const title = item.snippet.title;
-const thumb = item.snippet.thumbnails.medium.url;
+const id=item.id.videoId;
+const title=item.snippet.title;
+const thumb=item.snippet.thumbnails.medium.url;
 
 
 /* HERO */
 
 if(!heroSet){
 
-hero.innerHTML = `
+hero.innerHTML=`
 <iframe
-src="https://www.youtube.com/embed/${videoId}"
+src="https://www.youtube.com/embed/${id}"
 frameborder="0"
 allowfullscreen>
 </iframe>
 `;
 
-heroSet = true;
+heroSet=true;
 
 }
 
 
 /* SHORTS */
 
-if(index < VIDEO_LIMIT){
+if(i<VIDEO_LIMIT){
 
-shortsContainer.innerHTML += `
-<a href="https://youtube.com/watch?v=${videoId}" target="_blank" class="short-card">
+shorts.innerHTML+=`
+<a href="https://youtube.com/watch?v=${id}" target="_blank" class="short-card">
 <img src="${thumb}">
 <p class="video-title">${title}</p>
 </a>
@@ -88,10 +87,10 @@ shortsContainer.innerHTML += `
 
 /* VIDEOS */
 
-if(index < VIDEO_LIMIT){
+if(i<VIDEO_LIMIT){
 
-videosContainer.innerHTML += `
-<a href="https://youtube.com/watch?v=${videoId}" target="_blank" class="video-card">
+videos.innerHTML+=`
+<a href="https://youtube.com/watch?v=${id}" target="_blank" class="video-card">
 <img src="${thumb}">
 <p class="video-title">${title}</p>
 </a>
@@ -102,30 +101,14 @@ videosContainer.innerHTML += `
 
 /* TRENDING */
 
-if(index < TRENDING_LIMIT){
+if(i<TRENDING_LIMIT){
 
-trendingContainer.innerHTML += `
-<a href="https://youtube.com/watch?v=${videoId}" target="_blank" class="trend-card">
+trending.innerHTML+=`
+<a href="https://youtube.com/watch?v=${id}" target="_blank" class="trend-card">
 <img src="${thumb}">
 <p class="video-title">${title}</p>
 </a>
 `;
-
-}
-
-
-/* PAST LIVE */
-
-if(title.toLowerCase().includes("live") && liveCount < 6){
-
-liveContainer.innerHTML += `
-<a href="https://youtube.com/watch?v=${videoId}" target="_blank" class="video-card">
-<img src="${thumb}">
-<p class="video-title">${title}</p>
-</a>
-`;
-
-liveCount++;
 
 }
 
@@ -133,5 +116,36 @@ liveCount++;
 
 }
 
+
+
+/* LOAD PAST LIVE */
+
+async function loadLive(){
+
+const url=`${API}/search?part=snippet&channelId=${CHANNEL_ID}&eventType=completed&type=video&maxResults=6&key=${API_KEY}`;
+
+const res=await fetch(url);
+const data=await res.json();
+
+data.items.forEach(v=>{
+
+const id=v.id.videoId;
+const title=v.snippet.title;
+const thumb=v.snippet.thumbnails.medium.url;
+
+live.innerHTML+=`
+<a href="https://youtube.com/watch?v=${id}" target="_blank" class="video-card">
+<img src="${thumb}">
+<p class="video-title">${title}</p>
+</a>
+`;
+
+});
+
+}
+
+
+
 loadChannel();
 loadVideos();
+loadLive();
