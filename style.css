@@ -238,3 +238,20 @@ font-weight:500;
 .video-card a:hover{
 color:#aaa;
 }
+
+.channel-row{
+display:flex;
+align-items:center;
+gap:12px;
+margin-bottom:4px;
+}
+
+#channel-handle{
+color:#aaa;
+font-size:14px;
+}
+
+#subscriber-count{
+color:#aaa;
+font-size:14px;
+}
