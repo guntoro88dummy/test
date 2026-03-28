@@ -1,0 +1,2 @@
+const API_KEY = "MASUKKAN_API_KEY";
+const CHANNEL_ID = "UCSKrztE8VRnE3XxXG3ATduw";
