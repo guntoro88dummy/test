@@ -1,9 +1,6 @@
-const API_KEY = "YOUR_API_KEY"
-const CHANNEL_ID = "UCxxxxxxxxxxxx"
-
-
-
-/* CHANNEL INFO */
+// ============================
+// CHANNEL INFO
+// ============================
 
 fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_KEY}`)
 .then(res=>res.json())
@@ -24,9 +21,13 @@ Number(channel.statistics.subscriberCount).toLocaleString()+" subscribers"
 
 
 
-/* HERO PRIORITY */
+// ============================
+// HERO PRIORITY
+// ============================
 
 async function loadHero(){
+
+try{
 
 let upcoming=await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&eventType=upcoming&type=video&maxResults=1&key=${API_KEY}`)
 .then(r=>r.json())
@@ -53,6 +54,12 @@ let video=await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet
 
 renderHero(video.items[0])
 
+}catch(e){
+
+console.log(e)
+
+}
+
 }
 
 loadHero()
@@ -61,11 +68,11 @@ loadHero()
 
 function renderHero(video){
 
-let id=video.id.videoId
+let videoId=video.id.videoId
 
 document.getElementById("hero-video").innerHTML=`
 
-<div class="hero-thumb" onclick="openVideo('${id}')">
+<div class="hero-thumb" onclick="openVideo('${videoId}')">
 
 <img src="${video.snippet.thumbnails.high.url}">
 
@@ -85,7 +92,9 @@ ${video.snippet.title}
 
 
 
-/* VIDEO LIST */
+// ============================
+// VIDEO LIST
+// ============================
 
 fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&maxResults=20&order=date&type=video&key=${API_KEY}`)
 .then(res=>res.json())
@@ -93,40 +102,39 @@ fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHA
 
 let videos=data.items
 
-let v=""
-let s=""
-let l=""
-let t=""
+let videosHTML=""
+let shortsHTML=""
+let liveHTML=""
+let trendingHTML=""
 
-videos.forEach((video,i)=>{
+videos.forEach((v,index)=>{
 
-if(!video.id.videoId) return
+if(!v.id.videoId) return
 
-let id=video.id.videoId
+let videoId=v.id.videoId
 
 let card=`
 
-<div class="video-card" onclick="openVideo('${id}')">
+<div class="video-card" onclick="openVideo('${videoId}')">
 
-<img src="${video.snippet.thumbnails.medium.url}">
-
-<p>${video.snippet.title}</p>
+<img src="${v.snippet.thumbnails.medium.url}">
+<p>${v.snippet.title}</p>
 
 </div>
 
 `
 
-if(i<6) v+=card
-if(i<6) s+=card
-if(i<6) l+=card
-if(i<4) t+=card
+if(index<VIDEO_LIMIT) videosHTML+=card
+if(index<VIDEO_LIMIT) shortsHTML+=card
+if(index<VIDEO_LIMIT) liveHTML+=card
+if(index<TRENDING_LIMIT) trendingHTML+=card
 
 })
 
-document.getElementById("videos").innerHTML=v
-document.getElementById("shorts").innerHTML=s
-document.getElementById("live").innerHTML=l
-document.getElementById("trending").innerHTML=t
+document.getElementById("videos").innerHTML=videosHTML
+document.getElementById("shorts").innerHTML=shortsHTML
+document.getElementById("live").innerHTML=liveHTML
+document.getElementById("trending").innerHTML=trendingHTML
 
 })
 
