@@ -1,22 +1,26 @@
 body{
 background:#0f0f0f;
 color:white;
-font-family:Roboto;
+font-family:Roboto, sans-serif;
 margin:0;
 }
+
+/* HEADER */
 
 .header{
 padding:15px 25px;
 border-bottom:1px solid #222;
 }
 
-/* MAIN */
+/* CONTAINER */
 
 .container{
 max-width:1400px;
 margin:auto;
 padding:20px;
 }
+
+/* HERO + TRENDING */
 
 .hero-row{
 display:grid;
@@ -58,11 +62,21 @@ margin:20px 0;
 .channel-header{
 display:flex;
 align-items:center;
+justify-content:space-between;
 gap:15px;
+background:#111;
+padding:15px;
+border-radius:10px;
+}
+
+.channel-header div{
+flex:1;
 }
 
 #channel-logo{
-width:60px;
+width:70px;
+height:70px;
+object-fit:cover;
 border-radius:50%;
 }
 
@@ -72,6 +86,7 @@ border:none;
 padding:10px 18px;
 border-radius:20px;
 cursor:pointer;
+font-weight:600;
 }
 
 /* CONTENT ROW */
@@ -93,13 +108,15 @@ flex-direction:column;
 display:flex;
 gap:15px;
 overflow-x:auto;
+padding-bottom:10px;
 }
 
 .shorts .video-card{
-min-width:180px;
+min-width:150px;
 }
 
 .shorts img{
+width:100%;
 aspect-ratio:9/16;
 object-fit:cover;
 border-radius:12px;
@@ -109,7 +126,7 @@ border-radius:12px;
 
 .videos{
 display:grid;
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:repeat(4,1fr);
 gap:15px;
 }
 
@@ -123,6 +140,11 @@ border-radius:10px;
 .video-card{
 cursor:pointer;
 font-size:14px;
+transition:0.2s;
+}
+
+.video-card:hover{
+transform:scale(1.03);
 }
 
 /* ADS */
@@ -142,6 +164,20 @@ border-radius:10px;
 font-weight:bold;
 }
 
+/* TEXT */
+
 h3{
 margin-top:25px;
+margin-bottom:15px;
+}
+
+/* SCROLLBAR */
+
+.shorts::-webkit-scrollbar{
+height:6px;
+}
+
+.shorts::-webkit-scrollbar-thumb{
+background:#333;
+border-radius:10px;
 }
