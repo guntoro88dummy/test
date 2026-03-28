@@ -85,3 +85,22 @@ document.getElementById("trending").innerHTML=trendingHTML
 function openVideo(id){
 window.location="https://youtube.com/watch?v="+id
 }
+
+const moreBtn = document.getElementById("more-btn");
+const desc = document.querySelector(".channel-desc-wrap");
+
+if(moreBtn){
+
+moreBtn.addEventListener("click", () => {
+
+if(desc.style.maxHeight === "none"){
+desc.style.maxHeight = "60px";
+moreBtn.innerText = "More";
+}else{
+desc.style.maxHeight = "none";
+moreBtn.innerText = "Less";
+}
+
+});
+
+}
