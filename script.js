@@ -11,8 +11,9 @@ const name = document.getElementById("channel-name");
 const handle = document.getElementById("channel-handle");
 const subs = document.getElementById("subscriber-count");
 
+
 function shuffle(arr){
-return arr.sort(()=>0.5-Math.random());
+return [...arr].sort(()=>0.5-Math.random());
 }
 
 function formatViews(v){
@@ -32,6 +33,7 @@ return Math.floor(diff/365)+" years ago";
 
 }
 
+
 async function getStats(ids){
 
 const url=`${API}/videos?part=snippet,statistics&id=${ids.join(",")}&key=${API_KEY}`;
@@ -42,6 +44,8 @@ const data=await res.json();
 return data.items;
 
 }
+
+
 
 async function loadChannel(){
 
@@ -60,6 +64,8 @@ subs.innerText=
 Number(ch.statistics.subscriberCount).toLocaleString()+" subscribers";
 
 }
+
+
 
 async function loadHero(){
 
@@ -80,20 +86,25 @@ allowfullscreen>
 
 }
 
+
+
 async function loadTrending(){
+
+trending.innerHTML="";
 
 const url=`${API}/search?part=snippet,id&channelId=${CHANNEL_ID}&order=date&type=video&maxResults=5&key=${API_KEY}`;
 
 const res=await fetch(url);
 const data=await res.json();
 
-data.items.forEach(v=>{
+data.items.slice(0,5).forEach(v=>{
 
 const id=v.id.videoId;
 const title=v.snippet.title;
 const thumb=v.snippet.thumbnails.medium.url;
 
 trending.innerHTML+=`
+
 <a href="https://youtube.com/watch?v=${id}" target="_blank" class="trend-card">
 
 <img src="${thumb}">
@@ -101,15 +112,20 @@ trending.innerHTML+=`
 <p class="video-title">${title}</p>
 
 </a>
+
 `;
 
 });
 
 }
 
-async function renderSection(container,ids){
 
-const shuffled=shuffle(ids).slice(0,12);
+
+async function renderSection(container,ids,limit=6){
+
+container.innerHTML="";
+
+const shuffled=shuffle(ids).slice(0,limit);
 
 const stats=await getStats(shuffled);
 
@@ -144,13 +160,17 @@ ${views} • ${date}
 
 }
 
+
+
 async function loadDatabase(){
 
-renderSection(videos,DATA.videos);
-renderSection(shorts,DATA.shorts);
-renderSection(live,DATA.live);
+renderSection(videos,DATA.videos,6);
+renderSection(shorts,DATA.shorts,6);
+renderSection(live,DATA.live,6);
 
 }
+
+
 
 const popup = document.getElementById("popup");
 const moreBtn = document.getElementById("more-btn");
@@ -164,6 +184,8 @@ if(e.key==="Escape"){
 popup.style.display="none";
 }
 });
+
+
 
 loadChannel();
 loadHero();
