@@ -155,3 +155,59 @@ document.getElementById("promo-close").onclick=()=>{
 promoBar.style.display="none";
 
 };
+
+/* HEADER ADS ROTATE */
+
+const HEADER_ADS = [
+
+{
+text:"🎤 Mic Wireless Diskon 50%",
+link:"https://affiliate1.com"
+},
+
+{
+text:"🔊 Speaker Aktif Promo Besar",
+link:"https://affiliate2.com"
+},
+
+{
+text:"📷 Kamera Live Streaming Murah",
+link:"https://affiliate3.com"
+},
+
+{
+text:"💡 Lampu Panggung Diskon",
+link:"https://affiliate4.com"
+}
+
+];
+
+const headerAds = document.getElementById("header-ads");
+
+let headerIndex = 0;
+
+function showHeaderAd(){
+
+const ad = HEADER_ADS[headerIndex];
+
+headerAds.innerHTML = `
+<a href="${ad.link}" target="_blank">
+${ad.text}
+</a>
+`;
+
+headerIndex++;
+
+if(headerIndex >= HEADER_ADS.length){
+headerIndex = 0;
+}
+
+}
+
+if(headerAds){
+
+showHeaderAd();
+
+setInterval(showHeaderAd, 4000);
+
+}
