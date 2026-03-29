@@ -32,9 +32,22 @@ return Math.floor(diff/365)+" years ago";
 
 }
 
+/* ISO duration ke detik */
+
+function isoDurationToSeconds(duration){
+
+const match = duration.match(/PT(?:(\d+)M)?(?:(\d+)S)?/);
+
+const minutes = parseInt(match[1] || 0);
+const seconds = parseInt(match[2] || 0);
+
+return minutes*60 + seconds;
+
+}
+
 async function getStats(ids){
 
-const url=`${API}/videos?part=snippet,statistics&id=${ids.join(",")}&key=${API_KEY}`;
+const url=`${API}/videos?part=snippet,statistics,contentDetails&id=${ids.join(",")}&key=${API_KEY}`;
 
 const res=await fetch(url);
 const data=await res.json();
@@ -154,11 +167,21 @@ async function renderShorts(container,ids,limit=6){
 
 container.innerHTML="";
 
-const shuffled=shuffle(ids).slice(0,limit);
+const shuffled=shuffle(ids);
 
 const stats=await getStats(shuffled);
 
+let count=0;
+
 stats.forEach(v=>{
+
+if(count>=limit) return;
+
+const duration = isoDurationToSeconds(v.contentDetails.duration);
+
+/* filter hanya video <= 60 detik */
+
+if(duration <= 60){
 
 const id=v.id;
 
@@ -183,6 +206,10 @@ container.innerHTML+=`
 </a>
 
 `;
+
+count++;
+
+}
 
 });
 
