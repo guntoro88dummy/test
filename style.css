@@ -207,7 +207,7 @@ gap:12px;
 margin-bottom:30px;
 }
 
-/* CARD */
+/* SHORT CARD */
 
 .short-card{
 background:#181818;
@@ -220,7 +220,7 @@ transition:.25s;
 transform:scale(1.05);
 }
 
-/* VIDEO 9:16 */
+/* SHORT VIDEO 9:16 */
 
 .short-video{
 position:relative;
@@ -229,13 +229,15 @@ padding-top:177%;
 overflow:hidden;
 }
 
-.short-video iframe{
+/* crop thumbnail supaya portrait */
+
+.short-video img{
 position:absolute;
 top:0;
-left:0;
-width:100%;
+left:50%;
+transform:translateX(-50%);
 height:100%;
-border:none;
+width:auto;
 }
 
 /* META */
