@@ -1,11 +1,7 @@
-/* =========================
-GLOBAL
-========================= */
-
 body{
 background:#0f0f0f;
 color:white;
-font-family:Roboto, sans-serif;
+font-family:Roboto;
 margin:0;
 }
 
@@ -14,28 +10,66 @@ color:white;
 text-decoration:none;
 }
 
+/* HEADER */
+
+.header{
+border-bottom:1px solid #222;
+padding:15px 0;
+}
+
+.header-row{
+max-width:1400px;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 20px;
+}
+
+/* CHANNEL TITLE */
+
+.channel-title{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:28px;
+font-weight:bold;
+}
+
+.channel-title img{
+height:28px;
+width:auto;
+}
+
+/* HEADER ADS */
+
+#header-ads{
+font-size:18px;
+font-weight:bold;
+color:white;
+white-space:nowrap;
+animation:blinkText 1.6s infinite;
+}
+
+#header-ads a{
+color:white;
+}
+
+@keyframes blinkText{
+0%{opacity:1}
+50%{opacity:.4}
+100%{opacity:1}
+}
+
+/* CONTAINER */
+
 .container{
 max-width:1400px;
 margin:auto;
 padding:20px;
 }
 
-
-
-/* =========================
-HEADER
-========================= */
-
-.header{
-padding:15px 30px;
-border-bottom:1px solid #222;
-}
-
-
-
-/* =========================
-HERO AREA
-========================= */
+/* HERO */
 
 .hero-row{
 display:flex;
@@ -46,6 +80,7 @@ align-items:stretch;
 
 .hero{
 flex:2;
+position:relative;
 }
 
 .hero iframe{
@@ -54,11 +89,7 @@ aspect-ratio:16/9;
 border-radius:10px;
 }
 
-
-
-/* =========================
-TRENDING
-========================= */
+/* TRENDING */
 
 .trending{
 flex:1;
@@ -86,11 +117,7 @@ line-height:1.4;
 color:white;
 }
 
-
-
-/* =========================
-CHANNEL INFO
-========================= */
+/* CHANNEL INFO */
 
 .channel-info{
 margin-top:30px;
@@ -130,6 +157,7 @@ margin:0;
 .subscribe-btn{
 background:#cc0000;
 color:white;
+border:none;
 padding:8px 16px;
 border-radius:4px;
 cursor:pointer;
@@ -144,12 +172,6 @@ font-size:14px;
 color:#aaa;
 font-size:14px;
 }
-
-
-
-/* =========================
-SOCIAL LINKS
-========================= */
 
 .channel-links{
 margin-top:10px;
@@ -167,17 +189,12 @@ color:white;
 
 .sawer-btn{
 background:#ffcc00;
+border:none;
 padding:8px 14px;
 border-radius:6px;
 font-weight:bold;
 cursor:pointer;
 }
-
-
-
-/* =========================
-CHANNEL DESCRIPTION
-========================= */
 
 .channel-description{
 margin-top:10px;
@@ -190,11 +207,7 @@ color:#3ea6ff;
 cursor:pointer;
 }
 
-
-
-/* =========================
-CONTENT AREA
-========================= */
+/* CONTENT */
 
 .content-row{
 display:flex;
@@ -213,33 +226,41 @@ flex-direction:column;
 gap:20px;
 }
 
+/* ADS */
 
-
-/* =========================
-SIDEBAR ADS (iklan.js)
-========================= */
-
-#ads-sidebar{
+.ads{
+background:#222;
+height:250px;
+border-radius:10px;
+overflow:hidden;
 display:flex;
-flex-direction:column;
-gap:14px;
+align-items:center;
+justify-content:center;
+text-align:center;
+font-weight:bold;
+font-size:18px;
+animation:blink 1.2s infinite;
 }
 
-.ads-item img{
+.ads a{
+display:block;
 width:100%;
-border-radius:8px;
-transition:.25s;
+height:100%;
 }
 
-.ads-item img:hover{
-transform:scale(1.04);
+.ads img{
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
+@keyframes blink{
+0%{opacity:1}
+50%{opacity:0.3}
+100%{opacity:1}
+}
 
-
-/* =========================
-SHORTS
-========================= */
+/* SHORTS */
 
 #shorts-row{
 display:grid;
@@ -259,10 +280,6 @@ transition:.25s;
 transform:scale(1.05);
 }
 
-
-
-/* SHORT VIDEO 9:16 */
-
 .short-video{
 position:relative;
 width:100%;
@@ -279,10 +296,6 @@ height:100%;
 width:auto;
 }
 
-
-
-/* SHORT META */
-
 .short-meta{
 font-size:12px;
 color:#aaa;
@@ -291,11 +304,7 @@ display:flex;
 justify-content:space-between;
 }
 
-
-
-/* =========================
-VIDEOS GRID
-========================= */
+/* VIDEO GRID */
 
 .videos{
 display:grid;
@@ -304,7 +313,7 @@ gap:12px;
 }
 
 .video-card{
-transition:.25s;
+transition:0.25s;
 }
 
 .video-card:hover{
@@ -327,11 +336,7 @@ color:#aaa;
 margin-top:4px;
 }
 
-
-
-/* =========================
-POPUP
-========================= */
+/* POPUP */
 
 .popup{
 position:fixed;
@@ -363,97 +368,4 @@ border:none;
 color:white;
 padding:5px 10px;
 cursor:pointer;
-}
-
-
-
-/* =========================
-FLOATING PROMO BAR
-========================= */
-
-#promo-bar{
-
-position:fixed;
-bottom:0;
-left:0;
-
-width:100%;
-
-background:#ff0000;
-color:white;
-
-font-size:20px;
-font-weight:bold;
-
-padding:14px;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-z-index:9999;
-
-animation:blink 1.1s infinite;
-
-}
-
-#promo-bar a{
-color:white;
-}
-
-#promo-close{
-
-position:absolute;
-right:18px;
-
-background:none;
-border:none;
-
-color:white;
-
-font-size:22px;
-cursor:pointer;
-
-}
-
-
-
-/* =========================
-BLINK ANIMATION
-========================= */
-
-@keyframes blink{
-
-0%{opacity:1}
-
-50%{opacity:.4}
-
-100%{opacity:1}
-
-}
-
-/* HEADER ADS */
-
-.header-row{
-display:flex;
-align-items:center;
-justify-content:space-between;
-}
-
-#header-ads{
-font-size:14px;
-font-weight:bold;
-color:white;
-white-space:nowrap;
-animation:blinkText 1.6s infinite;
-}
-
-#header-ads a{
-color:white;
-}
-
-@keyframes blinkText{
-0%{opacity:1}
-50%{opacity:.4}
-100%{opacity:1}
 }
