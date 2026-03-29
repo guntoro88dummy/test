@@ -462,3 +462,22 @@ display:none;
 }
 
 }
+
+.ads{
+background:#222;
+height:250px;
+border-radius:10px;
+overflow:hidden;
+}
+
+.ads a{
+display:block;
+width:100%;
+height:100%;
+}
+
+.ads img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
