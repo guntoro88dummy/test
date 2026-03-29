@@ -25,15 +25,17 @@ padding:20px;
 display:flex;
 gap:20px;
 margin-bottom:20px;
+align-items:stretch;
 }
 
 .hero{
 flex:2;
+position:relative;
 }
 
 .hero iframe{
 width:100%;
-height:420px;
+aspect-ratio:16/9;
 border-radius:10px;
 }
 
@@ -42,6 +44,8 @@ flex:1;
 background:#181818;
 padding:15px;
 border-radius:14px;
+display:flex;
+flex-direction:column;
 }
 
 .trend-card{
