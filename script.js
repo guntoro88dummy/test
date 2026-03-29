@@ -1,4 +1,3 @@
-
 const API = "https://www.googleapis.com/youtube/v3";
 
 /* ELEMENT */
@@ -16,11 +15,24 @@ const name = document.getElementById("channel-name");
 const handle = document.getElementById("channel-handle");
 const subs = document.getElementById("subscriber-count");
 
+/* CHANNEL INFO MANUAL */
+
+logo.src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160-c-k-c0x00ffffff-no-rj";
+
+name.innerText="Aji Mangkara";
+
+handle.innerText="@ajimangkara";
+
+subs.innerText="";
+
+
 function shuffle(arr){
 return [...arr].sort(()=>0.5-Math.random());
 }
 
+
 /* SIMPLE VIDEO RENDER (NO API) */
+
 function renderSimpleVideos(container,ids,limit=6){
 
 if(!container || !ids) return;
@@ -43,7 +55,9 @@ container.innerHTML+=`
 
 }
 
+
 /* SHORTS RENDER */
+
 function renderShorts(container,ids,limit=6){
 
 if(!container || !ids) return;
@@ -66,34 +80,9 @@ container.innerHTML+=`
 
 }
 
-/* CHANNEL INFO */
-async function loadChannel(){
-
-try{
-
-const url=`${API}/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
-
-const res=await fetch(url);
-const data=await res.json();
-
-const ch=data.items[0];
-
-logo.src=ch.snippet.thumbnails.high.url;
-name.innerText=ch.snippet.title;
-handle.innerText=ch.snippet.customUrl || ch.snippet.title;
-
-subs.innerText=
-Number(ch.statistics.subscriberCount).toLocaleString()+" subscribers";
-
-}catch(e){
-
-console.log("channel API skipped");
-
-}
-
-}
 
 /* HERO */
+
 async function loadHero(){
 
 try{
@@ -129,7 +118,9 @@ allowfullscreen>
 
 }
 
+
 /* TRENDING */
+
 async function loadTrending(){
 
 if(!trending) return;
@@ -187,7 +178,9 @@ trending.innerHTML+=`
 
 }
 
+
 /* DATABASE CONTENT */
+
 function loadDatabase(){
 
 renderShorts(shorts, DATA.shorts || DATA.videos, 6);
@@ -206,7 +199,9 @@ pastLive.innerHTML="";
 
 }
 
+
 /* POPUP */
+
 const popup = document.getElementById("popup");
 const moreBtn = document.getElementById("more-btn");
 const closePopup = document.getElementById("close-popup");
@@ -225,8 +220,9 @@ popup.style.display="none";
 }
 });
 
+
 /* INIT */
-loadChannel();
+
 loadHero();
 loadTrending();
 loadDatabase();
