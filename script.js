@@ -2,7 +2,7 @@ const API = "https://www.googleapis.com/youtube/v3";
 
 const hero = document.getElementById("hero-video");
 const trending = document.getElementById("trending");
-const shorts = document.getElementById("shorts");
+const shorts = document.getElementById("shorts-row");
 const videos = document.getElementById("videos");
 const live = document.getElementById("live");
 
@@ -34,7 +34,7 @@ return Math.floor(diff/365)+" years ago";
 
 async function getStats(ids){
 
-const url=`${API}/videos?part=snippet,statistics,contentDetails&id=${ids.join(",")}&key=${API_KEY}`;
+const url=`${API}/videos?part=snippet,statistics&id=${ids.join(",")}&key=${API_KEY}`;
 
 const res=await fetch(url);
 const data=await res.json();
@@ -148,23 +148,17 @@ ${views} • ${date}
 
 }
 
+/* SHORTS */
+
 async function renderShorts(container,ids,limit=6){
 
 container.innerHTML="";
 
-const shuffled=shuffle(ids);
+const shuffled=shuffle(ids).slice(0,limit);
 
 const stats=await getStats(shuffled);
 
-let count=0;
-
 stats.forEach(v=>{
-
-if(count>=limit) return;
-
-const thumb=v.snippet.thumbnails.medium.url;
-
-if(thumb.includes("hqdefault")){
 
 const id=v.id;
 
@@ -173,21 +167,26 @@ const date=formatDate(v.snippet.publishedAt);
 
 container.innerHTML+=`
 
-<a href="https://youtube.com/shorts/${id}" target="_blank" class="video-card">
+<div class="short-card">
 
-<img src="${thumb}">
+<div class="short-video">
 
-<div class="video-meta">
-${views} • ${date}
+<iframe
+src="https://www.youtube.com/embed/${id}"
+title="Short"
+allowfullscreen>
+</iframe>
+
 </div>
 
-</a>
+<div class="short-meta">
+<span>${views}</span>
+<span>${date}</span>
+</div>
+
+</div>
 
 `;
-
-count++;
-
-}
 
 });
 
@@ -200,6 +199,8 @@ renderShorts(shorts,DATA.shorts,6);
 renderVideos(live,DATA.live,6);
 
 }
+
+/* POPUP */
 
 const popup = document.getElementById("popup");
 const moreBtn = document.getElementById("more-btn");
