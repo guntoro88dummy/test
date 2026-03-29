@@ -1,5 +1,46 @@
 const DATA = {
 
+/* FALLBACK API */
+
+hero:[
+"v7lg5Hgo-GM"
+],
+
+trending:[
+"wlG1Q8wrhBQ",
+"IkZEZaUPA4M",
+"HYgxlmNJ_EA",
+"KK1Xy9ZlSpc",
+"qLfurAISzSc",
+"B4u8SBVZd-Q"
+],
+
+/* VIDEO POPULER (MENU KHUSUS) */
+
+populer:[
+"Mw-OifgHJ_Y",
+"R96sCe_YEGU",
+"_42SNWqEhyE",
+"rTjIsZuIkUs",
+"B4u8SBVZd-Q",
+"-CkPjiutqKQ",
+"OwftfJOkw2Y",
+"1jR7J8DBhVM",
+"1VunPeQm8Vg",
+"w6RAL27oTCI",
+"mrWCC-DRL80",
+"6SBEoXCxnd0",
+"UvGGMfdoLQA",
+"TfrABeSrSAg",
+"IEkqceIe0xo",
+"bNdKxVdyy70",
+"KbLQjrHZ5dM",
+"ya-qmNv5pQI",
+"pdAql946sKg"
+],
+
+/* DATABASE VIDEO */
+
 videos:[
 "b0Q3yEwEnfY",
 "eY2KD0u6N14",
@@ -229,6 +270,8 @@ videos:[
 "-CkPjiutqKQ",
 "e5yBYi3EaFU"
 ],
+
+/* DATABASE SHORTS */
 
 shorts:[
 "FaX7QasxsqQ",
@@ -514,6 +557,8 @@ shorts:[
 "XiNptkbIDAI",
 "Dkjfa79_v2c"
 ],
+
+/* LIVE STREAM WAYANG KULIT */
 
 live:[
 "sjGACaxx1PY",
