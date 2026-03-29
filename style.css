@@ -21,6 +21,8 @@ margin:auto;
 padding:20px;
 }
 
+/* HERO */
+
 .hero-row{
 display:flex;
 gap:20px;
@@ -38,6 +40,8 @@ width:100%;
 aspect-ratio:16/9;
 border-radius:10px;
 }
+
+/* TRENDING */
 
 .trending{
 flex:1;
@@ -64,6 +68,8 @@ font-size:14px;
 line-height:1.4;
 color:white;
 }
+
+/* CHANNEL */
 
 .channel-info{
 margin-top:30px;
@@ -153,6 +159,8 @@ color:#3ea6ff;
 cursor:pointer;
 }
 
+/* CONTENT */
+
 .content-row{
 display:flex;
 gap:20px;
@@ -169,6 +177,8 @@ display:flex;
 flex-direction:column;
 gap:20px;
 }
+
+/* ADS */
 
 .ads{
 background:#222;
@@ -188,18 +198,51 @@ animation:blink 1.2s infinite;
 100%{opacity:1}
 }
 
-.shorts{
-display:flex;
-gap:10px;
-overflow-x:auto;
+/* SHORTS */
+
+#shorts-row{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+gap:16px;
+margin-top:10px;
 }
 
-.short-card img{
-width:160px;
-height:280px;
-object-fit:cover;
-border-radius:10px;
+.short-card{
+width:100%;
+transition:0.25s;
 }
+
+.short-card:hover{
+transform:scale(1.07);
+}
+
+.short-video{
+position:relative;
+width:100%;
+padding-top:177.77%;
+overflow:hidden;
+border-radius:12px;
+background:#000;
+}
+
+.short-video iframe{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+border:0;
+}
+
+.short-meta{
+font-size:12px;
+color:#aaa;
+margin-top:6px;
+display:flex;
+justify-content:space-between;
+}
+
+/* VIDEOS GRID */
 
 .videos{
 display:grid;
@@ -207,10 +250,31 @@ grid-template-columns:repeat(6,1fr);
 gap:12px;
 }
 
+.video-card{
+transition:0.25s;
+}
+
+.video-card:hover{
+transform:scale(1.07);
+z-index:5;
+}
+
+.video-card:hover img{
+filter:brightness(1.1);
+}
+
 .video-card img{
 width:100%;
 border-radius:6px;
 }
+
+.video-meta{
+font-size:12px;
+color:#aaa;
+margin-top:4px;
+}
+
+/* POPUP */
 
 .popup{
 position:fixed;
@@ -242,31 +306,4 @@ border:none;
 color:white;
 padding:5px 10px;
 cursor:pointer;
-}
-
-.video-meta{
-font-size:12px;
-color:#aaa;
-margin-top:4px;
-}
-
-.video-card{
-transition:0.25s;
-}
-
-.video-card:hover{
-transform:scale(1.07);
-z-index:5;
-}
-
-.video-card:hover img{
-filter:brightness(1.1);
-}
-
-.short-card{
-transition:0.25s;
-}
-
-.short-card:hover{
-transform:scale(1.07);
 }
