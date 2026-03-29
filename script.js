@@ -11,7 +11,6 @@ const name = document.getElementById("channel-name");
 const handle = document.getElementById("channel-handle");
 const subs = document.getElementById("subscriber-count");
 
-
 function shuffle(arr){
 return [...arr].sort(()=>0.5-Math.random());
 }
@@ -33,10 +32,9 @@ return Math.floor(diff/365)+" years ago";
 
 }
 
-
 async function getStats(ids){
 
-const url=`${API}/videos?part=snippet,statistics&id=${ids.join(",")}&key=${API_KEY}`;
+const url=`${API}/videos?part=snippet,statistics,contentDetails&id=${ids.join(",")}&key=${API_KEY}`;
 
 const res=await fetch(url);
 const data=await res.json();
@@ -44,8 +42,6 @@ const data=await res.json();
 return data.items;
 
 }
-
-
 
 async function loadChannel(){
 
@@ -64,8 +60,6 @@ subs.innerText=
 Number(ch.statistics.subscriberCount).toLocaleString()+" subscribers";
 
 }
-
-
 
 async function loadHero(){
 
@@ -86,8 +80,6 @@ allowfullscreen>
 
 }
 
-
-
 async function loadTrending(){
 
 trending.innerHTML="";
@@ -97,7 +89,7 @@ const url=`${API}/search?part=snippet,id&channelId=${CHANNEL_ID}&order=date&type
 const res=await fetch(url);
 const data=await res.json();
 
-data.items.slice(0,5).forEach(v=>{
+data.items.forEach(v=>{
 
 const id=v.id.videoId;
 const title=v.snippet.title;
@@ -119,9 +111,7 @@ trending.innerHTML+=`
 
 }
 
-
-
-async function renderSection(container,ids,limit=6){
+async function renderVideos(container,ids,limit=6){
 
 container.innerHTML="";
 
@@ -147,9 +137,7 @@ container.innerHTML+=`
 <p class="video-title">${title}</p>
 
 <div class="video-meta">
-
 ${views} • ${date}
-
 </div>
 
 </a>
@@ -160,17 +148,58 @@ ${views} • ${date}
 
 }
 
+async function renderShorts(container,ids,limit=6){
 
+container.innerHTML="";
 
-async function loadDatabase(){
+const shuffled=shuffle(ids);
 
-renderSection(videos,DATA.videos,6);
-renderSection(shorts,DATA.shorts,6);
-renderSection(live,DATA.live,6);
+const stats=await getStats(shuffled);
+
+let count=0;
+
+stats.forEach(v=>{
+
+if(count>=limit) return;
+
+const thumb=v.snippet.thumbnails.medium.url;
+
+if(thumb.includes("hqdefault")){
+
+const id=v.id;
+
+const views=formatViews(v.statistics.viewCount);
+const date=formatDate(v.snippet.publishedAt);
+
+container.innerHTML+=`
+
+<a href="https://youtube.com/shorts/${id}" target="_blank" class="video-card">
+
+<img src="${thumb}">
+
+<div class="video-meta">
+${views} • ${date}
+</div>
+
+</a>
+
+`;
+
+count++;
 
 }
 
+});
 
+}
+
+async function loadDatabase(){
+
+renderVideos(videos,DATA.videos,6);
+renderShorts(shorts,DATA.shorts,6);
+renderVideos(live,DATA.live,6);
+
+}
 
 const popup = document.getElementById("popup");
 const moreBtn = document.getElementById("more-btn");
@@ -184,8 +213,6 @@ if(e.key==="Escape"){
 popup.style.display="none";
 }
 });
-
-
 
 loadChannel();
 loadHero();
