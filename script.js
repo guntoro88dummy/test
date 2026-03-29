@@ -167,15 +167,11 @@ const date=formatDate(v.snippet.publishedAt);
 
 container.innerHTML+=`
 
-<div class="short-card">
+<a href="https://youtube.com/shorts/${id}" target="_blank" class="short-card">
 
 <div class="short-video">
 
-<iframe
-src="https://www.youtube.com/embed/${id}"
-title="Short"
-allowfullscreen>
-</iframe>
+<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg">
 
 </div>
 
@@ -184,7 +180,7 @@ allowfullscreen>
 <span>${date}</span>
 </div>
 
-</div>
+</a>
 
 `;
 
