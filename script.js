@@ -1,6 +1,3 @@
-const API_KEY = "AIzaSyA4KQC0WZ99jAlqiIpILKH5AOopsYc0yLQ";
-const CHANNEL_ID = "UCSKrztE8VRnE3XxXG3ATduw";
-
 const API = "https://www.googleapis.com/youtube/v3";
 
 const VIDEO_LIMIT = 8;
@@ -19,14 +16,10 @@ const subs = document.getElementById("subscriber-count");
 
 async function loadChannel(){
 
-try{
-
 const url = `${API}/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
 
 const res = await fetch(url);
 const data = await res.json();
-
-if(!data.items) return;
 
 const ch = data.items[0];
 
@@ -42,17 +35,11 @@ handle.innerText = ch.snippet.title;
 subs.innerText =
 Number(ch.statistics.subscriberCount).toLocaleString()+" subscribers";
 
-}catch(e){
-console.log("Channel load error",e);
-}
-
 }
 
 
 
 async function loadVideos(){
-
-try{
 
 const url =
 `${API}/search?part=snippet,id&channelId=${CHANNEL_ID}&order=date&maxResults=20&type=video&key=${API_KEY}`;
@@ -60,14 +47,13 @@ const url =
 const res = await fetch(url);
 const data = await res.json();
 
-if(!data.items) return;
-
 let heroSet=false;
 
 data.items.forEach((item,i)=>{
 
 const id=item.id.videoId;
 const title=item.snippet.title;
+
 const thumb=`https://i.ytimg.com/vi/${id}/mqdefault.jpg`;
 
 if(!heroSet){
@@ -119,27 +105,17 @@ trending.innerHTML+=`
 
 });
 
-}catch(e){
-
-console.log("Video load error",e);
-
-}
-
 }
 
 
 
 async function loadLive(){
 
-try{
-
 const url =
 `${API}/search?part=snippet&channelId=${CHANNEL_ID}&eventType=completed&type=video&maxResults=6&key=${API_KEY}`;
 
-const res=await fetch(url);
-const data=await res.json();
-
-if(!data.items) return;
+const res = await fetch(url);
+const data = await res.json();
 
 data.items.forEach(v=>{
 
@@ -155,12 +131,6 @@ live.innerHTML+=`
 `;
 
 });
-
-}catch(e){
-
-console.log("Live load error",e);
-
-}
 
 }
 
