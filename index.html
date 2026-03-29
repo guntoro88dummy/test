@@ -1,90 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<title>Aji Mangkara Channel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YouTube Channel Portal</title>
 
 <link rel="stylesheet" href="style.css">
 
 </head>
+
+
 <body>
 
-<header class="header">
 
-<div class="channel">
-
-<img id="channel-logo">
+<header class="topbar">
 
 <div class="channel-info">
 
-<div class="channel-row">
+<img id="channel-logo" class="logo">
+
+<div class="channel-text">
+
 <h1 id="channel-name"></h1>
-
-<a href="https://www.youtube.com/@ajimangkara" target="_blank" class="subscribe-btn">
-Subscribe
-</a>
-
-</div>
-
-<div class="channel-row">
-
-<span id="channel-handle"></span>
-<span id="subscriber-count"></span>
+<p id="channel-handle"></p>
+<p id="subscriber-count"></p>
 
 </div>
 
 </div>
 
-</div>
+<button id="more-btn">☰</button>
 
 </header>
 
 
-<section class="hero">
 
-<div id="hero-video" class="hero-video"></div>
-
-</section>
+<div class="layout">
 
 
-<section class="section">
+<main class="main-content">
 
-<h2>🔥 Sedang Trending</h2>
-
-<div id="trending" class="trending-grid"></div>
-
-</section>
+<div id="hero-video" class="hero"></div>
 
 
-<section class="section">
 
 <h2>Shorts</h2>
 
-<div id="shorts" class="shorts-grid"></div>
-
-</section>
+<div id="shorts" class="shorts-row"></div>
 
 
-<section class="section">
 
-<h2>Video</h2>
+<h2>Videos</h2>
 
 <div id="videos" class="video-grid"></div>
 
-</section>
 
 
-<section class="section">
-
-<h2>Past Live Streaming</h2>
+<h2>Past Live</h2>
 
 <div id="live" class="video-grid"></div>
 
-</section>
+
+</main>
+
+
+
+<aside class="sidebar">
+
+<h2>🔥 Sedang Trending</h2>
+
+<div id="trending" class="trend-list"></div>
+
+</aside>
+
+
+</div>
+
+
+
+<div id="popup" class="popup">
+
+<div class="popup-content">
+
+<button id="close-popup">Close</button>
+
+<p>Menu</p>
+
+</div>
+
+</div>
+
 
 
 <script src="config.js"></script>
 <script src="script.js"></script>
+
 
 </body>
 </html>
