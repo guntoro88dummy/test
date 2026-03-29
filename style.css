@@ -39,6 +39,9 @@ border-radius:10px;
 
 .trending{
 flex:1;
+background:#181818;
+padding:15px;
+border-radius:14px;
 }
 
 .trend-card{
@@ -48,7 +51,7 @@ margin-bottom:12px;
 }
 
 .trend-card img{
-width:120px;
+width:100px;
 border-radius:6px;
 }
 
@@ -61,7 +64,9 @@ color:white;
 .channel-info{
 margin-top:30px;
 border-bottom:1px solid #222;
-padding-bottom:20px;
+padding:20px;
+background:#181818;
+border-radius:14px;
 }
 
 .channel-header{
@@ -167,6 +172,16 @@ height:250px;
 display:flex;
 align-items:center;
 justify-content:center;
+text-align:center;
+font-weight:bold;
+font-size:18px;
+animation:blink 1.2s infinite;
+}
+
+@keyframes blink{
+0%{opacity:1}
+50%{opacity:0.3}
+100%{opacity:1}
 }
 
 .shorts{
