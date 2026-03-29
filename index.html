@@ -1,103 +1,235 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>YouTube Channel Portal</title>
+<title>Aji Mangkara Channel</title>
 
 <link rel="stylesheet" href="style.css">
 
-</head>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
 
 <body>
 
+<header class="header">
+<h2>AJI MANGKARA</h2>
+</header>
 
-<header class="topbar">
+<div class="container">
+
+<!-- HERO -->
+
+<div class="hero-row">
+
+<div class="hero">
+<div id="hero-video"></div>
+</div>
+
+<div class="trending">
+
+<h3>🔥 Sedang Trending</h3>
+
+<div id="trending"></div>
+
+</div>
+
+</div>
+
+
+<!-- CHANNEL INFO -->
 
 <div class="channel-info">
 
-<img id="channel-logo" class="logo">
+<div class="channel-header">
 
-<div class="channel-text">
+<img id="channel-logo">
 
-<h1 id="channel-name"></h1>
-<p id="channel-handle"></p>
-<p id="subscriber-count"></p>
+<div class="channel-main">
+
+<div class="channel-row">
+
+<h2 id="channel-name"></h2>
+
+<button class="subscribe-btn">
+Subscribe
+</button>
+
+</div>
+
+<div class="channel-row">
+
+<span id="channel-handle"></span>
+
+<span id="subscriber-count"></span>
+
+</div>
+
+<div class="channel-links">
+
+<a href="#" class="social-btn">
+<i class="fab fa-youtube"></i>
+</a>
+
+<a href="#" class="social-btn">
+<i class="fab fa-instagram"></i>
+</a>
+
+<a href="#" class="social-btn">
+<i class="fab fa-facebook"></i>
+</a>
+
+<a href="#" class="social-btn">
+<i class="fab fa-tiktok"></i>
+</a>
+
+<button class="sawer-btn">
+Sawer Online
+</button>
+
+</div>
+
+<div class="channel-description">
+
+<span>
+21,571,545 Views   Joined Jun 13, 2017
+#ajimangkara #ajimangkarachannel #livewayangkulit
+</span>
+
+<p>
+
+Avlog Media kini berganti menjadi Aji Mangkara.
+Setelah 12 Tahun menggunakan nama Channel Avlog Media,
+Channel ini Kini berganti Nama dan logo
+
+<a id="more-btn">...more</a>
+
+</p>
 
 </div>
 
 </div>
 
-<button id="more-btn">☰</button>
-
-</header>
-
-
-
-<div class="layout">
-
-
-<main class="main-content">
-
-<div id="hero-video" class="hero"></div>
-
-
-
-<h2>Shorts</h2>
-
-<div id="shorts" class="shorts-row"></div>
-
-
-
-<h2>Videos</h2>
-
-<div id="videos" class="video-grid"></div>
-
-
-
-<h2>Past Live</h2>
-
-<div id="live" class="video-grid"></div>
-
-
-</main>
-
-
-
-<aside class="sidebar">
-
-<h2>🔥 Sedang Trending</h2>
-
-<div id="trending" class="trend-list"></div>
-
-</aside>
-
+</div>
 
 </div>
 
 
+<!-- CONTENT -->
+
+<div class="content-row">
+
+<div class="left-content">
+
+<section>
+
+<h3>Shorts</h3>
+
+<div id="shorts" class="shorts"></div>
+
+</section>
+
+<section>
+
+<h3>Videos</h3>
+
+<div id="videos" class="videos"></div>
+
+</section>
+
+<section>
+
+<h3>Past Live Streaming</h3>
+
+<div id="live" class="videos"></div>
+
+</section>
+
+</div>
+
+<div class="right-ads">
+
+<div class="ads">PASANG IKLAN</div>
+<div class="ads">PASANG IKLAN</div>
+<div class="ads">PASANG IKLAN</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- POPUP -->
 
 <div id="popup" class="popup">
 
 <div class="popup-content">
 
-<button id="close-popup">Close</button>
+<button id="close-popup">X</button>
 
-<p>Menu</p>
+<h3>Description</h3>
+
+<p>
+
+Avlog Media kini berganti menjadi Aji Mangkara.
+
+<br><br>
+
+===================================================================
+
+<br><br>
+
+Terima kasih sudah subscribe dan mendukung channel ini.
+
+<br><br>
+
+Sawer online / donasi :
+https://saweria.co/ajimangkara
+
+<br><br>
+
+Follow sosial media :
+
+<br><br>
+
+Facebook :
+https://www.facebook.com/anton.guntoro.31
+
+<br><br>
+
+Instagram :
+https://www.instagram.com/antonguntoro
+
+<br><br>
+
+Tiktok :
+https://www.tiktok.com/@antonguntoro
+
+<br><br>
+
+====================================================================
+
+<br><br>
+
+Setelah 12 Tahun menggunakan nama Channel Avlog Media,
+Channel ini kini berganti nama menjadi Aji Mangkara.
+
+</p>
 
 </div>
 
 </div>
-
-
 
 <script src="config.js"></script>
 <script src="script.js"></script>
-
 
 </body>
 </html>
