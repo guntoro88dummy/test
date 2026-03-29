@@ -369,3 +369,96 @@ color:white;
 padding:5px 10px;
 cursor:pointer;
 }
+
+/* ============================= */
+/* MOBILE RESPONSIVE */
+/* ============================= */
+
+@media (max-width:900px){
+
+/* HEADER */
+
+.channel-title{
+font-size:22px;
+}
+
+.channel-title img{
+height:22px;
+}
+
+#header-ads{
+font-size:13px;
+}
+
+/* HERO + TRENDING */
+
+.hero-row{
+flex-direction:column;
+}
+
+.trending{
+margin-top:10px;
+}
+
+/* CONTENT */
+
+.content-row{
+flex-direction:column;
+}
+
+.right-ads{
+flex-direction:row;
+overflow-x:auto;
+}
+
+/* ADS jadi horizontal scroll */
+
+.ads{
+min-width:220px;
+height:120px;
+font-size:14px;
+}
+
+/* SHORTS */
+
+#shorts-row{
+grid-template-columns:repeat(3,1fr);
+}
+
+/* VIDEO GRID */
+
+.videos{
+grid-template-columns:repeat(2,1fr);
+}
+
+/* CHANNEL INFO */
+
+.channel-header{
+flex-direction:column;
+align-items:flex-start;
+}
+
+#channel-logo{
+width:70px;
+height:70px;
+}
+
+}
+
+/* EXTRA SMALL MOBILE */
+
+@media (max-width:500px){
+
+#shorts-row{
+grid-template-columns:repeat(2,1fr);
+}
+
+.videos{
+grid-template-columns:repeat(1,1fr);
+}
+
+#header-ads{
+display:none;
+}
+
+}
