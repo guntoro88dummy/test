@@ -431,3 +431,29 @@ BLINK ANIMATION
 100%{opacity:1}
 
 }
+
+/* HEADER ADS */
+
+.header-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+#header-ads{
+font-size:14px;
+font-weight:bold;
+color:white;
+white-space:nowrap;
+animation:blinkText 1.6s infinite;
+}
+
+#header-ads a{
+color:white;
+}
+
+@keyframes blinkText{
+0%{opacity:1}
+50%{opacity:.4}
+100%{opacity:1}
+}
