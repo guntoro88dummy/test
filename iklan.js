@@ -5,22 +5,22 @@
 const ADS_SIDEBAR = [
 
 {
-img:"https://via.placeholder.com/300x250",
+img:"https://down-id.img.susercontent.com/file/id-11134207-7r98r-m0cielumxwl31c_tn",
 link:"https://affiliate-link-1.com"
 },
 
 {
-img:"https://via.placeholder.com/300x250",
+img:"https://down-id.img.susercontent.com/file/id-11134207-7r992-lnwmjmuc76h574.webp",
 link:"https://affiliate-link-2.com"
 },
 
 {
-img:"https://via.placeholder.com/300x250",
+img:"https://down-id.img.susercontent.com/file/id-11134207-7rasj-m3otud0i9044ba.webp",
 link:"https://affiliate-link-3.com"
 },
 
 {
-img:"https://via.placeholder.com/300x250",
+img:"https://down-id.img.susercontent.com/file/id-11134207-82251-mk37cj6hk1z616.webp",
 link:"https://affiliate-link-4.com"
 }
 
