@@ -27,7 +27,6 @@ link:"https://affiliate-link-4.com"
 ];
 
 
-
 /* =========================
    FLOATING PROMO TEXT
 ========================= */
@@ -87,76 +86,9 @@ link:"https://affiliate-link-10.com"
 ];
 
 
-
 /* =========================
-   RENDER SIDEBAR ADS
+   HEADER ADS ROTATE
 ========================= */
-
-const adsContainer = document.getElementById("ads-sidebar");
-
-if(adsContainer){
-
-ADS_SIDEBAR.forEach(ad=>{
-
-adsContainer.innerHTML += `
-
-<a href="${ad.link}" target="_blank" class="ads-item">
-
-<img src="${ad.img}">
-
-</a>
-
-`;
-
-});
-
-}
-
-
-
-/* =========================
-   FLOATING PROMO ROTATOR
-========================= */
-
-const promoBar = document.getElementById("promo-bar");
-const promoText = document.getElementById("promo-text");
-
-let promoIndex = 0;
-
-function rotatePromo(){
-
-const p = PROMO_TEXT[promoIndex];
-
-promoText.innerHTML =
-`<a href="${p.link}" target="_blank">${p.text}</a>`;
-
-promoIndex++;
-
-if(promoIndex >= PROMO_TEXT.length){
-
-promoIndex = 0;
-
-}
-
-}
-
-rotatePromo();
-
-setInterval(rotatePromo,5000);
-
-
-
-/* =========================
-   CLOSE BUTTON
-========================= */
-
-document.getElementById("promo-close").onclick=()=>{
-
-promoBar.style.display="none";
-
-};
-
-/* HEADER ADS ROTATE */
 
 const HEADER_ADS = [
 
@@ -182,16 +114,107 @@ link:"https://affiliate4.com"
 
 ];
 
+
+/* =========================
+   RENDER SIDEBAR ADS
+========================= */
+
+const adsContainer = document.getElementById("ads-sidebar");
+
+if(adsContainer){
+
+let adsHTML = "";
+
+ADS_SIDEBAR.forEach(ad=>{
+
+adsHTML += `
+
+<a href="${ad.link}" target="_blank" rel="noopener" class="ads-item">
+<img src="${ad.img}" alt="Affiliate Ads" loading="lazy">
+</a>
+
+`;
+
+});
+
+adsContainer.innerHTML = adsHTML;
+
+}
+
+
+/* =========================
+   FLOATING PROMO ROTATOR
+========================= */
+
+const promoBar = document.getElementById("promo-bar");
+const promoText = document.getElementById("promo-text");
+
+let promoIndex = 0;
+
+function rotatePromo(){
+
+if(!promoText) return;
+
+const p = PROMO_TEXT[promoIndex];
+
+promoText.innerHTML = `
+<a href="${p.link}" target="_blank" rel="noopener">
+${p.text}
+</a>
+`;
+
+promoIndex++;
+
+if(promoIndex >= PROMO_TEXT.length){
+promoIndex = 0;
+}
+
+}
+
+if(promoText){
+
+rotatePromo();
+
+setInterval(rotatePromo,5000);
+
+}
+
+
+/* =========================
+   CLOSE PROMO BUTTON
+========================= */
+
+const promoClose = document.getElementById("promo-close");
+
+if(promoClose){
+
+promoClose.onclick = ()=>{
+
+if(promoBar){
+promoBar.style.display="none";
+}
+
+};
+
+}
+
+
+/* =========================
+   HEADER ADS ROTATOR
+========================= */
+
 const headerAds = document.getElementById("header-ads");
 
 let headerIndex = 0;
 
 function showHeaderAd(){
 
+if(!headerAds) return;
+
 const ad = HEADER_ADS[headerIndex];
 
 headerAds.innerHTML = `
-<a href="${ad.link}" target="_blank">
+<a href="${ad.link}" target="_blank" rel="noopener">
 ${ad.text}
 </a>
 `;
@@ -208,6 +231,6 @@ if(headerAds){
 
 showHeaderAd();
 
-setInterval(showHeaderAd, 4000);
+setInterval(showHeaderAd,4000);
 
 }
