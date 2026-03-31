@@ -57,12 +57,11 @@ background:#121212;
 border:1px solid #333;
 color:#aaa;
 max-width:650px;
-margin:auto;
+margin-left:40px;   /* dorong ke kanan */
+margin-right:10px;  /* dekatkan ke mic */
 cursor:pointer;
 transition:.2s;
 }
-
-.search-ad:hover
 
 .search-ad span{
 font-size:14px;
@@ -80,6 +79,7 @@ align-items:center;
 justify-content:center;
 cursor:pointer;
 font-size:16px;
+margin-right:10px; /* jarak ke notif/menu */
 }
 
 /* RIGHT MENU */
@@ -101,8 +101,6 @@ border-radius:20px;
 cursor:pointer;
 font-size:14px;
 }
-
-.create-btn:hover
 
 /* NOTIFICATION */
 
@@ -131,7 +129,6 @@ height:32px;
 border-radius:50%;
 cursor:pointer;
 }
-
 /* ================= CONTAINER ================= */
 
 .container{
