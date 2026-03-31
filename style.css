@@ -623,12 +623,16 @@ display:none;
 display:none;
 }
 
-/* sembunyikan icon yang tidak penting */
+/* sembunyikan icon yang tidak diperlukan di mobile */
+
+@media (max-width:768px){
 
 .create-btn,
 .voice-btn,
 .notif{
-display:none;
+display:none !important;
+}
+
 }
 
 /* header lebih rapat */
