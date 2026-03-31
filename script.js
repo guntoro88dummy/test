@@ -220,6 +220,17 @@ popup.style.display="none";
 }
 });
 
+/* ================= SIDEBAR TOGGLE ================= */
+
+const menuToggle = document.getElementById("menu-toggle");
+const sidebar = document.getElementById("sidebar");
+
+menuToggle.onclick = function(){
+
+sidebar.classList.toggle("active");
+
+};
+
 
 /* INIT */
 
