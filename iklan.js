@@ -85,36 +85,6 @@ link:"https://affiliate-link-10.com"
 
 ];
 
-
-/* =========================
-   HEADER ADS ROTATE
-========================= */
-
-const HEADER_ADS = [
-
-{
-text:"🎤 Mic Wireless Diskon 50%",
-link:"https://affiliate1.com"
-},
-
-{
-text:"🔊 Speaker Aktif Promo Besar",
-link:"https://affiliate2.com"
-},
-
-{
-text:"📷 Kamera Live Streaming Murah",
-link:"https://affiliate3.com"
-},
-
-{
-text:"💡 Lampu Panggung Diskon",
-link:"https://affiliate4.com"
-}
-
-];
-
-
 /* =========================
    RENDER SIDEBAR ADS
 ========================= */
@@ -198,39 +168,56 @@ promoBar.style.display="none";
 
 }
 
-
 /* =========================
-   HEADER ADS ROTATOR
+   SEARCH BAR ADS ROTATOR
 ========================= */
 
-const headerAds = document.getElementById("header-ads");
+const SEARCH_ADS = [
 
-let headerIndex = 0;
+{
+text:"🎤 Mic Wireless Diskon 50% BIKIN VLOG MU MAKIN CIAMIK",
+link:"https://affiliate1.com"
+},
 
-function showHeaderAd(){
+{
+text:"🔊 Speaker Aktif Promo Besar SPESIAL JEDUG JEDUG, HOREG MANIA",
+link:"https://affiliate2.com"
+},
 
-if(!headerAds) return;
+{
+text:"📷 Kamera Live Streaming Murah RAMAH DI KANTONG YUTUBER!!",
+link:"https://affiliate3.com"
+},
 
-const ad = HEADER_ADS[headerIndex];
+{
+text:"💡 Lampu Panggung Diskon MURAH GILAKKK !! ( AFFILIATOR )",
+link:"https://affiliate4.com"
+}
 
-headerAds.innerHTML = `
-<a href="${ad.link}" target="_blank" rel="noopener">
-${ad.text}
-</a>
-`;
+];
 
-headerIndex++;
+const searchAdText = document.getElementById("search-ad-text");
+const searchAdLink = document.getElementById("search-ad-link");
 
-if(headerIndex >= HEADER_ADS.length){
-headerIndex = 0;
+let searchIndex = 0;
+
+function rotateSearchAd(){
+
+if(!searchAdText || !searchAdLink) return;
+
+const ad = SEARCH_ADS[searchIndex];
+
+searchAdText.innerText = ad.text;
+searchAdLink.href = ad.link;
+
+searchIndex++;
+
+if(searchIndex >= SEARCH_ADS.length){
+searchIndex = 0;
 }
 
 }
 
-if(headerAds){
+rotateSearchAd();
 
-showHeaderAd();
-
-setInterval(showHeaderAd,4000);
-
-}
+setInterval(rotateSearchAd,4000);
