@@ -25,7 +25,8 @@ max-width:1400px;
 margin:auto;
 display:flex;
 align-items:center;
-gap:16px;
+justify-content:space-between;
+gap:20px;
 padding:12px 20px;
 }
 
@@ -37,7 +38,6 @@ align-items:center;
 gap:10px;
 font-size:20px;
 font-weight:700;
-white-space:nowrap;
 }
 
 .logo-area img{
@@ -56,17 +56,19 @@ border-radius:20px;
 background:#121212;
 border:1px solid #333;
 color:#aaa;
-max-width:600px;
+max-width:650px;
+margin:auto;
 cursor:pointer;
 transition:.2s;
+}
+
+.search-ad:hover
+
+.search-ad span{
 font-size:14px;
 }
 
-.search-ad:hover{
-background:#1a1a1a;
-}
-
-/* VOICE BUTTON (MIC STYLE YOUTUBE) */
+/* VOICE BUTTON */
 
 .voice-btn{
 width:40px;
@@ -77,12 +79,7 @@ display:flex;
 align-items:center;
 justify-content:center;
 cursor:pointer;
-font-size:18px;
-transition:.2s;
-}
-
-.voice-btn:hover{
-background:#272727;
+font-size:16px;
 }
 
 /* RIGHT MENU */
@@ -91,7 +88,6 @@ background:#272727;
 display:flex;
 align-items:center;
 gap:18px;
-margin-left:auto;
 }
 
 /* CREATE BUTTON */
@@ -106,9 +102,7 @@ cursor:pointer;
 font-size:14px;
 }
 
-.create-btn:hover{
-background:#333;
-}
+.create-btn:hover
 
 /* NOTIFICATION */
 
@@ -349,6 +343,14 @@ left:50%;
 transform:translateX(-50%);
 height:100%;
 width:auto;
+}
+
+.short-meta{
+font-size:12px;
+color:#aaa;
+padding:6px 8px;
+display:flex;
+justify-content:space-between;
 }
 
 /* ================= VIDEO GRID ================= */
