@@ -220,16 +220,41 @@ popup.style.display="none";
 }
 });
 
-/* ================= SIDEBAR TOGGLE ================= */
+/* ================= SIDEBAR MENU ================= */
 
 const menuToggle = document.getElementById("menu-toggle");
 const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("menu-overlay");
+
+function openMenu(){
+
+sidebar.classList.add("active");
+overlay.classList.add("active");
+
+}
+
+function closeMenu(){
+
+sidebar.classList.remove("active");
+overlay.classList.remove("active");
+
+}
 
 menuToggle.onclick = function(){
 
-sidebar.classList.toggle("active");
+if(sidebar.classList.contains("active")){
+closeMenu();
+}else{
+openMenu();
+}
 
-};
+}
+
+/* klik luar menu */
+
+overlay.onclick = function(){
+closeMenu();
+}
 
 
 /* INIT */
