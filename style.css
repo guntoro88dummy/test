@@ -612,3 +612,53 @@ display:none;
 }
 
 }
+
+/* ================= MOBILE HEADER SIMPLIFY ================= */
+
+@media (max-width:768px){
+
+/* sembunyikan nama channel */
+
+.logo-area span{
+display:none;
+}
+
+/* sembunyikan icon yang tidak penting */
+
+.create-btn,
+.voice-btn,
+.notif{
+display:none;
+}
+
+/* header lebih rapat */
+
+.header-bar{
+gap:8px;
+padding:10px 12px;
+}
+
+/* logo youtube */
+
+.logo-area img{
+height:22px;
+}
+
+/* search bar / iklan diperbesar */
+
+.search-ad{
+flex:1;
+max-width:none;
+height:34px;
+font-size:12px;
+margin:0 6px;
+}
+
+/* avatar */
+
+.channel-avatar{
+width:28px;
+height:28px;
+}
+
+}
