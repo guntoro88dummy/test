@@ -1,6 +1,6 @@
-/* =========================
+/* =========================================================
    SIDEBAR AFFILIATE ADS
-========================= */
+========================================================= */
 
 const ADS_SIDEBAR = [
 
@@ -27,9 +27,10 @@ link:"https://affiliate-link-4.com"
 ];
 
 
-/* =========================
+
+/* =========================================================
    FLOATING PROMO TEXT
-========================= */
+========================================================= */
 
 const PROMO_TEXT = [
 
@@ -86,9 +87,10 @@ link:"https://affiliate-link-10.com"
 ];
 
 
-/* =========================
-   HEADER ADS ROTATE
-========================= */
+
+/* =========================================================
+   HEADER ADS (SEARCH BAR AFFILIATE)
+========================================================= */
 
 const HEADER_ADS = [
 
@@ -115,9 +117,10 @@ link:"https://affiliate4.com"
 ];
 
 
-/* =========================
+
+/* =========================================================
    RENDER SIDEBAR ADS
-========================= */
+========================================================= */
 
 const adsContainer = document.getElementById("ads-sidebar");
 
@@ -128,11 +131,9 @@ let adsHTML = "";
 ADS_SIDEBAR.forEach(ad=>{
 
 adsHTML += `
-
-<a href="${ad.link}" target="_blank" rel="noopener" class="ads-item">
+<a href="${ad.link}" target="_blank" rel="noopener" class="ads">
 <img src="${ad.img}" alt="Affiliate Ads" loading="lazy">
 </a>
-
 `;
 
 });
@@ -142,9 +143,10 @@ adsContainer.innerHTML = adsHTML;
 }
 
 
-/* =========================
+
+/* =========================================================
    FLOATING PROMO ROTATOR
-========================= */
+========================================================= */
 
 const promoBar = document.getElementById("promo-bar");
 const promoText = document.getElementById("promo-text");
@@ -180,9 +182,10 @@ setInterval(rotatePromo,5000);
 }
 
 
-/* =========================
+
+/* =========================================================
    CLOSE PROMO BUTTON
-========================= */
+========================================================= */
 
 const promoClose = document.getElementById("promo-close");
 
@@ -199,9 +202,10 @@ promoBar.style.display="none";
 }
 
 
-/* =========================
-   HEADER ADS ROTATOR
-========================= */
+
+/* =========================================================
+   HEADER ADS ROTATOR (SEARCH BAR)
+========================================================= */
 
 const headerAds = document.getElementById("header-ads");
 
@@ -213,11 +217,11 @@ if(!headerAds) return;
 
 const ad = HEADER_ADS[headerIndex];
 
-headerAds.innerHTML = `
-<a href="${ad.link}" target="_blank" rel="noopener">
-${ad.text}
-</a>
-`;
+/* update link seluruh search bar */
+headerAds.href = ad.link;
+
+/* update text iklan */
+headerAds.innerHTML = `<span>${ad.text}</span>`;
 
 headerIndex++;
 
@@ -226,6 +230,8 @@ headerIndex = 0;
 }
 
 }
+
+/* start rotator */
 
 if(headerAds){
 
