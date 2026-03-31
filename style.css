@@ -574,3 +574,41 @@ padding-top:70px;
 .sidebar.active{
 left:0;
 }
+
+/* ================= MOBILE HEADER FIX ================= */
+
+@media (max-width:768px){
+
+.header-bar{
+gap:8px;
+padding:10px;
+}
+
+/* search bar diperkecil */
+
+.search-ad{
+max-width:180px;
+font-size:12px;
+}
+
+/* voice icon lebih kecil */
+
+.voice-btn{
+width:34px;
+height:34px;
+font-size:14px;
+}
+
+/* menu kanan lebih rapat */
+
+.right-menu{
+gap:10px;
+}
+
+/* create disembunyikan di HP */
+
+.create-btn{
+display:none;
+}
+
+}
