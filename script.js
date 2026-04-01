@@ -1,5 +1,3 @@
-const API = "https://www.googleapis.com/youtube/v3";
-
 /* ELEMENT */
 const hero = document.getElementById("hero-video");
 const trending = document.getElementById("trending");
@@ -17,60 +15,59 @@ const subs = document.getElementById("subscriber-count");
 
 /* CHANNEL INFO MANUAL */
 
+if(logo){
 logo.src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160-c-k-c0x00ffffff-no-rj";
+}
 
+if(name){
 name.innerText="Aji Mangkara";
+}
 
+if(handle){
 handle.innerText="@ajimangkara";
+}
 
+if(subs){
 subs.innerText="";
-
+}
 
 function shuffle(arr){
 return [...arr].sort(()=>0.5-Math.random());
 }
 
+/* SIMPLE VIDEO CARD */
 
-/* SIMPLE VIDEO RENDER (NO API) */
-
-function renderSimpleVideos(container,ids,limit=6){
-
-if(!container || !ids) return;
-
-container.innerHTML="";
-
-shuffle(ids).slice(0,limit).forEach(id=>{
+function renderVideoCard(container,video){
 
 container.innerHTML+=`
-<a href="https://youtube.com/watch?v=${id}" target="_blank" class="video-card">
+<a href="https://youtube.com/watch?v=${video.id}" target="_blank" class="video-card">
 
-<img src="https://i.ytimg.com/vi/${id}/mqdefault.jpg">
+<img src="${video.thumb}">
 
-<p class="video-title">YouTube Video</p>
+<p class="video-title">${video.title}</p>
+
+<p class="video-meta">${video.views} views • ${video.date}</p>
 
 </a>
 `;
 
-});
-
 }
 
+/* SHORTS */
 
-/* SHORTS RENDER */
+function renderShorts(container,data,limit=6){
 
-function renderShorts(container,ids,limit=6){
-
-if(!container || !ids) return;
+if(!container || !data) return;
 
 container.innerHTML="";
 
-shuffle(ids).slice(0,limit).forEach(id=>{
+shuffle(data).slice(0,limit).forEach(v=>{
 
 container.innerHTML+=`
-<a href="https://youtube.com/shorts/${id}" target="_blank" class="short-card">
+<a href="https://youtube.com/shorts/${v.id}" target="_blank" class="short-card">
 
 <div class="short-video">
-<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg">
+<img src="${v.thumb}">
 </div>
 
 </a>
@@ -80,93 +77,43 @@ container.innerHTML+=`
 
 }
 
-
 /* HERO */
 
-async function loadHero(){
+function loadHero(){
 
-try{
+if(!hero || typeof HERO==="undefined") return;
 
-const url=`${API}/search?part=snippet&channelId=${CHANNEL_ID}&order=date&type=video&maxResults=1&key=${API_KEY}`;
-
-const res=await fetch(url);
-const data=await res.json();
-
-const id=data.items[0].id.videoId;
+const v = HERO[0];
 
 hero.innerHTML=`
-<iframe
-src="https://www.youtube.com/embed/${id}"
-frameborder="0"
-allowfullscreen>
-</iframe>
-`;
+<a href="https://youtube.com/watch?v=${v.id}" target="_blank">
 
-}catch(e){
+<img src="${v.thumb}">
 
-const id = DATA.hero?.[0] || DATA.videos?.[0];
+<div class="hero-title">${v.title}</div>
 
-hero.innerHTML=`
-<iframe
-src="https://www.youtube.com/embed/${id}"
-frameborder="0"
-allowfullscreen>
-</iframe>
+</a>
 `;
 
 }
 
-}
+/* TRENDING RANDOM */
 
+function loadTrending(){
 
-/* TRENDING */
-
-async function loadTrending(){
-
-if(!trending) return;
+if(!trending || typeof TRENDING==="undefined") return;
 
 trending.innerHTML="";
 
-try{
-
-const url=`${API}/search?part=snippet,id&channelId=${CHANNEL_ID}&order=date&type=video&maxResults=5&key=${API_KEY}`;
-
-const res=await fetch(url);
-const data=await res.json();
-
-data.items.forEach(v=>{
-
-const id=v.id.videoId;
-const title=v.snippet.title;
-const thumb=v.snippet.thumbnails.medium.url;
+shuffle(TRENDING).slice(0,5).forEach(v=>{
 
 trending.innerHTML+=`
 
-<a href="https://youtube.com/watch?v=${id}" target="_blank" class="trend-card">
+<a href="https://youtube.com/watch?v=${v.id}" target="_blank" class="trend-card">
 
-<img src="${thumb}">
+<img src="${v.thumb}">
 
-<p class="video-title">${title}</p>
-
-</a>
-
-`;
-
-});
-
-}catch(e){
-
-const fallback = shuffle(DATA.trending || DATA.videos).slice(0,5);
-
-fallback.forEach(id=>{
-
-trending.innerHTML+=`
-
-<a href="https://youtube.com/watch?v=${id}" target="_blank" class="trend-card">
-
-<img src="https://i.ytimg.com/vi/${id}/mqdefault.jpg">
-
-<p class="video-title">YouTube Video</p>
+<p class="video-title">${v.title}</p>
 
 </a>
 
@@ -176,29 +123,83 @@ trending.innerHTML+=`
 
 }
 
+/* PAST LIVE (TERBARU) */
+
+function loadPastLive(){
+
+if(!pastLive || typeof LIVE==="undefined") return;
+
+pastLive.innerHTML="";
+
+const sorted=[...LIVE].sort((a,b)=> new Date(b.date) - new Date(a.date));
+
+sorted.slice(0,6).forEach(v=>{
+renderVideoCard(pastLive,v);
+});
+
 }
 
+/* VIDEOS TERBARU */
+
+function loadVideos(){
+
+if(!videos || typeof VIDEOS==="undefined") return;
+
+videos.innerHTML="";
+
+const sorted=[...VIDEOS].sort((a,b)=> new Date(b.date) - new Date(a.date));
+
+sorted.slice(0,6).forEach(v=>{
+renderVideoCard(videos,v);
+});
+
+}
+
+/* VIDEO POPULER */
+
+function loadPopuler(){
+
+if(!populer || typeof VIDEOS==="undefined") return;
+
+populer.innerHTML="";
+
+const sorted=[...VIDEOS].sort((a,b)=> b.views - a.views);
+
+sorted.slice(0,6).forEach(v=>{
+renderVideoCard(populer,v);
+});
+
+}
+
+/* LIVE RANDOM */
+
+function loadLiveRandom(){
+
+if(!live || typeof LIVE==="undefined") return;
+
+live.innerHTML="";
+
+shuffle(LIVE).slice(0,6).forEach(v=>{
+renderVideoCard(live,v);
+});
+
+}
 
 /* DATABASE CONTENT */
 
 function loadDatabase(){
 
-renderShorts(shorts, DATA.shorts || DATA.videos, 6);
+renderShorts(shorts, SHORTS, 6);
 
-renderSimpleVideos(videos, DATA.videos, 6);
+loadPastLive();
 
-renderSimpleVideos(populer, DATA.populer || DATA.videos, 6);
+loadVideos();
 
-renderSimpleVideos(live, DATA.live || DATA.videos, 6);
+loadPopuler();
 
-/* Past Live sengaja dikosongkan jika API gagal */
-
-if(pastLive){
-pastLive.innerHTML="";
-}
+loadLiveRandom();
 
 }
-
 
 /* POPUP */
 
@@ -215,12 +216,12 @@ closePopup.onclick = () => popup.style.display = "none";
 }
 
 document.addEventListener("keydown",(e)=>{
-if(e.key==="Escape"){
+if(e.key==="Escape" && popup){
 popup.style.display="none";
 }
 });
 
-/* ================= SIDEBAR MENU ================= */
+/* SIDEBAR MENU */
 
 const menuToggle = document.getElementById("menu-toggle");
 const sidebar = document.getElementById("sidebar");
@@ -240,6 +241,8 @@ overlay.classList.remove("active");
 
 }
 
+if(menuToggle){
+
 menuToggle.onclick = function(){
 
 if(sidebar.classList.contains("active")){
@@ -250,12 +253,13 @@ openMenu();
 
 }
 
-/* klik luar menu */
+}
 
+if(overlay){
 overlay.onclick = function(){
 closeMenu();
 }
-
+}
 
 /* INIT */
 
