@@ -23,20 +23,8 @@ name.innerText="Aji Mangkara";
 handle.innerText="@ajimangkara";
 subs.innerText="";
 
-/* RANDOM */
-
 function shuffle(arr){
 return [...arr].sort(()=>0.5-Math.random());
-}
-
-/* THUMBNAIL HD AUTO */
-
-function thumb(id){
-return `
-<img 
-src="https://i.ytimg.com/vi/${id}/hqdefault.jpg"
-style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
-`;
 }
 
 /* VIDEO CARD */
@@ -49,7 +37,7 @@ container.innerHTML+=`
 
 <a href="https://youtube.com/watch?v=${video.id}" target="_blank" class="video-card">
 
-${thumb(video.id)}
+<img src="https://i.ytimg.com/vi/${video.id}/hqdefault.jpg">
 
 <p class="video-title">${video.title}</p>
 
@@ -89,7 +77,7 @@ container.innerHTML+=`
 
 }
 
-/* HERO PRO VERSION */
+/* HERO 16:9 AUTO CROP */
 
 function loadHero(){
 
@@ -101,20 +89,39 @@ hero.innerHTML=`
 
 <div style="
 position:relative;
-border-radius:14px;
+width:100%;
+aspect-ratio:16/9;
 overflow:hidden;
+border-radius:12px;
 ">
 
-<a href="https://youtube.com/watch?v=${v.id}" target="_blank">
-
-<img
+<img 
 src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg"
 style="
+position:absolute;
 width:100%;
 height:100%;
 object-fit:cover;
-display:block;
+left:0;
+top:0;
 ">
+
+<a href="https://youtube.com/watch?v=${v.id}"
+target="_blank"
+style="
+position:absolute;
+top:14px;
+right:14px;
+background:rgba(0,0,0,0.65);
+color:white;
+padding:8px 12px;
+border-radius:6px;
+font-size:13px;
+text-decoration:none;
+backdrop-filter:blur(3px);
+">
+
+Watch on YouTube
 
 </a>
 
@@ -123,44 +130,21 @@ position:absolute;
 left:0;
 right:0;
 bottom:0;
-padding:30px 20px;
-background:linear-gradient(
-to top,
-rgba(0,0,0,0.85),
-rgba(0,0,0,0.4),
-transparent
-);
+padding:18px;
+background:linear-gradient(to top,rgba(0,0,0,0.85),transparent);
 color:white;
 ">
 
 <h2 style="
-margin:0 0 12px 0;
-font-size:24px;
+margin:0;
+font-size:22px;
 line-height:1.35;
-font-weight:700;
 text-shadow:0 2px 6px rgba(0,0,0,0.7);
 ">
 
 ${v.title}
 
 </h2>
-
-<a href="https://youtube.com/watch?v=${v.id}"
-target="_blank"
-style="
-display:inline-block;
-padding:10px 18px;
-background:rgba(255,0,0,0.9);
-color:white;
-border-radius:8px;
-font-weight:600;
-text-decoration:none;
-backdrop-filter:blur(4px);
-">
-
-▶ Tonton di YouTube
-
-</a>
 
 </div>
 
