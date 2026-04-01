@@ -23,9 +23,20 @@ name.innerText="Aji Mangkara";
 handle.innerText="@ajimangkara";
 subs.innerText="";
 
+/* RANDOM */
 
 function shuffle(arr){
 return [...arr].sort(()=>0.5-Math.random());
+}
+
+/* THUMBNAIL HD AUTO */
+
+function thumb(id){
+return `
+<img 
+src="https://i.ytimg.com/vi/${id}/hqdefault.jpg"
+style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+`;
 }
 
 /* VIDEO CARD */
@@ -38,7 +49,7 @@ container.innerHTML+=`
 
 <a href="https://youtube.com/watch?v=${video.id}" target="_blank" class="video-card">
 
-<img src="https://i.ytimg.com/vi/${video.id}/hqdefault.jpg">
+${thumb(video.id)}
 
 <p class="video-title">${video.title}</p>
 
@@ -49,7 +60,6 @@ container.innerHTML+=`
 `;
 
 }
-
 
 /* SHORTS */
 
@@ -79,8 +89,7 @@ container.innerHTML+=`
 
 }
 
-
-/* HERO */
+/* HERO PRO VERSION */
 
 function loadHero(){
 
@@ -90,19 +99,64 @@ const v = HERO[0];
 
 hero.innerHTML=`
 
-<div class="hero-wrapper">
+<div style="
+position:relative;
+border-radius:14px;
+overflow:hidden;
+">
 
 <a href="https://youtube.com/watch?v=${v.id}" target="_blank">
 
-<img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg">
+<img
+src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg"
+style="
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+">
 
 </a>
 
-<div class="hero-info">
+<div style="
+position:absolute;
+left:0;
+right:0;
+bottom:0;
+padding:30px 20px;
+background:linear-gradient(
+to top,
+rgba(0,0,0,0.85),
+rgba(0,0,0,0.4),
+transparent
+);
+color:white;
+">
 
-<h2>${v.title}</h2>
+<h2 style="
+margin:0 0 12px 0;
+font-size:24px;
+line-height:1.35;
+font-weight:700;
+text-shadow:0 2px 6px rgba(0,0,0,0.7);
+">
 
-<a href="https://youtube.com/watch?v=${v.id}" target="_blank" class="hero-btn">
+${v.title}
+
+</h2>
+
+<a href="https://youtube.com/watch?v=${v.id}"
+target="_blank"
+style="
+display:inline-block;
+padding:10px 18px;
+background:rgba(255,0,0,0.9);
+color:white;
+border-radius:8px;
+font-weight:600;
+text-decoration:none;
+backdrop-filter:blur(4px);
+">
 
 ▶ Tonton di YouTube
 
@@ -115,7 +169,6 @@ hero.innerHTML=`
 `;
 
 }
-
 
 /* TRENDING */
 
@@ -143,7 +196,6 @@ trending.innerHTML+=`
 
 }
 
-
 /* PAST LIVE */
 
 function loadPastLive(){
@@ -159,7 +211,6 @@ renderVideoCard(pastLive,v);
 });
 
 }
-
 
 /* VIDEOS */
 
@@ -177,7 +228,6 @@ renderVideoCard(videos,v);
 
 }
 
-
 /* VIDEO POPULER */
 
 function loadPopuler(){
@@ -194,7 +244,6 @@ renderVideoCard(populer,v);
 
 }
 
-
 /* LIVE RANDOM */
 
 function loadLiveRandom(){
@@ -208,7 +257,6 @@ renderVideoCard(live,v);
 });
 
 }
-
 
 /* DATABASE LOAD */
 
@@ -225,7 +273,6 @@ loadPopuler();
 loadLiveRandom();
 
 }
-
 
 /* POPUP */
 
@@ -246,7 +293,6 @@ if(e.key==="Escape"){
 popup.style.display="none";
 }
 });
-
 
 /* SIDEBAR MENU */
 
@@ -277,7 +323,6 @@ openMenu();
 overlay.onclick=function(){
 closeMenu();
 }
-
 
 /* INIT */
 
