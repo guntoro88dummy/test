@@ -38,7 +38,7 @@ container.innerHTML+=`
 
 <a href="https://youtube.com/watch?v=${video.id}" target="_blank" class="video-card">
 
-<img src="https://i.ytimg.com/vi/${video.id}/mqdefault.jpg">
+<img src="https://i.ytimg.com/vi/${video.id}/hqdefault.jpg">
 
 <p class="video-title">${video.title}</p>
 
@@ -84,9 +84,9 @@ container.innerHTML+=`
 
 function loadHero(){
 
-if(!hero || !VIDEO) return;
+if(!hero || !HERO) return;
 
-const v = VIDEO[0];
+const v = HERO[0];
 
 hero.innerHTML=`
 
@@ -94,7 +94,7 @@ hero.innerHTML=`
 
 <a href="https://youtube.com/watch?v=${v.id}" target="_blank">
 
-<img src="https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg">
+<img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg">
 
 </a>
 
@@ -121,17 +121,17 @@ hero.innerHTML=`
 
 function loadTrending(){
 
-if(!trending || !VIDEO) return;
+if(!trending || !TRENDING) return;
 
 trending.innerHTML="";
 
-shuffle(VIDEO).slice(0,5).forEach(v=>{
+shuffle(TRENDING).slice(0,5).forEach(v=>{
 
 trending.innerHTML+=`
 
 <a href="https://youtube.com/watch?v=${v.id}" target="_blank" class="trend-card">
 
-<img src="https://i.ytimg.com/vi/${v.id}/mqdefault.jpg">
+<img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg">
 
 <p class="video-title">${v.title}</p>
 
