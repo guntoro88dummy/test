@@ -64,9 +64,7 @@ container.innerHTML+=`
 <a href="https://youtube.com/shorts/${v.id}" target="_blank" class="short-card">
 
 <div class="short-video">
-
 <img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg">
-
 </div>
 
 </a>
@@ -77,7 +75,7 @@ container.innerHTML+=`
 
 }
 
-/* HERO 16:9 AUTO CROP */
+/* HERO 16:9 */
 
 function loadHero(){
 
@@ -87,12 +85,15 @@ const v = HERO[0];
 
 hero.innerHTML=`
 
-<div style="
+<a href="https://youtube.com/watch?v=${v.id}" target="_blank"
+style="
+display:block;
 position:relative;
 width:100%;
 aspect-ratio:16/9;
 overflow:hidden;
 border-radius:12px;
+text-decoration:none;
 ">
 
 <img 
@@ -106,24 +107,7 @@ left:0;
 top:0;
 ">
 
-<a href="https://youtube.com/watch?v=${v.id}"
-target="_blank"
-style="
-position:absolute;
-top:14px;
-right:14px;
-background:rgba(0,0,0,0.65);
-color:white;
-padding:8px 12px;
-border-radius:6px;
-font-size:13px;
-text-decoration:none;
-backdrop-filter:blur(3px);
-">
-
-Watch on YouTube
-
-</a>
+<!-- JUDUL -->
 
 <div style="
 position:absolute;
@@ -148,7 +132,39 @@ ${v.title}
 
 </div>
 
+<!-- WATCH BUTTON -->
+
+<div style="
+position:absolute;
+right:14px;
+bottom:70px;
+background:rgba(0,0,0,0.75);
+color:white;
+padding:6px 10px;
+border-radius:4px;
+font-size:13px;
+display:flex;
+align-items:center;
+gap:6px;
+">
+
+Watch on
+
+<span style="
+background:red;
+padding:2px 4px;
+border-radius:3px;
+font-weight:bold;
+font-size:11px;
+">
+
+YouTube
+
+</span>
+
 </div>
+
+</a>
 
 `;
 
