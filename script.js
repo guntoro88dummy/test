@@ -20,57 +20,44 @@ const subs = document.getElementById("subscriber-count");
 logo.src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160-c-k-c0x00ffffff-no-rj";
 
 name.innerText="Aji Mangkara";
-
 handle.innerText="@ajimangkara";
-
 subs.innerText="";
-
 
 function shuffle(arr){
 return [...arr].sort(()=>0.5-Math.random());
 }
 
+/* SIMPLE VIDEO RENDER */
 
-/* SIMPLE VIDEO RENDER (NO API) */
+function renderVideoCard(container,video){
 
-function renderSimpleVideos(container,ids,limit=6){
+container.innerHTML+=` <a href="https://youtube.com/watch?v=${video.id}" target="_blank" class="video-card">
 
-if(!container || !ids) return;
+<img src="https://i.ytimg.com/vi/${video.id}/mqdefault.jpg">
 
-container.innerHTML="";
+<p class="video-title">${video.title}</p>
 
-shuffle(ids).slice(0,limit).forEach(id=>{
-
-container.innerHTML+=`
-<a href="https://youtube.com/watch?v=${id}" target="_blank" class="video-card">
-
-<img src="https://i.ytimg.com/vi/${id}/mqdefault.jpg">
-
-<p class="video-title">YouTube Video</p>
+<p class="video-meta">${video.views} views • ${video.date}</p>
 
 </a>
 `;
 
-});
-
 }
-
 
 /* SHORTS RENDER */
 
-function renderShorts(container,ids,limit=6){
+function renderShorts(container,data,limit=6){
 
-if(!container || !ids) return;
+if(!container || !data) return;
 
 container.innerHTML="";
 
-shuffle(ids).slice(0,limit).forEach(id=>{
+shuffle(data).slice(0,limit).forEach(v=>{
 
-container.innerHTML+=`
-<a href="https://youtube.com/shorts/${id}" target="_blank" class="short-card">
+container.innerHTML+=` <a href="https://youtube.com/shorts/${v.id}" target="_blank" class="short-card">
 
 <div class="short-video">
-<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg">
+<img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg">
 </div>
 
 </a>
@@ -80,93 +67,42 @@ container.innerHTML+=`
 
 }
 
+/* HERO FROM DATABASE */
 
-/* HERO */
+function loadHero(){
 
-async function loadHero(){
+if(!hero || !HERO) return;
 
-try{
+const v = HERO[0];
 
-const url=`${API}/search?part=snippet&channelId=${CHANNEL_ID}&order=date&type=video&maxResults=1&key=${API_KEY}`;
+hero.innerHTML=` <a href="https://youtube.com/watch?v=${v.id}" target="_blank">
 
-const res=await fetch(url);
-const data=await res.json();
+<img src="https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg">
 
-const id=data.items[0].id.videoId;
+<div class="hero-title">${v.title}</div>
 
-hero.innerHTML=`
-<iframe
-src="https://www.youtube.com/embed/${id}"
-frameborder="0"
-allowfullscreen>
-</iframe>
-`;
-
-}catch(e){
-
-const id = DATA.hero?.[0] || DATA.videos?.[0];
-
-hero.innerHTML=`
-<iframe
-src="https://www.youtube.com/embed/${id}"
-frameborder="0"
-allowfullscreen>
-</iframe>
+</a>
 `;
 
 }
 
-}
+/* TRENDING RANDOM */
 
+function loadTrending(){
 
-/* TRENDING */
-
-async function loadTrending(){
-
-if(!trending) return;
+if(!trending || !TRENDING) return;
 
 trending.innerHTML="";
 
-try{
-
-const url=`${API}/search?part=snippet,id&channelId=${CHANNEL_ID}&order=date&type=video&maxResults=5&key=${API_KEY}`;
-
-const res=await fetch(url);
-const data=await res.json();
-
-data.items.forEach(v=>{
-
-const id=v.id.videoId;
-const title=v.snippet.title;
-const thumb=v.snippet.thumbnails.medium.url;
+shuffle(TRENDING).slice(0,5).forEach(v=>{
 
 trending.innerHTML+=`
 
-<a href="https://youtube.com/watch?v=${id}" target="_blank" class="trend-card">
+<a href="https://youtube.com/watch?v=${v.id}" target="_blank" class="trend-card">
 
-<img src="${thumb}">
+<img src="https://i.ytimg.com/vi/${v.id}/mqdefault.jpg">
 
-<p class="video-title">${title}</p>
-
-</a>
-
-`;
-
-});
-
-}catch(e){
-
-const fallback = shuffle(DATA.trending || DATA.videos).slice(0,5);
-
-fallback.forEach(id=>{
-
-trending.innerHTML+=`
-
-<a href="https://youtube.com/watch?v=${id}" target="_blank" class="trend-card">
-
-<img src="https://i.ytimg.com/vi/${id}/mqdefault.jpg">
-
-<p class="video-title">YouTube Video</p>
+<p class="video-title">${v.title}</p>
 
 </a>
 
@@ -176,29 +112,83 @@ trending.innerHTML+=`
 
 }
 
+/* PAST LIVE (DATE TERBARU) */
+
+function loadPastLive(){
+
+if(!pastLive || !LIVE) return;
+
+pastLive.innerHTML="";
+
+const sorted=[...LIVE].sort((a,b)=> new Date(b.date) - new Date(a.date));
+
+sorted.slice(0,6).forEach(v=>{
+renderVideoCard(pastLive,v);
+});
+
 }
 
+/* VIDEOS TERBARU */
+
+function loadVideos(){
+
+if(!videos || !VIDEOS) return;
+
+videos.innerHTML="";
+
+const sorted=[...VIDEOS].sort((a,b)=> new Date(b.date) - new Date(a.date));
+
+sorted.slice(0,6).forEach(v=>{
+renderVideoCard(videos,v);
+});
+
+}
+
+/* VIDEO POPULER (VIEWS TERBANYAK) */
+
+function loadPopuler(){
+
+if(!populer || !VIDEOS) return;
+
+populer.innerHTML="";
+
+const sorted=[...VIDEOS].sort((a,b)=> b.views - a.views);
+
+sorted.slice(0,6).forEach(v=>{
+renderVideoCard(populer,v);
+});
+
+}
+
+/* LIVE WAYANG RANDOM */
+
+function loadLiveRandom(){
+
+if(!live || !LIVE) return;
+
+live.innerHTML="";
+
+shuffle(LIVE).slice(0,6).forEach(v=>{
+renderVideoCard(live,v);
+});
+
+}
 
 /* DATABASE CONTENT */
 
 function loadDatabase(){
 
-renderShorts(shorts, DATA.shorts || DATA.videos, 6);
+renderShorts(shorts, SHORTS, 6);
 
-renderSimpleVideos(videos, DATA.videos, 6);
+loadPastLive();
 
-renderSimpleVideos(populer, DATA.populer || DATA.videos, 6);
+loadVideos();
 
-renderSimpleVideos(live, DATA.live || DATA.videos, 6);
+loadPopuler();
 
-/* Past Live sengaja dikosongkan jika API gagal */
-
-if(pastLive){
-pastLive.innerHTML="";
-}
+loadLiveRandom();
 
 }
-
 
 /* POPUP */
 
@@ -255,7 +245,6 @@ openMenu();
 overlay.onclick = function(){
 closeMenu();
 }
-
 
 /* INIT */
 
