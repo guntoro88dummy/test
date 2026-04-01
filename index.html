@@ -53,7 +53,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <a href="#">Foto Sinden Indonesia</a>
 
 </div>
-
+  
 <div id="menu-overlay" class="menu-overlay"></div>
 
 </div>
@@ -194,11 +194,13 @@ cursor:pointer;
 
 <div class="right-menu">
 
-<button class="create-btn">Create</button>
+<button class="create-btn">
+<i class="fa-solid fa-plus"></i> Create
+</button>
 
 <div class="notif">
 <i class="fa-solid fa-bell"></i>
-<span class="notif-badge">3</span>
+<span class="notif-badge">9+</span>
 </div>
 
 <img class="channel-avatar"
@@ -212,14 +214,105 @@ src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5m
 
 <div class="container">
 
-<div class="main-content">
+<div class="hero-row">
 
+<div class="hero">
 <div id="hero-video"></div>
+</div>
 
-<section>
+<div class="trending">
+
 <h3>🔥 Sedang Trending</h3>
-<div id="trending" class="videos"></div>
-</section>
+
+<div id="trending"></div>
+
+</div>
+
+</div>
+
+<div class="channel-info">
+
+<div class="channel-header">
+
+<img id="channel-logo" alt="Channel Logo">
+
+<div class="channel-main">
+
+<div class="channel-row">
+
+<h2 id="channel-name"></h2>
+
+<a href="https://www.youtube.com/@ajimangkara"
+target="_blank"
+rel="noopener noreferrer"
+class="subscribe-btn">
+
+Subscribe
+
+</a>
+
+</div>
+
+<div class="channel-row">
+
+<span id="channel-handle"></span> <span id="subscriber-count"></span>
+
+</div>
+
+<div class="channel-links">
+
+<a href="https://www.youtube.com/@ajimangkara" target="_blank" class="social-btn">
+<i class="fab fa-youtube"></i>
+</a>
+
+<a href="https://www.instagram.com/antonguntoro" target="_blank" class="social-btn">
+<i class="fab fa-instagram"></i>
+</a>
+
+<a href="https://www.facebook.com/anton.guntoro.31" target="_blank" class="social-btn">
+<i class="fab fa-facebook"></i>
+</a>
+
+<a href="https://www.tiktok.com/@antonguntoro" target="_blank" class="social-btn">
+<i class="fab fa-tiktok"></i>
+</a>
+
+<a href="https://saweria.co/ajimangkara" target="_blank" class="sawer-btn">
+Sawer Online
+</a>
+
+</div>
+
+<div class="channel-description">
+
+<span>
+
+21,571,545 Views • Joined Jun 13, 2017
+#ajimangkara #ajimangkarachannel #livewayangkulit
+
+</span>
+
+<p>
+
+Avlog Media kini berganti menjadi Aji Mangkara.
+Setelah 12 Tahun menggunakan nama Channel Avlog Media,
+Channel ini kini berganti nama dan logo.
+
+<a id="more-btn">...more</a>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="content-row">
+
+<div class="left-content">
 
 <section>
 <h3>📱 Shorts</h3>
@@ -253,6 +346,8 @@ src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5m
 <h3 class="ads-title">Sponsor</h3>
 
 <div id="ads-sidebar"></div>
+
+</div>
 
 </div>
 
@@ -292,8 +387,6 @@ https://saweria.co/ajimangkara
 
 <script src="iklan.js"></script>
 
-<script src="seo.js"></script>
-
 <script src="database/hero.js"></script>
 <script src="database/trending.js"></script>
 <script src="database/shorts.js"></script>
@@ -301,6 +394,8 @@ https://saweria.co/ajimangkara
 <script src="database/video.js"></script>
 
 <script src="script.js"></script>
+
+<script src="seo.js"></script>
 
 </body>
 </html>
