@@ -17,11 +17,21 @@ const subs = document.getElementById("subscriber-count");
 
 /* CHANNEL INFO MANUAL */
 
+if(logo){
 logo.src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160-c-k-c0x00ffffff-no-rj";
+}
 
+if(name){
 name.innerText="Aji Mangkara";
+}
+
+if(handle){
 handle.innerText="@ajimangkara";
+}
+
+if(subs){
 subs.innerText="";
+}
 
 function shuffle(arr){
 return [...arr].sort(()=>0.5-Math.random());
@@ -31,7 +41,8 @@ return [...arr].sort(()=>0.5-Math.random());
 
 function renderVideoCard(container,video){
 
-container.innerHTML+=` <a href="https://youtube.com/watch?v=${video.id}" target="_blank" class="video-card">
+container.innerHTML+=`
+<a href="https://youtube.com/watch?v=${video.id}" target="_blank" class="video-card">
 
 <img src="https://i.ytimg.com/vi/${video.id}/mqdefault.jpg">
 
@@ -54,7 +65,8 @@ container.innerHTML="";
 
 shuffle(data).slice(0,limit).forEach(v=>{
 
-container.innerHTML+=` <a href="https://youtube.com/shorts/${v.id}" target="_blank" class="short-card">
+container.innerHTML+=`
+<a href="https://youtube.com/shorts/${v.id}" target="_blank" class="short-card">
 
 <div class="short-video">
 <img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg">
@@ -71,11 +83,12 @@ container.innerHTML+=` <a href="https://youtube.com/shorts/${v.id}" target="_bla
 
 function loadHero(){
 
-if(!hero || !HERO) return;
+if(!hero || typeof HERO==="undefined") return;
 
 const v = HERO[0];
 
-hero.innerHTML=` <a href="https://youtube.com/watch?v=${v.id}" target="_blank">
+hero.innerHTML=`
+<a href="https://youtube.com/watch?v=${v.id}" target="_blank">
 
 <img src="https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg">
 
@@ -90,7 +103,7 @@ hero.innerHTML=` <a href="https://youtube.com/watch?v=${v.id}" target="_blank">
 
 function loadTrending(){
 
-if(!trending || !TRENDING) return;
+if(!trending || typeof TRENDING==="undefined") return;
 
 trending.innerHTML="";
 
@@ -116,7 +129,7 @@ trending.innerHTML+=`
 
 function loadPastLive(){
 
-if(!pastLive || !LIVE) return;
+if(!pastLive || typeof LIVE==="undefined") return;
 
 pastLive.innerHTML="";
 
@@ -132,7 +145,7 @@ renderVideoCard(pastLive,v);
 
 function loadVideos(){
 
-if(!videos || !VIDEOS) return;
+if(!videos || typeof VIDEOS==="undefined") return;
 
 videos.innerHTML="";
 
@@ -148,7 +161,7 @@ renderVideoCard(videos,v);
 
 function loadPopuler(){
 
-if(!populer || !VIDEOS) return;
+if(!populer || typeof VIDEOS==="undefined") return;
 
 populer.innerHTML="";
 
@@ -164,7 +177,7 @@ renderVideoCard(populer,v);
 
 function loadLiveRandom(){
 
-if(!live || !LIVE) return;
+if(!live || typeof LIVE==="undefined") return;
 
 live.innerHTML="";
 
@@ -205,7 +218,7 @@ closePopup.onclick = () => popup.style.display = "none";
 }
 
 document.addEventListener("keydown",(e)=>{
-if(e.key==="Escape"){
+if(e.key==="Escape" && popup){
 popup.style.display="none";
 }
 });
@@ -230,6 +243,7 @@ overlay.classList.remove("active");
 
 }
 
+if(menuToggle){
 menuToggle.onclick = function(){
 
 if(sidebar.classList.contains("active")){
@@ -239,11 +253,14 @@ openMenu();
 }
 
 }
+}
 
 /* klik luar menu */
 
+if(overlay){
 overlay.onclick = function(){
 closeMenu();
+}
 }
 
 /* INIT */
