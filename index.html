@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="id">
 
 <head>
@@ -31,60 +32,138 @@
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+<div id="sidebar" class="sidebar">
+
+<div class="sidebar-menu">
+
+<a href="#">🏠 Home</a>
+
+<div class="menu-title">🛠 YouTube Tools</div>
+<a href="#">Download Thumbnail YouTube</a>
+<a href="#">Generator Judul YouTube</a>
+<a href="#">Generator Deskripsi YouTube</a>
+<a href="#">Generator Tag YouTube</a>
+
+<div class="menu-title">🎨 Creator Assets</div>
+<a href="#">Free Thumbnail Wayang</a>
+
+<div class="menu-title">🖼 Galeri</div>
+<a href="#">Foto Dalang Indonesia</a>
+<a href="#">Foto Pelawak Indonesia</a>
+<a href="#">Foto Sinden Indonesia</a>
+
+</div>
+  
+<div id="menu-overlay" class="menu-overlay"></div>
+
+</div>
+
 <style>
 
-.jadwal-box{
-padding:15px;
+body{
+font-family:'Roboto',sans-serif;
+background:#0f0f0f;
+color:white;
+margin:0;
 }
 
-.jadwal-title{
-font-size:22px;
-font-weight:700;
-margin-bottom:5px;
-}
-
-.jadwal-date{
-font-size:18px;
-color:#ccc;
-margin-bottom:10px;
-}
-
-.jadwal-link{
-display:inline-block;
-margin-bottom:15px;
-color:#ff4444;
-font-weight:700;
-animation:blink 1s infinite;
-text-decoration:none;
-}
-
-@keyframes blink{
-0%{opacity:1;}
-50%{opacity:0;}
-100%{opacity:1;}
-}
-
-.jadwal-item{
-margin-bottom:10px;
-padding-bottom:10px;
+.header{
+background:#0f0f0f;
 border-bottom:1px solid #222;
+padding:10px 20px;
+position:sticky;
+top:0;
+z-index:999;
 }
 
-.jadwal-dalang{
+.header-bar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
+}
+
+.logo-area{
+display:flex;
+align-items:center;
+gap:10px;
 font-weight:600;
-font-size:18px;
 }
 
-.jadwal-lokasi{
-font-size:14px;
+.logo-area img{
+height:24px;
+}
+
+.search-ad{
+flex:1;
+display:flex;
+align-items:center;
+background:#121212;
+border:1px solid #333;
+height:40px;
+border-radius:20px;
+padding:0 20px;
 color:#aaa;
+text-decoration:none;
+max-width:600px;
+margin:0 auto;
 }
 
-.jadwal-note{
-margin-top:15px;
-font-size:12px;
-color:#888;
-line-height:1.6;
+.search-ad span{
+flex:1;
+text-align:center;
+font-size:14px;
+}
+
+.voice-btn{
+margin-left:10px;
+background:#181818;
+border-radius:50%;
+width:40px;
+height:40px;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+}
+
+.right-menu{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.create-btn{
+background:#272727;
+border:none;
+color:white;
+padding:8px 14px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.notif{
+position:relative;
+font-size:18px;
+cursor:pointer;
+}
+
+.notif-badge{
+position:absolute;
+top:-6px;
+right:-8px;
+background:red;
+color:white;
+font-size:10px;
+padding:2px 6px;
+border-radius:10px;
+}
+
+.channel-avatar{
+width:32px;
+height:32px;
+border-radius:50%;
+cursor:pointer;
 }
 
 </style>
@@ -143,31 +222,86 @@ src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5m
 
 <div class="trending">
 
-<div class="jadwal-box">
+<h3>🔥 Sedang Trending</h3>
 
-<div class="jadwal-title">
-JADWAL WAYANG HARI INI
+<div id="trending"></div>
+
 </div>
 
-<div id="jadwal-today-date" class="jadwal-date"></div>
+</div>
 
-<a href="/jadwal/jadwal-wayang-april-2026.html" class="jadwal-link">
-JADWAL TGL LAIN KLIK DISINI
+<div class="channel-info">
+
+<div class="channel-header">
+
+<img id="channel-logo" alt="Channel Logo">
+
+<div class="channel-main">
+
+<div class="channel-row">
+
+<h2 id="channel-name"></h2>
+
+<a href="https://www.youtube.com/@ajimangkara"
+target="_blank"
+rel="noopener noreferrer"
+class="subscribe-btn">
+
+Subscribe
+
 </a>
 
-<div id="jadwal-hari-ini"></div>
+</div>
 
-<div class="jadwal-note">
-PERHATIAN :<br>
-- JADWAL BISA BERUBAH SEWAKTU WAKTU<br>
-- JADWAL DIAMBIL DARI BERBAGAI SUMBER<br>
-- MOHON MAAF BILA ADA KESALAHAN PENULISAN<br><br>
+<div class="channel-row">
 
-SUMBER JADWAL :<br>
-KLUBAN.NET<br>
-GRUP WMC (WAYANG MANIA COMMUNITY)<br>
-INFO HIBURAN PLAT AE<br>
-DLL
+<span id="channel-handle"></span> <span id="subscriber-count"></span>
+
+</div>
+
+<div class="channel-links">
+
+<a href="https://www.youtube.com/@ajimangkara" target="_blank" class="social-btn">
+<i class="fab fa-youtube"></i>
+</a>
+
+<a href="https://www.instagram.com/antonguntoro" target="_blank" class="social-btn">
+<i class="fab fa-instagram"></i>
+</a>
+
+<a href="https://www.facebook.com/anton.guntoro.31" target="_blank" class="social-btn">
+<i class="fab fa-facebook"></i>
+</a>
+
+<a href="https://www.tiktok.com/@antonguntoro" target="_blank" class="social-btn">
+<i class="fab fa-tiktok"></i>
+</a>
+
+<a href="https://saweria.co/ajimangkara" target="_blank" class="sawer-btn">
+Sawer Online
+</a>
+
+</div>
+
+<div class="channel-description">
+
+<span>
+
+21,571,545 Views • Joined Jun 13, 2017
+#ajimangkara #ajimangkarachannel #livewayangkulit
+
+</span>
+
+<p>
+
+Avlog Media kini berganti menjadi Aji Mangkara.
+Setelah 12 Tahun menggunakan nama Channel Avlog Media,
+Channel ini kini berganti nama dan logo.
+
+<a id="more-btn">...more</a>
+
+</p>
+
 </div>
 
 </div>
@@ -176,44 +310,85 @@ DLL
 
 </div>
 
+<div class="content-row">
 
-<!-- SISANYA TIDAK DIUBAH -->
-<script src="jadwal/jadwal.js"></script>
-  
-<script>
-const today = new Date();
+<div class="left-content">
 
-const day = String(today.getDate()).padStart(2,'0');
-const month = String(today.getMonth()+1).padStart(2,'0');
-const year = today.getFullYear();
+<section>
+<h3>📱 Shorts</h3>
+<div id="shorts-row"></div>
+</section>
 
-document.getElementById("jadwal-today-date").innerText =
-day+"-"+month+"-"+year;
+<section>
+<h3>📺 Past Live Streaming</h3>
+<div id="past-live" class="videos"></div>
+</section>
 
-const jadwalToday = jadwalData.filter(j =>
-j.tanggal === day+"-"+month+"-"+year
-);
+<section>
+<h3>🎬 Videos</h3>
+<div id="videos" class="videos"></div>
+</section>
 
-let html="";
+<section>
+<h3>⭐ Video Populer</h3>
+<div id="populer" class="videos"></div>
+</section>
 
-jadwalToday.forEach(j=>{
+<section>
+<h3>🎭 Live Streaming Wayang Kulit</h3>
+<div id="live" class="videos"></div>
+</section>
 
-html+=`
-<div class="jadwal-item">
-<div class="jadwal-dalang">${j.dalang}</div>
-<div class="jadwal-lokasi">${j.lokasi}</div>
 </div>
-`;
 
-});
+<div class="right-ads">
 
-if(html===""){
-html="<div>Tidak ada jadwal hari ini</div>";
-}
+<h3 class="ads-title">Sponsor</h3>
 
-document.getElementById("jadwal-hari-ini").innerHTML=html;
+<div id="ads-sidebar"></div>
 
-</script>
+</div>
+
+</div>
+
+</div>
+
+<div id="popup" class="popup">
+
+<div class="popup-content">
+
+<button id="close-popup">X</button>
+
+<h3>Description</h3>
+
+<p>
+Avlog Media kini berganti menjadi Aji Mangkara.<br>
+==============================================<br>
+Terima kasih sudah subscribe dan mendukung channel ini, <br>
+sawer online / donasi untuk perkembangan channel : https://saweria.co/ajimangkara<br>
+Jangan Lupa Follow juga akun sosial media kami di:<br>
+Website : www.ajimangkara.com<br>
+Facebook : Anton Guntoro ( https://www.facebook.com/anton.guntoro.31 )<br>
+Instagram : Anton Guntoro ( https://www.instagram.com/antonguntoro)<br>
+Tiktok : Anton Guntoro ( https://www.tiktok.com/@antonguntoro)<br>
+======================================<br>
+Setelah 12 Tahun menggunakan nama Channel Avlog Media, <br>
+Channel ini Kini berganti Nama dan logo menjadi Aji Mangkara. <br>
+Terima kasih saran dan kritiknya selama ini. <br>
+Rabu Pahing, 31 Desember 2025 / 11 Rejeb 1959 / 11 Rajab 1447
+</p>
+
+</div>
+
+</div>
+
+<div id="promo-bar" class="floating-bar">
+
+<span id="promo-text"></span>
+
+<button id="promo-close">✕</button>
+
+</div>
 
 <script src="iklan.js"></script>
 
@@ -225,7 +400,6 @@ document.getElementById("jadwal-hari-ini").innerHTML=html;
 <script src="seo.js"></script>
 <script src="schema-video.js"></script>
 <script src="script.js"></script>
-
 
 
 </body>
