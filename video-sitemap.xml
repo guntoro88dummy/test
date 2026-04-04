@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+
+<url>
+<loc>https://ajimangkara.com/</loc>
+
+<video:video>
+
+<video:title>LIVE Wayang Kulit MALAM INI TERBARU Full Semalam Suntuk</video:title>
+
+<video:description>
+Live Wayang kulit malam ini terbaru full semalam suntuk Ki bayu aji, Ki Cahyo kuntadi, Ki Seno Nugroho, Ki anom suroto, Ki Manteb sudarsono, jadwal live wayang malam ini, jadwal wayang kulit hari ini.
+</video:description>
+
+<video:thumbnail_loc>
+https://img.youtube.com/vi/VIDEOID/maxresdefault.jpg
+</video:thumbnail_loc>
+
+<video:player_loc>
+https://www.youtube.com/embed/VIDEOID
+</video:player_loc>
+
+</video:video>
+
+</url>
+
+</urlset>
