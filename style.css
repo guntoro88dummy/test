@@ -682,14 +682,27 @@ margin:0;
 font-size:15px;
 font-weight:600;
 letter-spacing:.3px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+/* ICON */
+
+.jadwal-icon{
+font-size:30px;
+line-height:1;
+display:flex;
+align-items:center;
 }
 
 /* DATE */
 
 .jadwal-date{
-font-size:12px;
-opacity:.6;
+font-size:15px;
+opacity:.7;
 margin-bottom:6px;
+margin-left:40px;
 }
 
 /* LIST (SCROLL, BUKAN ROLL) */
