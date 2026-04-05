@@ -6,11 +6,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Jadwal Wayang Kulit April 2026 | Ajimangkara.com </title>
+<title>Jadwal Wayang Kulit April 2026 | Ajimangkara</title>
 
-<meta name="description" content="Jadwal wayang kulit bulan April 2026 lengkap dengan dalang dan lokasi pentas.">
+<meta name="description" content="Jadwal wayang kulit bulan April 2026 lengkap dengan dalang dan lokasi pentas terbaru.">
 
-<meta name="keywords" content="jadwal wayang april 2026, jadwal wayang kulit, jadwal dalang hari ini">
+<meta name="keywords" content="jadwal wayang april 2026, jadwal wayang kulit hari ini, jadwal dalang">
 
 <link rel="stylesheet" href="../style.css">
 
@@ -19,253 +19,208 @@
 /* ===== LAYOUT ===== */
 
 .layout{
-
 display:grid;
-grid-template-columns:160px 1fr 160px;
-gap:20px;
-
-}
-
-.page{
-
-max-width:900px;
+grid-template-columns:140px 1fr 140px;
+gap:10px;
+max-width:1100px;
 margin:auto;
-padding:20px;
-
 }
-
 
 /* ===== SIDEBAR ADS ===== */
 
 .ads-left,
 .ads-right{
-
 display:flex;
 flex-direction:column;
-gap:15px;
+gap:12px;
 position:sticky;
 top:20px;
-
 }
 
 .ads-left img,
 .ads-right img{
-
 width:100%;
 border-radius:6px;
-
 }
 
+/* ===== PAGE ===== */
+
+.page{
+padding:20px;
+}
 
 /* ===== TITLE ===== */
 
 .title{
-
 font-size:34px;
 font-weight:700;
 text-transform:uppercase;
 text-align:center;
 margin-bottom:6px;
-
 }
 
 .today-date{
-
 font-size:18px;
 font-weight:600;
 text-align:center;
 margin-bottom:20px;
-
 }
-
 
 /* ===== DATE SLIDER ===== */
 
 .date-slider{
-
 display:flex;
 gap:10px;
 overflow-x:auto;
 margin-bottom:25px;
 justify-content:center;
-
 }
 
 .date-item{
-
 background:#111;
 padding:10px 14px;
 border-radius:8px;
 cursor:pointer;
 font-size:13px;
 white-space:nowrap;
-
 }
 
 .date-item.active{
-
 background:#e11d48;
-
 }
-
 
 /* ===== SEARCH ===== */
 
 .search-area{
-
 display:flex;
 justify-content:center;
 flex-wrap:wrap;
 gap:20px;
 margin-bottom:25px;
-
 }
 
 .search-box{
-
 background:#111;
 padding:10px 14px;
 border-radius:8px;
 display:flex;
 align-items:center;
 gap:8px;
-
 }
 
 .search-box input{
-
 background:transparent;
 border:none;
 outline:none;
 color:white;
-
 }
 
-
-/* ===== MENU BUTTON ===== */
+/* ===== MENU ===== */
 
 .top-buttons{
-
 display:flex;
 justify-content:center;
 flex-wrap:wrap;
 gap:10px;
 margin-bottom:25px;
-
 }
 
 .top-buttons a{
-
 background:#222;
 padding:10px 14px;
 border-radius:6px;
 text-decoration:none;
 font-size:13px;
-
 }
-
 
 /* ===== AFFILIATE ===== */
 
 .affiliate-box{
-
 background:#ff6a00;
 padding:16px;
 border-radius:10px;
 margin-bottom:25px;
 text-align:center;
-
 }
 
 .affiliate-item{
-
 background:white;
 color:black;
 padding:8px;
 border-radius:6px;
 display:inline-block;
 text-decoration:none;
-
 }
 
 .affiliate-bottom{
-
 margin-top:20px;
 background:#ff6a00;
 padding:10px;
 border-radius:8px;
 text-align:center;
-
 }
 
 .affiliate-bottom a{
-
 color:white;
 text-decoration:none;
 font-weight:600;
-
 }
-
 
 /* ===== TABLE ===== */
 
 table{
-
 width:100%;
 border-collapse:collapse;
-
 }
 
 th,td{
-
 padding:10px;
 border-bottom:1px solid #333;
 text-align:left;
-
 }
 
 th{
-
 background:#111;
-
 }
-
 
 /* ===== NAV DAY ===== */
 
 .day-nav{
-
 display:flex;
 justify-content:space-between;
 margin-top:15px;
-
 }
 
 .day-btn{
-
 background:#e11d48;
 padding:10px 14px;
 border-radius:6px;
 cursor:pointer;
-
 }
 
+/* ===== SEO ===== */
+
+.seo-box{
+margin-top:40px;
+font-size:14px;
+line-height:1.6;
+}
+
+.seo-box h3{
+margin-top:20px;
+}
 
 /* ===== MOBILE ===== */
 
 @media(max-width:900px){
 
 .layout{
-
 grid-template-columns:1fr;
-
 }
 
 .ads-left,
 .ads-right{
-
 display:none;
-
 }
 
 }
@@ -284,10 +239,12 @@ display:none;
 
 <img src="../img/ads1.jpg">
 <img src="../img/ads2.jpg">
+<img src="../img/ads3.jpg">
+<img src="../img/ads4.jpg">
 
 </div>
 
-<!-- CONTENT -->
+<!-- MAIN CONTENT -->
 
 <div class="page">
 
@@ -308,28 +265,13 @@ JADWAL WAYANG KULIT APRIL 2026
 <div class="search-area">
 
 <div class="search-box">
-
 <span>📅</span>
-
-<input
-type="date"
-id="search-date"
-onchange="searchDate()"
-/>
-
+<input type="date" id="search-date" onchange="searchDate()">
 </div>
 
 <div class="search-box">
-
 <span>🎭</span>
-
-<input
-type="text"
-placeholder="Cari nama dalang"
-id="search-dalang"
-onkeyup="searchDalang()"
-/>
-
+<input type="text" placeholder="Cari nama dalang" id="search-dalang" onkeyup="searchDalang()">
 </div>
 
 </div>
@@ -338,23 +280,11 @@ onkeyup="searchDalang()"
 
 <div class="top-buttons">
 
-<a href="../index.html">
+<a href="../index.html">🏠 Kembali ke Halaman Depan</a>
 
-🏠 Kembali ke Halaman Depan
+<a href="#">📩 Kirim Jadwal / Revisi</a>
 
-</a>
-
-<a href="#">
-
-📩 Kirim Jadwal / Revisi
-
-</a>
-
-<a href="#">
-
-⚠️ Lapor Admin
-
-</a>
+<a href="#">⚠️ Lapor Admin</a>
 
 </div>
 
@@ -362,14 +292,8 @@ onkeyup="searchDalang()"
 
 <div class="affiliate-box">
 
-<a class="affiliate-item" id="search-ad-link" href="#">
-
-<span id="search-ad-text">
-
+<a class="affiliate-item" href="#">
 Promo Peralatan Pentas Wayang Diskon Hari Ini
-
-</span>
-
 </a>
 
 </div>
@@ -381,11 +305,9 @@ Promo Peralatan Pentas Wayang Diskon Hari Ini
 <thead>
 
 <tr>
-
 <th>Tanggal</th>
 <th>Dalang</th>
 <th>Lokasi</th>
-
 </tr>
 
 </thead>
@@ -396,17 +318,9 @@ Promo Peralatan Pentas Wayang Diskon Hari Ini
 
 <div class="day-nav">
 
-<div class="day-btn" onclick="prevDay()">
+<div class="day-btn" onclick="prevDay()">← HARI SEBELUMNYA</div>
 
-← HARI SEBELUMNYA
-
-</div>
-
-<div class="day-btn" onclick="nextDay()">
-
-HARI SELANJUTNYA →
-
-</div>
+<div class="day-btn" onclick="nextDay()">HARI SELANJUTNYA →</div>
 
 </div>
 
@@ -414,15 +328,33 @@ HARI SELANJUTNYA →
 
 <div class="affiliate-bottom">
 
-<a id="search-ad-link-bottom" href="#">
-
-<span id="search-ad-text-bottom">
-
-Promo Sound System Pentas Wayang Diskon Hari Ini
-
-</span>
-
+<a href="#">
+Promo Sound System Pentas Wayang Diskon Besar Hari Ini
 </a>
+
+</div>
+
+<!-- SEO CONTENT -->
+
+<div class="seo-box">
+
+<h3>Deskripsi</h3>
+
+<p>
+Halaman ini menampilkan jadwal wayang kulit terbaru bulan April 2026 dari berbagai daerah di Indonesia. Informasi mencakup nama dalang dan lokasi pentas untuk memudahkan pecinta wayang mengikuti pertunjukan terbaru.
+</p>
+
+<h3>Tag</h3>
+
+<p>
+#jadwalwayang #wayangkulit #dalang #pentaswayang
+</p>
+
+<h3>Credit</h3>
+
+<p>
+Data jadwal dihimpun dari berbagai sumber komunitas seni dan informasi publik yang tersedia.
+</p>
 
 </div>
 
@@ -432,16 +364,16 @@ Promo Sound System Pentas Wayang Diskon Hari Ini
 
 <div class="ads-right">
 
-<img src="../img/ads3.jpg">
-<img src="../img/ads4.jpg">
+<img src="../img/ads5.jpg">
+<img src="../img/ads6.jpg">
+<img src="../img/ads7.jpg">
+<img src="../img/ads8.jpg">
 
 </div>
 
 </div>
 
 <script src="../jadwal/jadwal.js"></script>
-
-<script src="../iklan.js"></script>
 
 <script>
 
@@ -470,7 +402,6 @@ dateEl.innerText=formatDate(currentDate).toUpperCase()
 }
 
 renderDate()
-
 
 
 function renderSlider(){
@@ -510,7 +441,6 @@ slider.appendChild(item)
 }
 
 renderSlider()
-
 
 
 function renderJadwal(){
@@ -553,7 +483,6 @@ container.innerHTML=html || "<tr><td colspan='3'>Belum ada jadwal</td></tr>"
 renderJadwal()
 
 
-
 function prevDay(){
 
 currentDate.setDate(currentDate.getDate()-1)
@@ -574,8 +503,6 @@ renderSlider()
 
 }
 
-
-
 function searchDate(){
 
 const input=document.getElementById("search-date").value
@@ -589,8 +516,6 @@ renderJadwal()
 renderSlider()
 
 }
-
-
 
 function searchDalang(){
 
