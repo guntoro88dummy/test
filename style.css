@@ -679,30 +679,34 @@ gap:10px;
 
 .jadwal-title{
 margin:0;
-font-size:15px;
-font-weight:600;
-letter-spacing:.3px;
+font-size:16px;
+font-weight:700;
+letter-spacing:.4px;
 display:flex;
 align-items:center;
-gap:10px;
+gap:12px;
 }
 
 /* ICON */
 
 .jadwal-icon{
-font-size:30px;
-line-height:1;
+font-size:34px;
 display:flex;
 align-items:center;
+justify-content:center;
+line-height:1;
+color:#ffffff;
 }
 
 /* DATE */
 
 .jadwal-date{
-font-size:15px;
-opacity:.7;
-margin-bottom:6px;
-margin-left:40px;
+font-size:16px;
+color:#ffffff;
+opacity:1;
+margin-top:4px;
+margin-left:46px;
+font-weight:500;
 }
 
 /* LIST (SCROLL, BUKAN ROLL) */
