@@ -10,43 +10,45 @@
 
 <meta name="description" content="Jadwal wayang kulit bulan April 2026 lengkap dengan dalang dan lokasi pentas terbaru.">
 
-<meta name="keywords" content="jadwal wayang april 2026, jadwal wayang kulit hari ini, jadwal dalang">
-
-<link rel="stylesheet" href="../style.css">
-
 <style>
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+margin:0;
+background:#0f0f0f;
+color:white;
+}
 
 /* ===== LAYOUT ===== */
 
 .layout{
 display:grid;
-grid-template-columns:140px 1fr 140px;
-gap:10px;
-max-width:1100px;
+grid-template-columns:160px 1fr 160px;
+gap:15px;
+max-width:1200px;
 margin:auto;
+padding:20px;
 }
 
-/* ===== SIDEBAR ADS ===== */
+/* ===== SIDEBAR ===== */
 
 .ads-left,
 .ads-right{
 display:flex;
 flex-direction:column;
-gap:12px;
-position:sticky;
-top:20px;
+gap:15px;
 }
 
 .ads-left img,
 .ads-right img{
 width:100%;
-border-radius:6px;
+border-radius:8px;
 }
 
-/* ===== PAGE ===== */
+/* ===== MAIN ===== */
 
 .page{
-padding:20px;
+padding:10px 20px;
 }
 
 /* ===== TITLE ===== */
@@ -54,39 +56,15 @@ padding:20px;
 .title{
 font-size:34px;
 font-weight:700;
-text-transform:uppercase;
 text-align:center;
+text-transform:uppercase;
 margin-bottom:6px;
 }
 
 .today-date{
-font-size:18px;
-font-weight:600;
 text-align:center;
+font-size:18px;
 margin-bottom:20px;
-}
-
-/* ===== DATE SLIDER ===== */
-
-.date-slider{
-display:flex;
-gap:10px;
-overflow-x:auto;
-margin-bottom:25px;
-justify-content:center;
-}
-
-.date-item{
-background:#111;
-padding:10px 14px;
-border-radius:8px;
-cursor:pointer;
-font-size:13px;
-white-space:nowrap;
-}
-
-.date-item.active{
-background:#e11d48;
 }
 
 /* ===== SEARCH ===== */
@@ -94,34 +72,31 @@ background:#e11d48;
 .search-area{
 display:flex;
 justify-content:center;
-flex-wrap:wrap;
 gap:20px;
+flex-wrap:wrap;
 margin-bottom:25px;
 }
 
 .search-box{
-background:#111;
+background:#1a1a1a;
 padding:10px 14px;
 border-radius:8px;
-display:flex;
-align-items:center;
-gap:8px;
 }
 
 .search-box input{
-background:transparent;
+background:none;
 border:none;
-outline:none;
 color:white;
+outline:none;
 }
 
-/* ===== MENU ===== */
+/* ===== BUTTON ===== */
 
 .top-buttons{
 display:flex;
 justify-content:center;
-flex-wrap:wrap;
 gap:10px;
+flex-wrap:wrap;
 margin-bottom:25px;
 }
 
@@ -130,40 +105,26 @@ background:#222;
 padding:10px 14px;
 border-radius:6px;
 text-decoration:none;
+color:white;
 font-size:13px;
 }
 
 /* ===== AFFILIATE ===== */
 
-.affiliate-box{
+.affiliate{
 background:#ff6a00;
-padding:16px;
+padding:14px;
 border-radius:10px;
-margin-bottom:25px;
 text-align:center;
+margin-bottom:25px;
 }
 
-.affiliate-item{
+.affiliate a{
 background:white;
 color:black;
-padding:8px;
+padding:8px 12px;
 border-radius:6px;
-display:inline-block;
 text-decoration:none;
-}
-
-.affiliate-bottom{
-margin-top:20px;
-background:#ff6a00;
-padding:10px;
-border-radius:8px;
-text-align:center;
-}
-
-.affiliate-bottom a{
-color:white;
-text-decoration:none;
-font-weight:600;
 }
 
 /* ===== TABLE ===== */
@@ -176,11 +137,10 @@ border-collapse:collapse;
 th,td{
 padding:10px;
 border-bottom:1px solid #333;
-text-align:left;
 }
 
 th{
-background:#111;
+background:#1a1a1a;
 }
 
 /* ===== NAV DAY ===== */
@@ -200,14 +160,10 @@ cursor:pointer;
 
 /* ===== SEO ===== */
 
-.seo-box{
+.seo{
 margin-top:40px;
 font-size:14px;
 line-height:1.6;
-}
-
-.seo-box h3{
-margin-top:20px;
 }
 
 /* ===== MOBILE ===== */
@@ -237,14 +193,14 @@ display:none;
 
 <div class="ads-left">
 
-<img src="../img/ads1.jpg">
-<img src="../img/ads2.jpg">
-<img src="../img/ads3.jpg">
-<img src="../img/ads4.jpg">
+<img src="https://govemployee.com/wp-content/uploads/sites/7/2022/08/Your-Ad-Here.jpg">
+<img src="https://govemployee.com/wp-content/uploads/sites/7/2022/08/Your-Ad-Here.jpg">
+<img src="https://govemployee.com/wp-content/uploads/sites/7/2022/08/Your-Ad-Here.jpg">
+<img src="https://govemployee.com/wp-content/uploads/sites/7/2022/08/Your-Ad-Here.jpg">
 
 </div>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN -->
 
 <div class="page">
 
@@ -256,49 +212,29 @@ JADWAL WAYANG KULIT APRIL 2026
 
 <div class="today-date" id="today-date"></div>
 
-<!-- DATE SLIDER -->
-
-<div class="date-slider" id="date-slider"></div>
-
-<!-- SEARCH -->
-
 <div class="search-area">
 
 <div class="search-box">
-<span>📅</span>
-<input type="date" id="search-date" onchange="searchDate()">
+📅 <input type="date" id="search-date" onchange="searchDate()">
 </div>
 
 <div class="search-box">
-<span>🎭</span>
-<input type="text" placeholder="Cari nama dalang" id="search-dalang" onkeyup="searchDalang()">
+🎭 <input type="text" placeholder="Cari nama dalang" id="search-dalang" onkeyup="searchDalang()">
 </div>
 
 </div>
-
-<!-- MENU -->
 
 <div class="top-buttons">
 
-<a href="../index.html">🏠 Kembali ke Halaman Depan</a>
-
-<a href="#">📩 Kirim Jadwal / Revisi</a>
-
-<a href="#">⚠️ Lapor Admin</a>
+<a href="/">🏠 Halaman Depan</a> <a href="#">📩 Kirim Jadwal</a> <a href="#">⚠️ Lapor Admin</a>
 
 </div>
 
-<!-- AFFILIATE TOP -->
+<div class="affiliate">
 
-<div class="affiliate-box">
-
-<a class="affiliate-item" href="#">
-Promo Peralatan Pentas Wayang Diskon Hari Ini
-</a>
+<a href="#">Promo Peralatan Pentas Wayang Diskon Hari Ini</a>
 
 </div>
-
-<!-- TABLE -->
 
 <table>
 
@@ -324,24 +260,18 @@ Promo Peralatan Pentas Wayang Diskon Hari Ini
 
 </div>
 
-<!-- AFFILIATE BOTTOM -->
+<div class="affiliate" style="margin-top:20px">
 
-<div class="affiliate-bottom">
-
-<a href="#">
-Promo Sound System Pentas Wayang Diskon Besar Hari Ini
-</a>
+<a href="#">Promo Sound System Pentas Wayang Diskon Besar</a>
 
 </div>
 
-<!-- SEO CONTENT -->
-
-<div class="seo-box">
+<div class="seo">
 
 <h3>Deskripsi</h3>
 
 <p>
-Halaman ini menampilkan jadwal wayang kulit terbaru bulan April 2026 dari berbagai daerah di Indonesia. Informasi mencakup nama dalang dan lokasi pentas untuk memudahkan pecinta wayang mengikuti pertunjukan terbaru.
+Halaman ini berisi jadwal wayang kulit terbaru bulan April 2026 lengkap dengan nama dalang dan lokasi pentas di berbagai daerah di Indonesia.
 </p>
 
 <h3>Tag</h3>
@@ -353,7 +283,7 @@ Halaman ini menampilkan jadwal wayang kulit terbaru bulan April 2026 dari berbag
 <h3>Credit</h3>
 
 <p>
-Data jadwal dihimpun dari berbagai sumber komunitas seni dan informasi publik yang tersedia.
+Data jadwal dihimpun dari berbagai sumber komunitas seni dan informasi publik.
 </p>
 
 </div>
@@ -364,33 +294,31 @@ Data jadwal dihimpun dari berbagai sumber komunitas seni dan informasi publik ya
 
 <div class="ads-right">
 
-<img src="../img/ads5.jpg">
-<img src="../img/ads6.jpg">
-<img src="../img/ads7.jpg">
-<img src="../img/ads8.jpg">
+<img src="https://govemployee.com/wp-content/uploads/sites/7/2022/08/Your-Ad-Here.jpg">
+<img src="https://govemployee.com/wp-content/uploads/sites/7/2022/08/Your-Ad-Here.jpg">
+<img src="https://govemployee.com/wp-content/uploads/sites/7/2022/08/Your-Ad-Here.jpg">
+<img src="https://govemployee.com/wp-content/uploads/sites/7/2022/08/Your-Ad-Here.jpg">
 
 </div>
 
 </div>
 
-<script src="../jadwal/jadwal.js"></script>
+<script src="https://ajimangkara.com/jadwal/jadwal.js"></script>
 
 <script>
 
 let currentDate=new Date()
 
-const dateEl=document.getElementById("today-date")
 const container=document.getElementById("jadwal-container")
+const dateEl=document.getElementById("today-date")
 
-function formatDate(date){
+function formatDate(d){
 
-return date.toLocaleDateString("id-ID",{
-
+return d.toLocaleDateString("id-ID",{
 weekday:"long",
 day:"numeric",
 month:"long",
 year:"numeric"
-
 })
 
 }
@@ -404,79 +332,36 @@ dateEl.innerText=formatDate(currentDate).toUpperCase()
 renderDate()
 
 
-function renderSlider(){
-
-const slider=document.getElementById("date-slider")
-
-slider.innerHTML=""
-
-for(let i=-3;i<=3;i++){
-
-let d=new Date(currentDate)
-
-d.setDate(currentDate.getDate()+i)
-
-const item=document.createElement("div")
-
-item.className="date-item"
-
-if(i===0) item.classList.add("active")
-
-item.innerText=d.toLocaleDateString("id-ID",{day:"numeric",month:"short"})
-
-item.onclick=()=>{
-
-currentDate=d
-
-renderDate()
-renderJadwal()
-renderSlider()
-
-}
-
-slider.appendChild(item)
-
-}
-
-}
-
-renderSlider()
-
-
 function renderJadwal(){
 
-if(typeof JADWAL_WAYANG==="undefined"){
+if(typeof jadwal==="undefined"){
 
 container.innerHTML="<tr><td colspan='3'>Database belum terhubung</td></tr>"
 return
 
 }
 
-const todayStr=currentDate.toISOString().slice(0,10)
+const today=currentDate.toISOString().slice(0,10)
 
 let html=""
 
-JADWAL_WAYANG.forEach(j=>{
+jadwal.forEach(j=>{
 
-if(j.tanggal===todayStr){
+if(j.tanggal===today){
 
 html+=`
-
 <tr>
-
 <td>${j.tanggal}</td>
 <td>${j.dalang}</td>
 <td>${j.lokasi}</td>
-
 </tr>
-
 `
 
 }
 
 })
 
-container.innerHTML=html || "<tr><td colspan='3'>Belum ada jadwal</td></tr>"
+container.innerHTML=html||"<tr><td colspan='3'>Belum ada jadwal</td></tr>"
 
 }
 
@@ -489,7 +374,6 @@ currentDate.setDate(currentDate.getDate()-1)
 
 renderDate()
 renderJadwal()
-renderSlider()
 
 }
 
@@ -499,7 +383,6 @@ currentDate.setDate(currentDate.getDate()+1)
 
 renderDate()
 renderJadwal()
-renderSlider()
 
 }
 
@@ -507,39 +390,29 @@ function searchDate(){
 
 const input=document.getElementById("search-date").value
 
-if(!input) return
-
 currentDate=new Date(input)
 
 renderDate()
 renderJadwal()
-renderSlider()
 
 }
 
 function searchDalang(){
 
-const keyword=document
-.getElementById("search-dalang")
-.value
-.toLowerCase()
+const keyword=document.getElementById("search-dalang").value.toLowerCase()
 
 let html=""
 
-JADWAL_WAYANG.forEach(j=>{
+jadwal.forEach(j=>{
 
 if(j.dalang.toLowerCase().includes(keyword)){
 
 html+=`
-
 <tr>
-
 <td>${j.tanggal}</td>
 <td>${j.dalang}</td>
 <td>${j.lokasi}</td>
-
 </tr>
-
 `
 
 }
