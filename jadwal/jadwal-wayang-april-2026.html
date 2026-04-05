@@ -1,112 +1,108 @@
 <!DOCTYPE html>
+
 <html lang="id">
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Jadwal Wayang Kulit April 2026 | Ajimangkara</title>
+<title>Jadwal Wayang Kulit Hari Ini | Ajimangkara</title>
 
-<meta name="description" content="Jadwal wayang kulit lengkap bulan April 2026. Cari jadwal berdasarkan tanggal atau nama dalang. Update setiap hari.">
-<meta name="keywords" content="jadwal wayang kulit april 2026, jadwal dalang, wayang kulit hari ini, jadwal pentas wayang">
-<meta name="author" content="Ajimangkara">
+<meta name="description" content="Jadwal wayang kulit hari ini. Informasi dalang dan lokasi pentas wayang kulit terbaru.">
+
+<!-- TAG SEO (isi manual nanti) -->
+
+<meta name="keywords" content="jadwal wayang hari ini, jadwal dalang, pentas wayang kulit">
 
 <link rel="stylesheet" href="../style.css">
 
 <style>
 
-/* =========================
-LAYOUT
-========================= */
+/* PAGE */
 
-.page-wrapper{
-display:grid;
-grid-template-columns:1fr 320px;
-gap:30px;
-max-width:1200px;
+.page{
+max-width:900px;
 margin:auto;
 padding:20px;
 }
 
-@media(max-width:900px){
 
-.page-wrapper{
-grid-template-columns:1fr;
-}
+/* TITLE */
 
-}
-
-/* =========================
-PAGE TITLE
-========================= */
-
-.page-title{
-font-size:28px;
+.title{
+font-size:34px;
 font-weight:700;
-margin-bottom:5px;
+text-transform:uppercase;
+margin-bottom:6px;
 }
 
-.page-subtitle{
-opacity:.7;
+.today-date{
+font-size:18px;
+font-weight:600;
 margin-bottom:20px;
 }
 
-/* =========================
-SEARCH NAV
-========================= */
 
-.search-panel{
+/* DATE SLIDER */
+
+.date-slider{
+display:flex;
+gap:10px;
+overflow-x:auto;
+margin-bottom:25px;
+padding-bottom:5px;
+}
+
+.date-item{
 background:#111;
-border-radius:10px;
-padding:20px;
-margin-bottom:20px;
+padding:10px 14px;
+border-radius:8px;
+cursor:pointer;
+font-size:13px;
+white-space:nowrap;
 }
 
-.search-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
+.date-item.active{
+background:#e11d48;
 }
 
-@media(max-width:700px){
 
-.search-grid{
-grid-template-columns:1fr;
+/* SEARCH */
+
+.search-area{
+display:flex;
+flex-wrap:wrap;
+gap:20px;
+margin-bottom:25px;
 }
 
+.search-box{
+background:#111;
+padding:10px 14px;
+border-radius:8px;
+display:flex;
+align-items:center;
+gap:8px;
 }
 
 .search-box input{
-width:100%;
-padding:10px;
-border-radius:6px;
+background:transparent;
 border:none;
-}
-
-.search-btn{
-margin-top:8px;
-padding:10px;
-width:100%;
-border:none;
-background:#e11d48;
+outline:none;
 color:white;
-border-radius:6px;
-cursor:pointer;
 }
 
-/* =========================
-ACTION BUTTONS
-========================= */
 
-.action-buttons{
-margin-top:15px;
+/* MENU BUTTON */
+
+.top-buttons{
 display:flex;
 flex-wrap:wrap;
 gap:10px;
+margin-bottom:25px;
 }
 
-.action-buttons a{
-
+.top-buttons a{
 background:#222;
 padding:10px 14px;
 border-radius:6px;
@@ -114,62 +110,63 @@ text-decoration:none;
 font-size:13px;
 }
 
-.action-buttons a:hover{
-background:#333;
+
+/* AFFILIATE BOX */
+
+.affiliate-box{
+background:#ff6a00;
+padding:16px;
+border-radius:10px;
+margin-bottom:25px;
 }
 
-/* =========================
-TABLE
-========================= */
+.affiliate-title{
+font-weight:700;
+margin-bottom:10px;
+}
 
-.jadwal-table{
+.affiliate-item{
+display:block;
+background:white;
+color:black;
+padding:8px;
+border-radius:6px;
+margin-bottom:8px;
+text-decoration:none;
+}
 
+
+/* TABLE */
+
+table{
 width:100%;
 border-collapse:collapse;
 }
 
-.jadwal-table th,
-.jadwal-table td{
-
+th,td{
 padding:10px;
 border-bottom:1px solid #333;
 text-align:left;
 }
 
-.jadwal-table th{
+th{
 background:#111;
 }
 
-/* =========================
-SIDEBAR ADS
-========================= */
 
-.ads-item img{
-width:100%;
-border-radius:8px;
-margin-bottom:15px;
+/* NAV DAY */
+
+.day-nav{
+display:flex;
+justify-content:space-between;
+margin-top:15px;
 }
 
-/* =========================
-FOOTER SEO
-========================= */
-
-.page-footer{
-margin-top:40px;
-padding-top:20px;
-border-top:1px solid #333;
-}
-
-.page-tags{
-margin-top:10px;
-}
-
-.page-tags span{
-background:#222;
-padding:6px 10px;
+.day-btn{
+background:#e11d48;
+padding:10px 14px;
 border-radius:6px;
-margin-right:5px;
-font-size:12px;
+cursor:pointer;
 }
 
 </style>
@@ -178,82 +175,59 @@ font-size:12px;
 
 <body>
 
+<div class="page">
 
-<!-- FLOATING PROMO -->
-<div id="promo-bar">
-<span id="promo-text"></span>
-<button id="promo-close">X</button>
+<div class="title">
+JADWAL WAYANG KULIT HARI INI
 </div>
 
+<div class="today-date" id="today-date"></div>
 
-<div class="page-wrapper">
+<!-- DATE SLIDER -->
 
+<div class="date-slider" id="date-slider"></div>
 
-<!-- MAIN CONTENT -->
-<div>
+<!-- SEARCH -->
 
-
-<h1 class="page-title">
-Jadwal Wayang Kulit April 2026
-</h1>
-
-<div class="page-subtitle">
-Database jadwal pertunjukan wayang kulit seluruh Indonesia
-</div>
-
-
-
-<!-- SEARCH PANEL -->
-
-<div class="search-panel">
-
-<div class="search-grid">
-
-
-<!-- SEARCH TANGGAL -->
+<div class="search-area">
 
 <div class="search-box">
 
-<label>Cari Berdasarkan Tanggal</label>
+<span>📅</span>
 
-<input type="date" id="search-date">
-
-<button class="search-btn">
-Cari Jadwal
-</button>
+<input
+type="date"
+id="search-date"
+onchange="searchDate()"
+/>
 
 </div>
-
-
-
-<!-- SEARCH DALANG -->
 
 <div class="search-box">
 
-<label>Cari Nama Dalang</label>
+<span>🎭</span>
 
-<input type="text" placeholder="contoh: ki seno nugroho">
-
-<button class="search-btn">
-Cari Dalang
-</button>
-
-</div>
-
+<input
+type="text"
+placeholder="Cari nama dalang"
+id="search-dalang"
+onkeyup="searchDalang()"
+/>
 
 </div>
 
+</div>
 
-<!-- ACTION BUTTONS -->
+<!-- MENU -->
 
-<div class="action-buttons">
+<div class="top-buttons">
 
 <a href="../index.html">
 🏠 Kembali ke Halaman Depan
 </a>
 
 <a href="#">
-📩 Kirim Jadwal / Revisi Jadwal
+📩 Kirim Jadwal / Revisi
 </a>
 
 <a href="#">
@@ -262,20 +236,23 @@ Cari Dalang
 
 </div>
 
+<!-- AFFILIATE -->
+
+<div class="affiliate-box">
+
+<div class="affiliate-title">
+🔥 Promo Peralatan Pentas Wayang
 </div>
 
-
-<!-- SEARCH ADS -->
-
-<div id="search-ad-link">
+<a class="affiliate-item" id="search-ad-link" href="#">
 <span id="search-ad-text"></span>
+</a>
+
 </div>
-
-
 
 <!-- TABLE -->
 
-<table class="jadwal-table">
+<table>
 
 <thead>
 
@@ -283,105 +260,248 @@ Cari Dalang
 <th>Tanggal</th>
 <th>Dalang</th>
 <th>Lokasi</th>
-<th>Acara</th>
 </tr>
 
 </thead>
 
-<tbody id="jadwal-container">
-
-</tbody>
+<tbody id="jadwal-container"></tbody>
 
 </table>
 
+<div class="day-nav">
 
+<div class="day-btn" onclick="prevDay()">
+← HARI SEBELUMNYA
+</div>
 
-<!-- SEO FOOTER -->
+<div class="day-btn" onclick="nextDay()">
+HARI SELANJUTNYA →
+</div>
 
-<div class="page-footer">
+</div>
 
-<h3>Deskripsi Jadwal Wayang</h3>
+<!-- SEO DESCRIPTION -->
+
+<div style="margin-top:40px;font-size:14px">
+
+<h3>Deskripsi</h3>
 
 <p>
-
-Halaman ini berisi database jadwal pertunjukan wayang kulit bulan April 2026 yang dikumpulkan dari berbagai sumber terpercaya.
-
+Halaman ini menampilkan jadwal wayang kulit terbaru dari berbagai daerah di Indonesia.
 </p>
 
-<div class="page-tags">
+<h3>Tag</h3>
 
-<span>jadwal wayang</span>
-<span>jadwal dalang</span>
-<span>wayang kulit april 2026</span>
-<span>jadwal pentas wayang</span>
+<p>
+#jadwalwayang #wayangkulit #dalang
+</p>
 
-</div>
+<h3>Credit</h3>
 
-
-<div style="margin-top:15px;opacity:.7">
-
-Sumber Data : komunitas pecinta wayang kulit
+<p>
+Data jadwal dihimpun dari berbagai sumber komunitas seni dan informasi publik.
+</p>
 
 </div>
 
 </div>
-
-
-</div>
-
-
-
-<!-- SIDEBAR ADS -->
 
 <div id="ads-sidebar"></div>
 
-
-
-</div>
-
-
-
-<!-- SCRIPT -->
-
 <script src="../jadwal/jadwal.js"></script>
+
 <script src="../iklan.js"></script>
 
 <script>
 
-/* RENDER DATABASE JADWAL */
 
-const container = document.getElementById("jadwal-container");
+let currentDate = new Date()
 
-if(typeof JADWAL_WAYANG !== "undefined"){
+const dateEl=document.getElementById("today-date")
+const container=document.getElementById("jadwal-container")
 
-let html = "";
+
+function formatDate(date){
+
+return date.toLocaleDateString("id-ID",{
+weekday:"long",
+day:"numeric",
+month:"long",
+year:"numeric"
+})
+
+}
+
+
+function renderDate(){
+
+dateEl.innerText=formatDate(currentDate).toUpperCase()
+
+}
+
+renderDate()
+
+
+
+/* RENDER DATE SLIDER */
+
+function renderSlider(){
+
+const slider=document.getElementById("date-slider")
+
+slider.innerHTML=""
+
+for(let i=-3;i<=3;i++){
+
+let d=new Date(currentDate)
+
+d.setDate(currentDate.getDate()+i)
+
+const item=document.createElement("div")
+
+item.className="date-item"
+
+if(i===0) item.classList.add("active")
+
+item.innerText=d.toLocaleDateString("id-ID",{day:"numeric",month:"short"})
+
+item.onclick=()=>{
+
+currentDate=d
+
+renderDate()
+renderJadwal()
+renderSlider()
+
+}
+
+slider.appendChild(item)
+
+}
+
+}
+
+renderSlider()
+
+
+
+/* RENDER JADWAL */
+
+function renderJadwal(){
+
+if(typeof JADWAL_WAYANG==="undefined") return
+
+const todayStr=currentDate.toISOString().slice(0,10)
+
+let html=""
 
 JADWAL_WAYANG.forEach(j=>{
 
-html += `
+if(j.tanggal===todayStr){
+
+html+=`
 
 <tr>
 
 <td>${j.tanggal}</td>
-
 <td>${j.dalang}</td>
-
 <td>${j.lokasi}</td>
-
-<td>${j.acara}</td>
 
 </tr>
 
-`;
-
-});
-
-container.innerHTML = html;
+`
 
 }
 
-</script>
+})
 
+container.innerHTML=html || "<tr><td colspan='3'>Belum ada jadwal</td></tr>"
+
+}
+
+renderJadwal()
+
+
+
+/* NAV DAY */
+
+function prevDay(){
+
+currentDate.setDate(currentDate.getDate()-1)
+
+renderDate()
+renderJadwal()
+renderSlider()
+
+}
+
+function nextDay(){
+
+currentDate.setDate(currentDate.getDate()+1)
+
+renderDate()
+renderJadwal()
+renderSlider()
+
+}
+
+
+
+/* SEARCH DATE */
+
+function searchDate(){
+
+const input=document.getElementById("search-date").value
+
+if(!input) return
+
+currentDate=new Date(input)
+
+renderDate()
+renderJadwal()
+renderSlider()
+
+}
+
+
+
+/* SEARCH DALANG */
+
+function searchDalang(){
+
+const keyword=document
+.getElementById("search-dalang")
+.value
+.toLowerCase()
+
+let html=""
+
+JADWAL_WAYANG.forEach(j=>{
+
+if(j.dalang.toLowerCase().includes(keyword)){
+
+html+=`
+
+<tr>
+
+<td>${j.tanggal}</td>
+<td>${j.dalang}</td>
+<td>${j.lokasi}</td>
+
+</tr>
+
+`
+
+}
+
+})
+
+container.innerHTML=html
+
+}
+
+
+</script>
 
 </body>
 </html>
