@@ -670,19 +670,20 @@ height:28px;
 /* ================= JADWAL WAYANG (UPGRADE) ================= */
 
 .jadwal-box{
-display:flex;
-flex-direction:column;
-gap:10px;
+padding:14px 16px;
+background:#161616;
+border-radius:10px;
 }
+
 
 /* HEADER JADWAL */
 
 .jadwal-title{
 display:flex;
-align-items:center;
-gap:14px;
+align-items:flex-start;
+gap:12px;
 margin:0;
-font-size:16px;
+font-size:17px;
 font-weight:700;
 letter-spacing:.4px;
 }
@@ -690,11 +691,9 @@ letter-spacing:.4px;
 /* ICON */
 
 .jadwal-icon{
-font-size:36px;
-display:flex;
-align-items:center;
-justify-content:center;
-color:#ffffff;
+font-size:34px;
+line-height:1;
+margin-top:2px;
 }
 
 /* DATE */
@@ -702,11 +701,11 @@ color:#ffffff;
 .jadwal-date{
 font-size:15px;
 color:#ffffff;
-opacity:1;
 margin-top:-4px;
 margin-left:46px;
 font-weight:600;
 text-transform:uppercase;
+letter-spacing:.5px;
 }
 
 /* LIST (SCROLL, BUKAN ROLL) */
