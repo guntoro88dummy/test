@@ -427,14 +427,27 @@ function loadJadwal() {
 
   trending.innerHTML = `
   
-  <div class="jadwal-box">
+<div class="jadwal-box">
 
-    <h3 class="jadwal-title">📅 JADWAL WAYANG KULIT HARI INI
-    <div class="jadwal-date">${formatTanggalFull()}</div></h3>
+<h3 class="jadwal-title">
 
-    <div class="jadwal-list">
-      ${listHTML}
-    </div>
+<span class="jadwal-icon">
+<i class="fa-solid fa-calendar-days"></i>
+</span>
+
+<span class="jadwal-text">
+JADWAL WAYANG KULIT HARI INI
+</span>
+
+</h3>
+
+<div class="jadwal-date">
+${formatTanggalFull()}
+</div>
+
+<div class="jadwal-list">
+${listHTML}
+</div>
 
     <a href="jadwal/jadwal-wayang-mei-2026.html" class="jadwal-btn">
       LIHAT JADWAL TANGGAL LAIN →
