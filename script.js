@@ -441,8 +441,10 @@ function loadJadwal() {
     </a>
 
     <div class="jadwal-note">
-      <p>⚠️ JADWAL BISA BERUBAH SEWAKTU-WAKTU</p>
-      <p>⚠️ DATA DIAMBIL DARI BERBAGAI SUMBER</p>
+      <p>JADWAL BISA BERUBAH - UBAH SEWAKTU WAKTU</p>
+      <p>JADWAL DIAMBIL DARI BERBAGAI SUMBER, MOHON MAAF BILA SALAH TULIS</p>
+      <p>SUMBER JADWAL DAN TERIMA KASIH KEPADA :</p>
+      <p>KLUBAN.NET, GRUP WMC (WAYANG MANIA COMUNITY ), INFO HIBURAN PLAT AE, DLL</p>
     </div>
 
   </div>
