@@ -333,7 +333,7 @@ renderDate()
 
 function renderJadwal(){
 
-if(typeof jadwal==="undefined"){
+if(typeof JADWAL_WAYANG==="undefined"){
 
 container.innerHTML="<tr><td colspan='3'>Database belum terhubung</td></tr>"
 return
@@ -344,7 +344,7 @@ const today=formatDatabaseDate(currentDate)
 
 let html=""
 
-jadwal.forEach(j=>{
+JADWAL_WAYANG.forEach(j=>{
 
 if(j.tanggal===today){
 
@@ -401,7 +401,7 @@ const keyword=document.getElementById("search-dalang").value.toLowerCase()
 
 let html=""
 
-jadwal.forEach(j=>{
+JADWAL_WAYANG.forEach(j=>{
 
 if(j.dalang.toLowerCase().includes(keyword)){
 
