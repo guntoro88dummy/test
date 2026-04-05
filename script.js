@@ -96,6 +96,8 @@ border-radius:12px;
 text-decoration:none;
 ">
 
+<!-- THUMBNAIL -->
+
 <img 
 src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg"
 style="
@@ -107,13 +109,56 @@ left:0;
 top:0;
 ">
 
-<!-- JUDUL -->
+<!-- FAKE PLAYER OVERLAY -->
+
+<img 
+src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJ3sWQy9DHOT4gY0YH4Qw_6NvdeoAv_BO5wKMtraytnkSbVykLD1dwji_k-TPq9Em89c4gZhtMgrv1utGKNro4Jiza54bBZdgp5k-iBHXI3YMEuQDaqTCK0UHuFPAgeDW0QXaznouIcMrjwmsbyBbDnkID1Xp50-DAqhUBWNC_XM1C-ZU6Ywu6xKAIKUY/s1920/player.PNG"
+style="
+position:absolute;
+width:100%;
+height:100%;
+object-fit:cover;
+left:0;
+top:0;
+pointer-events:none;
+opacity:0.95;
+">
+
+<!-- PLAY BUTTON -->
+
+<div style="
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:90px;
+height:90px;
+background:rgba(255,255,255,0.85);
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 10px 30px rgba(0,0,0,0.6);
+">
+
+<div style="
+width:0;
+height:0;
+border-left:28px solid black;
+border-top:18px solid transparent;
+border-bottom:18px solid transparent;
+margin-left:6px;
+"></div>
+
+</div>
+
+<!-- JUDUL (NAIK DI ATAS SEEKBAR) -->
 
 <div style="
 position:absolute;
 left:0;
 right:0;
-bottom:0;
+bottom:60px;
 padding:18px;
 background:linear-gradient(to top,rgba(0,0,0,0.85),transparent);
 color:white;
@@ -132,12 +177,12 @@ ${v.title}
 
 </div>
 
-<!-- WATCH BUTTON -->
+<!-- LABEL YOUTUBE -->
 
 <div style="
 position:absolute;
 right:14px;
-bottom:70px;
+bottom:20px;
 background:rgba(0,0,0,0.75);
 color:white;
 padding:6px 10px;
