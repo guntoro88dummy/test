@@ -112,7 +112,7 @@ top:0;
 <!-- FAKE PLAYER OVERLAY -->
 
 <img 
-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg7YBScMgQ-rqs_5HcYykbzUdlafF5HwKB45NTJRs45DUid4Bit9HSAWsI6v2lYOWskbRWqFOVi4SgxpzRNe_z_cWBHluXgerIvoDzkX4mpwUaj8SFk60yyydAf3M1LKOl_NCmAE15mHNVmPNU8tLkULxGR4WK2prXk5b6VgkojQzOQW_vUZjmCAOzYnAo/s1920/player.PNG"
+src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJ3sWQy9DHOT4gY0YH4Qw_6NvdeoAv_BO5wKMtraytnkSbVykLD1dwji_k-TPq9Em89c4gZhtMgrv1utGKNro4Jiza54bBZdgp5k-iBHXI3YMEuQDaqTCK0UHuFPAgeDW0QXaznouIcMrjwmsbyBbDnkID1Xp50-DAqhUBWNC_XM1C-ZU6Ywu6xKAIKUY/s1920/player.PNG"
 style="
 position:absolute;
 width:100%;
@@ -131,44 +131,49 @@ position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-width:90px;
-height:90px;
+width:clamp(60px, 12vw, 90px);
+height:clamp(60px, 12vw, 90px);
 background:rgba(255,255,255,0.85);
 border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
 box-shadow:0 10px 30px rgba(0,0,0,0.6);
+animation:pulse 1.6s infinite;
 ">
 
 <div style="
 width:0;
 height:0;
-border-left:28px solid black;
-border-top:18px solid transparent;
-border-bottom:18px solid transparent;
-margin-left:6px;
+border-left:clamp(18px, 4vw, 28px) solid black;
+border-top:clamp(12px, 3vw, 18px) solid transparent;
+border-bottom:clamp(12px, 3vw, 18px) solid transparent;
+margin-left:4px;
 "></div>
 
 </div>
 
-<!-- JUDUL (NAIK DI ATAS SEEKBAR) -->
+<!-- JUDUL RESPONSIVE -->
 
 <div style="
 position:absolute;
 left:0;
 right:0;
-bottom:60px;
-padding:18px;
+bottom:clamp(50px, 8vw, 70px);
+padding:clamp(10px, 3vw, 18px);
 background:linear-gradient(to top,rgba(0,0,0,0.85),transparent);
 color:white;
 ">
 
 <h2 style="
 margin:0;
-font-size:22px;
-line-height:1.35;
+font-size:clamp(14px, 4vw, 22px);
+line-height:1.3;
 text-shadow:0 2px 6px rgba(0,0,0,0.7);
+display:-webkit-box;
+-webkit-line-clamp:2;
+-webkit-box-orient:vertical;
+overflow:hidden;
 ">
 
 ${v.title}
