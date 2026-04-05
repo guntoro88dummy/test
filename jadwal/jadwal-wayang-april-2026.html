@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-
 <html lang="id">
+
 <head>
 
 <meta charset="UTF-8">
@@ -146,10 +146,11 @@ margin-bottom:25px;
 }
 
 .affiliate a{
-background:white;
-color:black;
-padding:8px 12px;
-border-radius:6px;
+background:none;
+color:white;
+font-weight:bold;
+padding:0;
+border-radius:0;
 text-decoration:none;
 }
 
@@ -279,9 +280,8 @@ JADWAL WAYANG KULIT APRIL 2026
 <!-- FLOATING PROMO TEXT -->
 
 <div class="affiliate" id="promo-bar" style="margin-top:20px">
-
-<span id="promo-text"></span> <span id="promo-close" style="margin-left:10px;cursor:pointer;">✕</span>
-
+<span id="promo-text"></span>
+<span id="promo-close" style="margin-left:10px;cursor:pointer;">✕</span>
 </div>
 
 <div class="seo">
@@ -310,13 +310,29 @@ Data jadwal dihimpun dari berbagai sumber komunitas seni dan informasi publik.
 
 <!-- SIDEBAR RIGHT -->
 
-<div class="ads-right" id="ads-sidebar"></div>
+<div class="ads-right" id="ads-sidebar-right"></div>
 
 </div>
 
 <script src="https://ajimangkara.com/jadwal/jadwal.js"></script>
-
 <script src="/iklan.js"></script>
+
+<script>
+
+/* DUPLIKASI IKLAN SIDEBAR KIRI KE KANAN */
+
+setTimeout(function(){
+
+const left=document.getElementById("ads-sidebar")
+const right=document.getElementById("ads-sidebar-right")
+
+if(left && right){
+right.innerHTML=left.innerHTML
+}
+
+},500)
+
+</script>
 
 <script>
 
@@ -353,9 +369,7 @@ year:"numeric"
 }
 
 function renderDate(){
-
 dateEl.innerText=formatDisplayDate(currentDate)
-
 }
 
 function renderSlider(){
@@ -390,10 +404,8 @@ slider.appendChild(el)
 function renderJadwal(){
 
 if(typeof JADWAL_WAYANG==="undefined"){
-
 container.innerHTML="<tr><td colspan='3'>Database belum terhubung</td></tr>"
 return
-
 }
 
 const today=formatDatabaseDate(currentDate)
@@ -421,33 +433,26 @@ container.innerHTML=html||"<tr><td colspan='3'>Belum ada jadwal</td></tr>"
 }
 
 function updateAll(){
-
 renderDate()
 renderSlider()
 renderJadwal()
-
 }
 
 updateAll()
 
 function prevDay(){
-
 currentDate.setDate(currentDate.getDate()-1)
 updateAll()
-
 }
 
 function nextDay(){
-
 currentDate.setDate(currentDate.getDate()+1)
 updateAll()
-
 }
 
 function searchDate(){
 
 const input=document.getElementById("search-date").value
-
 currentDate=new Date(input)
 updateAll()
 
