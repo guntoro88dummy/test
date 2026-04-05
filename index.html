@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+
 <html lang="id">
+
 <head>
 
 <meta charset="UTF-8">
@@ -21,7 +23,7 @@
 
 <meta property="og:image" content="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160">
 
-<link rel="icon" href="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160">
+<link rel="icon" href="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yyCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160">
 
 <link rel="stylesheet" href="style.css">
 
@@ -30,41 +32,154 @@
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+<div id="sidebar" class="sidebar">
+
+<div class="sidebar-menu">
+
+<a href="#">🏠 Home</a>
+
+<div class="menu-title">🛠 YouTube Tools</div>
+<a href="#">Download Thumbnail YouTube</a>
+<a href="#">Generator Judul YouTube</a>
+<a href="#">Generator Deskripsi YouTube</a>
+<a href="#">Generator Tag YouTube</a>
+
+<div class="menu-title">🎨 Creator Assets</div>
+<a href="#">Free Thumbnail Wayang</a>
+
+<div class="menu-title">🖼 Galeri</div>
+<a href="#">Foto Dalang Indonesia</a>
+<a href="#">Foto Pelawak Indonesia</a>
+<a href="#">Foto Sinden Indonesia</a>
+
+</div>
+  
+<div id="menu-overlay" class="menu-overlay"></div>
+
+</div>
+
+<style>
+
+body{
+font-family:'Roboto',sans-serif;
+background:#0f0f0f;
+color:white;
+margin:0;
+}
+
+.header{
+background:#0f0f0f;
+border-bottom:1px solid #222;
+padding:10px 20px;
+position:sticky;
+top:0;
+z-index:999;
+}
+
+.header-bar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
+}
+
+.logo-area{
+display:flex;
+align-items:center;
+gap:10px;
+font-weight:600;
+}
+
+.logo-area img{
+height:24px;
+}
+
+.search-ad{
+flex:1;
+display:flex;
+align-items:center;
+background:#121212;
+border:1px solid #333;
+height:40px;
+border-radius:20px;
+padding:0 20px;
+color:#aaa;
+text-decoration:none;
+max-width:600px;
+margin:0 auto;
+}
+
+.search-ad span{
+flex:1;
+text-align:center;
+font-size:14px;
+}
+
+.voice-btn{
+margin-left:10px;
+background:#181818;
+border-radius:50%;
+width:40px;
+height:40px;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+}
+
+.right-menu{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.create-btn{
+background:#272727;
+border:none;
+color:white;
+padding:8px 14px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.notif{
+position:relative;
+font-size:18px;
+cursor:pointer;
+}
+
+.notif-badge{
+position:absolute;
+top:-6px;
+right:-8px;
+background:red;
+color:white;
+font-size:10px;
+padding:2px 6px;
+border-radius:10px;
+}
+
+.channel-avatar{
+width:32px;
+height:32px;
+border-radius:50%;
+cursor:pointer;
+}
+
+</style>
+
 </head>
 
 <body>
-
-<!-- SIDEBAR -->
-<div id="sidebar" class="sidebar">
-  <div class="sidebar-menu">
-
-    <a href="#">🏠 Home</a>
-
-    <div class="menu-title">🛠 YouTube Tools</div>
-    <a href="#">Download Thumbnail YouTube</a>
-    <a href="#">Generator Judul YouTube</a>
-    <a href="#">Generator Deskripsi YouTube</a>
-    <a href="#">Generator Tag YouTube</a>
-
-    <div class="menu-title">🎨 Creator Assets</div>
-    <a href="#">Free Thumbnail Wayang</a>
-
-    <div class="menu-title">🖼 Galeri</div>
-    <a href="#">Foto Dalang Indonesia</a>
-    <a href="#">Foto Pelawak Indonesia</a>
-    <a href="#">Foto Sinden Indonesia</a>
-
-  </div>
-</div>
-
-<div id="menu-overlay" class="menu-overlay"></div>
 
 <header class="header">
 
 <div class="header-bar">
 
 <div class="logo-area">
-<div id="menu-toggle" class="menu-toggle">☰</div>
+<div id="menu-toggle" class="menu-toggle">
+☰
+</div>
 <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png">
 <span>AJI MANGKARA</span>
 </div>
@@ -107,10 +222,7 @@ src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5m
 
 <div class="trending">
 
-<!-- 🔥 JADWAL WAYANG MASUK KE SINI -->
-<div id="trending">
-<p style="opacity:.5;font-size:13px;">Memuat jadwal...</p>
-</div>
+<div id="trending"></div>
 
 </div>
 
@@ -172,15 +284,20 @@ Sawer Online
 <div class="channel-description">
 
 <span>
+
 21,571,545 Views • Joined Jun 13, 2017
 #ajimangkara #ajimangkarachannel #livewayangkulit
+
 </span>
 
 <p>
+
 Avlog Media kini berganti menjadi Aji Mangkara.
 Setelah 12 Tahun menggunakan nama Channel Avlog Media,
 Channel ini kini berganti nama dan logo.
+
 <a id="more-btn">...more</a>
+
 </p>
 
 </div>
@@ -225,6 +342,7 @@ Channel ini kini berganti nama dan logo.
 <div class="right-ads">
 
 <h3 class="ads-title">Sponsor</h3>
+
 <div id="ads-sidebar"></div>
 
 </div>
@@ -233,9 +351,10 @@ Channel ini kini berganti nama dan logo.
 
 </div>
 
-<!-- POPUP -->
 <div id="popup" class="popup">
+
 <div class="popup-content">
+
 <button id="close-popup">X</button>
 
 <h3>Description</h3>
@@ -243,20 +362,34 @@ Channel ini kini berganti nama dan logo.
 <p>
 Avlog Media kini berganti menjadi Aji Mangkara.<br>
 ==============================================<br>
-Terima kasih sudah subscribe...
+Terima kasih sudah subscribe dan mendukung channel ini, <br>
+sawer online / donasi untuk perkembangan channel : https://saweria.co/ajimangkara<br>
+Jangan Lupa Follow juga akun sosial media kami di:<br>
+Website : www.ajimangkara.com<br>
+Facebook : Anton Guntoro ( https://www.facebook.com/anton.guntoro.31 )<br>
+Instagram : Anton Guntoro ( https://www.instagram.com/antonguntoro)<br>
+Tiktok : Anton Guntoro ( https://www.tiktok.com/@antonguntoro)<br>
+======================================<br>
+Setelah 12 Tahun menggunakan nama Channel Avlog Media, <br>
+Channel ini Kini berganti Nama dan logo menjadi Aji Mangkara. <br>
+Terima kasih saran dan kritiknya selama ini. <br>
+Rabu Pahing, 31 Desember 2025 / 11 Rejeb 1959 / 11 Rajab 1447
 </p>
 
 </div>
+
 </div>
 
-<!-- PROMO -->
 <div id="promo-bar" class="floating-bar">
+
 <span id="promo-text"></span>
+
 <button id="promo-close">✕</button>
+
 </div>
 
-<!-- SCRIPT -->
 <script src="iklan.js"></script>
+
 <script src="database/hero.js"></script>
 <script src="database/trending.js"></script>
 <script src="database/shorts.js"></script>
@@ -266,6 +399,7 @@ Terima kasih sudah subscribe...
 <script src="schema-video.js"></script>
 <script src="jadwal/jadwal.js"></script>
 <script src="script.js"></script>
+
 
 </body>
 </html>
