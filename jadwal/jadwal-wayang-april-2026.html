@@ -12,6 +12,32 @@
 
 <style>
 
+/* DATE SLIDER */
+
+.date-slider{
+display:flex;
+justify-content:center;
+gap:8px;
+overflow-x:auto;
+margin-bottom:20px;
+padding-bottom:5px;
+}
+
+.date-item{
+background:#1a1a1a;
+padding:8px 12px;
+border-radius:6px;
+cursor:pointer;
+white-space:nowrap;
+font-size:13px;
+}
+
+.date-item.active{
+background:#e11d48;
+}
+
+/* BODY */
+
 body{
 font-family:Arial,Helvetica,sans-serif;
 margin:0;
@@ -64,7 +90,7 @@ margin-bottom:6px;
 .today-date{
 text-align:center;
 font-size:18px;
-margin-bottom:20px;
+margin-bottom:15px;
 }
 
 /* SEARCH */
@@ -206,6 +232,8 @@ JADWAL WAYANG KULIT APRIL 2026
 
 <div class="today-date" id="today-date"></div>
 
+<div class="date-slider" id="date-slider"></div>
+
 <div class="search-area">
 
 <div class="search-box">
@@ -296,6 +324,7 @@ let currentDate=new Date()
 
 const container=document.getElementById("jadwal-container")
 const dateEl=document.getElementById("today-date")
+const slider=document.getElementById("date-slider")
 
 const bulan=[
 "Januari","Februari","Maret","April","Mei","Juni",
@@ -329,7 +358,34 @@ dateEl.innerText=formatDisplayDate(currentDate)
 
 }
 
-renderDate()
+function renderSlider(){
+
+slider.innerHTML=""
+
+for(let i=-5;i<=5;i++){
+
+let d=new Date(currentDate)
+d.setDate(d.getDate()+i)
+
+let el=document.createElement("div")
+el.className="date-item"
+
+if(i===0){
+el.classList.add("active")
+}
+
+el.innerText=d.getDate()+" "+bulan[d.getMonth()]
+
+el.onclick=()=>{
+currentDate=d
+updateAll()
+}
+
+slider.appendChild(el)
+
+}
+
+}
 
 function renderJadwal(){
 
@@ -364,23 +420,27 @@ container.innerHTML=html||"<tr><td colspan='3'>Belum ada jadwal</td></tr>"
 
 }
 
+function updateAll(){
+
+renderDate()
+renderSlider()
 renderJadwal()
+
+}
+
+updateAll()
 
 function prevDay(){
 
 currentDate.setDate(currentDate.getDate()-1)
-
-renderDate()
-renderJadwal()
+updateAll()
 
 }
 
 function nextDay(){
 
 currentDate.setDate(currentDate.getDate()+1)
-
-renderDate()
-renderJadwal()
+updateAll()
 
 }
 
@@ -389,9 +449,7 @@ function searchDate(){
 const input=document.getElementById("search-date").value
 
 currentDate=new Date(input)
-
-renderDate()
-renderJadwal()
+updateAll()
 
 }
 
