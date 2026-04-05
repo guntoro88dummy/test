@@ -374,8 +374,87 @@ overlay.onclick=function(){
 closeMenu();
 }
 
+/* =========================
+   JADWAL WAYANG HARI INI
+========================= */
+
+function getTodayTanggal() {
+  const bulan = [
+    "Januari","Februari","Maret","April","Mei","Juni",
+    "Juli","Agustus","September","Oktober","November","Desember"
+  ];
+
+  const now = new Date();
+  const tgl = String(now.getDate()).padStart(2, "0");
+  const bln = bulan[now.getMonth()];
+  const thn = now.getFullYear();
+
+  return `${tgl} ${bln} ${thn}`;
+}
+
+function formatTanggalFull() {
+  const hari = [
+    "Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"
+  ];
+
+  const now = new Date();
+
+  return `${hari[now.getDay()]}, ${getTodayTanggal()}`;
+}
+
+function loadJadwal() {
+
+  if (!trending || typeof JADWAL_WAYANG === "undefined") return;
+
+  const today = getTodayTanggal();
+
+  const dataHariIni = JADWAL_WAYANG.filter(j => j.tanggal === today);
+
+  let listHTML = "";
+
+  if (dataHariIni.length === 0) {
+    listHTML = `<p style="opacity:.7;font-size:13px;">Belum ada jadwal hari ini</p>`;
+  } else {
+    dataHariIni.slice(0, 6).forEach(j => {
+      listHTML += `
+      <div class="jadwal-item">
+        <div class="dalang">${j.dalang.toUpperCase()}</div>
+        <div class="lokasi">${j.lokasi.toUpperCase()}</div>
+      </div>
+      `;
+    });
+  }
+
+  trending.innerHTML = `
+  
+  <div class="jadwal-box">
+
+    <h3 class="jadwal-title">📅 JADWAL WAYANG KULIT HARI INI</h3>
+    <div class="jadwal-date">${formatTanggalFull()}</div>
+
+    <div class="jadwal-list">
+      ${listHTML}
+    </div>
+
+    <a href="jadwal/jadwal-wayang-mei-2026.html" class="jadwal-btn">
+      LIHAT JADWAL TANGGAL LAIN →
+    </a>
+
+    <div class="jadwal-note">
+      <p>⚠️ JADWAL BISA BERUBAH SEWAKTU-WAKTU</p>
+      <p>⚠️ DATA DIAMBIL DARI BERBAGAI SUMBER</p>
+    </div>
+
+  </div>
+  
+  `;
+}
+
+
+
+
 /* INIT */
 
 loadHero();
-loadTrending();
+loadJadwal(); // 🔥 GANTI TRENDING
 loadDatabase();
