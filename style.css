@@ -666,3 +666,142 @@ height:28px;
 }
 
 }
+
+/* ================= JADWAL WAYANG (UPGRADE) ================= */
+
+.jadwal-box{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+/* TITLE */
+
+.jadwal-title{
+margin:0;
+font-size:15px;
+font-weight:600;
+letter-spacing:.3px;
+}
+
+/* DATE */
+
+.jadwal-date{
+font-size:12px;
+opacity:.6;
+margin-bottom:6px;
+}
+
+/* LIST (SCROLL, BUKAN ROLL) */
+
+.jadwal-list{
+max-height:240px;
+overflow-y:auto;
+display:flex;
+flex-direction:column;
+gap:10px;
+padding-right:4px;
+}
+
+/* ITEM */
+
+.jadwal-item{
+border-bottom:1px solid #222;
+padding-bottom:6px;
+transition:.2s;
+}
+
+.jadwal-item:hover{
+background:#1a1a1a;
+border-radius:6px;
+padding:6px;
+}
+
+/* DALANG */
+
+.jadwal-item .dalang{
+font-size:13px;
+font-weight:600;
+letter-spacing:.3px;
+}
+
+/* LOKASI */
+
+.jadwal-item .lokasi{
+font-size:11px;
+opacity:.65;
+margin-top:2px;
+line-height:1.3;
+}
+
+/* ================= CTA PALING PENTING ================= */
+
+.jadwal-btn{
+margin-top:12px;
+display:block;
+text-align:center;
+background:#cc0000;
+color:white;
+padding:12px;
+border-radius:10px;
+font-size:13px;
+font-weight:600;
+letter-spacing:.5px;
+text-decoration:none;
+position:relative;
+overflow:hidden;
+}
+
+/* 🔥 efek glow halus (bukan kedip norak) */
+.jadwal-btn::before{
+content:"";
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+transition:.6s;
+}
+
+.jadwal-btn:hover::before{
+left:100%;
+}
+
+/* 🔥 pulse halus */
+@keyframes pulseRed {
+0% { box-shadow:0 0 0 0 rgba(204,0,0,.6); }
+70% { box-shadow:0 0 0 10px rgba(204,0,0,0); }
+100% { box-shadow:0 0 0 0 rgba(204,0,0,0); }
+}
+
+.jadwal-btn{
+animation:pulseRed 2.5s infinite;
+}
+
+/* TAP EFFECT */
+
+.jadwal-btn:active{
+transform:scale(0.96);
+background:#990000;
+}
+
+/* NOTE */
+
+.jadwal-note{
+font-size:10px;
+opacity:.5;
+margin-top:8px;
+line-height:1.4;
+}
+
+/* SCROLLBAR DARK */
+
+.jadwal-list::-webkit-scrollbar{
+width:4px;
+}
+
+.jadwal-list::-webkit-scrollbar-thumb{
+background:#333;
+border-radius:10px;
+}
