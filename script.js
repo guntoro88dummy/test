@@ -112,7 +112,7 @@ top:0;
 <!-- FAKE PLAYER OVERLAY -->
 
 <img 
-src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh0fGTnpiwcqXGUehFMCQyS5Vvamg43KBX57IdRCG5bECx6-0589AmuWB5Ny84GeQZV6I9_Tgm4nCqjMXpBg1qh2IMNxbW3XO4aTCYx4zPw61lymoLdKO4Br8bwIQxUWuHAUhJP6uiE-9UsqemvIViqi261dl0dvd9sXxy_bm-IrD1qiFxZ0lxZMNJDKGQ/s1920/player.PNG"
+src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg7YBScMgQ-rqs_5HcYykbzUdlafF5HwKB45NTJRs45DUid4Bit9HSAWsI6v2lYOWskbRWqFOVi4SgxpzRNe_z_cWBHluXgerIvoDzkX4mpwUaj8SFk60yyydAf3M1LKOl_NCmAE15mHNVmPNU8tLkULxGR4WK2prXk5b6VgkojQzOQW_vUZjmCAOzYnAo/s1920/player.PNG"
 style="
 position:absolute;
 width:100%;
