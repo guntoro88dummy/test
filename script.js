@@ -429,8 +429,8 @@ function loadJadwal() {
   
   <div class="jadwal-box">
 
-    <h3 class="jadwal-title">📅 JADWAL WAYANG KULIT HARI INI</h3>
-    <div class="jadwal-date">${formatTanggalFull()}</div>
+    <h3 class="jadwal-title">📅 JADWAL WAYANG KULIT HARI INI
+    <div class="jadwal-date">${formatTanggalFull()}</div></h3>
 
     <div class="jadwal-list">
       ${listHTML}
@@ -441,6 +441,7 @@ function loadJadwal() {
     </a>
 
     <div class="jadwal-note">
+      <p> ⚠️ PERHATIAN 📢 </p>
       <p>JADWAL BISA BERUBAH - UBAH SEWAKTU WAKTU</p>
       <p>JADWAL DIAMBIL DARI BERBAGAI SUMBER, MOHON MAAF BILA SALAH TULIS</p>
       <p>SUMBER JADWAL DAN TERIMA KASIH KEPADA :</p>
