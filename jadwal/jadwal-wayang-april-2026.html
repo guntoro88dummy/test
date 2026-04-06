@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="id">
+
 <head>
 
 <meta charset="UTF-8">
@@ -68,14 +69,6 @@ border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
-cursor:pointer;
-}
-
-.create-btn{
-background:#181818;
-padding:8px 14px;
-border-radius:18px;
-font-size:13px;
 cursor:pointer;
 }
 
@@ -305,99 +298,29 @@ display:none;
 
 }
 
-/* HEADER MOBILE */
-
-@media(max-width:700px){
-
-.logo-area span{
-display:none;
-}
-
-.voice-btn{
-display:none;
-}
-
-.create-btn{
-display:none;
-}
-
-.notif{
-display:none;
-}
-
-.search-ad{
-margin-left:0;
-margin-right:0;
-max-width:none;
-}
-
-.header-bar{
-gap:10px;
-}
-
-}
-
 </style>
 
 </head>
 
 <body>
 
-<div id="sidebar" class="sidebar">
-
-<div class="sidebar-menu">
-
-<a href="/">🏠 Home</a>
-
-<div class="menu-title">🛠 YouTube Tools</div>
-<a href="#">Download Thumbnail YouTube</a>
-<a href="#">Generator Judul YouTube</a>
-<a href="#">Generator Deskripsi YouTube</a>
-<a href="#">Generator Tag YouTube</a>
-
-<div class="menu-title">🎨 Creator Assets</div>
-<a href="#">Free Thumbnail Wayang</a>
-
-<div class="menu-title">🖼 Galeri</div>
-<a href="#">Foto Dalang Indonesia</a>
-<a href="#">Foto Pelawak Indonesia</a>
-<a href="#">Foto Sinden Indonesia</a>
-
-</div>
-
-</div>
-
-<div id="menu-overlay" class="menu-overlay"></div>
-
 <!-- HEADER -->
 
-<header class="header">
+<div class="header">
 
 <div class="header-bar">
 
-<div class="logo-area">
-
-<div id="menu-toggle" class="menu-toggle">☰</div>
-
-<a href="https://ajimangkara.com/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:white;">
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png">
-
-<span>AJI MANGKARA</span>
-
+<a href="/" class="logo-area">
+<img src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160-c-k-c0x00ffffff-no-rj">
 </a>
 
-</div>
-
 <div class="search-ad">
-<span></span>
+<span>JANGAN LUPA SUBSCRIBE</span>
 </div>
-
-<div class="right-menu">
 
 <div class="voice-btn">🎤</div>
 
-<div class="create-btn">+ Create</div>
+<div class="right-menu">
 
 <div class="notif">
 🔔
@@ -405,15 +328,17 @@ gap:10px;
 </div>
 
 <img class="channel-avatar"
-src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160">
+src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160-c-k-c0x00ffffff-no-rj">
 
 </div>
 
 </div>
 
-</header>
+</div>
 
 <div class="layout">
+
+<!-- SIDEBAR LEFT -->
 
 <div class="ads-left" id="ads-sidebar"></div>
 
@@ -482,12 +407,32 @@ JADWAL WAYANG KULIT APRIL 2026
 <h3>Deskripsi</h3>
 
 <p>
-Jadwal wayang kulit terbaru bulan April 2026 lengkap dengan nama dalang dan lokasi pentas di berbagai daerah di Indonesia.
+Jadwal wayang kulit terbaru bulan April 2026 lengkap dengan nama dalang dan lokasi pentas di berbagai daerah di Indonesia. <br>
+Disusun dari berbagai sumber, sehingga mohon maaf kalau ada kesalahan penulisan dan informasi<br>
+Jadwal wayang kulit terbaru bulan April 2026 kemungkinan juga berubah menyesuaikan kondisi<br>
+Informasikan kepada admin ajimangkara.com kalau ada perubahan dan kesalahan penulisan<br>
+Gunakan tombol lapor admin diatas tabel Jadwal wayang kulit terbaru bulan April 2026
+</p>
+
+<h3>Tag</h3>
+
+<p>
+#jadwalwayanghariini #livewayangkulit #livewayangkulithariini #jadwalwayangkulitapril2026 #wayangkulit #ajimangkara #ajimangkarachannel
+</p>
+
+<h3>Credit dan Ucapan Terima kasih kepada</h3><br>
+<a href="https://www.kluban.net/">KLUBAN.NET</a><br>
+<a href="https://www.facebook.com/groups/294289887570503/">GROUP FACEBOOK WAYANG MANIA COMUNITY (WMC) </a><br>
+<a href="https://www.facebook.com/groups/infohiburanplatae">GROUP FACEBOOK INFO HIBURAN PLAT AE </a><br>
+  GRUP WA WAYANG MANIA COMUNITY (WMC)<br>
+  Dan beberapa grup, portal berita yang tidak bisa kami sebut satu-satu
 </p>
 
 </div>
 
 </div>
+
+<!-- SIDEBAR RIGHT -->
 
 <div class="ads-right" id="ads-sidebar-right"></div>
 
@@ -498,6 +443,8 @@ Jadwal wayang kulit terbaru bulan April 2026 lengkap dengan nama dalang dan loka
 <script src="/iklan.js"></script>
 
 <script>
+
+/* DUPLIKASI IKLAN SIDEBAR KIRI KE KANAN */
 
 setTimeout(function(){
 
@@ -514,18 +461,154 @@ right.innerHTML=left.innerHTML
 
 <script>
 
-const toggle=document.getElementById("menu-toggle")
-const sidebar=document.getElementById("sidebar")
-const overlay=document.getElementById("menu-overlay")
+/* SCRIPT JADWAL ASLI (TIDAK DIUBAH) */
 
-toggle.onclick=()=>{
-sidebar.classList.toggle("active")
-overlay.classList.toggle("active")
+let currentDate=new Date()
+
+const container=document.getElementById("jadwal-container")
+const dateEl=document.getElementById("today-date")
+const slider=document.getElementById("date-slider")
+
+const bulan=[
+"Januari","Februari","Maret","April","Mei","Juni",
+"Juli","Agustus","September","Oktober","November","Desember"
+]
+
+function formatDatabaseDate(date){
+
+let d=String(date.getDate()).padStart(2,'0')
+let m=bulan[date.getMonth()]
+let y=date.getFullYear()
+
+return d+" "+m+" "+y
+
 }
 
-overlay.onclick=()=>{
-sidebar.classList.remove("active")
-overlay.classList.remove("active")
+function formatDisplayDate(date){
+
+return date.toLocaleDateString("id-ID",{
+weekday:"long",
+day:"numeric",
+month:"long",
+year:"numeric"
+}).toUpperCase()
+
+}
+
+function renderDate(){
+dateEl.innerText=formatDisplayDate(currentDate)
+}
+
+function renderSlider(){
+
+slider.innerHTML=""
+
+for(let i=-5;i<=5;i++){
+
+let d=new Date(currentDate)
+d.setDate(d.getDate()+i)
+
+let el=document.createElement("div")
+el.className="date-item"
+
+if(i===0){
+el.classList.add("active")
+}
+
+el.innerText=d.getDate()+" "+bulan[d.getMonth()]
+
+el.onclick=()=>{
+currentDate=d
+updateAll()
+}
+
+slider.appendChild(el)
+
+}
+
+}
+
+function renderJadwal(){
+
+if(typeof JADWAL_WAYANG==="undefined"){
+container.innerHTML="<tr><td colspan='3'>Database belum terhubung</td></tr>"
+return
+}
+
+const today=formatDatabaseDate(currentDate)
+
+let html=""
+
+JADWAL_WAYANG.forEach(j=>{
+
+if(j.tanggal===today){
+
+html+=`
+<tr>
+<td>${j.tanggal}</td>
+<td>${j.dalang}</td>
+<td>${j.lokasi}</td>
+</tr>
+`
+
+}
+
+})
+
+container.innerHTML=html||"<tr><td colspan='3'>Belum ada jadwal</td></tr>"
+
+}
+
+function updateAll(){
+renderDate()
+renderSlider()
+renderJadwal()
+}
+
+updateAll()
+
+function prevDay(){
+currentDate.setDate(currentDate.getDate()-1)
+updateAll()
+}
+
+function nextDay(){
+currentDate.setDate(currentDate.getDate()+1)
+updateAll()
+}
+
+function searchDate(){
+
+const input=document.getElementById("search-date").value
+currentDate=new Date(input)
+updateAll()
+
+}
+
+function searchDalang(){
+
+const keyword=document.getElementById("search-dalang").value.toLowerCase()
+
+let html=""
+
+JADWAL_WAYANG.forEach(j=>{
+
+if(j.dalang.toLowerCase().includes(keyword)){
+
+html+=`
+<tr>
+<td>${j.tanggal}</td>
+<td>${j.dalang}</td>
+<td>${j.lokasi}</td>
+</tr>
+`
+
+}
+
+})
+
+container.innerHTML=html
+
 }
 
 </script>
