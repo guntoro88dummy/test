@@ -304,38 +304,65 @@ display:none;
 
 <body>
 
+<div id="sidebar" class="sidebar">
+
+<div class="sidebar-menu">
+
+<a href="/">🏠 Home</a>
+
+<div class="menu-title">🛠 YouTube Tools</div>
+<a href="#">Download Thumbnail YouTube</a>
+<a href="#">Generator Judul YouTube</a>
+<a href="#">Generator Deskripsi YouTube</a>
+<a href="#">Generator Tag YouTube</a>
+
+<div class="menu-title">🎨 Creator Assets</div>
+<a href="#">Free Thumbnail Wayang</a>
+
+<div class="menu-title">🖼 Galeri</div>
+<a href="#">Foto Dalang Indonesia</a>
+<a href="#">Foto Pelawak Indonesia</a>
+<a href="#">Foto Sinden Indonesia</a>
+
+</div>
+
+</div>
+
+<div id="menu-overlay" class="menu-overlay"></div>
+
 <!-- HEADER -->
 
-<div class="header">
+<header class="header">
 
 <div class="header-bar">
 
-<a href="/" class="logo-area">
-<img src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160-c-k-c0x00ffffff-no-rj">
-</a>
+<div class="logo-area">
 
-<div class="search-ad">
-<span>JANGAN LUPA SUBSCRIBE</span>
+<div id="menu-toggle" class="menu-toggle">
+☰
 </div>
 
-<div class="voice-btn">🎤</div>
+<img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png">
+
+<span>AJI MANGKARA</span>
+
+</div>
+
+<div class="search-ad">
+<span></span>
+</div>
 
 <div class="right-menu">
 
-<div class="notif">
-🔔
-<span class="notif-badge">3</span>
-</div>
-
 <img class="channel-avatar"
-src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160-c-k-c0x00ffffff-no-rj">
+src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160">
 
 </div>
 
 </div>
 
-</div>
-
+</header>
+  
 <div class="layout">
 
 <!-- SIDEBAR LEFT -->
@@ -609,6 +636,23 @@ html+=`
 
 container.innerHTML=html
 
+}
+
+</script>
+ <script>
+
+const toggle=document.getElementById("menu-toggle")
+const sidebar=document.getElementById("sidebar")
+const overlay=document.getElementById("menu-overlay")
+
+toggle.onclick=()=>{
+sidebar.classList.toggle("active")
+overlay.classList.toggle("active")
+}
+
+overlay.onclick=()=>{
+sidebar.classList.remove("active")
+overlay.classList.remove("active")
 }
 
 </script>
