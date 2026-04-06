@@ -15,16 +15,23 @@
 
 <style>
 
-/* ================= HEADER ================= */
-
+/* HEADER UTAMA */
 .header{
 border-bottom:1px solid #222;
 background:#0f0f0f;
 position:sticky;
 top:0;
 z-index:999;
+transition:all .3s ease;
 }
 
+/* SHADOW SAAT SCROLL */
+.header.scrolled{
+box-shadow:0 4px 15px rgba(0,0,0,0.6);
+border-bottom:1px solid #333;
+}
+
+/* HEADER DALAM */
 .header-bar{
 max-width:1400px;
 margin:auto;
@@ -647,6 +654,18 @@ container.innerHTML=html
 
 }
 
+</script>
+
+<script>
+window.addEventListener("scroll", function(){
+var header = document.querySelector(".header");
+
+if(window.scrollY > 10){
+header.classList.add("scrolled");
+}else{
+header.classList.remove("scrolled");
+}
+});
 </script>
 
 </body>
