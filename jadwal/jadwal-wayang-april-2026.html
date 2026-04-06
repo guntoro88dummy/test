@@ -5,22 +5,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Jadwal Wayang Kulit April 2026 | Ajimangkara</title>
+<title>Jadwal Wayang Kulit April 2026 | Aji Mangkara</title>
 <meta name="description" content="Jadwal wayang kulit bulan April 2026 terbaru lengkap dengan dalang dan lokasi pentas terbaru.">
+
+<link rel="icon" href="https://ajimangkara.com/favicon.ico">
+
+<link rel="stylesheet" href="/style.css">
 
 <style>
 
-/* ================= HEADER CLONE ================= */
+/* ================= HEADER CLONE (ISOLATED) ================= */
 
-.header{
+.yt-header{
 border-bottom:1px solid #222;
 background:#0f0f0f;
 position:sticky;
 top:0;
-z-index:999;
+z-index:9999;
 }
 
-.header-bar{
+.yt-header-bar{
 max-width:1400px;
 margin:auto;
 display:flex;
@@ -29,12 +33,12 @@ gap:16px;
 padding:10px 20px;
 }
 
-.menu-btn{
+.yt-menu{
 font-size:20px;
 cursor:pointer;
 }
 
-.logo-area{
+.yt-logo{
 display:flex;
 align-items:center;
 gap:8px;
@@ -43,12 +47,12 @@ text-decoration:none;
 color:white;
 }
 
-.logo-area img{
+.yt-logo img{
 height:22px;
 border-radius:50%;
 }
 
-.search-ad{
+.yt-search{
 flex:1;
 display:flex;
 align-items:center;
@@ -57,10 +61,9 @@ border-radius:20px;
 background:#121212;
 border:1px solid #333;
 padding:0 14px;
-color:#777;
 }
 
-.voice-btn{
+.yt-mic{
 width:36px;
 height:36px;
 background:#181818;
@@ -68,200 +71,32 @@ border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
-cursor:pointer;
 }
 
-.right-menu{
+.yt-right{
 margin-left:auto;
 display:flex;
 align-items:center;
 gap:16px;
 }
 
-.channel-avatar{
+.yt-avatar{
 width:32px;
 height:32px;
 border-radius:50%;
 }
 
-/* MOBILE */
-
 @media(max-width:768px){
 
-.search-ad{
-max-width:140px;
-}
-
-.voice-btn,
-.notif{
+.yt-mic,
+.yt-notif{
 display:none;
 }
 
+.yt-search{
+max-width:150px;
 }
 
-/* ================= ORIGINAL CSS (TIDAK DIUBAH) ================= */
-
-body{
-font-family:Arial,Helvetica,sans-serif;
-margin:0;
-background:#0f0f0f;
-color:white;
-}
-
-.layout{
-display:grid;
-grid-template-columns:160px 1fr 160px;
-gap:15px;
-max-width:1200px;
-margin:auto;
-padding:20px;
-}
-
-.ads-left,
-.ads-right{
-display:flex;
-flex-direction:column;
-gap:15px;
-}
-
-.ads-left img,
-.ads-right img{
-width:100%;
-border-radius:8px;
-}
-
-.page{
-padding:10px 20px;
-}
-
-.title{
-font-size:34px;
-font-weight:700;
-text-align:center;
-text-transform:uppercase;
-margin-bottom:6px;
-}
-
-.today-date{
-text-align:center;
-font-size:18px;
-margin-bottom:15px;
-}
-
-.date-slider{
-display:flex;
-justify-content:center;
-gap:8px;
-overflow-x:auto;
-margin-bottom:20px;
-padding-bottom:5px;
-}
-
-.date-item{
-background:#1a1a1a;
-padding:8px 12px;
-border-radius:6px;
-cursor:pointer;
-white-space:nowrap;
-font-size:13px;
-}
-
-.date-item.active{
-background:#e11d48;
-}
-
-.search-area{
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-margin-bottom:25px;
-}
-
-.search-box{
-background:#1a1a1a;
-padding:10px 14px;
-border-radius:8px;
-}
-
-.search-box input{
-background:none;
-border:none;
-color:white;
-outline:none;
-}
-
-.top-buttons{
-display:flex;
-justify-content:center;
-gap:10px;
-flex-wrap:wrap;
-margin-bottom:25px;
-}
-
-.top-buttons a{
-background:#222;
-padding:10px 14px;
-border-radius:6px;
-text-decoration:none;
-color:white;
-font-size:13px;
-}
-
-.affiliate{
-background:#ff6a00;
-padding:14px;
-border-radius:10px;
-text-align:center;
-margin-bottom:25px;
-}
-
-.affiliate a{
-color:white;
-font-weight:bold;
-text-decoration:none;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-}
-
-th,td{
-padding:10px;
-border-bottom:1px solid #333;
-}
-
-th{
-background:#1a1a1a;
-}
-
-.day-nav{
-display:flex;
-justify-content:space-between;
-margin-top:15px;
-}
-
-.day-btn{
-background:#e11d48;
-padding:10px 14px;
-border-radius:6px;
-cursor:pointer;
-}
-
-.seo{
-margin-top:40px;
-font-size:14px;
-line-height:1.6;
-}
-
-@media(max-width:900px){
-.layout{
-grid-template-columns:1fr;
-}
-.ads-left,.ads-right{
-display:none;
-}
 }
 
 </style>
@@ -270,43 +105,53 @@ display:none;
 
 <body>
 
-<!-- HEADER CLONE -->
+<!-- HEADER -->
 
-<div class="header">
-<div class="header-bar">
+<div class="yt-header">
+<div class="yt-header-bar">
 
-<div class="menu-btn">☰</div>
+<div class="yt-menu">☰</div>
 
-<a href="https://ajimangkara.com/" class="logo-area">
+<a href="https://ajimangkara.com/" class="yt-logo">
 <img src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160-c-k-c0x00ffffff-no-rj">
 <span>AJI MANGKARA</span>
 </a>
 
-<div class="search-ad"></div>
+<div class="yt-search"></div>
 
-<div class="voice-btn">🎤</div>
+<div class="yt-mic">🎤</div>
 
-<div class="right-menu">
-<div class="notif">🔔</div>
-<img class="channel-avatar" src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160-c-k-c0x00ffffff-no-rj">
+<div class="yt-right">
+<div class="yt-notif">🔔</div>
+<img class="yt-avatar" src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160-c-k-c0x00ffffff-no-rj">
 </div>
 
 </div>
 </div>
 
-<!-- ORIGINAL CONTENT TIDAK DIUBAH -->
+<!-- ORIGINAL CONTENT (UNCHANGED) -->
 
 <div class="layout">
+
 <div class="ads-left" id="ads-sidebar"></div>
+
 <div class="page">
 
 <div class="title">JADWAL WAYANG KULIT APRIL 2026</div>
 <div class="today-date" id="today-date"></div>
+
 <div class="date-slider" id="date-slider"></div>
 
 <div class="search-area">
-<div class="search-box">📅 <input type="date" id="search-date" onchange="searchDate()"></div>
-<div class="search-box">🎭 <input type="text" placeholder="Cari nama dalang" id="search-dalang" onkeyup="searchDalang()"></div>
+
+<div class="search-box">
+📅 <input type="date" id="search-date" onchange="searchDate()">
+</div>
+
+<div class="search-box">
+🎭 <input type="text" placeholder="Cari nama dalang" id="search-dalang" onkeyup="searchDalang()">
+</div>
+
 </div>
 
 <div class="top-buttons">
@@ -348,10 +193,12 @@ display:none;
 </div>
 
 </div>
+
 <div class="ads-right" id="ads-sidebar-right"></div>
+
 </div>
 
-<script src="https://ajimangkara.com/jadwal/jadwal.js"></script>
+<script src="/script.js"></script>
 
 <script src="/iklan.js"></script>
 
