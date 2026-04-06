@@ -15,6 +15,10 @@
 
 <style>
 
+html{
+scroll-behavior:smooth;
+}
+
 /* HEADER UTAMA */
 .header{
 position:sticky;
@@ -31,6 +35,27 @@ transition:all .3s ease;
 .header.scrolled{
 box-shadow:0 4px 15px rgba(0,0,0,0.6);
 border-bottom:1px solid #333;
+}
+
+/* HEADER DALAM */
+.header-bar{
+max-width:1400px;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
+padding:12px 20px;
+}
+
+/* BODY */
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+margin:0;
+background:#0f0f0f;
+color:white;
+overflow-x:hidden;
 }
 
 /* LOGO */
@@ -156,16 +181,6 @@ background:#e11d48;
 
 html{
 scroll-behavior:smooth;
-}
-
-/* BODY */
-
-body{
-font-family:Arial,Helvetica,sans-serif;
-margin:0;
-background:#0f0f0f;
-color:white;
-overflow-x:hidden;
 }
 
 /* LAYOUT */
@@ -651,28 +666,20 @@ container.innerHTML=html
 }
 
 </script>
-
+  
 <script>
-window.addEventListener("scroll", function(){
-var header = document.querySelector(".header");
+document.addEventListener("DOMContentLoaded", function(){
 
+const header = document.querySelector(".header");
+
+window.addEventListener("scroll", function(){
 if(window.scrollY > 10){
 header.classList.add("scrolled");
 }else{
 header.classList.remove("scrolled");
 }
 });
-</script>
 
- <script>
-window.addEventListener("scroll", function(){
-const header = document.querySelector(".header");
-
-if(window.scrollY > 10){
-header.classList.add("scrolled");
-}else{
-header.classList.remove("scrolled");
-}
 });
 </script>
 
