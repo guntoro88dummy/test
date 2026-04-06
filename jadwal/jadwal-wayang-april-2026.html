@@ -3,22 +3,55 @@
 <html lang="id">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Jadwal Wayang Kulit April 2026 | Ajimangkara</title>
+
 <meta name="description" content="Jadwal wayang kulit bulan April 2026 terbaru lengkap dengan dalang dan lokasi pentas terbaru.">
 
 <link rel="stylesheet" href="/style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+<style>
+
+/* TAMBAHAN KHUSUS HEADER CLONE */
+
+.menu-toggle{
+font-size:20px;
+cursor:pointer;
+}
+
+.create-btn{
+background:#222;
+padding:8px 12px;
+border-radius:20px;
+border:none;
+color:white;
+cursor:pointer;
+}
+
+@media(max-width:768px){
+
+.create-btn,
+.voice-btn,
+.notif{
+display:none;
+}
+
+}
+
+</style>
+
 </head>
 
 <body>
 
-<!-- ================= HEADER CLONE ================= -->
+<!-- HEADER CLONE -->
 
-<header class="header">
+<div class="header">
+
 <div class="header-bar">
 
 <div class="menu-toggle">☰</div>
@@ -47,16 +80,17 @@ Create
 </div>
 
 <img class="channel-avatar"
-src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160">
+src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160-c-k-c0x00ffffff-no-rj">
 
 </div>
 
 </div>
-</header>
 
-<!-- ================= LAYOUT ASLI ================= -->
+</div>
 
 <div class="layout">
+
+<!-- SIDEBAR LEFT -->
 
 <div class="ads-left" id="ads-sidebar"></div>
 
@@ -109,8 +143,10 @@ JADWAL WAYANG KULIT APRIL 2026
 </table>
 
 <div class="day-nav">
+
 <div class="day-btn" onclick="prevDay()">← HARI SEBELUMNYA</div>
 <div class="day-btn" onclick="nextDay()">HARI SELANJUTNYA →</div>
+
 </div>
 
 <div class="affiliate" id="promo-bar" style="margin-top:20px">
@@ -121,13 +157,34 @@ JADWAL WAYANG KULIT APRIL 2026
 <div class="seo">
 
 <h3>Deskripsi</h3>
+
 <p>
-Jadwal wayang kulit terbaru bulan April 2026 lengkap dengan nama dalang dan lokasi pentas di berbagai daerah di Indonesia.
+Jadwal wayang kulit terbaru bulan April 2026 lengkap dengan nama dalang dan lokasi pentas di berbagai daerah di Indonesia. <br>
+Disusun dari berbagai sumber, sehingga mohon maaf kalau ada kesalahan penulisan dan informasi<br>
+Jadwal wayang kulit terbaru bulan April 2026 kemungkinan juga berubah menyesuaikan kondisi<br>
+Informasikan kepada admin ajimangkara.com kalau ada perubahan dan kesalahan penulisan<br>
+Gunakan tombol lapor admin diatas tabel Jadwal wayang kulit terbaru bulan April 2026
+</p>
+
+<h3>Tag</h3>
+
+<p>
+#jadwalwayanghariini #livewayangkulit #livewayangkulithariini #jadwalwayangkulitapril2026 #wayangkulit #ajimangkara #ajimangkarachannel
+</p>
+
+<h3>Credit dan Ucapan Terima kasih kepada</h3><br>
+<a href="https://www.kluban.net/">KLUBAN.NET</a><br>
+<a href="https://www.facebook.com/groups/294289887570503/">GROUP FACEBOOK WAYANG MANIA COMUNITY (WMC) </a><br>
+<a href="https://www.facebook.com/groups/infohiburanplatae">GROUP FACEBOOK INFO HIBURAN PLAT AE </a><br>
+  GRUP WA WAYANG MANIA COMUNITY (WMC)<br>
+  Dan beberapa grup, portal berita yang tidak bisa kami sebut satu-satu
 </p>
 
 </div>
 
 </div>
+
+<!-- SIDEBAR RIGHT -->
 
 <div class="ads-right" id="ads-sidebar-right"></div>
 
@@ -139,24 +196,182 @@ Jadwal wayang kulit terbaru bulan April 2026 lengkap dengan nama dalang dan loka
 
 <script>
 
-/* MENU DUMMY */
-const menu=document.querySelector('.menu-toggle');
-if(menu){
-menu.onclick=function(){return false}
-}
+/* DUPLIKASI IKLAN SIDEBAR KIRI KE KANAN */
 
-/* DUPLIKASI IKLAN */
 setTimeout(function(){
+
 const left=document.getElementById("ads-sidebar")
 const right=document.getElementById("ads-sidebar-right")
+
 if(left && right){
 right.innerHTML=left.innerHTML
 }
+
 },500)
 
 </script>
 
-<script src="/script.js"></script>
+<script>
+
+/* MENU DUMMY */
+const menu=document.querySelector('.menu-toggle');
+if(menu){menu.onclick=function(){return false}}
+
+</script>
+
+<script>
+
+/* SCRIPT JADWAL ASLI (TIDAK DIUBAH) */
+
+let currentDate=new Date()
+
+const container=document.getElementById("jadwal-container")
+const dateEl=document.getElementById("today-date")
+const slider=document.getElementById("date-slider")
+
+const bulan=[
+"Januari","Februari","Maret","April","Mei","Juni",
+"Juli","Agustus","September","Oktober","November","Desember"
+]
+
+function formatDatabaseDate(date){
+
+let d=String(date.getDate()).padStart(2,'0')
+let m=bulan[date.getMonth()]
+let y=date.getFullYear()
+
+return d+" "+m+" "+y
+
+}
+
+function formatDisplayDate(date){
+
+return date.toLocaleDateString("id-ID",{
+weekday:"long",
+day:"numeric",
+month:"long",
+year:"numeric"
+}).toUpperCase()
+
+}
+
+function renderDate(){
+dateEl.innerText=formatDisplayDate(currentDate)
+}
+
+function renderSlider(){
+
+slider.innerHTML=""
+
+for(let i=-5;i<=5;i++){
+
+let d=new Date(currentDate)
+d.setDate(d.getDate()+i)
+
+let el=document.createElement("div")
+el.className="date-item"
+
+if(i===0){
+el.classList.add("active")
+}
+
+el.innerText=d.getDate()+" "+bulan[d.getMonth()]
+
+el.onclick=()=>{
+currentDate=d
+updateAll()
+}
+
+slider.appendChild(el)
+
+}
+
+}
+
+function renderJadwal(){
+
+if(typeof JADWAL_WAYANG==="undefined"){
+container.innerHTML="<tr><td colspan='3'>Database belum terhubung</td></tr>"
+return
+}
+
+const today=formatDatabaseDate(currentDate)
+
+let html=""
+
+JADWAL_WAYANG.forEach(j=>{
+
+if(j.tanggal===today){
+
+html+=`
+<tr>
+<td>${j.tanggal}</td>
+<td>${j.dalang}</td>
+<td>${j.lokasi}</td>
+</tr>
+`
+
+}
+
+})
+
+container.innerHTML=html||"<tr><td colspan='3'>Belum ada jadwal</td></tr>"
+
+}
+
+function updateAll(){
+renderDate()
+renderSlider()
+renderJadwal()
+}
+
+updateAll()
+
+function prevDay(){
+currentDate.setDate(currentDate.getDate()-1)
+updateAll()
+}
+
+function nextDay(){
+currentDate.setDate(currentDate.getDate()+1)
+updateAll()
+}
+
+function searchDate(){
+
+const input=document.getElementById("search-date").value
+currentDate=new Date(input)
+updateAll()
+
+}
+
+function searchDalang(){
+
+const keyword=document.getElementById("search-dalang").value.toLowerCase()
+
+let html=""
+
+JADWAL_WAYANG.forEach(j=>{
+
+if(j.dalang.toLowerCase().includes(keyword)){
+
+html+=`
+<tr>
+<td>${j.tanggal}</td>
+<td>${j.dalang}</td>
+<td>${j.lokasi}</td>
+</tr>
+`
+
+}
+
+})
+
+container.innerHTML=html
+
+}
+
+</script>
 
 </body>
 </html>
