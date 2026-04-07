@@ -12,56 +12,77 @@
 body{
 font-family:Arial,Helvetica,sans-serif;
 padding:20px;
-background:#f5f5f5
+background:#0b0b0b;
+color:#eee
 }
 
 .container{
-background:white;
+background:#111;
 padding:20px;
 border-radius:8px;
-box-shadow:0 0 10px rgba(0,0,0,.1)
+box-shadow:0 0 20px rgba(0,0,0,.5)
 }
 
 input{
 width:100%;
 padding:10px;
-margin-bottom:10px
+margin-bottom:10px;
+background:#1a1a1a;
+border:1px solid #333;
+color:white
 }
 
 button{
 padding:10px 15px;
 margin-right:10px;
-cursor:pointer
-margin-bottom:10px
+cursor:pointer;
+margin-bottom:10px;
+background:#5a0f14;
+color:white;
+border:none;
+border-radius:4px
+}
+
+button:hover{
+background:#7a161d
 }
 
 textarea{
 width:100%;
 height:200px;
-margin-top:15px
+margin-top:15px;
+background:#1a1a1a;
+color:white;
+border:1px solid #333
 }
 
 #log{
 margin-top:10px;
-color:green;
+color:#ff8c8c;
 font-weight:bold
 }
 
 table{
 width:100%;
 border-collapse:collapse;
-margin-top:15px
+margin-top:15px;
+background:#111
 }
 
 table th, table td{
-border:1px solid #ddd;
+border:1px solid #333;
 padding:8px;
 font-size:14px
 }
 
 table th{
-background:#333;
+background:#5a0f14;
 color:white
+}
+
+.editBtn{
+background:#333;
+padding:5px 8px
 }
 
 </style>
@@ -74,24 +95,22 @@ color:white
 
 <h2>Tool Grab Jadwal Wayang</h2>
 
-<input
-id="manualLink"
-placeholder="Masukkan Link Artikel Kluban..."
+<input id="manualLink" placeholder="Masukkan Link Artikel Kluban...">
 
->
-
-<button onclick="grabFeed()">Ambil Data</button> <button onclick="exportJS()">Export JS</button> <button onclick="copyJS()">Copy</button> <button onclick="clearData()">Clear</button>
+<button onclick="grabFeed()">Grab Data</button> <button onclick="exportJS()">Export JS</button> <button onclick="addManual()">Tambah Manual</button> <button onclick="clearData()">Clear</button>
 
 <div id="log"></div>
 
-<h3>Preview Data</h3>
+<h3>Preview Jadwal</h3>
 
 <table id="preview">
 <thead>
 <tr>
 <th>No</th>
-<th>Judul</th>
+<th>Tanggal</th>
+<th>Dalang</th>
 <th>Lokasi</th>
+<th>Edit</th>
 </tr>
 </thead>
 <tbody></tbody>
@@ -124,9 +143,12 @@ let tr = document.createElement("tr")
 
 tr.innerHTML = `
 <td>${i+1}</td>
-<td>${item.judul}</td>
+<td>${item.tanggal}</td>
+<td>${item.dalang}</td>
 <td>${item.lokasi}</td>
+<td><button class="editBtn" onclick="editData(${i})">Edit</button></td>
 `
+
 
 tbody.appendChild(tr)
 
@@ -154,13 +176,15 @@ if(line.includes(",")){
 
 let parts = line.split(",")
 
-if(parts.length >= 2){
+if(parts.length >= 3){
 
 DATABASE.push({
 
-judul:parts[0].trim(),
+tanggal:parts[0].trim(),
 
-lokasi:parts[1].trim()
+dalang:parts[1].trim(),
+
+lokasi:parts.slice(2).join(",").trim()
 
 })
 
@@ -178,7 +202,7 @@ renderTable()
 
 async function grabFeed(){
 
-log("Mengambil data artikel...")
+log("Mengambil data...")
 
 try{
 
@@ -192,8 +216,6 @@ let proxy = "https://dawn-base-2f52.guntoro88.workers.dev/?url="
 
 let url = proxy + encodeURIComponent(target)
 
-console.log("Grab URL:", url)
-
 const res = await fetch(url)
 
 const html = await res.text()
@@ -206,6 +228,46 @@ log("Gagal mengambil data")
 console.error(err)
 
 }
+
+}
+
+function editData(i){
+
+let t = prompt("Tanggal", DATABASE[i].tanggal)
+let d = prompt("Dalang", DATABASE[i].dalang)
+let l = prompt("Lokasi", DATABASE[i].lokasi)
+
+DATABASE[i]={
+
+tanggal:t,
+
+dalang:d,
+
+lokasi:l
+
+}
+
+renderTable()
+
+}
+
+function addManual(){
+
+let t = prompt("Tanggal")
+let d = prompt("Nama Dalang")
+let l = prompt("Lokasi")
+
+DATABASE.push({
+
+tanggal:t,
+
+dalang:d,
+
+lokasi:l
+
+})
+
+renderTable()
 
 }
 
@@ -224,25 +286,11 @@ log("Export selesai")
 
 }
 
-function copyJS(){
-
-let textarea = document.getElementById("output")
-
-textarea.select()
-
-document.execCommand("copy")
-
-log("Disalin ke clipboard")
-
-}
-
 function clearData(){
 
-DATABASE = []
+DATABASE=[]
 
-document.querySelector("#preview tbody").innerHTML = ""
-
-document.getElementById("output").value = ""
+renderTable()
 
 log("Data dibersihkan")
 
