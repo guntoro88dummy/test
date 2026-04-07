@@ -236,8 +236,16 @@ continue
 if(/^(ki|nyi)\s/i.test(line)){
 
 let dalang=line
-
 let lokasi="-"
+
+if(line.includes("📍")){
+
+let parts=line.split("📍")
+
+dalang=cleanText(parts[0].trim())
+lokasi=cleanText(parts[1].trim())
+
+}else{
 
 for(let j=i+1;j<=i+6;j++){
 
@@ -246,9 +254,28 @@ let cek=text[j]||""
 if(/^(ki|nyi)\s/i.test(cek)) break
 
 if(isLokasi(cek)){
-lokasi=cek
+lokasi=cleanText(cek)
 break
 }
+
+}
+
+}
+
+database.push({
+tanggal,
+dalang,
+lokasi
+})
+
+}
+
+}
+
+renderTable()
+generateJS()
+
+log("Data ditemukan : "+database.length)
 
 }
 
