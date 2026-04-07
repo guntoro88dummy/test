@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -119,7 +118,6 @@ Import jadwal.js
 <h2>Preview Table</h2>
 
 <table id="preview">
-
 <thead>
 <tr>
 <th>Tanggal</th>
@@ -128,9 +126,7 @@ Import jadwal.js
 <th>Hapus</th>
 </tr>
 </thead>
-
 <tbody></tbody>
-
 </table>
 
 <h2>Preview Code jadwal.js</h2>
@@ -145,8 +141,6 @@ let editMode=false
 function log(msg){
 document.getElementById("status").innerText=msg
 }
-
-function cleanText(text){
 
 function cleanText(text){
 
@@ -208,7 +202,7 @@ function parseHTML(html){
 
 database=[]
 
-html = html.replace(/<br\s*\/?>/gi,"\n")
+html=html.replace(/<br\s*\/?>/gi,"\n")
 
 let div=document.createElement("div")
 div.innerHTML=html
@@ -252,7 +246,7 @@ let cek=text[j] || ""
 if(/^(ki|nyi)\s/i.test(cek)) break
 
 if(isLokasi(cek)){
-lokasi = cleanText(cek)
+lokasi=cleanText(cek)
 break
 }
 
@@ -276,7 +270,7 @@ generateJS()
 log("Data ditemukan : "+database.length)
 
 }
-  
+
 function tambahManual(){
 
 let tgl=document.getElementById("tglManual").value
@@ -299,7 +293,6 @@ generateJS()
 function renderTable(){
 
 let tbody=document.querySelector("#preview tbody")
-
 tbody.innerHTML=""
 
 database.forEach((d,i)=>{
@@ -322,7 +315,6 @@ tbody.appendChild(tr)
 function hapusJadwal(i){
 
 database.splice(i,1)
-
 renderTable()
 generateJS()
 
@@ -368,9 +360,7 @@ let blob=new Blob(
 let a=document.createElement("a")
 
 a.href=URL.createObjectURL(blob)
-
 a.download="jadwal.js"
-
 a.click()
 
 }
