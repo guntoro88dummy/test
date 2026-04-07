@@ -165,20 +165,25 @@ try{
 
 let manual=document.getElementById("manualLink").value.trim()
 
-/* jika manual artikel */
-if(manual){
+let target = manual 
+? manual 
+: "https://www.kluban.net/feeds/posts/default"
 
-let jsonUrl = manual.replace(".html","?alt=json")
+let proxy="https://dawn-base-2f52.guntoro88.workers.dev/?url="
 
-let res = await fetch(jsonUrl)
+let res=await fetch(proxy+encodeURIComponent(target))
 
-let data = await res.json()
+let html=await res.text()
 
-let artikel = data.entry.content.$t
+parseHTML(html)
 
-parseHTML(artikel)
+}catch(err){
 
-return
+log("Gagal mengambil data")
+console.error(err)
+
+}
+
 }
 
 /* jika default feed */
