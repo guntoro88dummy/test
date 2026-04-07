@@ -155,40 +155,6 @@ return wilayah || tempat || koma>=1
 
 }
 
-/* AMBIL DATA RSS / LINK */
-
-async function grabFeed(){
-
-log("Mengambil data artikel...")
-
-try{
-
-let manual = document.getElementById("manualLink").value.trim()
-
-let target = manual 
-? manual 
-: "https://www.kluban.net/feeds/posts/default"
-
-let proxy = "https://dawn-base-2f52.guntoro88.workers.dev/?url="
-
-let url = proxy + encodeURIComponent(target)
-
-console.log("Grab URL:", url)
-
-let res = await fetch(url)
-
-let html = await res.text()
-
-parseHTML(html)
-
-}catch(err){
-
-log("Gagal mengambil data")
-console.error(err)
-
-}
-
-}
 
 /* jika default feed */
 
@@ -483,6 +449,43 @@ log("jadwal.js berhasil diimport")
 }
 
 reader.readAsText(file)
+
+}
+
+  /* ============================= */
+/* GRAB FEED VIA CLOUDFLARE */
+/* ============================= */
+
+async function grabFeed(){
+
+log("Mengambil data artikel...")
+
+try{
+
+let manual = document.getElementById("manualLink").value.trim()
+
+let target = manual 
+? manual 
+: "https://www.kluban.net/feeds/posts/default"
+
+let proxy = "https://dawn-base-2f52.guntoro88.workers.dev/?url="
+
+let url = proxy + encodeURIComponent(target)
+
+console.log("Grab URL:", url)
+
+const res = await fetch(url)
+
+const html = await res.text()
+
+parseHTML(html)
+
+}catch(err){
+
+log("Gagal mengambil data")
+console.error(err)
+
+}
 
 }
 
