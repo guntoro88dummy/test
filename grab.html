@@ -238,12 +238,15 @@ if(/^(ki|nyi)\s/i.test(line)){
 let dalang=line
 let lokasi="-"
 
-if(line.includes("📍")){
+let splitLokasi=line.match(/(.*?)(ds\.?|desa|kec\.?|kecamatan|kab\.?|kabupaten|kota|rt|rw|lapangan|pendopo|balai desa)/i)
 
-let parts=line.split("📍")
+if(splitLokasi){
 
-dalang=cleanText(parts[0].trim())
-lokasi=cleanText(parts[1].trim())
+dalang=cleanText(splitLokasi[1])
+
+lokasi=cleanText(
+line.replace(splitLokasi[1],"")
+)
 
 }else{
 
@@ -262,6 +265,22 @@ break
 
 }
 
+database.push({
+tanggal,
+dalang,
+lokasi
+})
+
+}
+
+}
+
+renderTable()
+generateJS()
+
+log("Data ditemukan : "+database.length)
+
+}
 database.push({
 tanggal,
 dalang,
