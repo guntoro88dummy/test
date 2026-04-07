@@ -148,6 +148,8 @@ document.getElementById("status").innerText=msg
 
 function cleanText(text){
 
+function cleanText(text){
+
 if(!text) return ""
 
 return text
@@ -158,6 +160,7 @@ return text
 .replace(/Live.*/i,"")
 .replace(/YouTube.*/i,"")
 .replace(/Instagram.*/i,"")
+.replace(/\s+/g," ")
 .trim()
 
 }
@@ -232,24 +235,18 @@ if(/^(ki|nyi)\s/i.test(line)){
 let dalang=line
 let lokasi="-"
 
-let match=line.match(/(.*?)(Ds\.?|Desa|Kec\.?|Kab\.?|Kota|RT|RW|Lapangan|Pendopo)/i)
+let splitLokasi = line.match(
+/(.*?)(\s\-|\s\||\sDs\.|\sDesa|\sKec\.|\sKecamatan|\sKab\.|\sKabupaten|\sKota|\sRT|\sRW|\sLapangan|\sPendopo)/i
+)
 
-if(match){
+if(splitLokasi){
 
-dalang=cleanText(match[1])
-lokasi=cleanText(line.replace(match[1], ""))
+dalang = cleanText(splitLokasi[1])
 
-}else{
+lokasi = cleanText(
+line.substring(splitLokasi[1].length)
+)
 
-for(let j=i+1;j<=i+6;j++){
-
-let cek=text[j] || ""
-
-if(/^(ki|nyi)\s/i.test(cek)) break
-
-if(isLokasi(cek)){
-lokasi=cleanText(cek)
-break
 }
 
 }
