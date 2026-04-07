@@ -165,36 +165,33 @@ try{
 
 let manual=document.getElementById("manualLink").value.trim()
 
-let target = manual 
-? manual 
-: "https://www.kluban.net/feeds/posts/default?alt=rss"
+/* jika manual artikel */
+if(manual){
 
-let proxy="https://api.allorigins.win/raw?url="+encodeURIComponent(target)
+let jsonUrl = manual.replace(".html","?alt=json")
 
-let res=await fetch(proxy)
+let res = await fetch(jsonUrl)
 
-let text=await res.text()
+let data = await res.json()
 
-let parser=new DOMParser()
-
-let xml=parser.parseFromString(text,"text/xml")
-
-let items=xml.querySelectorAll("item")
-
-if(items.length){
-
-let artikel=
-items[0].querySelector("description")?.textContent ||
-items[0].querySelector("content\\:encoded")?.textContent ||
-""
+let artikel = data.entry.content.$t
 
 parseHTML(artikel)
 
-}else{
-
-parseHTML(text)
-
+return
 }
+
+/* jika default feed */
+
+let rss="https://www.kluban.net/feeds/posts/default?alt=json"
+
+let res=await fetch(rss)
+
+let data=await res.json()
+
+let artikel=data.feed.entry[0].content.$t
+
+parseHTML(artikel)
 
 }catch(err){
 
