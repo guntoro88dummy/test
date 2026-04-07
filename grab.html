@@ -208,10 +208,9 @@ function parseHTML(html){
 
 database=[]
 
-html=html.replace(/<br\s*\/?>/gi,"\n")
+html = html.replace(/<br\s*\/?>/gi,"\n")
 
 let div=document.createElement("div")
-
 div.innerHTML=html
 
 let text=div.innerText
@@ -239,7 +238,7 @@ const lokasiPattern = /(Lokasi:|Sanggar|Rumah|Balai|Pendopo|Lapangan|Gedung|Ds\.
 
 let idx = line.search(lokasiPattern)
 
-if(idx > 0){
+if(idx !== -1 && idx > 0){
 
 dalang = cleanText(line.substring(0, idx))
 lokasi = cleanText(line.substring(idx))
@@ -248,12 +247,12 @@ lokasi = cleanText(line.substring(idx))
 
 for(let j=i+1;j<=i+6;j++){
 
-let cek=text[j]||""
+let cek=text[j] || ""
 
 if(/^(ki|nyi)\s/i.test(cek)) break
 
 if(isLokasi(cek)){
-lokasi=cleanText(cek)
+lokasi = cleanText(cek)
 break
 }
 
@@ -262,10 +261,12 @@ break
 }
 
 database.push({
-tanggal,
-dalang,
-lokasi
+tanggal: tanggal,
+dalang: dalang,
+lokasi: lokasi
 })
+
+}
 
 }
 
@@ -275,7 +276,7 @@ generateJS()
 log("Data ditemukan : "+database.length)
 
 }
-
+  
 function tambahManual(){
 
 let tgl=document.getElementById("tglManual").value
