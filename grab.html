@@ -31,7 +31,7 @@ button:hover{background:#7a161d;}
 
 input{
 padding:10px;
-width:350px;
+margin:5px;
 background:#222;
 border:1px solid #333;
 color:white;
@@ -69,6 +69,13 @@ margin-top:10px;
 color:#00ff99;
 font-weight:bold;
 }
+
+.formManual{
+margin-top:15px;
+padding:15px;
+background:#1a1a1a;
+border:1px solid #333;
+}
 </style>
 
 </head>
@@ -79,11 +86,9 @@ font-weight:bold;
 
 <div class="menu">
 
-<input id="manualLink" placeholder="Paste Link Artikel Kluban...">
+<input id="manualLink" placeholder="Paste Link Artikel Kluban..." style="width:350px">
 
 <button onclick="grabFeed()">Grab Artikel</button>
-
-<button onclick="tambahJadwal()">Tambah Jadwal</button>
 
 <button onclick="exportJS()">Export jadwal.js</button>
 
@@ -94,6 +99,18 @@ Import jadwal.js
 </button>
 
 <button onclick="toggleEdit()">Edit Data</button>
+
+</div>
+
+<div class="formManual">
+
+<h3>Tambah Manual</h3>
+
+<input id="tglManual" placeholder="Tanggal contoh: 08 April 2026" style="width:200px">
+<input id="dalangManual" placeholder="Nama Dalang" style="width:250px">
+<input id="lokasiManual" placeholder="Lokasi" style="width:350px">
+
+<button onclick="tambahManual()">Tambah</button>
 
 </div>
 
@@ -140,13 +157,9 @@ if(lower.includes("lakon")) return false
 if(lower.includes("sinden")) return false
 if(lower.includes("live")) return false
 
-let wilayah=/\b(ds|desa|kec|kecamatan|kab|kota|rt|rw)\b/i.test(text)
-
-let tempat=/\b(alun-alun|lapangan|balai desa|pendopo)\b/i.test(text)
-
 let koma=(text.match(/,/g)||[]).length
 
-return wilayah || tempat || koma>=1
+return koma>=1
 
 }
 
@@ -188,16 +201,9 @@ let div=document.createElement("div")
 div.innerHTML=html
 
 let text=div.innerText
-.replace(/Lakon:.*/gi,"")
-.replace(/Sinden:.*/gi,"")
-.replace(/Live Streaming:.*/gi,"")
-.replace(/YouTube.*/gi,"")
-.replace(/Instagram.*/gi,"")
-.replace(/Bintang Tamu.*/gi,"")
-.replace(/✨.*/gi,"")
 .split("\n")
 .map(t=>t.trim())
-.filter(t=>t.length>1)
+.filter(t=>t.length>2)
 
 let tanggal=""
 
@@ -212,57 +218,27 @@ continue
 
 if(/^(ki|nyi)\s/i.test(line)){
 
-let parts=line.split("📍")
-
-let dalangText=parts[0].trim()
+let dalang=line
 
 let lokasi="-"
 
-if(parts.length>1){
+for(let j=i+1;j<=i+5;j++){
 
-let teksLokasi=parts[1]
-.replace(/🎭.*/,"")
-.replace(/✨.*/,"")
-.replace(/📺.*/,"")
-.trim()
-
-if(isLokasi(teksLokasi)){
-lokasi=teksLokasi
-}
-
-}
-
-if(lokasi=="-"){
-
-for(let j=i+1;j<=i+8;j++){
-
-let cek=text[j] || ""
+let cek=text[j]||""
 
 if(/^(ki|nyi)\s/i.test(cek)) break
 
-let teksLokasi=cek.replace("📍","").trim()
-
-if(isLokasi(teksLokasi)){
-lokasi=teksLokasi
+if(isLokasi(cek)){
+lokasi=cek
 break
 }
 
 }
 
-}
-
-let dalangList=dalangText
-.replace(/\)\s*(Ki|Nyi)/gi,")|$1")
-.split("|")
-
-dalangList.forEach(d=>{
-
 database.push({
 tanggal,
-dalang:d.trim(),
+dalang,
 lokasi
-})
-
 })
 
 }
@@ -270,10 +246,32 @@ lokasi
 }
 
 renderTable()
-
 generateJS()
 
-log("Parse selesai. Total data: "+database.length)
+log("Data ditemukan : "+database.length)
+
+}
+
+function tambahManual(){
+
+let tgl=document.getElementById("tglManual").value
+let dalang=document.getElementById("dalangManual").value
+let lokasi=document.getElementById("lokasiManual").value
+
+if(!tgl || !dalang) return
+
+database.push({
+tanggal:tgl,
+dalang:dalang,
+lokasi:lokasi||"-"
+})
+
+renderTable()
+generateJS()
+
+document.getElementById("tglManual").value=""
+document.getElementById("dalangManual").value=""
+document.getElementById("lokasiManual").value=""
 
 }
 
@@ -302,7 +300,6 @@ if(index<3){
 
 td.contentEditable=true
 
-
 td.oninput=()=>{
 
 if(index==0) database[i].tanggal=td.innerText
@@ -319,24 +316,9 @@ generateJS()
 
 }
 
-
 tbody.appendChild(tr)
 
 })
-
-}
-
-function tambahJadwal(){
-
-database.push({
-tanggal:"",
-dalang:"",
-lokasi:""
-})
-
-renderTable()
-
-generateJS()
 
 }
 
@@ -345,7 +327,6 @@ function hapusJadwal(i){
 database.splice(i,1)
 
 renderTable()
-
 generateJS()
 
 }
@@ -355,8 +336,6 @@ function toggleEdit(){
 editMode=!editMode
 
 renderTable()
-
-log(editMode?"Mode edit aktif":"Mode edit mati")
 
 }
 
@@ -420,10 +399,7 @@ let json=text
 database=JSON.parse(json)
 
 renderTable()
-
 generateJS()
-
-log("jadwal.js berhasil diimport")
 
 }
 
