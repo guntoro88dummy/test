@@ -168,12 +168,6 @@ if(!text) return false
 
 text=cleanText(text)
 
-let lower=text.toLowerCase()
-
-if(lower.includes("lakon")) return false
-if(lower.includes("sinden")) return false
-if(lower.includes("bintang")) return false
-
 let koma=(text.match(/,/g)||[]).length
 
 return koma>=1
@@ -238,21 +232,18 @@ if(/^(ki|nyi)\s/i.test(line)){
 let dalang=line
 let lokasi="-"
 
-let splitLokasi=line.match(/(.*?)(ds\.?|desa|kec\.?|kecamatan|kab\.?|kabupaten|kota|rt|rw|lapangan|pendopo|balai desa)/i)
+let match=line.match(/(.*?)(Ds\.?|Desa|Kec\.?|Kab\.?|Kota|RT|RW|Lapangan|Pendopo)/i)
 
-if(splitLokasi){
+if(match){
 
-dalang=cleanText(splitLokasi[1])
-
-lokasi=cleanText(
-line.replace(splitLokasi[1],"")
-)
+dalang=cleanText(match[1])
+lokasi=cleanText(line.replace(match[1], ""))
 
 }else{
 
 for(let j=i+1;j<=i+6;j++){
 
-let cek=text[j]||""
+let cek=text[j] || ""
 
 if(/^(ki|nyi)\s/i.test(cek)) break
 
@@ -266,42 +257,9 @@ break
 }
 
 database.push({
-tanggal,
-dalang,
-lokasi
-})
-
-}
-
-}
-
-renderTable()
-generateJS()
-
-log("Data ditemukan : "+database.length)
-
-}
-database.push({
-tanggal,
-dalang,
-lokasi
-})
-
-}
-
-}
-
-renderTable()
-generateJS()
-
-log("Data ditemukan : "+database.length)
-
-}
-
-database.push({
-tanggal,
-dalang,
-lokasi
+tanggal: tanggal,
+dalang: dalang,
+lokasi: lokasi
 })
 
 }
@@ -332,10 +290,6 @@ lokasi:lokasi||"-"
 renderTable()
 generateJS()
 
-document.getElementById("tglManual").value=""
-document.getElementById("dalangManual").value=""
-document.getElementById("lokasiManual").value=""
-
 }
 
 function renderTable(){
@@ -354,30 +308,6 @@ tr.innerHTML=`
 <td>${d.lokasi}</td>
 <td><button onclick="hapusJadwal(${i})">X</button></td>
 `
-
-if(editMode){
-
-tr.querySelectorAll("td").forEach((td,index)=>{
-
-if(index<3){
-
-td.contentEditable=true
-
-td.oninput=()=>{
-
-if(index==0) database[i].tanggal=td.innerText
-if(index==1) database[i].dalang=td.innerText
-if(index==2) database[i].lokasi=td.innerText
-
-generateJS()
-
-}
-
-}
-
-})
-
-}
 
 tbody.appendChild(tr)
 
@@ -398,33 +328,29 @@ function toggleEdit(){
 
 editMode=!editMode
 
-renderTable()
-
 }
 
 function generateJS(){
 
-let code = "const JADWAL_WAYANG = [\n";
+let code="const JADWAL_WAYANG = [\n"
 
 database.forEach((d,i)=>{
 
-code += "  {\n";
-code += '    "tanggal": "' + (d.tanggal || "") + '",\n';
-code += '    "dalang": "' + (d.dalang || "") + '",\n';
-code += '    "lokasi": "' + (d.lokasi || "") + '"\n';
-code += "  }";
+code+=`{
+"tanggal":"${d.tanggal}",
+"dalang":"${d.dalang}",
+"lokasi":"${d.lokasi}"
+}`
 
-if(i < database.length - 1){
-code += ",";
-}
+if(i<database.length-1) code+=","
 
-code += "\n";
+code+="\n"
 
-});
+})
 
-code += "];";
+code+="];"
 
-document.getElementById("output").value = code;
+document.getElementById("output").value=code
 
 }
 
