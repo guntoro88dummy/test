@@ -3,151 +3,321 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tool Grab Jadwal Wayang</title>
+<title>Database Jadwal Wayang</title>
 
 <link rel="icon" href="data:,">
 
 <style>
 body{
-font-family:Arial,Helvetica,sans-serif;
-padding:20px;
-background:#0b0b0b;
-color:#eee
-}
-
-.container{
+font-family:Arial;
 background:#111;
-padding:20px;
-border-radius:8px;
-box-shadow:0 0 20px rgba(0,0,0,.5)
+color:#eee;
+padding:30px;
 }
 
-input{
-width:100%;
-padding:10px;
-margin-bottom:10px;
-background:#1a1a1a;
-border:1px solid #333;
-color:white
-}
+.menu{margin-bottom:20px;}
 
 button{
 padding:10px 15px;
-margin-right:10px;
-cursor:pointer;
-margin-bottom:10px;
+margin:5px;
+border:none;
 background:#5a0f14;
 color:white;
-border:none;
-border-radius:4px
+cursor:pointer;
+border-radius:5px;
 }
 
-button:hover{
-background:#7a161d
+button:hover{background:#7a161d;}
+
+input{
+padding:10px;
+width:350px;
+background:#222;
+border:1px solid #333;
+color:white;
+border-radius:5px;
 }
+
+table{
+border-collapse:collapse;
+width:100%;
+background:#222;
+margin-top:15px;
+}
+
+th,td{
+padding:8px;
+border:1px solid #444;
+font-size:14px;
+}
+
+th{background:#333;}
+td{background:#1b1b1b;}
 
 textarea{
 width:100%;
 height:200px;
+background:#000;
+color:#0f0;
+padding:10px;
 margin-top:15px;
-background:#1a1a1a;
-color:white;
-border:1px solid #333
+font-family:monospace;
 }
 
-#log{
+.status{
 margin-top:10px;
-color:#ff8c8c;
-font-weight:bold
+color:#00ff99;
+font-weight:bold;
 }
-
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:15px;
-background:#111
-}
-
-table th, table td{
-border:1px solid #333;
-padding:8px;
-font-size:14px
-}
-
-table th{
-background:#5a0f14;
-color:white
-}
-
-.editBtn{
-background:#333;
-padding:5px 8px
-}
-
 </style>
 
 </head>
 
 <body>
 
-<div class="container">
+<h1>DATABASE JADWAL WAYANG</h1>
 
-<h2>Tool Grab Jadwal Wayang</h2>
+<div class="menu">
 
-<input id="manualLink" placeholder="Masukkan Link Artikel Kluban...">
+<input id="manualLink" placeholder="Paste Link Artikel Kluban...">
 
-<button onclick="grabFeed()">Grab Data</button> <button onclick="exportJS()">Export JS</button> <button onclick="addManual()">Tambah Manual</button> <button onclick="clearData()">Clear</button>
+<button onclick="grabFeed()">Grab Artikel</button>
 
-<div id="log"></div>
+<button onclick="tambahJadwal()">Tambah Jadwal</button>
 
-<h3>Preview Jadwal</h3>
+<button onclick="exportJS()">Export jadwal.js</button>
 
-<table id="preview">
-<thead>
-<tr>
-<th>No</th>
-<th>Tanggal</th>
-<th>Dalang</th>
-<th>Lokasi</th>
-<th>Edit</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
+<input type="file" id="fileImport" style="display:none" onchange="importJS(event)">
 
-<h3>Output JS</h3>
-<textarea id="output"></textarea>
+<button onclick="document.getElementById('fileImport').click()">
+Import jadwal.js
+</button>
+
+<button onclick="toggleEdit()">Edit Data</button>
 
 </div>
 
+<div class="status" id="status"></div>
+
+<h2>Preview Table</h2>
+
+<table id="preview">
+
+<thead>
+<tr>
+<th>Tanggal</th>
+<th>Dalang</th>
+<th>Lokasi</th>
+<th>Hapus</th>
+</tr>
+</thead>
+
+<tbody></tbody>
+
+</table>
+
+<h2>Preview Code jadwal.js</h2>
+
+<textarea id="output"></textarea>
+
 <script>
 
-let DATABASE = []
+let database=[]
+let editMode=false
 
 function log(msg){
+document.getElementById("status").innerText=msg
+}
 
-document.getElementById("log").innerText = msg
+function isLokasi(text){
+
+if(!text) return false
+
+let lower=text.toLowerCase()
+
+if(lower.includes("bintang")) return false
+if(lower.includes("lakon")) return false
+if(lower.includes("sinden")) return false
+if(lower.includes("live")) return false
+
+let wilayah=/\b(ds|desa|kec|kecamatan|kab|kota|rt|rw)\b/i.test(text)
+
+let tempat=/\b(alun-alun|lapangan|balai desa|pendopo)\b/i.test(text)
+
+let koma=(text.match(/,/g)||[]).length
+
+return wilayah || tempat || koma>=1
+
+}
+
+async function grabFeed(){
+
+log("Mengambil data artikel...")
+
+try{
+
+let manual=document.getElementById("manualLink").value.trim()
+
+let target = manual || "https://www.kluban.net/feeds/posts/default"
+
+let proxy="https://dawn-base-2f52.guntoro88.workers.dev/?url="
+
+let res=await fetch(proxy+encodeURIComponent(target))
+
+let html=await res.text()
+
+parseHTML(html)
+
+}catch(e){
+
+log("Gagal grab artikel")
+console.error(e)
+
+}
+
+}
+
+function parseHTML(html){
+
+database=[]
+
+html=html.replace(/<br\s*\/?>/gi,"\n")
+
+let div=document.createElement("div")
+
+div.innerHTML=html
+
+let text=div.innerText
+.replace(/Lakon:.*/gi,"")
+.replace(/Sinden:.*/gi,"")
+.replace(/Live Streaming:.*/gi,"")
+.replace(/YouTube.*/gi,"")
+.replace(/Instagram.*/gi,"")
+.replace(/Bintang Tamu.*/gi,"")
+.replace(/✨.*/gi,"")
+.split("\n")
+.map(t=>t.trim())
+.filter(t=>t.length>1)
+
+let tanggal=""
+
+for(let i=0;i<text.length;i++){
+
+let line=text[i]
+
+if(/\d{1,2}\s\w+\s\d{4}/i.test(line)){
+tanggal=line
+continue
+}
+
+if(/^(ki|nyi)\s/i.test(line)){
+
+let parts=line.split("📍")
+
+let dalangText=parts[0].trim()
+
+let lokasi="-"
+
+if(parts.length>1){
+
+let teksLokasi=parts[1]
+.replace(/🎭.*/,"")
+.replace(/✨.*/,"")
+.replace(/📺.*/,"")
+.trim()
+
+if(isLokasi(teksLokasi)){
+lokasi=teksLokasi
+}
+
+}
+
+if(lokasi=="-"){
+
+for(let j=i+1;j<=i+8;j++){
+
+let cek=text[j] || ""
+
+if(/^(ki|nyi)\s/i.test(cek)) break
+
+let teksLokasi=cek.replace("📍","").trim()
+
+if(isLokasi(teksLokasi)){
+lokasi=teksLokasi
+break
+}
+
+}
+
+}
+
+let dalangList=dalangText
+.replace(/\)\s*(Ki|Nyi)/gi,")|$1")
+.split("|")
+
+dalangList.forEach(d=>{
+
+database.push({
+tanggal,
+dalang:d.trim(),
+lokasi
+})
+
+})
+
+}
+
+}
+
+renderTable()
+
+generateJS()
+
+log("Parse selesai. Total data: "+database.length)
 
 }
 
 function renderTable(){
 
-let tbody = document.querySelector("#preview tbody")
+let tbody=document.querySelector("#preview tbody")
 
-tbody.innerHTML = ""
+tbody.innerHTML=""
 
-DATABASE.forEach((item,i)=>{
+database.forEach((d,i)=>{
 
-let tr = document.createElement("tr")
+let tr=document.createElement("tr")
 
-tr.innerHTML = `
-<td>${i+1}</td>
-<td>${item.tanggal}</td>
-<td>${item.dalang}</td>
-<td>${item.lokasi}</td>
-<td><button class="editBtn" onclick="editData(${i})">Edit</button></td>
+tr.innerHTML=`
+<td>${d.tanggal}</td>
+<td>${d.dalang}</td>
+<td>${d.lokasi}</td>
+<td><button onclick="hapusJadwal(${i})">X</button></td>
 `
+
+if(editMode){
+
+tr.querySelectorAll("td").forEach((td,index)=>{
+
+if(index<3){
+
+td.contentEditable=true
+
+
+td.oninput=()=>{
+
+if(index==0) database[i].tanggal=td.innerText
+if(index==1) database[i].dalang=td.innerText
+if(index==2) database[i].lokasi=td.innerText
+
+generateJS()
+
+}
+
+}
+
+})
+
+}
 
 
 tbody.appendChild(tr)
@@ -156,143 +326,91 @@ tbody.appendChild(tr)
 
 }
 
-function parseHTML(html){
+function tambahJadwal(){
 
-log("Parsing HTML...")
-
-let parser = new DOMParser()
-
-let doc = parser.parseFromString(html,"text/html")
-
-let text = doc.body.innerText
-
-let lines = text.split("\n")
-
-DATABASE = []
-
-lines.forEach(line=>{
-
-if(line.includes(",")){
-
-let parts = line.split(",")
-
-if(parts.length >= 3){
-
-DATABASE.push({
-
-tanggal:parts[0].trim(),
-
-dalang:parts[1].trim(),
-
-lokasi:parts.slice(2).join(",").trim()
-
-})
-
-}
-
-}
-
-})
-
-log("Data ditemukan : "+DATABASE.length)
-
-renderTable()
-
-}
-
-async function grabFeed(){
-
-log("Mengambil data...")
-
-try{
-
-let manual = document.getElementById("manualLink").value.trim()
-
-let target = manual 
-? manual 
-: "https://www.kluban.net/feeds/posts/default"
-
-let proxy = "https://dawn-base-2f52.guntoro88.workers.dev/?url="
-
-let url = proxy + encodeURIComponent(target)
-
-const res = await fetch(url)
-
-const html = await res.text()
-
-parseHTML(html)
-
-}catch(err){
-
-log("Gagal mengambil data")
-console.error(err)
-
-}
-
-}
-
-function editData(i){
-
-let t = prompt("Tanggal", DATABASE[i].tanggal)
-let d = prompt("Dalang", DATABASE[i].dalang)
-let l = prompt("Lokasi", DATABASE[i].lokasi)
-
-DATABASE[i]={
-
-tanggal:t,
-
-dalang:d,
-
-lokasi:l
-
-}
-
-renderTable()
-
-}
-
-function addManual(){
-
-let t = prompt("Tanggal")
-let d = prompt("Nama Dalang")
-let l = prompt("Lokasi")
-
-DATABASE.push({
-
-tanggal:t,
-
-dalang:d,
-
-lokasi:l
-
+database.push({
+tanggal:"",
+dalang:"",
+lokasi:""
 })
 
 renderTable()
+
+generateJS()
+
+}
+
+function hapusJadwal(i){
+
+database.splice(i,1)
+
+renderTable()
+
+generateJS()
+
+}
+
+function toggleEdit(){
+
+editMode=!editMode
+
+renderTable()
+
+log(editMode?"Mode edit aktif":"Mode edit mati")
+
+}
+
+function generateJS(){
+
+let code="const JADWAL_WAYANG = "+JSON.stringify(database,null,2)+";"
+
+
+document.getElementById("output").value=code
 
 }
 
 function exportJS(){
 
-let text = "const JADWAL_WAYANG = "
+let blob=new Blob(
+[document.getElementById("output").value],
+{type:"text/javascript"}
+)
 
-text += JSON.stringify(DATABASE,null,2)
+let a=document.createElement("a")
 
-text += ";"
+a.href=URL.createObjectURL(blob)
 
+a.download="jadwal.js"
 
-document.getElementById("output").value = text
-
-log("Export selesai")
+a.click()
 
 }
 
-function clearData(){
+function importJS(e){
 
-DATABASE=[]
+let file=e.target.files[0]
+
+let reader=new FileReader()
+
+reader.onload=function(){
+
+let text=reader.result
+
+let json=text
+.replace("const JADWAL_WAYANG =","")
+.replace(";","")
+
+database=JSON.parse(json)
 
 renderTable()
 
-log("Data dibersihkan")
+generateJS()
+
+log("jadwal.js berhasil diimport")
+
+}
+
+reader.readAsText(file)
 
 }
 
