@@ -163,17 +163,21 @@ log("Mengambil data artikel...")
 
 try{
 
-let manual=document.getElementById("manualLink").value.trim()
+let manual = document.getElementById("manualLink").value.trim()
 
 let target = manual 
 ? manual 
 : "https://www.kluban.net/feeds/posts/default"
 
-let proxy="https://dawn-base-2f52.guntoro88.workers.dev/?url="
+let proxy = "https://dawn-base-2f52.guntoro88.workers.dev/?url="
 
-let res=await fetch(proxy + encodeURIComponent(target))
+let url = proxy + encodeURIComponent(target)
 
-let html=await res.text()
+console.log("Grab URL:", url)
+
+let res = await fetch(url)
+
+let html = await res.text()
 
 parseHTML(html)
 
