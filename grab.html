@@ -205,30 +205,18 @@ for(let i=0;i<text.length;i++){
 
 let line=text[i]
 
-/* DETEKSI TANGGAL */
-
-let matchTanggal=line.match(/\d{1,2}\s\w+\s\d{4}/i)
-
-if(matchTanggal){
-
-tanggal=matchTanggal[0]
-line=line.replace(matchTanggal[0],"").trim()
-
+if(/\d{1,2}\s\w+\s\d{4}/i.test(line)){
+tanggal=line
+continue
 }
-
-/* DETEKSI DALANG */
 
 if(/^(ki|nyi)\s/i.test(line)){
 
 let parts=line.split("📍")
 
-let dalangText=parts[0]
-.replace(/\d{1,2}\s\w+\s\d{4}/gi,"")
-.trim()
+let dalangText=parts[0].trim()
 
 let lokasi="-"
-
-/* LOKASI SATU BARIS */
 
 if(parts.length>1){
 
@@ -244,22 +232,15 @@ lokasi=teksLokasi
 
 }
 
-/* CARI LOKASI DI BAWAH */
-
 if(lokasi=="-"){
 
-for(let j=i+1;j<=i+10;j++){
+for(let j=i+1;j<=i+8;j++){
 
 let cek=text[j] || ""
 
 if(/^(ki|nyi)\s/i.test(cek)) break
 
-let teksLokasi=cek
-.replace("📍","")
-.replace(/🎭.*/,"")
-.replace(/✨.*/,"")
-.replace(/📺.*/,"")
-.trim()
+let teksLokasi=cek.replace("📍","").trim()
 
 if(isLokasi(teksLokasi)){
 lokasi=teksLokasi
@@ -270,26 +251,17 @@ break
 
 }
 
-/* MULTI DALANG */
-
 let dalangList=dalangText
 .replace(/\)\s*(Ki|Nyi)/gi,")|$1")
-.replace(/,\s*(Ki|Nyi)/gi,"|$1")
 .split("|")
 
 dalangList.forEach(d=>{
 
-let nama=d.trim()
-
-if(nama.length>3){
-
 database.push({
 tanggal,
-dalang:nama,
+dalang:d.trim(),
 lokasi
 })
-
-}
 
 })
 
@@ -298,6 +270,7 @@ lokasi
 }
 
 renderTable()
+
 generateJS()
 
 log("Parse selesai. Total data: "+database.length)
@@ -389,10 +362,31 @@ log(editMode?"Mode edit aktif":"Mode edit mati")
 
 function generateJS(){
 
-let code="const JADWAL_WAYANG = "+JSON.stringify(database,null,2)+";"
+let code = "const JADWAL_WAYANG = [
+";
 
+ database.forEach((d,i)=>{
 
-document.getElementById("output").value=code
+ code += "  {
+";
+ code += '    "tanggal": "'+(d.tanggal||'')+'",
+';
+ code += '    "dalang": "'+(d.dalang||'')+'",
+';
+ code += '    "lokasi": "'+(d.lokasi||'')+'"
+';
+ code += "  }";
+ 
+ if(i < database.length-1) code += ",";
+ 
+ code += "
+";
+ 
+ })
+ 
+ code += "];";
+
+ document.getElementById("output").value = code
 
 }
 
