@@ -362,31 +362,27 @@ log(editMode?"Mode edit aktif":"Mode edit mati")
 
 function generateJS(){
 
-let code = "const JADWAL_WAYANG = [
-";
+let code = "const JADWAL_WAYANG = [\n";
 
- database.forEach((d,i)=>{
+database.forEach((d,i)=>{
 
- code += "  {
-";
- code += '    "tanggal": "'+(d.tanggal||'')+'",
-';
- code += '    "dalang": "'+(d.dalang||'')+'",
-';
- code += '    "lokasi": "'+(d.lokasi||'')+'"
-';
- code += "  }";
- 
- if(i < database.length-1) code += ",";
- 
- code += "
-";
- 
- })
- 
- code += "];";
+code += "  {\n";
+code += '    "tanggal": "' + (d.tanggal || "") + '",\n';
+code += '    "dalang": "' + (d.dalang || "") + '",\n';
+code += '    "lokasi": "' + (d.lokasi || "") + '"\n';
+code += "  }";
 
- document.getElementById("output").value = code
+if(i < database.length - 1){
+code += ",";
+}
+
+code += "\n";
+
+});
+
+code += "];";
+
+document.getElementById("output").value = code;
 
 }
 
