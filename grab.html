@@ -97,15 +97,13 @@ border:1px solid #333;
 Import jadwal.js
 </button>
 
-<button onclick="toggleEdit()">Edit Data</button>
-
 </div>
 
 <div class="formManual">
 
 <h3>Tambah Manual</h3>
 
-<input id="tglManual" placeholder="Tanggal contoh: 08 April 2026" style="width:200px">
+<input id="tglManual" placeholder="Tanggal" style="width:200px">
 <input id="dalangManual" placeholder="Nama Dalang" style="width:250px">
 <input id="lokasiManual" placeholder="Lokasi" style="width:350px">
 
@@ -136,7 +134,6 @@ Import jadwal.js
 <script>
 
 let database=[]
-let editMode=false
 
 function log(msg){
 document.getElementById("status").innerText=msg
@@ -147,7 +144,8 @@ function cleanText(text){
 if(!text) return ""
 
 return text
-.replace(/[📍🎭✨📺🔥⭐]/g,"")
+.replace(/[📍ℹ️🎭✨📺🔥⭐]/g,"")
+.replace(/Lokasi:/gi,"")
 .replace(/Lakon.*/i,"")
 .replace(/Sinden.*/i,"")
 .replace(/Bintang.*/i,"")
@@ -163,8 +161,6 @@ function isLokasi(text){
 
 if(!text) return false
 
-text=cleanText(text)
-
 let koma=(text.match(/,/g)||[]).length
 
 return koma>=1
@@ -173,7 +169,7 @@ return koma>=1
 
 async function grabFeed(){
 
-log("Mengambil data artikel...")
+log("Mengambil data...")
 
 try{
 
@@ -191,7 +187,7 @@ parseHTML(html)
 
 }catch(e){
 
-log("Gagal grab artikel")
+log("Gagal grab")
 console.error(e)
 
 }
@@ -228,11 +224,11 @@ if(/^(ki|nyi)\s/i.test(line)){
 let dalang=line
 let lokasi="-"
 
-const lokasiPattern = /(Lokasi:|Sanggar|Rumah|Balai|Pendopo|Lapangan|Gedung|Ds\.|Dsn\.|Desa|Kec\.|Kecamatan|Kab\.|Kabupaten|Kota|RT|RW)/i
+const lokasiPattern = /(Sanggar|Rumah|Balai|Pendopo|Lapangan|Gedung|Ds\.|Dsn\.|Desa|Kec\.|Kecamatan|Kab\.|Kabupaten|Kota|RT|RW)/i
 
 let idx = line.search(lokasiPattern)
 
-if(idx !== -1 && idx > 0){
+if(idx !== -1){
 
 dalang = cleanText(line.substring(0, idx))
 lokasi = cleanText(line.substring(idx))
@@ -277,12 +273,10 @@ let tgl=document.getElementById("tglManual").value
 let dalang=document.getElementById("dalangManual").value
 let lokasi=document.getElementById("lokasiManual").value
 
-if(!tgl || !dalang) return
-
 database.push({
 tanggal:tgl,
 dalang:dalang,
-lokasi:lokasi||"-"
+lokasi:lokasi
 })
 
 renderTable()
@@ -303,7 +297,7 @@ tr.innerHTML=`
 <td>${d.tanggal}</td>
 <td>${d.dalang}</td>
 <td>${d.lokasi}</td>
-<td><button onclick="hapusJadwal(${i})">X</button></td>
+<td><button onclick="hapus(${i})">X</button></td>
 `
 
 tbody.appendChild(tr)
@@ -312,17 +306,11 @@ tbody.appendChild(tr)
 
 }
 
-function hapusJadwal(i){
+function hapus(i){
 
 database.splice(i,1)
 renderTable()
 generateJS()
-
-}
-
-function toggleEdit(){
-
-editMode=!editMode
 
 }
 
