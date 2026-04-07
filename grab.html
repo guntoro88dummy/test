@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Database Jadwal Wayang</title>
+
+<style>
+body{
+font-family:Arial;
+background:#111;
+color:#eee;
+padding:30px;
+}
+
+.menu{margin-bottom:20px;}
+
+button{
+padding:10px 15px;
+margin:5px;
+border:none;
+background:#ff0033;
+color:white;
+cursor:pointer;
+border-radius:5px;
+}
+
+button:hover{background:#ff3355;}
+
+table{
+border-collapse:collapse;
+width:100%;
+background:#222;
+margin-top:15px;
+}
+
+th,td{
+padding:8px;
+border:1px solid #444;
+font-size:14px;
+}
+
+th{background:#333;}
+td{background:#1b1b1b;}
+
+textarea{
+width:100%;
+height:200px;
+background:#000;
+color:#0f0;
+padding:10px;
+margin-top:15px;
+font-family:monospace;
+}
+
+.status{
+margin-top:10px;
+color:#00ff99;
+font-weight:bold;
+}
+
+input[type="text"]{
+width:100%;
+padding:10px;
+background:#000;
+color:#0f0;
+border:1px solid #444;
+margin-top:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>DATABASE JADWAL WAYANG</h1>
+
+<div class="menu">
+
+<button onclick="grabFeed()">Ambil Data</button>
+
+<button onclick="tambahJadwal()">Tambah Jadwal</button>
+
+<button onclick="exportJS()">Export jadwal.js</button>
+
+<input type="file" id="fileImport" style="display:none" onchange="importJS(event)">
+
+<button onclick="document.getElementById('fileImport').click()">
+Import jadwal.js
+</button>
+
+<button onclick="toggleEdit()">Edit Data</button>
+
+</div>
+
+<div class="status" id="status"></div>
+
+<h2>Input Link Manual</h2>
+
+<input 
+type="text" 
+id="manualLink" 
+placeholder="Masukkan link artikel kluban / blogger lalu klik Ambil Data"
+>
+
+<h2>Preview Table</h2>
+
+<table id="preview">
+
+<thead>
+<tr>
+<th>Tanggal</th>
+<th>Dalang</th>
+<th>Lokasi</th>
+<th>Hapus</th>
+</tr>
+</thead>
+
+<tbody></tbody>
+
+</table>
+
+<h2>Preview Code jadwal.js</h2>
+
+<textarea id="output"></textarea>
+
+<script>
+
+let database=[]
+let editMode=false
+
+function log(msg){
+document.getElementById("status").innerText=msg
+}
+
+/* VALIDATOR LOKASI */
+
+function isLokasi(text){
+
+if(!text) return false
+
+let lower=text.toLowerCase()
+
+if(lower.includes("bintang")) return false
+if(lower.includes("lakon")) return false
+if(lower.includes("sinden")) return false
+if(lower.includes("live")) return false
+
+let wilayah=/\b(ds|desa|kec|kecamatan|kab|kota|rt|rw)\b/i.test(text)
+
+let tempat=/\b(alun-alun|lapangan|balai desa|pendopo)\b/i.test(text)
+
+let koma=(text.match(/,/g)||[]).length
+
+return wilayah || tempat || koma>=1
+
+}
+
+/* AMBIL DATA RSS / LINK */
+
+async function grabFeed(){
+
+log("Mengambil data artikel...")
+
+try{
+
+let manual=document.getElementById("manualLink").value.trim()
+
+let target = manual 
+? manual 
+: "https://www.kluban.net/feeds/posts/default?alt=rss"
+
+let proxy="https://api.allorigins.win/raw?url="+encodeURIComponent(target)
+
+let res=await fetch(proxy)
+
+let text=await res.text()
+
+let parser=new DOMParser()
+
+let xml=parser.parseFromString(text,"text/xml")
+
+let items=xml.querySelectorAll("item")
+
+if(items.length){
+
+let artikel=
+items[0].querySelector("description")?.textContent ||
+items[0].querySelector("content\\:encoded")?.textContent ||
+""
+
+parseHTML(artikel)
+
+}else{
+
+parseHTML(text)
+
+}
+
+}catch(err){
+
+log("Gagal mengambil data")
+console.error(err)
+
+}
+
+}
+
+/* PARSER */
+
+function parseHTML(html){
+
+database=[]
+
+html=html.replace(/<br\s*\/?>/gi,"\n")
+
+let div=document.createElement("div")
+
+div.innerHTML=html
+
+let text=div.innerText
+.replace(/Lakon:.*/gi,"")
+.replace(/Sinden:.*/gi,"")
+.replace(/Live Streaming:.*/gi,"")
+.replace(/YouTube.*/gi,"")
+.replace(/Instagram.*/gi,"")
+.replace(/Bintang Tamu.*/gi,"")
+.replace(/✨.*/gi,"")
+.split("\n")
+.map(t=>t.trim())
+.filter(t=>t.length>1)
+
+let tanggal=""
+
+for(let i=0;i<text.length;i++){
+
+let line=text[i]
+
+/* DETEKSI TANGGAL */
+
+if(/\d{1,2}\s\w+\s\d{4}/i.test(line)){
+tanggal=line
+continue
+}
+
+/* DETEKSI DALANG */
+
+if(/^(ki|nyi)\s/i.test(line)){
+
+let parts=line.split("📍")
+
+let dalangText=parts[0].trim()
+
+let lokasi="-"
+
+/* LOKASI SATU BARIS */
+
+if(parts.length>1){
+
+let teksLokasi=parts[1]
+.replace(/🎭.*/,"")
+.replace(/✨.*/,"")
+.replace(/📺.*/,"")
+.trim()
+
+if(isLokasi(teksLokasi)){
+lokasi=teksLokasi
+}
+
+}
+
+/* CARI LOKASI DI BAWAH */
+
+if(lokasi=="-"){
+
+for(let j=i+1;j<=i+10;j++){
+
+let cek=text[j] || ""
+
+if(/^(ki|nyi)\s/i.test(cek)) break
+
+if(cek.includes("📍")){
+
+let teksLokasi=cek
+.replace("📍","")
+.replace(/🎭.*/,"")
+.replace(/✨.*/,"")
+.replace(/📺.*/,"")
+.trim()
+
+lokasi=teksLokasi
+break
+
+}
+
+let teksLokasi=cek.replace("📍","").trim()
+
+if(isLokasi(teksLokasi)){
+lokasi=teksLokasi
+break
+}
+
+if(lokasi=="-" && cek.length>5){
+lokasi=teksLokasi
+break
+}
+
+}
+
+}
+
+/* AUTO SPLIT DALANG */
+
+let dalangList=dalangText
+.replace(/\)\s*(Ki|Nyi)/gi,")|$1")
+.split("|")
+
+dalangList.forEach(d=>{
+
+database.push({
+tanggal,
+dalang:d.trim(),
+lokasi
+})
+
+})
+
+}
+
+}
+
+renderTable()
+generateJS()
+
+log("Parse selesai. Total data: "+database.length)
+
+}
+
+/* RENDER TABLE */
+
+function renderTable(){
+
+let tbody=document.querySelector("#preview tbody")
+
+tbody.innerHTML=""
+
+database.forEach((d,i)=>{
+
+let tr=document.createElement("tr")
+
+tr.innerHTML=`
+<td>${d.tanggal}</td>
+<td>${d.dalang}</td>
+<td>${d.lokasi}</td>
+<td><button onclick="hapusJadwal(${i})">X</button></td>
+`
+
+if(editMode){
+
+tr.querySelectorAll("td").forEach((td,index)=>{
+
+if(index<3){
+
+td.contentEditable=true
+
+td.oninput=()=>{
+
+if(index==0) database[i].tanggal=td.innerText
+if(index==1) database[i].dalang=td.innerText
+if(index==2) database[i].lokasi=td.innerText
+
+generateJS()
+
+}
+
+}
+
+})
+
+}
+
+tbody.appendChild(tr)
+
+})
+
+}
+
+/* TAMBAH DATA */
+
+function tambahJadwal(){
+
+database.push({
+tanggal:"",
+dalang:"",
+lokasi:""
+})
+
+renderTable()
+generateJS()
+
+}
+
+/* HAPUS DATA */
+
+function hapusJadwal(i){
+
+database.splice(i,1)
+
+renderTable()
+generateJS()
+
+}
+
+/* MODE EDIT */
+
+function toggleEdit(){
+
+editMode=!editMode
+
+renderTable()
+
+log(editMode?"Mode edit aktif":"Mode edit mati")
+
+}
+
+/* GENERATE JS */
+
+function generateJS(){
+
+let code="const JADWAL_WAYANG = "+JSON.stringify(database,null,2)+";"
+
+document.getElementById("output").value=code
+
+}
+
+/* EXPORT */
+
+function exportJS(){
+
+let blob=new Blob(
+[document.getElementById("output").value],
+{type:"text/javascript"}
+)
+
+let a=document.createElement("a")
+
+a.href=URL.createObjectURL(blob)
+
+a.download="jadwal.js"
+
+a.click()
+
+}
+
+/* IMPORT */
+
+function importJS(e){
+
+let file=e.target.files[0]
+
+let reader=new FileReader()
+
+reader.onload=function(){
+
+let text=reader.result
+
+let json=text
+.replace("const JADWAL_WAYANG =","")
+.replace(";","")
+
+database=JSON.parse(json)
+
+renderTable()
+generateJS()
+
+log("jadwal.js berhasil diimport")
+
+}
+
+reader.readAsText(file)
+
+}
+
+</script>
+
+</body>
+</html>
