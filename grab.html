@@ -146,16 +146,33 @@ function log(msg){
 document.getElementById("status").innerText=msg
 }
 
+function cleanText(text){
+
+if(!text) return ""
+
+return text
+.replace(/[📍🎭✨📺🔥⭐]/g,"")
+.replace(/Lakon.*/i,"")
+.replace(/Sinden.*/i,"")
+.replace(/Bintang.*/i,"")
+.replace(/Live.*/i,"")
+.replace(/YouTube.*/i,"")
+.replace(/Instagram.*/i,"")
+.trim()
+
+}
+
 function isLokasi(text){
 
 if(!text) return false
 
+text=cleanText(text)
+
 let lower=text.toLowerCase()
 
-if(lower.includes("bintang")) return false
 if(lower.includes("lakon")) return false
 if(lower.includes("sinden")) return false
-if(lower.includes("live")) return false
+if(lower.includes("bintang")) return false
 
 let koma=(text.match(/,/g)||[]).length
 
@@ -202,7 +219,7 @@ div.innerHTML=html
 
 let text=div.innerText
 .split("\n")
-.map(t=>t.trim())
+.map(t=>cleanText(t.trim()))
 .filter(t=>t.length>2)
 
 let tanggal=""
@@ -222,7 +239,7 @@ let dalang=line
 
 let lokasi="-"
 
-for(let j=i+1;j<=i+5;j++){
+for(let j=i+1;j<=i+6;j++){
 
 let cek=text[j]||""
 
