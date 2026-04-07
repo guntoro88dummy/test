@@ -212,7 +212,6 @@ let matchTanggal=line.match(/\d{1,2}\s\w+\s\d{4}/i)
 if(matchTanggal){
 
 tanggal=matchTanggal[0]
-
 line=line.replace(matchTanggal[0],"").trim()
 
 }
@@ -221,16 +220,35 @@ line=line.replace(matchTanggal[0],"").trim()
 
 if(/^(ki|nyi)\s/i.test(line)){
 
-let dalangText=line
-.replace(/📍.*/,"")
-.replace(/,\s*$/,"")
+let parts=line.split("📍")
+
+let dalangText=parts[0]
+.replace(/\d{1,2}\s\w+\s\d{4}/gi,"")
 .trim()
 
 let lokasi="-"
 
-/* CARI LOKASI */
+/* LOKASI SATU BARIS */
 
-for(let j=i+1;j<=i+8;j++){
+if(parts.length>1){
+
+let teksLokasi=parts[1]
+.replace(/🎭.*/,"")
+.replace(/✨.*/,"")
+.replace(/📺.*/,"")
+.trim()
+
+if(isLokasi(teksLokasi)){
+lokasi=teksLokasi
+}
+
+}
+
+/* CARI LOKASI DI BAWAH */
+
+if(lokasi=="-"){
+
+for(let j=i+1;j<=i+10;j++){
 
 let cek=text[j] || ""
 
@@ -246,6 +264,8 @@ let teksLokasi=cek
 if(isLokasi(teksLokasi)){
 lokasi=teksLokasi
 break
+}
+
 }
 
 }
