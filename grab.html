@@ -32,6 +32,7 @@ button{
 padding:10px 15px;
 margin-right:10px;
 cursor:pointer
+margin-bottom:10px
 }
 
 textarea{
@@ -44,6 +45,23 @@ margin-top:15px
 margin-top:10px;
 color:green;
 font-weight:bold
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px
+}
+
+table th, table td{
+border:1px solid #ddd;
+padding:8px;
+font-size:14px
+}
+
+table th{
+background:#333;
+color:white
 }
 
 </style>
@@ -62,10 +80,24 @@ placeholder="Masukkan Link Artikel Kluban..."
 
 >
 
-<button onclick="grabFeed()">Ambil Data</button> <button onclick="exportJS()">Export JS</button>
+<button onclick="grabFeed()">Ambil Data</button> <button onclick="exportJS()">Export JS</button> <button onclick="copyJS()">Copy</button> <button onclick="clearData()">Clear</button>
 
 <div id="log"></div>
 
+<h3>Preview Data</h3>
+
+<table id="preview">
+<thead>
+<tr>
+<th>No</th>
+<th>Judul</th>
+<th>Lokasi</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+
+<h3>Output JS</h3>
 <textarea id="output"></textarea>
 
 </div>
@@ -77,6 +109,28 @@ let DATABASE = []
 function log(msg){
 
 document.getElementById("log").innerText = msg
+
+}
+
+function renderTable(){
+
+let tbody = document.querySelector("#preview tbody")
+
+tbody.innerHTML = ""
+
+DATABASE.forEach((item,i)=>{
+
+let tr = document.createElement("tr")
+
+tr.innerHTML = `
+<td>${i+1}</td>
+<td>${item.judul}</td>
+<td>${item.lokasi}</td>
+`
+
+tbody.appendChild(tr)
+
+})
 
 }
 
@@ -118,10 +172,9 @@ lokasi:parts[1].trim()
 
 log("Data ditemukan : "+DATABASE.length)
 
-console.log(DATABASE)
+renderTable()
 
 }
-
 
 async function grabFeed(){
 
@@ -131,8 +184,8 @@ try{
 
 let manual = document.getElementById("manualLink").value.trim()
 
-let target = manual
-? manual
+let target = manual 
+? manual 
 : "https://www.kluban.net/feeds/posts/default"
 
 let proxy = "https://dawn-base-2f52.guntoro88.workers.dev/?url="
@@ -168,6 +221,30 @@ text += ";"
 document.getElementById("output").value = text
 
 log("Export selesai")
+
+}
+
+function copyJS(){
+
+let textarea = document.getElementById("output")
+
+textarea.select()
+
+document.execCommand("copy")
+
+log("Disalin ke clipboard")
+
+}
+
+function clearData(){
+
+DATABASE = []
+
+document.querySelector("#preview tbody").innerHTML = ""
+
+document.getElementById("output").value = ""
+
+log("Data dibersihkan")
 
 }
 
