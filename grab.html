@@ -205,34 +205,30 @@ for(let i=0;i<text.length;i++){
 
 let line=text[i]
 
-if(/\d{1,2}\s\w+\s\d{4}/i.test(line)){
-tanggal=line
-continue
+/* DETEKSI TANGGAL */
+
+let matchTanggal=line.match(/\d{1,2}\s\w+\s\d{4}/i)
+
+if(matchTanggal){
+
+tanggal=matchTanggal[0]
+
+line=line.replace(matchTanggal[0],"").trim()
+
 }
+
+/* DETEKSI DALANG */
 
 if(/^(ki|nyi)\s/i.test(line)){
 
-let parts=line.split("📍")
-
-let dalangText=parts[0].trim()
+let dalangText=line
+.replace(/📍.*/,"")
+.replace(/,\s*$/,"")
+.trim()
 
 let lokasi="-"
 
-if(parts.length>1){
-
-let teksLokasi=parts[1]
-.replace(/🎭.*/,"")
-.replace(/✨.*/,"")
-.replace(/📺.*/,"")
-.trim()
-
-if(isLokasi(teksLokasi)){
-lokasi=teksLokasi
-}
-
-}
-
-if(lokasi=="-"){
+/* CARI LOKASI */
 
 for(let j=i+1;j<=i+8;j++){
 
@@ -240,7 +236,12 @@ let cek=text[j] || ""
 
 if(/^(ki|nyi)\s/i.test(cek)) break
 
-let teksLokasi=cek.replace("📍","").trim()
+let teksLokasi=cek
+.replace("📍","")
+.replace(/🎭.*/,"")
+.replace(/✨.*/,"")
+.replace(/📺.*/,"")
+.trim()
 
 if(isLokasi(teksLokasi)){
 lokasi=teksLokasi
@@ -249,19 +250,26 @@ break
 
 }
 
-}
+/* MULTI DALANG */
 
 let dalangList=dalangText
 .replace(/\)\s*(Ki|Nyi)/gi,")|$1")
+.replace(/,\s*(Ki|Nyi)/gi,"|$1")
 .split("|")
 
 dalangList.forEach(d=>{
 
+let nama=d.trim()
+
+if(nama.length>3){
+
 database.push({
 tanggal,
-dalang:d.trim(),
+dalang:nama,
 lokasi
 })
+
+}
 
 })
 
@@ -270,7 +278,6 @@ lokasi
 }
 
 renderTable()
-
 generateJS()
 
 log("Parse selesai. Total data: "+database.length)
