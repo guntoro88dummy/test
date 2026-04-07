@@ -235,18 +235,26 @@ if(/^(ki|nyi)\s/i.test(line)){
 let dalang=line
 let lokasi="-"
 
-let splitLokasi = line.match(
-/(.*?)(\s\-|\s\||\sDs\.|\sDesa|\sKec\.|\sKecamatan|\sKab\.|\sKabupaten|\sKota|\sRT|\sRW|\sLapangan|\sPendopo)/i
-)
+const lokasiPattern = /(Lokasi:|Sanggar|Rumah|Balai|Pendopo|Lapangan|Gedung|Ds\.|Dsn\.|Desa|Kec\.|Kecamatan|Kab\.|Kabupaten|Kota|RT|RW)/i
 
-if(splitLokasi){
+let idx = line.search(lokasiPattern)
 
-dalang = cleanText(splitLokasi[1])
+if(idx > 0){
 
-lokasi = cleanText(
-line.substring(splitLokasi[1].length)
-)
+dalang = cleanText(line.substring(0, idx))
+lokasi = cleanText(line.substring(idx))
 
+}else{
+
+for(let j=i+1;j<=i+6;j++){
+
+let cek=text[j]||""
+
+if(/^(ki|nyi)\s/i.test(cek)) break
+
+if(isLokasi(cek)){
+lokasi=cleanText(cek)
+break
 }
 
 }
@@ -254,12 +262,10 @@ line.substring(splitLokasi[1].length)
 }
 
 database.push({
-tanggal: tanggal,
-dalang: dalang,
-lokasi: lokasi
+tanggal,
+dalang,
+lokasi
 })
-
-}
 
 }
 
