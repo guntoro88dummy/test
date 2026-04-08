@@ -954,3 +954,26 @@ font-size:13px;
 
 z-index:2;
 }
+
+/* LOCK ADS POSITION */
+
+.right-ads .ads-item{
+position:relative !important;
+}
+
+.right-ads .ads-badge{
+position:absolute !important;
+top:8px !important;
+left:8px !important;
+
+background:#ff0000 !important;
+color:#fff !important;
+
+padding:4px 6px !important;
+font-size:11px !important;
+font-weight:bold !important;
+
+border-radius:4px !important;
+
+z-index:9999 !important;
+}
