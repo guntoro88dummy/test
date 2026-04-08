@@ -114,9 +114,7 @@ adsHTML += `
 
 <img src="${ad.img}" alt="Affiliate Ads" loading="lazy">
 
-<p class="ads-text">
-${ad.title ? ad.title : ""}
-</p>
+${ad.title ? `<div class="ads-text">${ad.title}</div>` : ""}
 
 </a>
 
