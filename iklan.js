@@ -23,11 +23,7 @@ link:"https://s.shopee.co.id/6fdBzWhqay"
 img:"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghLmb67jjopUhR7IJgdn8fQ-_fPdnRl1Xsb6LCvrb5dDkIqxFna-cjby61zJxiADqo2Zp04UBSnOulprmDcxY4DrhNY_TTrnMof-f4PbUqSj10SWmgn81RPVRCGC-zpr51PreOOStVkcqG3a2RFQfAHIX7bhkNbiFXm20Cho1hukW4Xrbtvk2-jnkkOfY/s1600/POWERBANK.jpg",
 link:"https://s.shopee.co.id/60NVCKsRgo"
 },
-   
-{
-img:"https://down-id.img.susercontent.com/file/id-11134207-7r98p-lwgzcgklp9qia4.webp",
-link:"https://s.shopee.co.id/60NVCKsRgo"
-},   
+
 ];
 
 
