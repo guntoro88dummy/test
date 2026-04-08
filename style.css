@@ -447,20 +447,26 @@ flex-direction:column;
 flex-direction:column;
 }
 
+/* ADS MOBILE GRID */
+
 .right-ads{
-flex-direction:row;
-overflow-x:auto;
+display:grid;
+grid-template-columns:repeat(2,1fr);
 gap:10px;
+margin:20px 0;
 }
 
-.ads{
-min-width:220px;
-height:120px;
+.right-ads .ads-item{
+aspect-ratio:1/1;
 }
+
+/* SHORTS */
 
 #shorts-row{
 grid-template-columns:repeat(3,1fr);
 }
+
+/* VIDEOS */
 
 .videos{
 grid-template-columns:repeat(2,1fr);
