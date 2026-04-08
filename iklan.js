@@ -29,6 +29,12 @@ img:"https://down-id.img.susercontent.com/file/id-11134207-7r98p-lwgzcgklp9qia4@
 link:"https://s.shopee.co.id/60NVCKsRgo"
 },
 
+{
+img:"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgL3XMEKGZ8pyuEXQZr9Wz5L7ZvkSc5UzdEbBYdzQiWVHXYbO0pEStWmnuJef6R4tKom95er59HQ9nIAn65Hu1cxIFV96neEN5DzSjlu87C1ai4wsTj2Fcd1JvbdNfx2oyh2EdYQnHzOPRzUtYoqWDrlBslMLor0Py2-it3l0kQQLAXaaFwQ_huBB-trPc/s1600/CELANA%20KARGO.jpg",
+link:"https://s.shopee.co.id/1Lbfde4eTk",
+title:"PROMO CELANA KARGO 50RBAN"
+},
+
 ];
 
 
