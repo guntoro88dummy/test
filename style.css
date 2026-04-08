@@ -877,3 +877,39 @@ padding:4px 8px;
 border-radius:4px;
 z-index:2;
 }
+
+.ads-item{
+position:relative;
+display:block;
+}
+
+.ads-overlay{
+position:absolute;
+bottom:0;
+left:0;
+right:0;
+
+background:linear-gradient(to top,rgba(0,0,0,0.9),transparent);
+
+padding:10px;
+
+color:#fff;
+
+border-radius:0 0 10px 10px;
+}
+
+.ads-overlay p{
+margin:4px 0 0 0;
+font-size:13px;
+font-weight:600;
+line-height:1.3;
+}
+
+.ads-badge{
+background:red;
+color:#fff;
+font-size:10px;
+font-weight:bold;
+padding:3px 6px;
+border-radius:3px;
+}
