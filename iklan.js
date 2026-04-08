@@ -121,7 +121,6 @@ adsHTML += `
 
 ${ad.title ? `
 <div class="ads-overlay">
-<span class="ads-badge">PROMO</span>
 <p>${ad.title}</p>
 </div>
 ` : ""}
