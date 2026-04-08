@@ -27,8 +27,9 @@ link:"https://s.shopee.co.id/60NVCKsRgo"
 {
 img:"https://down-id.img.susercontent.com/file/id-11134207-7r98p-lwgzcgklp9qia4.webp" alt="TRIPOD BLUETOOH" width="259" height="194",
 link:"https://s.shopee.co.id/60NVCKsRgo"
-<p>Ini adalah teks deskripsi untuk gambar di atas.</p>
 },
+Ini adalah teks deskripsi untuk gambar di atas
+
    
 ];
 
