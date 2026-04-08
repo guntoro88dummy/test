@@ -866,7 +866,7 @@ display:block;
 }
 
 .ads-badge{
-position:absolute;
+position:relative;
 top:10px;
 left:10px;
 background:red;
