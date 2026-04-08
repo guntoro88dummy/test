@@ -6,15 +6,6 @@ const ADS_SIDEBAR = [
 
 {
 img:"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgL3XMEKGZ8pyuEXQZr9Wz5L7ZvkSc5UzdEbBYdzQiWVHXYbO0pEStWmnuJef6R4tKom95er59HQ9nIAn65Hu1cxIFV96neEN5DzSjlu87C1ai4wsTj2Fcd1JvbdNfx2oyh2EdYQnHzOPRzUtYoqWDrlBslMLor0Py2-it3l0kQQLAXaaFwQ_huBB-trPc/s1600/CELANA%20KARGO.jpg",
-link:"https://s.shopee.co.id/1Lbfde4eTk"
-},
-<p>PROMO CELANA KARGO 50RBAN</p>
-
-{
-img:"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_JUGBsxIl5B7wgHS-UWzlOAjf-m-FRZXJJFXWn230z5S3gz8oengaG-yxxIf1-XoBeHbkG7NymKmZw8J-ImAP_-M2GdOrh59OafQv6BFrizO-4mLwXM3J7wU27TvHJkCQRyjvqYAIl2audzY4imLRygplYgPGetUkbgbcI0I0lbjtJMFJTOxRIMUsPnE/s1600/COOLPAD%20LAPTOP.jpg",
-link:"https://s.shopee.co.id/70G2O6Tys8"
-{
-img:"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgL3XMEKGZ8pyuEXQZr9Wz5L7ZvkSc5UzdEbBYdzQiWVHXYbO0pEStWmnuJef6R4tKom95er59HQ9nIAn65Hu1cxIFV96neEN5DzSjlu87C1ai4wsTj2Fcd1JvbdNfx2oyh2EdYQnHzOPRzUtYoqWDrlBslMLor0Py2-it3l0kQQLAXaaFwQ_huBB-trPc/s1600/CELANA%20KARGO.jpg",
 link:"https://s.shopee.co.id/1Lbfde4eTk",
 title:"PROMO CELANA KARGO 50RBAN"
 },
@@ -29,12 +20,6 @@ title:"ALAT WAJIB BIAR LAPTOP DINGIN"
 img:"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjtovtimNJqiPP_aSLzd1CENzf27vgGvGZMDBzu2AK4NKgxgFLIiBtY1uqm8aidMN1o15TlGW_oZWaI0SrxxfruU2kvYDu1JxDku63rf4-u5mZUWxaqCH3pEF3mWV56RcJcpNt76MsaPJ3VdrU26ARdGBE4bl9iJMpVFRkrYNELySQ9e-yLhme6n6ejRo/s1600/POWER%20STRIP.jpg",
 link:"https://s.shopee.co.id/6fdBzWhqay",
 title:"COLOKAN MULTI FUNGSI AC DC"
-},
-
-{
-img:"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghLmb67jjopUhR7IJgdn8fQ-_fPdnRl1Xsb6LCvrb5dDkIqxFna-cjby61zJxiADqo2Zp04UBSnOulprmDcxY4DrhNY_TTrnMof-f4PbUqSj10SWmgn81RPVRCGC-zpr51PreOOStVkcqG3a2RFQfAHIX7bhkNbiFXm20Cho1hukW4Xrbtvk2-jnkkOfY/s1600/POWERBANK.jpg",
-link:"https://s.shopee.co.id/60NVCKsRgo",
-title:"POWERBANK RASA GENSET PORTABLE"
 },
 
 {
