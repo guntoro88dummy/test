@@ -111,7 +111,13 @@ ADS_SIDEBAR.forEach(ad=>{
 adsHTML += `
 
 <a href="${ad.link}" target="_blank" rel="noopener" class="ads-item">
+
 <img src="${ad.img}" alt="Affiliate Ads" loading="lazy">
+
+<p class="ads-text">
+${ad.title ? ad.title : ""}
+</p>
+
 </a>
 
 `;
