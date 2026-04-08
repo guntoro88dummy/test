@@ -112,9 +112,14 @@ adsHTML += `
 
 <a href="${ad.link}" target="_blank" rel="noopener" class="ads-item">
 
-<div class="ads-badge">DISKON</div>
-
 <img src="${ad.img}" alt="Affiliate Ads" loading="lazy">
+
+${ad.title ? `
+<div class="ads-overlay">
+<span class="ads-badge">PROMO</span>
+<p>${ad.title}</p>
+</div>
+` : ""}
 
 </a>
 
