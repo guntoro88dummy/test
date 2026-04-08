@@ -850,3 +850,10 @@ border-radius:10px;
 transform:scale(1.05);
 transition:0.3s;
 }
+
+.ads-title{
+font-size:13px;
+margin-top:8px;
+line-height:1.4;
+color:#fff;
+}
