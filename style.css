@@ -851,11 +851,6 @@ transform:scale(1.05);
 transition:0.3s;
 }
 
-.ads-item{
-display:block;
-text-decoration:none;
-}
-
 .ads-text{
 font-size:13px;
 margin-top:8px;
@@ -863,4 +858,22 @@ line-height:1.4;
 text-align:center;
 color:#fff;
 font-weight:600;
+}
+
+.ads-item{
+position:relative;
+display:block;
+}
+
+.ads-badge{
+position:absolute;
+top:10px;
+left:10px;
+background:red;
+color:#fff;
+font-size:11px;
+font-weight:bold;
+padding:4px 8px;
+border-radius:4px;
+z-index:2;
 }
