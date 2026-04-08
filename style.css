@@ -835,6 +835,7 @@ display:block;
 width:100%;
 aspect-ratio:300/250;
 overflow:hidden;
+margin-bottom:20px;   /* jarak antar iklan */
 }
 
 .right-ads a img{
@@ -842,4 +843,10 @@ width:100% !important;
 height:100% !important;
 object-fit:cover !important;
 display:block;
+border-radius:10px;
+}
+
+.right-ads a:hover img{
+transform:scale(1.05);
+transition:0.3s;
 }
