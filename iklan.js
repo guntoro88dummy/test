@@ -28,13 +28,6 @@ link:"https://s.shopee.co.id/60NVCKsRgo"
 },
 <p>POWERBANK RASA GENSET PORTABLE</p>
 
-
-{
-img:"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg2XJJwaCIy_kpCx2wKgK8ruIf-UaQTQ-CLEoHB4F8TnujP4WXxTf78Dl0z2Ebv_lbZuM0qL1SnlIZ6ICPkfUUK-9UjeYqLrFjh9D0ho6vJ0GWWlUxCEA8nZuSGCXHMIeZ5XJtlYYpvUJ9SygOAVfMgkURXlhVfbQsRkpI-SeK-ykxfV9KVJSgd7rFD_v4/s1600/TWS.jpg",
-link:"https://s.shopee.co.id/7fVjBSK1AN"
-},
-<p>UPGRADE GAYAMU DENGAN TWS</p>
-
 ];
 
 
