@@ -24,6 +24,11 @@ img:"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghLmb67jjopUhR7I
 link:"https://s.shopee.co.id/60NVCKsRgo"
 },
 
+{
+img:"https://down-id.img.susercontent.com/file/id-11134207-7r98p-lwgzcgklp9qia4@resize_w900_nl.webp",
+link:"https://s.shopee.co.id/60NVCKsRgo"
+},
+
 ];
 
 
