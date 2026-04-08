@@ -877,6 +877,8 @@ display:block;
 position:absolute;
 top:8px;
 left:8px;
+z-index:5;
+}
 
 background:#ff0000;
 color:#fff;
