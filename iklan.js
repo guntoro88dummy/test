@@ -175,23 +175,23 @@ promoBar.style.display="none";
 const SEARCH_ADS = [
 
 {
-text:"🎤 Mic Wireless Diskon 50% BIKIN VLOG MU MAKIN CIAMIK",
-link:"https://affiliate1.com"
+text:"🔦 SENTER KEPALA 20RBAN CHARGER - AFFILIATE!!",
+link:"https://s.shopee.co.id/Lj7qwXRkT"
 },
 
 {
-text:"🔊 Speaker Aktif Promo Besar SPESIAL JEDUG JEDUG, HOREG MANIA",
-link:"https://affiliate2.com"
+text:"🏷️ DISKON MENTOK SET KUNCI SHOCK + OBENG - AFFILIATE!! ",
+link:"https://s.shopee.co.id/4qBXDb2UoK"
 },
 
 {
-text:"📷 Kamera Live Streaming Murah RAMAH DI KANTONG YUTUBER!!",
+text:"🏷️ COVER JOK MOTOR INSTAN TINGGAL PASANG - AFFILIATE!!",
 link:"https://affiliate3.com"
 },
 
 {
-text:"💡 Lampu Panggung Diskon MURAH GILAKKK !! ( AFFILIATOR )",
-link:"https://affiliate4.com"
+text:" 🎧 USB MINI MIXER AUDIO -  AFFILIATE !! ",
+link:"https://s.shopee.co.id/7VCIOxPa4P"
 }
 
 ];
