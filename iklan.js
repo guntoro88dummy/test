@@ -34,53 +34,53 @@ link:"https://affiliate-link-4.com"
 const PROMO_TEXT = [
 
 {
-text:"🔥 PROMO DISKON BESAR HARI INI 🔥",
-link:"https://affiliate-link-1.com"
+text:"🔥SARUNG 50RBAN GAJAH DUDUK - AFFILIATE!!🔥",
+link:"https://s.shopee.co.id/3fzaLkU7p5"
 },
 
 {
-text:"⚡ FLASH SALE TERBATAS ⚡",
-link:"https://affiliate-link-2.com"
+text:"⚡OBAT RUMPUT LIAR 5 LITER - AFFILIATE!!⚡",
+link:"https://s.shopee.co.id/9AKWtxoD6c"
 },
 
 {
-text:"💰 GRATIS ONGKIR SELURUH INDONESIA 💰",
-link:"https://affiliate-link-3.com"
+text:"💰KABEL PREMIUM SPEAKER AUDIO 20M - AFFILIATE!!💰",
+link:"https://s.shopee.co.id/W2YaEBt71"
 },
 
 {
-text:"🎁 BONUS PEMBELIAN SPESIAL 🎁",
-link:"https://affiliate-link-4.com"
+text:"🎁SPEAKER BLUETOOTH CHARGE PORTABLE - AFFILIATE!!🎁",
+link:"https://s.shopee.co.id/5fkejoGwPG"
 },
 
 {
-text:"🚀 PRODUK TERLARIS BULAN INI 🚀",
-link:"https://affiliate-link-5.com"
+text:"🚀LAMPU EMERGENCY TAHAN 50 JAM - AFFILIATE!!🚀",
+link:"https://s.shopee.co.id/3LMjxdIOG3"
 },
 
 {
-text:"💎 PROMO MEMBER KHUSUS 💎",
-link:"https://affiliate-link-6.com"
+text:"💎ALAT SEMPROT ELEKTRIK 18 LITER - AFFILIATE!!💎",
+link:"https://s.shopee.co.id/1Vv5mQ3f8c"
 },
 
 {
-text:"🔥 HARGA TERMURAH ONLINE 🔥",
-link:"https://affiliate-link-7.com"
+text:"🔥JAS HUJAN 50RBAN TEBAL REMBES - AFFILIATE!!🔥",
+link:"https://s.shopee.co.id/1gEVyp5pSd"
 },
 
 {
-text:"🎯 DISKON KHUSUS HARI INI 🎯",
-link:"https://affiliate-link-8.com"
+text:"🎯BAN MOTOR TUBLES - AFFILIATE!!🎯",
+link:"https://s.shopee.co.id/AAD46fBWps"
 },
 
 {
-text:"⚡ BELI SEKARANG SEBELUM HABIS ⚡",
-link:"https://affiliate-link-9.com"
+text:"⚡AKI SELIS 12V 20AH - AFFILIATE!!⚡",
+link:"https://s.shopee.co.id/3qJ0Z5m306"
 },
 
 {
-text:"💥 PROMO TERBESAR TAHUN INI 💥",
-link:"https://affiliate-link-10.com"
+text:"💥ALAT CUKUR MINI ELEKTRIK USB  - AFFILIATE!!💥",
+link:"https://s.shopee.co.id/AAD46xQOSw"
 }
 
 ];
