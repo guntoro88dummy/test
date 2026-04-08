@@ -851,9 +851,16 @@ transform:scale(1.05);
 transition:0.3s;
 }
 
-.ads-title{
+.ads-item{
+display:block;
+text-decoration:none;
+}
+
+.ads-text{
 font-size:13px;
 margin-top:8px;
 line-height:1.4;
+text-align:center;
 color:#fff;
+font-weight:600;
 }
