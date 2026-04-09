@@ -76,6 +76,7 @@ background:#1a1a1a;
 border:1px solid #333;
 }
 </style>
+
 </head>
 
 <body>
@@ -140,8 +141,6 @@ document.getElementById("status").innerText=msg
 
 function cleanText(text){
 
-if(!text) return ""
-
 return text
 .replace(/[📍ℹ️🎭✨📺🔥⭐]/g,"")
 .replace(/Lokasi:/gi,"")
@@ -151,46 +150,8 @@ return text
 .replace(/Live.*/i,"")
 .replace(/YouTube.*/i,"")
 .replace(/Instagram.*/i,"")
-.replace(/rto\s*/i,"")
 .replace(/\s+/g," ")
 .trim()
-
-}
-
-function splitDalangLokasi(line){
-
-const lokasiStart=[
-"Jl","Jln","Jalan","Dusun","Dsn","Ds","Dk","Desa",
-"Gg","Gang","Halaman","Rumah","Pendopo","Lapangan",
-"Balai","Gedung","RT","RW","Kec","Kab","Kota"
-]
-
-let words=line.split(" ")
-let dalang=[]
-let lokasi=[]
-
-let foundLokasi=false
-
-for(let w of words){
-
-let clean=w.replace(/[.,]/g,"")
-
-if(!foundLokasi && lokasiStart.includes(clean)){
-foundLokasi=true
-}
-
-if(foundLokasi){
-lokasi.push(w)
-}else{
-dalang.push(w)
-}
-
-}
-
-return{
-dalang:dalang.join(" ").trim(),
-lokasi:lokasi.length?lokasi.join(" ").trim():"-"
-}
 
 }
 
@@ -230,54 +191,61 @@ html=html.replace(/<br\s*\/?>/gi,"\n")
 let div=document.createElement("div")
 div.innerHTML=html
 
-let text=div.innerText
-.split("\n")
-.map(t=>cleanText(t.trim()))
-.filter(t=>t.length>2)
+let text=cleanText(div.innerText)
 
-let tanggal=""
+let events=text.split(/(?=\d{1,2}\s\w+\s\d{4})/)
 
-for(let i=0;i<text.length;i++){
+events.forEach(e=>{
 
-let line=text[i]
+let match=e.match(/(\d{1,2}\s\w+\s\d{4})(.*)/)
 
-if(/\d{1,2}\s\w+\s\d{4}/i.test(line)){
-tanggal=line
-continue
-}
+if(!match) return
 
-if(/^(ki|nyi)\s/i.test(line)){
+let tanggal=match[1].trim()
+let isi=match[2].trim()
 
-let hasil=splitDalangLokasi(line)
+let dalang=""
+let lokasi="-"
 
-let lokasi=hasil.lokasi
+let lokasiStart=[
+"Jl","Jln","Jalan","Dusun","Dsn","Ds","Dk","Desa",
+"Gg","Gang","Halaman","Rumah","Pendopo","Lapangan",
+"Balai","Gedung","RT","RW","Kec","Kab","Kota"
+]
 
-if(lokasi=="-"){
+let words=isi.split(" ")
 
-for(let j=i+1;j<=i+5;j++){
+let lokasiIndex=-1
 
-let cek=text[j] || ""
+for(let i=0;i<words.length;i++){
 
-if(/^(ki|nyi)\s/i.test(cek)) break
+let w=words[i].replace(/[.,]/g,"")
 
-if(cek.length>5){
-lokasi=cek
+if(lokasiStart.includes(w)){
+lokasiIndex=i
 break
 }
 
 }
 
+if(lokasiIndex==-1){
+
+dalang=isi
+
+}else{
+
+dalang=words.slice(0,lokasiIndex).join(" ")
+lokasi=words.slice(lokasiIndex).join(" ")
+
 }
 
 database.push({
 tanggal:tanggal,
-dalang:hasil.dalang,
-lokasi:lokasi
+dalang:dalang.trim(),
+lokasi:lokasi.trim()
 })
 
-}
-
-}
+})
 
 renderTable()
 generateJS()
