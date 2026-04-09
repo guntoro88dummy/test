@@ -6,102 +6,148 @@
 
 <style>
 body {
-  background: #111;
-  font-family: Tahoma;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background:#111;
+  font-family:Tahoma;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
-/* RADIO PNG */
+/* RADIO */
 .radio {
-  width: 720px;
-  height: 300px;
-  background: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgsOy-qVff7WLiLM7y1AI-yk_TEIu7DTSRTQZwvWnZuCPZpqBXXl2BJOq5_wANf-aYTDVBAQXX4t20RoC28eBZX_wZwzCOWOriCtTc4FQz7I37K_QHKJbprke5qT2J3_GfZLZ7qUPdF_ELthMbSlMquKQK3-2LHQbJNtpfcUhamFU9ybh_dW5JJKE4XBQM/s1600/old%20radio.png') no-repeat center;
-  background-size: 100% 100%;
-  position: relative;
-  margin-top: 20px;
+  width:720px;
+  height:420px;
+  background:url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgsOy-qVff7WLiLM7y1AI-yk_TEIu7DTSRTQZwvWnZuCPZpqBXXl2BJOq5_wANf-aYTDVBAQXX4t20RoC28eBZX_wZwzCOWOriCtTc4FQz7I37K_QHKJbprke5qT2J3_GfZLZ7qUPdF_ELthMbSlMquKQK3-2LHQbJNtpfcUhamFU9ybh_dW5JJKE4XBQM/s1600/old%20radio.png') no-repeat center;
+  background-size:100% 100%;
+  position:relative;
+  margin-top:20px;
 }
 
-/* VIDEO (KIRI SPEAKER) */
+/* VIDEO */
 .video {
-  position: absolute;
-  top: 70px;
-  left: 40px;
-  width: 300px;
-  height: 160px;
-  background: #000;
+  position:absolute;
+  top:120px;
+  left:40px;
+  width:260px;
+  height:150px;
+  background:#000;
 }
-
 .video iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
+  width:100%;
+  height:100%;
+  border:none;
 }
 
-/* INFO LAGU */
+/* INFO */
 .info {
-  position: absolute;
-  top: 235px;
-  left: 40px;
-  width: 300px;
-  font-size: 12px;
-  color: #f5d97a;
-  text-align: center;
-  font-family: monospace;
+  position:absolute;
+  top:280px;
+  left:40px;
+  width:260px;
+  font-size:12px;
+  color:#111;
+  font-weight:bold;
+}
+
+/* LAMPU */
+.lamp {
+  position:absolute;
+  top:60px;
+  right:120px;
+  width:15px;
+  height:15px;
+  background:#300;
+  border-radius:50%;
+}
+.lamp.on {
+  background:red;
+  box-shadow:0 0 10px red;
+}
+
+/* TUNER */
+.tuner {
+  position:absolute;
+  top:40px;
+  left:80px;
+  width:500px;
+  height:4px;
+  background:#222;
+  overflow:hidden;
+}
+.tuner-bar {
+  width:100px;
+  height:100%;
+  background:yellow;
+  position:absolute;
+  left:0;
+  animation:move 5s linear infinite;
+}
+@keyframes move {
+  from {left:-100px;}
+  to {left:500px;}
+}
+
+/* KNOB */
+.knob {
+  position:absolute;
+  bottom:60px;
+  right:80px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:#333;
+  cursor:pointer;
 }
 
 /* SEARCH */
 .search {
-  margin-top: 15px;
-  width: 720px;
-  display: flex;
+  margin-top:15px;
+  width:720px;
+  display:flex;
 }
-
 .search input {
-  flex: 1;
-  padding: 10px;
-  border: none;
+  flex:1;
+  padding:10px;
 }
-
 .search button {
-  padding: 10px;
-  cursor: pointer;
+  padding:10px;
 }
 
 /* PLAYLIST */
 .playlist {
-  width: 720px;
-  max-height: 200px;
-  overflow-y: auto;
-  background: #222;
-  margin-top: 5px;
+  width:720px;
+  max-height:200px;
+  overflow-y:auto;
+  background:#222;
 }
 
-/* ITEM */
 .item {
-  padding: 10px;
-  border-bottom: 1px solid #333;
-  display: flex;
-  justify-content: space-between;
-  cursor: pointer;
+  padding:10px;
+  border-bottom:1px solid #333;
+  display:flex;
+  justify-content:space-between;
+  cursor:pointer;
 }
-
 .item:hover {
-  background: #444;
+  background:#444;
 }
-
 .delete {
-  color: red;
-  cursor: pointer;
+  color:red;
 }
 </style>
 </head>
 
 <body>
 
-<!-- RADIO -->
 <div class="radio">
+
+  <!-- TUNER -->
+  <div class="tuner">
+    <div class="tuner-bar" id="tuner"></div>
+  </div>
+
+  <!-- LAMP -->
+  <div class="lamp" id="lamp"></div>
 
   <!-- VIDEO -->
   <div class="video">
@@ -116,11 +162,14 @@ body {
     📻 NAWOLO RADIO
   </div>
 
+  <!-- KNOB -->
+  <div class="knob" id="knob"></div>
+
 </div>
 
 <!-- SEARCH -->
 <div class="search">
-  <input id="q" placeholder="Cari lagu / artis...">
+  <input id="q" placeholder="Cari lagu...">
   <button onclick="search()">SEARCH</button>
 </div>
 
@@ -130,12 +179,12 @@ body {
 <script>
 let db = [
   {title:"Sheila On 7 - Dan", id:"kTJczUoc26U"},
-  {title:"Dewa 19 - Kangen", id:"fJ9rUzIMcZQ"},
   {title:"NOAH - Separuh Aku", id:"OPf0YbXqDm0"},
   {title:"Ungu - Demi Waktu", id:"RgKAFK5djSk"}
 ];
 
 let list = [...db];
+let current = 0;
 
 /* RENDER */
 function render(){
@@ -143,28 +192,30 @@ function render(){
   list.forEach((item,i)=>{
     html += `
     <div class="item">
-      <span onclick="play('${item.id}','${item.title}')">${item.title}</span>
+      <span onclick="play(${i})">${item.title}</span>
       <span class="delete" onclick="remove(${i})">✖</span>
     </div>`;
   });
-
   document.getElementById("playlist").innerHTML = html;
 }
 
 /* PLAY */
-function play(id,title){
-  document.getElementById("yt").src =
-    `https://www.youtube.com/embed/${id}?autoplay=1&mute=1`;
+function play(i){
+  current = i;
+  let item = list[i];
 
-  document.getElementById("info").innerText = title;
+  document.getElementById("yt").src =
+    `https://www.youtube.com/embed/${item.id}?autoplay=1&mute=1`;
+
+  document.getElementById("info").innerText = item.title;
+
+  document.getElementById("lamp").classList.add("on");
 }
 
 /* SEARCH */
 function search(){
   let q = document.getElementById("q").value.toLowerCase();
-
   list = db.filter(x => x.title.toLowerCase().includes(q));
-
   render();
 }
 
@@ -172,6 +223,33 @@ function search(){
 function remove(i){
   list.splice(i,1);
   render();
+}
+
+/* KNOB ROTATE */
+let knob = document.getElementById("knob");
+let dragging = false;
+let angle = 0;
+
+knob.addEventListener("mousedown", ()=>dragging=true);
+document.addEventListener("mouseup", ()=>dragging=false);
+
+document.addEventListener("mousemove",(e)=>{
+  if(dragging){
+    angle += e.movementX;
+    knob.style.transform = `rotate(${angle}deg)`;
+
+    // efek: next lagu
+    if(angle > 90){
+      next();
+      angle = 0;
+    }
+  }
+});
+
+/* NEXT */
+function next(){
+  current = (current+1)%list.length;
+  play(current);
 }
 
 render();
