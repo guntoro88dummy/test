@@ -466,7 +466,48 @@ ${listHTML}
   `;
 }
 
+/* =============================
+   MOBILE INLINE ADS
+============================= */
 
+function insertMobileAds(){
+
+if(window.innerWidth > 900) return;
+
+const videoLists = document.querySelectorAll(".videos, #shorts-row");
+
+videoLists.forEach(list=>{
+
+const videos = list.children;
+
+if(videos.length < 6) return;
+
+const adsBlock = document.createElement("div");
+
+adsBlock.className = "mobile-inline-ads";
+
+let adsHTML = "";
+
+ADS_SIDEBAR.slice(0,2).forEach(ad=>{
+
+adsHTML += `
+<a href="${ad.link}" target="_blank" class="ads-item">
+<img src="${ad.img}" loading="lazy">
+<div class="ads-overlay">${ad.title || ""}</div>
+</a>
+`;
+
+});
+
+adsBlock.innerHTML = adsHTML;
+
+list.after(adsBlock);
+
+});
+
+}
+
+insertMobileAds();
 
 
 /* INIT */
