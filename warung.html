@@ -19,7 +19,7 @@ header{
   position:fixed;
   top:0;
   width:100%;
-  padding:10px 15px;
+  padding:10px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -31,7 +31,6 @@ header{
 .header-center{
   flex:1;
   overflow:hidden;
-  margin:0 10px;
   white-space:nowrap;
 }
 
@@ -55,10 +54,10 @@ header{
   50%{opacity:0;}
 }
 
-/* CONTENT */
+/* LAYOUT */
 .container{
   padding-top:70px;
-  padding-bottom:150px;
+  padding-bottom:120px;
 }
 
 .menu-grid{
@@ -71,11 +70,16 @@ header{
 /* CARD */
 .card{
   min-width:220px;
-  background:rgba(255,255,255,0.75);
+  background:rgba(255,255,255,0.8);
   backdrop-filter:blur(12px);
   border-radius:18px;
   overflow:hidden;
-  box-shadow:0 12px 30px rgba(0,0,0,0.12);
+  box-shadow:0 12px 30px rgba(0,0,0,0.15);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-6px) scale(1.03);
 }
 
 .card img{
@@ -89,6 +93,7 @@ header{
 .qty{
   display:flex;
   justify-content:space-between;
+  margin-top:5px;
 }
 
 .qty button{
@@ -96,8 +101,13 @@ header{
   height:32px;
   border:none;
   border-radius:50%;
-  background:black;
+  background:linear-gradient(#111,#333);
   color:white;
+}
+
+textarea{
+  width:100%;
+  margin-top:5px;
 }
 
 /* OPSI */
@@ -111,18 +121,20 @@ header{
 
 /* NOTA */
 .cart{
-  background:#fff;
+  background:white;
   padding:15px;
   font-family:monospace;
   border-top:3px dashed black;
 }
 
+/* WA */
 .wa-btn{
   width:100%;
-  padding:12px;
-  background:green;
+  padding:14px;
+  background:linear-gradient(45deg,#25D366,#128C7E);
   color:white;
   border:none;
+  border-radius:10px;
   margin-top:10px;
 }
 
@@ -162,9 +174,9 @@ header{
   <div class="cart">
 
     <b>Data Pemesan</b><br><br>
-    <input id="nama" placeholder="Nama"><br>
-    <input id="alamat" placeholder="Alamat"><br>
-    <input id="hp" placeholder="No HP"><br><br>
+    <input id="nama" placeholder="Nama" style="width:100%"><br>
+    <input id="alamat" placeholder="Alamat" style="width:100%"><br>
+    <input id="hp" placeholder="No HP" style="width:100%"><br><br>
 
     <div id="cartList"></div>
     <div id="total"></div>
@@ -175,52 +187,89 @@ header{
 
     <button class="wa-btn" onclick="sendWA()">Pesan via WhatsApp</button>
 
-    <!-- REKENING (FIX POSISI) -->
     <div style="margin-top:12px;padding:12px;border-radius:12px;background:#2c2c2c;color:#fff;">
       <b>NO REKENING:</b><br>
       BRI 31645643464616516516<br>
       MANDIRI 5616165134631564<br>
-      BNI 5664564646464<br><br>
-      <i>Kirim bukti transfer via WhatsApp</i>
+      BNI 5664564646464
     </div>
 
   </div>
 </div>
 
 <script>
-const imgSample="https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg";
+const img="https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg";
 
 const data=[
-{name:"Nasi Goreng",price:15000,img:imgSample},
-{name:"Sate",price:20000,img:imgSample},
-{name:"Bakso",price:12000,img:imgSample},
-{name:"Mie Ayam",price:13000,img:imgSample}
+{cat:"Makanan",name:"Nasi Goreng",price:15000,img},
+{cat:"Makanan",name:"Sate",price:20000,img},
+{cat:"Makanan",name:"Bakso",price:12000,img},
+{cat:"Makanan",name:"Mie Ayam",price:13000,img},
+
+{cat:"Minuman",name:"Es Teh",price:5000,img},
+{cat:"Minuman",name:"Es Jeruk",price:7000,img},
+
+{cat:"Pedas",name:"Seblak",price:13000,img}
 ];
 
 let cart={};
 
 function renderMenu(){
-  let html="<div class='menu-grid'>";
+  let cats=[...new Set(data.map(d=>d.cat))];
+  let html="";
 
-  data.forEach((item,i)=>{
-    html+=`
-    <div class="card">
-      <img src="${item.img}">
-      <div class="card-body">
-        ${item.name}<br>Rp${item.price}
+  cats.forEach(cat=>{
+    html+=`<h3 style="padding-left:10px">${cat}</h3><div class="menu-grid">`;
 
-        <div class="qty">
-          <button onclick="update(${i},-1)">-</button>
-          <span id="q${i}">0</span>
-          <button onclick="update(${i},1)">+</button>
-        </div>
-      </div>
-    </div>`;
+    data.forEach((item,i)=>{
+      if(item.cat===cat){
+        let qty=cart[i]?.qty||0;
+
+        html+=`
+        <div class="card">
+          <img src="${item.img}">
+          <div class="card-body">
+            ${item.name}<br>Rp${item.price}
+
+            <div class="qty">
+              <button onclick="update(${i},-1)">-</button>
+              <span id="q${i}">${qty}</span>
+              <button onclick="update(${i},1)">+</button>
+            </div>
+
+            <textarea id="n${i}" placeholder="catatan...">${cart[i]?.note||""}</textarea>
+          </div>
+        </div>`;
+      }
+    });
+
+    html+="</div>";
   });
 
-  html+="</div>";
+  html+=`
+  <div class="opsi">
+  <b>OPSI PENGIRIMAN</b><br>
+  <label><input type="radio" name="kirim" value="Diantar" onclick="toggle('antar')"> Diantar</label><br>
+  <label><input type="radio" name="kirim" value="COD" onclick="toggle('cod')"> COD</label>
+
+  <div id="antarBox" style="display:none">
+    <input id="alamatAntar" placeholder="Alamat antar">
+  </div>
+
+  <div id="codBox" style="display:none">
+    <input id="lokasi" placeholder="Lokasi COD">
+  </div>
+  </div>
+  `;
 
   document.getElementById("menu").innerHTML=html;
+}
+
+function toggle(t){
+  antarBox.style.display="none";
+  codBox.style.display="none";
+  if(t==="antar") antarBox.style.display="block";
+  if(t==="cod") codBox.style.display="block";
 }
 
 function update(i,val){
@@ -230,29 +279,32 @@ function update(i,val){
   el.innerText=qty;
 
   if(qty===0) delete cart[i];
-  else cart[i]={...data[i],qty};
+  else cart[i]={...data[i],qty,note:document.getElementById("n"+i).value};
 
   renderCart();
 }
 
 function renderCart(){
-  let html="";
+  let html="🧾 Pesanan<br>";
   let total=0;
 
   Object.values(cart).forEach((c,i)=>{
     let sub=c.price*c.qty;
     total+=sub;
-    html+=`${c.name} (${c.qty}) Rp${sub}<br>`;
+
+    html+=`${i+1}. ${c.name} (${c.qty})<br>`;
+    if(c.note) html+=`- ${c.note}<br>`;
+    html+=`Rp${sub}<br><br>`;
   });
 
-  document.getElementById("cartList").innerHTML=html;
-  document.getElementById("total").innerText="Total: Rp"+total;
+  cartList.innerHTML=html;
+  total.innerText="Total: Rp"+total;
 }
 
 function sendWA(){
-  let nama=document.getElementById("nama").value;
-  let alamat=document.getElementById("alamat").value;
-  let hp=document.getElementById("hp").value;
+  let nama=nama.value;
+  let alamat=alamat.value;
+  let hp=hp.value;
 
   let text=`Halo saya ${nama}\n${alamat}\n${hp}\n\nPesan:\n`;
 
