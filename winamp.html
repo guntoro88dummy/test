@@ -6,80 +6,81 @@
 
 <style>
 body {
-  background: #1b1b1b;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
+  background: #111;
   font-family: Tahoma;
-}
-
-/* RADIO BODY */
-.radio {
-  width: 700px;
-  background: #3b2b1f;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 0 30px #000;
-}
-
-/* TOP */
-.top {
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* VIDEO (KIRI) */
+/* RADIO PNG */
+.radio {
+  width: 720px;
+  height: 300px;
+  background: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgsOy-qVff7WLiLM7y1AI-yk_TEIu7DTSRTQZwvWnZuCPZpqBXXl2BJOq5_wANf-aYTDVBAQXX4t20RoC28eBZX_wZwzCOWOriCtTc4FQz7I37K_QHKJbprke5qT2J3_GfZLZ7qUPdF_ELthMbSlMquKQK3-2LHQbJNtpfcUhamFU9ybh_dW5JJKE4XBQM/s1600/old%20radio.png') no-repeat center;
+  background-size: 100% 100%;
+  position: relative;
+  margin-top: 20px;
+}
+
+/* VIDEO (KIRI SPEAKER) */
 .video {
-  width: 50%;
+  position: absolute;
+  top: 70px;
+  left: 40px;
+  width: 300px;
+  height: 160px;
   background: #000;
 }
 
 .video iframe {
   width: 100%;
-  height: 200px;
+  height: 100%;
   border: none;
 }
 
-/* DISPLAY (KANAN) */
-.display {
-  width: 50%;
-  background: #111;
+/* INFO LAGU */
+.info {
+  position: absolute;
+  top: 235px;
+  left: 40px;
+  width: 300px;
+  font-size: 12px;
   color: #f5d97a;
-  padding: 10px;
+  text-align: center;
   font-family: monospace;
-  font-size: 14px;
 }
 
 /* SEARCH */
 .search {
-  margin-top: 10px;
+  margin-top: 15px;
+  width: 720px;
   display: flex;
 }
 
 .search input {
   flex: 1;
-  padding: 8px;
+  padding: 10px;
   border: none;
 }
 
 .search button {
-  padding: 8px;
+  padding: 10px;
   cursor: pointer;
 }
 
 /* PLAYLIST */
 .playlist {
-  margin-top: 10px;
+  width: 720px;
   max-height: 200px;
   overflow-y: auto;
   background: #222;
+  margin-top: 5px;
 }
 
 /* ITEM */
 .item {
-  padding: 8px;
+  padding: 10px;
   border-bottom: 1px solid #333;
   display: flex;
   justify-content: space-between;
@@ -92,53 +93,49 @@ body {
 
 .delete {
   color: red;
+  cursor: pointer;
 }
 </style>
 </head>
 
 <body>
 
+<!-- RADIO -->
 <div class="radio">
 
-  <div class="top">
-
-    <!-- VIDEO -->
-    <div class="video">
-      <iframe id="yt"
-        src="https://www.youtube.com/embed/kTJczUoc26U?mute=1"
-        allow="autoplay">
-      </iframe>
-    </div>
-
-    <!-- DISPLAY -->
-    <div class="display" id="display">
-      📻 NAWOLO RADIO<br>
-      Ready...
-    </div>
-
+  <!-- VIDEO -->
+  <div class="video">
+    <iframe id="yt"
+      src="https://www.youtube.com/embed/kTJczUoc26U?mute=1"
+      allow="autoplay">
+    </iframe>
   </div>
 
-  <!-- SEARCH -->
-  <div class="search">
-    <input id="q" placeholder="Cari lagu / artis">
-    <button onclick="search()">SEARCH</button>
+  <!-- INFO -->
+  <div class="info" id="info">
+    📻 NAWOLO RADIO
   </div>
-
-  <!-- PLAYLIST -->
-  <div class="playlist" id="playlist"></div>
 
 </div>
+
+<!-- SEARCH -->
+<div class="search">
+  <input id="q" placeholder="Cari lagu / artis...">
+  <button onclick="search()">SEARCH</button>
+</div>
+
+<!-- PLAYLIST -->
+<div class="playlist" id="playlist"></div>
 
 <script>
 let db = [
   {title:"Sheila On 7 - Dan", id:"kTJczUoc26U"},
   {title:"Dewa 19 - Kangen", id:"fJ9rUzIMcZQ"},
-  {title:"Ungu - Demi Waktu", id:"RgKAFK5djSk"},
-  {title:"NOAH - Separuh Aku", id:"OPf0YbXqDm0"}
+  {title:"NOAH - Separuh Aku", id:"OPf0YbXqDm0"},
+  {title:"Ungu - Demi Waktu", id:"RgKAFK5djSk"}
 ];
 
 let list = [...db];
-let current = 0;
 
 /* RENDER */
 function render(){
@@ -159,11 +156,10 @@ function play(id,title){
   document.getElementById("yt").src =
     `https://www.youtube.com/embed/${id}?autoplay=1&mute=1`;
 
-  document.getElementById("display").innerHTML =
-    `📻 NAWOLO RADIO<br>Now Playing:<br>${title}`;
+  document.getElementById("info").innerText = title;
 }
 
-/* SEARCH (LOCAL) */
+/* SEARCH */
 function search(){
   let q = document.getElementById("q").value.toLowerCase();
 
