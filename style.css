@@ -935,3 +935,15 @@ object-fit:cover;
 }
 
 }
+
+/* HIDE SIDEBAR ADS ON MOBILE */
+
+@media (max-width:900px){
+
+.right-ads{
+display:none;
+}
+
+}
+
+
