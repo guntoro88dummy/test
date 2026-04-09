@@ -474,7 +474,13 @@ window.addEventListener("load", function(){
 
 if(window.innerWidth > 900) return;
 
-/* daftar semua section video */
+/* shuffle iklan */
+
+const shuffledAds = [...ADS_SIDEBAR].sort(()=>0.5 - Math.random());
+
+let adsIndex = 0;
+
+/* daftar section video */
 
 const sections = [
 document.getElementById("shorts-row"),
@@ -492,12 +498,24 @@ const videos = section.children;
 
 if(videos.length < 6) return;
 
+/* ambil 2 iklan berbeda */
+
+const adsToShow = shuffledAds.slice(adsIndex, adsIndex+2);
+
+adsIndex += 2;
+
+/* jika iklan habis mulai lagi dari awal */
+
+if(adsIndex >= shuffledAds.length){
+adsIndex = 0;
+}
+
 const adsBlock = document.createElement("div");
 adsBlock.className = "mobile-inline-ads";
 
 let adsHTML = "";
 
-ADS_SIDEBAR.slice(0,2).forEach(ad=>{
+adsToShow.forEach(ad=>{
 
 adsHTML += `
 <a href="${ad.link}" target="_blank" class="ads-item">
@@ -509,8 +527,6 @@ ${ad.title ? `<div class="ads-overlay">${ad.title}</div>` : ""}
 });
 
 adsBlock.innerHTML = adsHTML;
-
-/* iklan muncul setelah section video */
 
 section.after(adsBlock);
 
