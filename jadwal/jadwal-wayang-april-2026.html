@@ -496,6 +496,61 @@ overflow-x:auto;
 
 }
 
+  /* FIX AGAR PAGE TIDAK MELEBAR DI MOBILE */
+
+@media (max-width:900px){
+
+html,body{
+max-width:100%;
+overflow-x:hidden;
+}
+
+/* layout boleh mengecil */
+.layout{
+grid-template-columns:1fr;
+min-width:0;
+}
+
+/* halaman utama boleh mengecil */
+.page{
+min-width:0;
+}
+
+/* header tidak memaksa lebar */
+.header-bar{
+flex-wrap:nowrap;
+min-width:0;
+}
+
+/* search bar tidak memaksa lebar */
+.search-ad{
+max-width:50%;
+min-width:0;
+margin-left:5px;
+margin-right:5px;
+}
+
+/* banner affiliate tidak melebar */
+.affiliate{
+width:100%;
+box-sizing:border-box;
+max-width:100%;
+}
+
+/* slider tanggal tetap bisa digeser tapi tidak melebar */
+.date-slider{
+max-width:100%;
+overflow-x:auto;
+}
+
+/* tabel mengikuti layar */
+table{
+width:100%;
+table-layout:fixed;
+}
+
+}
+
 </style>
 
 </head>
