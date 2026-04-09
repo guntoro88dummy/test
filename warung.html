@@ -204,8 +204,8 @@ textarea{
     <input id="hp" placeholder="No Telp" style="width:100%;margin-bottom:5px;padding:6px;">
 
     <div id="cartList"></div>
-    <div id="total"></div>
-
+    <div id="total" style="font-weight:bold;font-size:16px;margin-top:8px;"></div>
+    
     <b>METODE PEMBAYARAN</b><br>
     <label><input type="radio" name="bayar" value="Cash"> Cash</label><br>
     <label><input type="radio" name="bayar" value="Transfer"> Transfer</label>
@@ -331,7 +331,9 @@ html+=`Rp${sub}<br><br>`;
 });
 
 cartList.innerHTML=html;
-total.innerText="Total: Rp"+total;
+
+document.getElementById("total").innerHTML =
+"<b>TOTAL: Rp" + total + "</b>";
 }
 
 function sendWA(){
