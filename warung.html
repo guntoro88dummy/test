@@ -266,21 +266,46 @@ function renderMenu(){
   /* OPSI PENGIRIMAN */
   html+=`
   <div class="opsi">
-    <b>OPSI PENGIRIMAN</b><br><br>
-    <label><input type="radio" name="kirim" value="Diantar"> Diantar</label><br>
-    <label><input type="radio" name="kirim" value="COD" onclick="toggleCOD()"> COD</label>
+  <b>OPSI PENGIRIMAN</b><br><br>
 
-    <div id="codBox" style="display:none; margin-top:5px;">
-      <input type="text" id="lokasi" placeholder="Isikan lokasi titik ketemu" style="width:100%; padding:5px;">
-    </div>
+  <label>
+    <input type="radio" name="kirim" value="Diantar" onclick="toggleKirim('antar')">
+    Diantar
+  </label><br>
+
+  <label>
+    <input type="radio" name="kirim" value="COD" onclick="toggleKirim('cod')">
+    COD
+  </label>
+
+  <!-- Input DIANTAR -->
+  <div id="antarBox" style="display:none; margin-top:8px;">
+    <input type="text" id="alamatAntar" placeholder="Masukkan alamat lengkap pengantaran"
+    style="width:100%; padding:6px;">
   </div>
+
+  <!-- Input COD -->
+  <div id="codBox" style="display:none; margin-top:8px;">
+    <input type="text" id="lokasi" placeholder="Isikan lokasi titik ketemu"
+    style="width:100%; padding:6px;">
+  </div>
+</div>
   `;
 
   document.getElementById("menu").innerHTML=html;
 }
 
-function toggleCOD(){
-  document.getElementById("codBox").style.display="block";
+function toggleKirim(type){
+  document.getElementById("antarBox").style.display = "none";
+  document.getElementById("codBox").style.display = "none";
+
+  if(type === 'antar'){
+    document.getElementById("antarBox").style.display = "block";
+  }
+
+  if(type === 'cod'){
+    document.getElementById("codBox").style.display = "block";
+  }
 }
 
 function update(i,val){
@@ -314,12 +339,27 @@ function renderCart(){
 
 function sendWA(){
 
-  let nama = document.getElementById("nama").value || "-";
-  let alamat = document.getElementById("alamat").value || "-";
-  let hp = document.getElementById("hp").value || "-";
+  let nama = document.getElementById("nama").value.trim();
+  let alamat = document.getElementById("alamat").value.trim();
+  let hp = document.getElementById("hp").value.trim();
+
+  if(!nama || !alamat || !hp){
+    alert("Harap isi Nama, Alamat, dan No HP terlebih dahulu!");
+    return;
+  }
+
+  if(Object.keys(cart).length === 0){
+    alert("Keranjang masih kosong!");
+    return;
+  }
+
+  let metode = document.querySelector('input[name="kirim"]:checked');
+  if(!metode){
+    alert("Pilih metode pengiriman!");
+    return;
+  }
 
   let text = `Halo, saya ${nama}\nAlamat: ${alamat}\nNo HP: ${hp}\n\nPesan:\n\n`;
-
   let total = 0;
 
   Object.values(cart).forEach((c,i)=>{
@@ -331,13 +371,24 @@ function sendWA(){
     text += `Rp${sub}\n\n`;
   });
 
-  let metode = document.querySelector('input[name="kirim"]:checked');
-  if(metode){
-    text += `Metode: ${metode.value}\n`;
-    if(metode.value==="COD"){
-      let loc = document.getElementById("lokasi").value;
-      text += `Lokasi COD: ${loc}\n`;
+  text += `Metode: ${metode.value}\n`;
+
+  if(metode.value === "Diantar"){
+    let antar = document.getElementById("alamatAntar").value.trim();
+    if(!antar){
+      alert("Isi alamat pengantaran!");
+      return;
     }
+    text += `Alamat Antar: ${antar}\n`;
+  }
+
+  if(metode.value === "COD"){
+    let loc = document.getElementById("lokasi").value.trim();
+    if(!loc){
+      alert("Isi lokasi COD!");
+      return;
+    }
+    text += `Lokasi COD: ${loc}\n`;
   }
 
   text += `\nTotal: Rp${total}`;
