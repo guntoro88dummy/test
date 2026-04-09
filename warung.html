@@ -19,37 +19,29 @@ header{
   width:100%;
   padding:10px 15px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  background:rgba(0,0,0,0.85);
+  justify-content:space-between;
+  background:rgba(0,0,0,0.9);
   color:white;
   z-index:100;
-  transition:0.3s;
 }
 
-header.transparent{
-  background:rgba(0,0,0,0.4);
+.header-left{
+  font-weight:bold;
 }
 
-.header-left{font-weight:bold;}
-
-.header-right{
-  display:flex;
-  gap:10px;
-  font-size:12px;
+.header-center{
+  flex:1;
+  overflow:hidden;
+  margin:0 10px;
+  white-space:nowrap;
 }
 
-.running{
-  position:absolute;
-  bottom:-18px;
-  width:100%;
-  text-align:center;
-  font-size:11px;
-}
-
-.running span{
+.header-center span{
   display:inline-block;
   animation:marquee 10s linear infinite;
+  font-size:12px;
+  text-transform:uppercase;
 }
 
 @keyframes marquee{
@@ -57,10 +49,27 @@ header.transparent{
   to{transform:translateX(-100%)}
 }
 
-/* LAYOUT */
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:12px;
+}
+
+/* BLINK */
+.blink{
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{
+  0%,100%{opacity:1;}
+  50%{opacity:0;}
+}
+
+/* CONTENT */
 .container{
-  padding-top:80px;
-  padding-bottom:120px;
+  padding-top:70px;
+  padding-bottom:150px;
 }
 
 .menu-grid{
@@ -111,17 +120,21 @@ textarea{
   margin-top:5px;
 }
 
+/* OPSI */
+.opsi{
+  background:white;
+  margin:10px;
+  padding:10px;
+  border-radius:10px;
+  box-shadow:0 5px 10px rgba(0,0,0,0.1);
+}
+
 /* NOTA */
 .cart{
   background:white;
   border-top:2px dashed black;
   padding:10px;
   font-family:monospace;
-  transition:0.3s;
-}
-
-.cart.fade{
-  opacity:0.5;
 }
 
 .wa-btn{
@@ -142,44 +155,35 @@ textarea{
   .cart{
     position:fixed;
     right:0;
-    top:90px;
+    top:80px;
     width:30%;
     height:80vh;
     overflow:auto;
   }
-}
-
-/* ANIMATION */
-.flash{
-  animation:flash 0.3s;
-}
-
-@keyframes flash{
-  0%{background:#d4ffd4;}
-  100%{background:white;}
 }
 </style>
 </head>
 
 <body>
 
-<header id="header">
+<header>
   <div class="header-left">Warung Nusantara</div>
 
-  <div class="header-right">
-    📍 Map
-    💬 Hubungi
+  <div class="header-center">
+    <span>SEBELUM PESAN HUBUNGI TOKO TERLEBIH DAHULU</span>
   </div>
 
-  <div class="running">
-    <span>🟢 TOKO BUKA • sebelum pesan hubungi toko terlebih dahulu</span>
+  <div class="header-right">
+    <span class="blink">🟢 TOKO BUKA</span>
+    📍 Map
+    💬 Hubungi
   </div>
 </header>
 
 <div class="container layout">
   <div class="menu" id="menu"></div>
 
-  <div class="cart" id="cartBox">
+  <div class="cart">
     <div id="cartList"></div>
     <div id="total"></div>
     <button class="wa-btn" onclick="sendWA()">Pesan via WhatsApp</button>
@@ -187,28 +191,30 @@ textarea{
 </div>
 
 <script>
+const imgSample = "https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg";
+
 const data = [
-  {cat:"Makanan",name:"Nasi Goreng",price:15000,img:"https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg"},
-  {cat:"Makanan",name:"Sate",price:20000,img:"https://asset.kompas.com/crops/BJdOTeUCdwHWS6ImI9qDnf3s8nI=/0x0:1000x667/1200x800/data/photo/2023/12/19/6580e31d4d33e.jpeg"},
-  {cat:"Makanan",name:"Bakso",price:12000,img:"https://asset.kompas.com/crops/aShLyAiGmMhzDUPiQjF77-Jl1NA=/0x0:1000x667/1200x800/data/photo/2020/06/02/5ed5f39c7d8fe.jpg"},
-  {cat:"Makanan",name:"Mie Ayam",price:13000,img:"https://source.unsplash.com/300x200/?noodle"},
+  {cat:"Makanan",name:"Nasi Goreng",price:15000,img:imgSample},
+  {cat:"Makanan",name:"Sate",price:20000,img:imgSample},
+  {cat:"Makanan",name:"Bakso",price:12000,img:imgSample},
+  {cat:"Makanan",name:"Mie Ayam",price:13000,img:imgSample},
 
-  {cat:"Minuman",name:"Es Teh",price:5000,img:"https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg"},
-  {cat:"Minuman",name:"Es Jeruk",price:7000,img:"https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg"},
-  {cat:"Minuman",name:"Es Buah",price:10000,img:"https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg"},
-  {cat:"Minuman",name:"Kopi",price:6000,img:"https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg"},
+  {cat:"Minuman",name:"Es Teh",price:5000,img:imgSample},
+  {cat:"Minuman",name:"Es Jeruk",price:7000,img:imgSample},
+  {cat:"Minuman",name:"Es Buah",price:10000,img:imgSample},
+  {cat:"Minuman",name:"Kopi",price:6000,img:imgSample},
 
-  {cat:"Camilan",name:"Tempe Goreng",price:3000,img:"https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg"},
-  {cat:"Camilan",name:"Tahu Goreng",price:3000,img:"https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg"},
-  {cat:"Camilan",name:"Kerupuk",price:2000,img:"https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg"},
-  {cat:"Camilan",name:"Kacang Goreng",price:4000,img:"https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg"},
+  {cat:"Camilan",name:"Tempe Goreng",price:3000,img:imgSample},
+  {cat:"Camilan",name:"Tahu Goreng",price:3000,img:imgSample},
+  {cat:"Camilan",name:"Kerupuk",price:2000,img:imgSample},
+  {cat:"Camilan",name:"Kacang Goreng",price:4000,img:imgSample},
 
-  {cat:"Pedas",name:"Bakso Aci",price:15000,img:"https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg"},
-  {cat:"Pedas",name:"Mie Pedas",price:12000,img:"https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg"},
-  {cat:"Pedas",name:"Seblak",price:13000,img:"https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg"}
+  {cat:"Pedas",name:"Bakso Aci",price:15000,img:imgSample},
+  {cat:"Pedas",name:"Mie Pedas",price:12000,img:imgSample},
+  {cat:"Pedas",name:"Seblak",price:13000,img:imgSample}
 ];
 
-let cart = JSON.parse(localStorage.getItem("cart")) || {};
+let cart = {};
 
 function renderMenu(){
   let cats=[...new Set(data.map(d=>d.cat))];
@@ -242,32 +248,35 @@ function renderMenu(){
     html+="</div>";
   });
 
+  /* OPSI PENGIRIMAN */
+  html+=`
+  <div class="opsi">
+    <b>OPSI PENGIRIMAN</b><br><br>
+    <label><input type="radio" name="kirim" value="Diantar"> Diantar</label><br>
+    <label><input type="radio" name="kirim" value="COD" onclick="toggleCOD()"> COD</label>
+
+    <div id="codBox" style="display:none; margin-top:5px;">
+      <input type="text" id="lokasi" placeholder="Isikan lokasi titik ketemu" style="width:100%; padding:5px;">
+    </div>
+  </div>
+  `;
+
   document.getElementById("menu").innerHTML=html;
 }
 
-function update(i,val){
-  let qEl=document.getElementById("q"+i);
-  let qty=parseInt(qEl.innerText)+val;
-  if(qty<0) qty=0;
-  qEl.innerText=qty;
-
-  let item=data[i];
-
-  if(qty===0){
-    delete cart[i];
-  } else {
-    cart[i]={...item,qty,note:document.getElementById("n"+i).value};
-  }
-
-  localStorage.setItem("cart",JSON.stringify(cart));
-
-  renderCart();
+function toggleCOD(){
+  document.getElementById("codBox").style.display="block";
 }
 
-function removeItem(i){
-  delete cart[i];
-  localStorage.setItem("cart",JSON.stringify(cart));
-  renderMenu();
+function update(i,val){
+  let el=document.getElementById("q"+i);
+  let qty=parseInt(el.innerText)+val;
+  if(qty<0) qty=0;
+  el.innerText=qty;
+
+  if(qty===0) delete cart[i];
+  else cart[i]={...data[i],qty,note:document.getElementById("n"+i).value};
+
   renderCart();
 }
 
@@ -275,20 +284,17 @@ function renderCart(){
   let html="🧾 Pesanan<br>";
   let total=0;
 
-  Object.entries(cart).forEach(([key,c],i)=>{
+  Object.values(cart).forEach((c,i)=>{
     let sub=c.price*c.qty;
     total+=sub;
 
-    html+=`${i+1}. ${c.name} (${c.qty}x) ❌ <span onclick="removeItem(${key})" style="cursor:pointer">hapus</span><br>`;
+    html+=`${i+1}. ${c.name} (${c.qty}x)<br>`;
     if(c.note) html+=`- ${c.note}<br>`;
     html+=`Rp${sub}<br><br>`;
   });
 
   document.getElementById("cartList").innerHTML=html;
   document.getElementById("total").innerText="Total: Rp"+total;
-
-  document.getElementById("cartBox").classList.add("flash");
-  setTimeout(()=>document.getElementById("cartBox").classList.remove("flash"),300);
 }
 
 function sendWA(){
@@ -304,29 +310,21 @@ function sendWA(){
     text+=`Rp${sub}\n\n`;
   });
 
-  text+=`Total: Rp${total}`;
+  let metode=document.querySelector('input[name="kirim"]:checked');
+  if(metode){
+    text+=`\nMetode: ${metode.value}\n`;
+    if(metode.value==="COD"){
+      let loc=document.getElementById("lokasi").value;
+      text+=`Lokasi: ${loc}\n`;
+    }
+  }
+
+  text+=`\nTotal: Rp${total}`;
 
   window.open("https://wa.me/628xxxxxxxxxx?text="+encodeURIComponent(text));
 }
 
-/* HEADER EFFECT */
-window.addEventListener("scroll",()=>{
-  let header=document.getElementById("header");
-  if(window.scrollY>50) header.classList.add("transparent");
-  else header.classList.remove("transparent");
-});
-
-/* CART FADE */
-setInterval(()=>{
-  document.getElementById("cartBox").classList.add("fade");
-},3000);
-
-document.getElementById("cartBox").addEventListener("mouseover",()=>{
-  document.getElementById("cartBox").classList.remove("fade");
-});
-
 renderMenu();
-renderCart();
 </script>
 
 </body>
