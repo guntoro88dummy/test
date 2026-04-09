@@ -810,7 +810,16 @@ const selected=ads.slice(0,2)
 selected.forEach(ad=>{
 
 const img=ad.querySelector("img")
-const title=img.alt || ""
+
+let title=""
+
+const textEl=ad.querySelector("span,div,p")
+
+if(textEl){
+title=textEl.textContent.trim()
+}else{
+title=img.alt || ""
+}
 
 const card=document.createElement("a")
 card.className="ads-card"
