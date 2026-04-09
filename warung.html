@@ -8,18 +8,19 @@
 body{
   margin:0;
   font-family:Poppins;
-  background:linear-gradient(#f5f7fa,#e4e8f0);
+  background:linear-gradient(#eef1f7,#dfe5ee);
 }
 
 /* HEADER */
 header{
   position:fixed;
-  width:100%;
   top:0;
-  background:#000;
-  color:#fff;
+  width:100%;
   display:flex;
+  align-items:center;
   justify-content:space-between;
+  background:rgba(0,0,0,0.85);
+  color:white;
   padding:10px;
   z-index:10;
 }
@@ -31,7 +32,10 @@ header{
 }
 
 .header-center span{
-  animation:marquee 10s linear infinite;
+  display:inline-block;
+  animation:marquee 12s linear infinite;
+  text-transform:uppercase;
+  font-size:12px;
 }
 
 @keyframes marquee{
@@ -43,61 +47,111 @@ header{
 @keyframes blink{50%{opacity:0}}
 
 /* LAYOUT */
-.container{padding-top:70px}
+.container{
+  padding-top:70px;
+}
+
+/* CATEGORY */
+.category{
+  margin-top:10px;
+  padding-left:10px;
+  font-weight:bold;
+}
 
 /* MENU */
 .menu-grid{
   display:flex;
   overflow-x:auto;
-  gap:10px;
+  gap:15px;
   padding:10px;
 }
 
+/* CARD */
 .card{
-  min-width:200px;
-  background:#fff;
-  border-radius:15px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.1);
-  overflow:hidden;
+  min-width:220px;
+  background:rgba(255,255,255,0.75);
+  backdrop-filter:blur(12px);
+  border-radius:18px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.15);
+  transition:0.3s;
 }
 
-.card img{width:100%;height:120px;object-fit:cover}
+.card:hover{
+  transform:translateY(-6px) scale(1.03);
+}
 
-.card-body{padding:10px}
+.card img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+  border-radius:18px 18px 0 0;
+}
 
-.qty{display:flex;justify-content:space-between}
+.card-body{padding:10px;}
+
+.qty{
+  display:flex;
+  justify-content:space-between;
+  margin-top:5px;
+}
+
+.qty button{
+  width:30px;
+  height:30px;
+  border:none;
+  border-radius:50%;
+  background:black;
+  color:white;
+}
+
+textarea{
+  width:100%;
+  margin-top:5px;
+  border-radius:8px;
+}
 
 /* OPSI */
 .opsi{
-  background:#fff3e0;
   margin:10px;
-  padding:10px;
+  padding:12px;
+  background:linear-gradient(135deg,#fff3e0,#f1f1f1);
   border-left:5px solid orange;
-  border-radius:10px;
+  border-radius:12px;
 }
 
 /* NOTA */
 .cart{
-  background:#fff;
-  padding:15px;
   margin:10px;
-  border-radius:10px;
+  padding:15px;
+  background:white;
+  border-radius:12px;
   font-family:monospace;
-  box-shadow:0 10px 20px rgba(0,0,0,0.1);
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
 }
 
 .line{
-  border-top:1px dashed #000;
-  margin:5px 0;
+  border-top:1px dashed black;
+  margin:6px 0;
 }
 
+/* BUTTON */
 .wa-btn{
   width:100%;
-  padding:12px;
-  background:green;
-  color:#fff;
+  padding:14px;
   border:none;
+  border-radius:10px;
+  background:linear-gradient(45deg,#25D366,#128C7E);
+  color:white;
   margin-top:10px;
+}
+
+/* REKENING */
+.rek{
+  margin-top:12px;
+  padding:12px;
+  border-radius:12px;
+  background:#2c2c2c;
+  color:white;
 }
 </style>
 </head>
@@ -105,11 +159,13 @@ header{
 <body>
 
 <header>
-<div>Warung</div>
+<div>Warung Nusantara</div>
+
 <div class="header-center">
-<span>SEBELUM PESAN HUBUNGI TOKO</span>
+<span>SEBELUM PESAN HUBUNGI TOKO TERLEBIH DAHULU</span>
 </div>
-<div class="blink">BUKA</div>
+
+<div class="blink">🟢 BUKA</div>
 </header>
 
 <div class="container">
@@ -118,10 +174,16 @@ header{
 
 <div class="opsi">
 <b>OPSI PENGIRIMAN</b><br>
-<label><input type="radio" name="kirim" value="Diantar">Diantar</label>
-<input id="antar" placeholder="Alamat"><br>
-<label><input type="radio" name="kirim" value="COD">COD</label>
-<input id="cod" placeholder="Lokasi COD">
+
+<label><input type="radio" name="kirim" onclick="showBox('antar')"> Diantar</label><br>
+<div id="antarBox" style="display:none">
+<input id="alamatAntar" placeholder="Alamat lengkap">
+</div>
+
+<label><input type="radio" name="kirim" onclick="showBox('cod')"> COD</label><br>
+<div id="codBox" style="display:none">
+<input id="lokasiCod" placeholder="Titik ketemu">
+</div>
 </div>
 
 <div class="cart">
@@ -129,7 +191,7 @@ header{
 <b>DATA PEMESAN</b><br>
 <input id="nama" placeholder="Nama"><br>
 <input id="alamat" placeholder="Alamat"><br>
-<input id="hp" placeholder="HP">
+<input id="hp" placeholder="No HP">
 
 <div class="line"></div>
 
@@ -141,11 +203,19 @@ header{
 
 <div class="line"></div>
 
-<b>PEMBAYARAN</b><br>
-<input type="radio" name="bayar" value="Cash">Cash<br>
-<input type="radio" name="bayar" value="Transfer">Transfer
+<b>METODE PEMBAYARAN</b><br>
+<label><input type="radio" name="bayar" value="Cash"> Cash</label><br>
+<label><input type="radio" name="bayar" value="Transfer"> Transfer</label>
 
-<button class="wa-btn" onclick="wa()">Pesan WA</button>
+<button class="wa-btn" onclick="kirimWA()">Pesan via WhatsApp</button>
+
+<div class="rek">
+<b>NO REKENING</b><br>
+BRI 31645643464616516516<br>
+MANDIRI 5616165134631564<br>
+BNI 5664564646464<br><br>
+<i>Kirim bukti transfer via WA</i>
+</div>
 
 </div>
 
@@ -155,36 +225,51 @@ header{
 const img="https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg";
 
 const data=[
-{name:"Nasi Goreng",price:15000,img},
-{name:"Sate",price:20000,img},
-{name:"Bakso",price:12000,img},
-{name:"Mie Ayam",price:13000,img},
-{name:"Es Teh",price:5000,img},
-{name:"Es Jeruk",price:7000,img},
-{name:"Seblak",price:13000,img}
+{cat:"Makanan",name:"Nasi Goreng",price:15000,img},
+{cat:"Makanan",name:"Sate",price:20000,img},
+{cat:"Makanan",name:"Bakso",price:12000,img},
+{cat:"Makanan",name:"Mie Ayam",price:13000,img},
+
+{cat:"Minuman",name:"Es Teh",price:5000,img},
+{cat:"Minuman",name:"Es Jeruk",price:7000,img},
+
+{cat:"Pedas",name:"Seblak",price:13000,img}
 ];
 
 let cart={};
 
 function render(){
-let html="<div class='menu-grid'>";
+let cats=[...new Set(data.map(d=>d.cat))];
+let html="";
+
+cats.forEach(cat=>{
+html+=`<div class="category">${cat}</div><div class="menu-grid">`;
 
 data.forEach((d,i)=>{
+if(d.cat===cat){
+let q=cart[i]?.qty||0;
+
 html+=`
 <div class="card">
 <img src="${d.img}">
 <div class="card-body">
 ${d.name}<br>Rp${d.price}
+
 <div class="qty">
 <button onclick="upd(${i},-1)">-</button>
-<span id="q${i}">0</span>
+<span id="q${i}">${q}</span>
 <button onclick="upd(${i},1)">+</button>
 </div>
+
+<textarea id="n${i}" placeholder="catatan...">${cart[i]?.note||""}</textarea>
 </div>
 </div>`;
+}
 });
 
 html+="</div>";
+});
+
 menu.innerHTML=html;
 }
 
@@ -194,35 +279,41 @@ let q=parseInt(el.innerText)+v;
 if(q<0)q=0;
 el.innerText=q;
 
-if(q==0) delete cart[i];
-else cart[i]={...data[i],qty:q};
+if(q===0) delete cart[i];
+else cart[i]={...data[i],qty:q,note:document.getElementById("n"+i).value};
 
 draw();
 }
 
 function draw(){
-let html="";
+let html="🧾 PESANAN\n";
 let total=0;
 let no=1;
 
-Object.keys(cart).forEach(i=>{
-let c=cart[i];
+Object.values(cart).forEach(c=>{
 let sub=c.qty*c.price;
 total+=sub;
 
-html+=`
-${no}. ${c.name}
-${c.qty} x ${c.price} = ${sub}
-`;
+html+=`\n${no}. ${c.name}\n`;
+html+=`${c.qty} x ${c.price} = ${sub}\n`;
+if(c.note) html+=`* ${c.note}\n`;
 no++;
 });
 
 cartList.innerText=html;
-total.innerText="TOTAL: "+total;
+total.innerText="TOTAL: Rp"+total;
 }
 
-function wa(){
-let text=`Halo saya ${nama.value}
+function showBox(t){
+antarBox.style.display="none";
+codBox.style.display="none";
+
+if(t==="antar") antarBox.style.display="block";
+if(t==="cod") codBox.style.display="block";
+}
+
+function kirimWA(){
+let text=`Halo, saya ${nama.value}
 ${alamat.value}
 ${hp.value}
 
@@ -230,8 +321,7 @@ Pesanan:
 `;
 
 Object.values(cart).forEach(c=>{
-text+=`${c.name} (${c.qty})
-`;
+text+=`${c.name} (${c.qty})\n`;
 });
 
 window.open("https://wa.me/?text="+encodeURIComponent(text));
