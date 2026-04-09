@@ -551,6 +551,51 @@ table-layout:fixed;
 
 }
 
+  /* ADS CARD GRID */
+
+.ads-card-container{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin:25px 0;
+}
+
+/* kartu */
+
+.ads-card{
+display:block;
+background:#1a1a1a;
+border-radius:10px;
+overflow:hidden;
+text-decoration:none;
+color:#fff;
+}
+
+/* gambar */
+
+.ads-card img{
+width:100%;
+display:block;
+}
+
+/* judul */
+
+.ads-card-title{
+padding:8px 10px;
+font-size:13px;
+line-height:1.3;
+font-weight:600;
+}
+
+/* batasi teks 2 baris */
+
+.ads-card-title{
+display:-webkit-box;
+-webkit-line-clamp:2;
+-webkit-box-orient:vertical;
+overflow:hidden;
+}  
+
 </style>
 
 </head>
@@ -672,6 +717,8 @@ JADWAL WAYANG KULIT APRIL 2026
 <span id="promo-close" style="margin-left:10px;cursor:pointer;">✕</span>
 </div>
 
+<div id="ads-card-container" class="ads-card-container"></div>  
+
 <div class="seo">
 
 <h3>Deskripsi</h3>
@@ -720,6 +767,53 @@ right.innerHTML=left.innerHTML
 },500)
 
 </script>
+
+<script>
+
+/* RANDOM 2 IKLAN SIDEBAR JADI CARD */
+
+setTimeout(function(){
+
+const container=document.getElementById("ads-card-container")
+
+if(!container) return
+
+/* ambil semua iklan dari sidebar */
+
+const ads=[...document.querySelectorAll("#ads-sidebar a")]
+
+if(ads.length===0) return
+
+/* random */
+
+ads.sort(()=>0.5-Math.random())
+
+/* ambil 2 */
+
+const selected=ads.slice(0,2)
+
+/* render kartu */
+
+selected.forEach(ad=>{
+
+const img=ad.querySelector("img")
+const title=img.alt || ""
+
+const card=document.createElement("a")
+card.className="ads-card"
+card.href=ad.href
+card.target="_blank"
+
+card.innerHTML=`
+<img src="${img.src}">
+<div class="ads-card-title">${title}</div>
+`
+
+container.appendChild(card)
+
+})
+
+},600)  
 
 <script>
 
