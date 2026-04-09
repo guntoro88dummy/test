@@ -371,6 +371,102 @@ color:#ffffff !important;
 text-decoration:none !important;
 }
 
+  /* ============================= */
+/* MOBILE LAYOUT IMPROVEMENT     */
+/* ============================= */
+@media (max-width:768px){
+
+/* HEADER SIMPLIFY */
+.voice-btn,
+.create-btn,
+.notif,
+.logo-area span{
+display:none;
+}
+
+.search-ad{
+margin-left:10px;
+margin-right:10px;
+max-width:none;
+}
+
+/* CONTAINER FIT */
+.page{
+padding:10px;
+}
+
+.title{
+font-size:24px;
+}
+
+.today-date{
+font-size:16px;
+}
+
+/* TABLE → CARD STYLE */
+
+table thead{
+display:none;
+}
+
+table,
+tbody,
+tr,
+td{
+display:block;
+width:100%;
+}
+
+tr{
+background:#1a1a1a;
+margin-bottom:12px;
+padding:10px;
+border-radius:8px;
+}
+
+td{
+border:none;
+padding:6px 0;
+font-size:14px;
+}
+
+/* LABELS */
+
+td:nth-child(1)::before{
+content:"Tanggal : ";
+font-weight:bold;
+}
+
+td:nth-child(2)::before{
+content:"Dalang : ";
+font-weight:bold;
+}
+
+td:nth-child(3)::before{
+content:"Lokasi : ";
+font-weight:bold;
+}
+
+/* NAV BUTTON MOBILE */
+
+.day-nav{
+flex-direction:column;
+gap:10px;
+}
+
+.day-btn{
+text-align:center;
+}
+
+/* DATE SLIDER SMOOTH */
+
+.date-slider{
+padding-left:5px;
+padding-right:5px;
+}
+
+}
+
 </style>
 
 </head>
