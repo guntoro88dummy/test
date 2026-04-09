@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warung Nusantara</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f9f9f9;
+}
+
+header {
+  background: #222;
+  color: #fff;
+  padding: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.container {
+  padding: 10px;
+  margin-bottom: 220px;
+}
+
+h2 {
+  margin-top: 20px;
+}
+
+.menu-item {
+  background: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.qty button {
+  padding: 5px 10px;
+}
+
+textarea {
+  width: 100%;
+  margin-top: 5px;
+}
+
+button.add {
+  margin-top: 5px;
+  width: 100%;
+  background: green;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+/* NOTA */
+.cart {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 2px dashed #000;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.total {
+  font-weight: bold;
+}
+
+.wa-btn {
+  width: 100%;
+  padding: 10px;
+  background: #25D366;
+  color: white;
+  border: none;
+  margin-top: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h3>Warung Nusantara 🔥</h3>
+  <small>Buka 09.00 - 22.00</small>
+</header>
+
+<div class="container" id="menu"></div>
+
+<div class="cart">
+  <div id="cartList"></div>
+  <div class="total" id="total"></div>
+  <button class="wa-btn" onclick="sendWA()">Pesan via WhatsApp</button>
+</div>
+
+<script>
+const menuData = [
+  {name:"Nasi Goreng", price:15000},
+  {name:"Sate", price:20000},
+  {name:"Bakso", price:12000},
+  {name:"Mie Ayam", price:13000},
+
+  {name:"Es Teh", price:5000},
+  {name:"Es Jeruk", price:7000},
+  {name:"Es Buah", price:10000},
+  {name:"Kopi", price:6000},
+
+  {name:"Tempe Goreng", price:3000},
+  {name:"Tahu Goreng", price:3000},
+  {name:"Kerupuk", price:2000},
+  {name:"Kacang Goreng", price:4000},
+
+  {name:"Bakso Aci", price:15000},
+  {name:"Mie Pedas", price:12000},
+  {name:"Seblak", price:13000}
+];
+
+let cart = [];
+
+function renderMenu() {
+  const container = document.getElementById("menu");
+  menuData.forEach((item, index) => {
+    container.innerHTML += `
+      <div class="menu-item">
+        <div class="row">
+          <b>${item.name}</b>
+          <span>Rp${item.price}</span>
+        </div>
+
+        <div class="qty">
+          <button onclick="changeQty(${index}, -1)">-</button>
+          <span id="qty-${index}">1</span>
+          <button onclick="changeQty(${index}, 1)">+</button>
+        </div>
+
+        <textarea id="note-${index}" placeholder="catatan..."></textarea>
+
+        <button class="add" onclick="addToCart(${index})">
+          + Tambah ke Nota
+        </button>
+      </div>
+    `;
+  });
+}
+
+function changeQty(i, val) {
+  let el = document.getElementById("qty-" + i);
+  let qty = parseInt(el.innerText);
+  qty += val;
+  if (qty < 1) qty = 1;
+  el.innerText = qty;
+}
+
+function addToCart(i) {
+  let qty = parseInt(document.getElementById("qty-"+i).innerText);
+  let note = document.getElementById("note-"+i).value;
+
+  cart.push({
+    name: menuData[i].name,
+    price: menuData[i].price,
+    qty,
+    note
+  });
+
+  renderCart();
+}
+
+function renderCart() {
+  let list = document.getElementById("cartList");
+  let total = 0;
+  list.innerHTML = "<b>🧾 Pesanan</b><br>";
+
+  cart.forEach((item, i) => {
+    let sub = item.price * item.qty;
+    total += sub;
+
+    list.innerHTML += `
+      ${i+1}. ${item.name} (${item.qty}x)<br>
+      ${item.note ? "- " + item.note + "<br>" : ""}
+      Rp${sub}<br><br>
+    `;
+  });
+
+  document.getElementById("total").innerText = "Total: Rp" + total;
+}
+
+function sendWA() {
+  let text = "Halo, saya ingin pesan:\n\n";
+  let total = 0;
+
+  cart.forEach((item, i) => {
+    let sub = item.price * item.qty;
+    total += sub;
+
+    text += `${i+1}. ${item.name} (${item.qty}x)\n`;
+    if(item.note) text += `- ${item.note}\n`;
+    text += `Rp${sub}\n\n`;
+  });
+
+  text += `Total: Rp${total}`;
+
+  let url = "https://wa.me/6285331314118?text=" + encodeURIComponent(text);
+  window.open(url);
+}
+
+renderMenu();
+</script>
+
+</body>
+</html>
