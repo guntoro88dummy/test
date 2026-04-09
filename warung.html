@@ -3,12 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warung Nusantara</title>
 
 <style>
 body{
   margin:0;
-  font-family:Poppins;
-  background:linear-gradient(#eef1f7,#dfe5ee);
+  font-family:'Poppins',sans-serif;
+  background:
+    radial-gradient(circle at top left, #ffffff, #eef1f7),
+    linear-gradient(180deg,#f8f9fc,#e9edf5);
 }
 
 /* HEADER */
@@ -16,26 +19,29 @@ header{
   position:fixed;
   top:0;
   width:100%;
+  padding:10px 15px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  background:rgba(0,0,0,0.85);
+  background:rgba(0,0,0,0.9);
   color:white;
-  padding:10px;
-  z-index:10;
+  z-index:100;
 }
+
+.header-left{font-weight:bold;}
 
 .header-center{
   flex:1;
   overflow:hidden;
+  margin:0 10px;
   white-space:nowrap;
 }
 
 .header-center span{
   display:inline-block;
-  animation:marquee 12s linear infinite;
-  text-transform:uppercase;
+  animation:marquee 10s linear infinite;
   font-size:12px;
+  text-transform:uppercase;
 }
 
 @keyframes marquee{
@@ -43,26 +49,30 @@ header{
   to{transform:translateX(-100%)}
 }
 
-.blink{animation:blink 1s infinite;}
-@keyframes blink{50%{opacity:0}}
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:12px;
+}
 
-/* LAYOUT */
+/* BLINK */
+.blink{animation:blink 1s infinite;}
+@keyframes blink{
+  0%,100%{opacity:1;}
+  50%{opacity:0;}
+}
+
+/* CONTENT */
 .container{
   padding-top:70px;
+  padding-bottom:150px;
 }
 
-/* CATEGORY */
-.category{
-  margin-top:10px;
-  padding-left:10px;
-  font-weight:bold;
-}
-
-/* MENU */
 .menu-grid{
   display:flex;
+  gap:12px;
   overflow-x:auto;
-  gap:15px;
   padding:10px;
 }
 
@@ -72,19 +82,21 @@ header{
   background:rgba(255,255,255,0.75);
   backdrop-filter:blur(12px);
   border-radius:18px;
-  box-shadow:0 12px 30px rgba(0,0,0,0.15);
-  transition:0.3s;
+  overflow:hidden;
+  box-shadow:0 12px 30px rgba(0,0,0,0.12);
+  transition:all 0.35s ease;
+  border:1px solid rgba(255,255,255,0.5);
 }
 
 .card:hover{
-  transform:translateY(-6px) scale(1.03);
+  transform:translateY(-8px) scale(1.03);
+  box-shadow:0 20px 40px rgba(0,0,0,0.18);
 }
 
 .card img{
   width:100%;
   height:140px;
   object-fit:cover;
-  border-radius:18px 18px 0 0;
 }
 
 .card-body{padding:10px;}
@@ -96,62 +108,72 @@ header{
 }
 
 .qty button{
-  width:30px;
-  height:30px;
   border:none;
+  width:32px;
+  height:32px;
   border-radius:50%;
-  background:black;
+  background:linear-gradient(145deg,#111,#333);
   color:white;
 }
 
 textarea{
   width:100%;
   margin-top:5px;
-  border-radius:8px;
 }
 
 /* OPSI */
 .opsi{
+  background:linear-gradient(135deg,#fff3e0,#f1f1f1);
   margin:10px;
   padding:12px;
-  background:linear-gradient(135deg,#fff3e0,#f1f1f1);
-  border-left:5px solid orange;
   border-radius:12px;
+  border-left:5px solid orange;
 }
 
 /* NOTA */
 .cart{
-  margin:10px;
+  background:#fff;
+  border-top:3px dashed #000;
   padding:15px;
-  background:white;
-  border-radius:12px;
-  font-family:monospace;
-  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+  font-family:'Courier New',monospace;
 }
 
-.line{
-  border-top:1px dashed black;
-  margin:6px 0;
+.cart::before{
+  content:"";
+  display:block;
+  height:10px;
+  background:repeating-linear-gradient(
+    90deg,
+    black 0px,
+    black 2px,
+    transparent 2px,
+    transparent 6px
+  );
+  margin-bottom:10px;
 }
 
-/* BUTTON */
 .wa-btn{
   width:100%;
   padding:14px;
-  border:none;
-  border-radius:10px;
   background:linear-gradient(45deg,#25D366,#128C7E);
+  border:none;
   color:white;
+  border-radius:12px;
   margin-top:10px;
 }
 
-/* REKENING */
-.rek{
-  margin-top:12px;
-  padding:12px;
-  border-radius:12px;
-  background:#2c2c2c;
-  color:white;
+/* DESKTOP */
+@media(min-width:768px){
+  .layout{display:flex;}
+  .menu{width:70%;}
+  .cart{
+    position:fixed;
+    right:0;
+    top:80px;
+    width:30%;
+    height:80vh;
+    overflow:auto;
+  }
 }
 </style>
 </head>
@@ -159,108 +181,93 @@ textarea{
 <body>
 
 <header>
-<div>Warung Nusantara</div>
+  <div class="header-left">Warung Nusantara</div>
 
-<div class="header-center">
-<span>SEBELUM PESAN HUBUNGI TOKO TERLEBIH DAHULU</span>
-</div>
+  <div class="header-center">
+    <span>SEBELUM PESAN HUBUNGI TOKO TERLEBIH DAHULU</span>
+  </div>
 
-<div class="blink">🟢 BUKA</div>
+  <div class="header-right">
+    <span class="blink">🟢 TOKO BUKA</span>
+    📍 Map 💬 Hubungi
+  </div>
 </header>
 
-<div class="container">
+<div class="container layout">
+  <div class="menu" id="menu"></div>
 
-<div id="menu"></div>
+  <div class="cart">
 
-<div class="opsi">
-<b>OPSI PENGIRIMAN</b><br>
+    <b>Data Pemesan</b><br><br>
+    <input id="nama" placeholder="Nama Pemesan" style="width:100%;margin-bottom:5px;padding:6px;">
+    <input id="alamat" placeholder="Alamat Pemesan" style="width:100%;margin-bottom:5px;padding:6px;">
+    <input id="hp" placeholder="No Telp" style="width:100%;margin-bottom:5px;padding:6px;">
 
-<label><input type="radio" name="kirim" onclick="showBox('antar')"> Diantar</label><br>
-<div id="antarBox" style="display:none">
-<input id="alamatAntar" placeholder="Alamat lengkap">
-</div>
+    <div id="cartList"></div>
+    <div id="total"></div>
 
-<label><input type="radio" name="kirim" onclick="showBox('cod')"> COD</label><br>
-<div id="codBox" style="display:none">
-<input id="lokasiCod" placeholder="Titik ketemu">
-</div>
-</div>
+    <b>METODE PEMBAYARAN</b><br>
+    <label><input type="radio" name="bayar" value="Cash"> Cash</label><br>
+    <label><input type="radio" name="bayar" value="Transfer"> Transfer</label>
 
-<div class="cart">
+    <button class="wa-btn" onclick="sendWA()">Pesan via WhatsApp</button>
 
-<b>DATA PEMESAN</b><br>
-<input id="nama" placeholder="Nama"><br>
-<input id="alamat" placeholder="Alamat"><br>
-<input id="hp" placeholder="No HP">
+    <!-- FIX: dipindah dari CSS ke HTML -->
+    <div style="margin-top:12px;padding:12px;border-radius:12px;background:#2c2c2c;color:#fff;font-size:13px;">
+      <b>NO REKENING PEMBAYARAN:</b><br>
+      BRI 31645643464616516516<br>
+      MANDIRI 5616165134631564<br>
+      BNI 5664564646464<br><br>
+      <i>Note: Sertakan bukti transfer di WhatsApp setelah melakukan pemesanan</i>
+    </div>
 
-<div class="line"></div>
-
-<div id="cartList"></div>
-
-<div class="line"></div>
-
-<div id="total"></div>
-
-<div class="line"></div>
-
-<b>METODE PEMBAYARAN</b><br>
-<label><input type="radio" name="bayar" value="Cash"> Cash</label><br>
-<label><input type="radio" name="bayar" value="Transfer"> Transfer</label>
-
-<button class="wa-btn" onclick="kirimWA()">Pesan via WhatsApp</button>
-
-<div class="rek">
-<b>NO REKENING</b><br>
-BRI 31645643464616516516<br>
-MANDIRI 5616165134631564<br>
-BNI 5664564646464<br><br>
-<i>Kirim bukti transfer via WA</i>
-</div>
-
-</div>
-
+  </div>
 </div>
 
 <script>
-const img="https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg";
+const imgSample="https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-kencur-kemangi.jpg";
 
 const data=[
-{cat:"Makanan",name:"Nasi Goreng",price:15000,img},
-{cat:"Makanan",name:"Sate",price:20000,img},
-{cat:"Makanan",name:"Bakso",price:12000,img},
-{cat:"Makanan",name:"Mie Ayam",price:13000,img},
-
-{cat:"Minuman",name:"Es Teh",price:5000,img},
-{cat:"Minuman",name:"Es Jeruk",price:7000,img},
-
-{cat:"Pedas",name:"Seblak",price:13000,img}
+{cat:"Makanan",name:"Nasi Goreng",price:15000,img:imgSample},
+{cat:"Makanan",name:"Sate",price:20000,img:imgSample},
+{cat:"Makanan",name:"Bakso",price:12000,img:imgSample},
+{cat:"Makanan",name:"Mie Ayam",price:13000,img:imgSample},
+{cat:"Minuman",name:"Es Teh",price:5000,img:imgSample},
+{cat:"Minuman",name:"Es Jeruk",price:7000,img:imgSample},
+{cat:"Minuman",name:"Es Buah",price:10000,img:imgSample},
+{cat:"Minuman",name:"Kopi",price:6000,img:imgSample},
+{cat:"Camilan",name:"Tempe Goreng",price:3000,img:imgSample},
+{cat:"Camilan",name:"Tahu Goreng",price:3000,img:imgSample},
+{cat:"Camilan",name:"Kerupuk",price:2000,img:imgSample},
+{cat:"Camilan",name:"Kacang Goreng",price:4000,img:imgSample},
+{cat:"Pedas",name:"Bakso Aci",price:15000,img:imgSample},
+{cat:"Pedas",name:"Mie Pedas",price:12000,img:imgSample},
+{cat:"Pedas",name:"Seblak",price:13000,img:imgSample}
 ];
 
 let cart={};
 
-function render(){
+function renderMenu(){
 let cats=[...new Set(data.map(d=>d.cat))];
 let html="";
 
 cats.forEach(cat=>{
-html+=`<div class="category">${cat}</div><div class="menu-grid">`;
+html+=`<h3 style="padding-left:10px">${cat}</h3><div class="menu-grid">`;
 
-data.forEach((d,i)=>{
-if(d.cat===cat){
-let q=cart[i]?.qty||0;
+data.forEach((item,i)=>{
+if(item.cat===cat){
+let qty=cart[i]?.qty||0;
 
 html+=`
 <div class="card">
-<img src="${d.img}">
+<img src="${item.img}">
 <div class="card-body">
-${d.name}<br>Rp${d.price}
-
+<b>${item.name}</b><br>Rp${item.price}
 <div class="qty">
-<button onclick="upd(${i},-1)">-</button>
-<span id="q${i}">${q}</span>
-<button onclick="upd(${i},1)">+</button>
+<button onclick="update(${i},-1)">-</button>
+<span id="q${i}">${qty}</span>
+<button onclick="update(${i},1)">+</button>
 </div>
-
 <textarea id="n${i}" placeholder="catatan...">${cart[i]?.note||""}</textarea>
 </div>
 </div>`;
@@ -270,64 +277,78 @@ ${d.name}<br>Rp${d.price}
 html+="</div>";
 });
 
+/* OPSI */
+html+=`
+<div class="opsi">
+<b>OPSI PENGIRIMAN</b><br><br>
+
+<label><input type="radio" name="kirim" value="Diantar" onclick="toggleKirim('antar')"> Diantar</label><br>
+<label><input type="radio" name="kirim" value="COD" onclick="toggleKirim('cod')"> COD</label>
+
+<div id="antarBox" style="display:none;margin-top:8px;">
+<input id="alamatAntar" placeholder="Masukkan alamat lengkap" style="width:100%;padding:6px;">
+</div>
+
+<div id="codBox" style="display:none;margin-top:8px;">
+<input id="lokasi" placeholder="Isikan lokasi titik ketemu" style="width:100%;padding:6px;">
+</div>
+</div>
+`;
+
 menu.innerHTML=html;
 }
 
-function upd(i,v){
-let el=document.getElementById("q"+i);
-let q=parseInt(el.innerText)+v;
-if(q<0)q=0;
-el.innerText=q;
-
-if(q===0) delete cart[i];
-else cart[i]={...data[i],qty:q,note:document.getElementById("n"+i).value};
-
-draw();
-}
-
-function draw(){
-let html="🧾 PESANAN\n";
-let total=0;
-let no=1;
-
-Object.values(cart).forEach(c=>{
-let sub=c.qty*c.price;
-total+=sub;
-
-html+=`\n${no}. ${c.name}\n`;
-html+=`${c.qty} x ${c.price} = ${sub}\n`;
-if(c.note) html+=`* ${c.note}\n`;
-no++;
-});
-
-cartList.innerText=html;
-total.innerText="TOTAL: Rp"+total;
-}
-
-function showBox(t){
+function toggleKirim(t){
 antarBox.style.display="none";
 codBox.style.display="none";
-
 if(t==="antar") antarBox.style.display="block";
 if(t==="cod") codBox.style.display="block";
 }
 
-function kirimWA(){
-let text=`Halo, saya ${nama.value}
-${alamat.value}
-${hp.value}
+function update(i,val){
+let el=document.getElementById("q"+i);
+let qty=parseInt(el.innerText)+val;
+if(qty<0) qty=0;
+el.innerText=qty;
 
-Pesanan:
-`;
+if(qty===0) delete cart[i];
+else cart[i]={...data[i],qty,note:document.getElementById("n"+i).value};
+
+renderCart();
+}
+
+function renderCart(){
+let html="";
+let total=0;
+
+Object.values(cart).forEach((c,i)=>{
+let sub=c.price*c.qty;
+total+=sub;
+
+html+=`${i+1}. ${c.name} (${c.qty}x)<br>`;
+if(c.note) html+=`- ${c.note}<br>`;
+html+=`Rp${sub}<br><br>`;
+});
+
+cartList.innerHTML=html;
+total.innerText="Total: Rp"+total;
+}
+
+function sendWA(){
+let nama=nama.value.trim();
+let alamat=alamat.value.trim();
+let hp=hp.value.trim();
+
+let text=`Halo, saya ${nama}\n${alamat}\n${hp}\n\nPesanan:\n`;
 
 Object.values(cart).forEach(c=>{
 text+=`${c.name} (${c.qty})\n`;
 });
 
-window.open("https://wa.me/?text="+encodeURIComponent(text));
+window.open("https://wa.me/6285331314118?text="+encodeURIComponent(text));
 }
 
-render();
+renderMenu();
 </script>
 
 </body>
