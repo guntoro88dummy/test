@@ -906,3 +906,32 @@ text-shadow:0 1px 3px rgba(0,0,0,0.8);
 
 z-index:3;
 }
+
+/* MOBILE INLINE ADS */
+
+.mobile-inline-ads{
+display:none;
+}
+
+@media (max-width:900px){
+
+.mobile-inline-ads{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin:20px 0;
+}
+
+.mobile-inline-ads .ads-item{
+aspect-ratio:300/250;
+overflow:hidden;
+border-radius:10px;
+}
+
+.mobile-inline-ads img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+}
