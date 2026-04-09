@@ -470,20 +470,29 @@ ${listHTML}
    MOBILE INLINE ADS
 ============================= */
 
-function insertMobileAds(){
+window.addEventListener("load", function(){
 
 if(window.innerWidth > 900) return;
 
-const videoLists = document.querySelectorAll(".videos, #shorts-row");
+/* daftar semua section video */
 
-videoLists.forEach(list=>{
+const sections = [
+document.getElementById("shorts-row"),
+document.getElementById("past-live"),
+document.getElementById("videos"),
+document.getElementById("populer"),
+document.getElementById("live")
+];
 
-const videos = list.children;
+sections.forEach(section=>{
+
+if(!section) return;
+
+const videos = section.children;
 
 if(videos.length < 6) return;
 
 const adsBlock = document.createElement("div");
-
 adsBlock.className = "mobile-inline-ads";
 
 let adsHTML = "";
@@ -493,7 +502,7 @@ ADS_SIDEBAR.slice(0,2).forEach(ad=>{
 adsHTML += `
 <a href="${ad.link}" target="_blank" class="ads-item">
 <img src="${ad.img}" loading="lazy">
-<div class="ads-overlay">${ad.title || ""}</div>
+${ad.title ? `<div class="ads-overlay">${ad.title}</div>` : ""}
 </a>
 `;
 
@@ -501,13 +510,13 @@ adsHTML += `
 
 adsBlock.innerHTML = adsHTML;
 
-list.after(adsBlock);
+/* iklan muncul setelah section video */
+
+section.after(adsBlock);
 
 });
 
-}
-
-insertMobileAds();
+});
 
 
 /* INIT */
