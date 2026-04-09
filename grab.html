@@ -152,6 +152,7 @@ return text
 .replace(/Live.*/i,"")
 .replace(/YouTube.*/i,"")
 .replace(/Instagram.*/i,"")
+.replace(/rto\s*/i,"")
 .replace(/\s+/g," ")
 .trim()
 
@@ -160,6 +161,10 @@ return text
 function isLokasi(text){
 
 if(!text) return false
+
+let pola = /(Desa|Ds\.|Dsn\.|RT|RW|Kec\.|Kecamatan|Kab\.|Kabupaten|Kota|Sanggar|Pendopo|Lapangan|Gedung|Balai)/i
+
+if(pola.test(text)) return true
 
 let koma=(text.match(/,/g)||[]).length
 
@@ -224,16 +229,29 @@ if(/^(ki|nyi)\s/i.test(line)){
 let dalang=line
 let lokasi="-"
 
-const lokasiPattern = /(Sanggar|Rumah|Balai|Pendopo|Lapangan|Gedung|Ds\.|Dsn\.|Desa|Kec\.|Kecamatan|Kab\.|Kabupaten|Kota|RT|RW)/i
+let lokasiPattern=/(Desa|Ds\.|Dsn\.|RT|RW|Kec\.|Kecamatan|Kab\.|Kabupaten|Kota|Sanggar|Pendopo|Lapangan|Gedung|Balai)/i
 
-let idx = line.search(lokasiPattern)
+let idx=line.search(lokasiPattern)
 
-if(idx !== -1){
+if(idx!==-1){
 
-dalang = cleanText(line.substring(0, idx))
-lokasi = cleanText(line.substring(idx))
+dalang=cleanText(line.substring(0,idx))
+lokasi=cleanText(line.substring(idx))
 
 }else{
+
+let words=line.split(" ")
+
+if(words.length>4 && line.includes(",")){
+
+let potong=line.indexOf(",")
+
+dalang=cleanText(line.substring(0,potong))
+lokasi=cleanText(line.substring(potong+1))
+
+}
+
+else{
 
 for(let j=i+1;j<=i+6;j++){
 
@@ -244,6 +262,8 @@ if(/^(ki|nyi)\s/i.test(cek)) break
 if(isLokasi(cek)){
 lokasi=cleanText(cek)
 break
+}
+
 }
 
 }
