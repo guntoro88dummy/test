@@ -76,7 +76,6 @@ background:#1a1a1a;
 border:1px solid #333;
 }
 </style>
-
 </head>
 
 <body>
@@ -158,17 +157,40 @@ return text
 
 }
 
-function isLokasi(text){
+function splitDalangLokasi(line){
 
-if(!text) return false
+const lokasiStart=[
+"Jl","Jln","Jalan","Dusun","Dsn","Ds","Dk","Desa",
+"Gg","Gang","Halaman","Rumah","Pendopo","Lapangan",
+"Balai","Gedung","RT","RW","Kec","Kab","Kota"
+]
 
-let pola = /(Desa|Ds\.|Dsn\.|RT|RW|Kec\.|Kecamatan|Kab\.|Kabupaten|Kota|Sanggar|Pendopo|Lapangan|Gedung|Balai)/i
+let words=line.split(" ")
+let dalang=[]
+let lokasi=[]
 
-if(pola.test(text)) return true
+let foundLokasi=false
 
-let koma=(text.match(/,/g)||[]).length
+for(let w of words){
 
-return koma>=1
+let clean=w.replace(/[.,]/g,"")
+
+if(!foundLokasi && lokasiStart.includes(clean)){
+foundLokasi=true
+}
+
+if(foundLokasi){
+lokasi.push(w)
+}else{
+dalang.push(w)
+}
+
+}
+
+return{
+dalang:dalang.join(" ").trim(),
+lokasi:lokasi.length?lokasi.join(" ").trim():"-"
+}
 
 }
 
@@ -226,41 +248,20 @@ continue
 
 if(/^(ki|nyi)\s/i.test(line)){
 
-let dalang=line
-let lokasi="-"
+let hasil=splitDalangLokasi(line)
 
-let lokasiPattern=/(Desa|Ds\.|Dsn\.|RT|RW|Kec\.|Kecamatan|Kab\.|Kabupaten|Kota|Sanggar|Pendopo|Lapangan|Gedung|Balai)/i
+let lokasi=hasil.lokasi
 
-let idx=line.search(lokasiPattern)
+if(lokasi=="-"){
 
-if(idx!==-1){
-
-dalang=cleanText(line.substring(0,idx))
-lokasi=cleanText(line.substring(idx))
-
-}else{
-
-let words=line.split(" ")
-
-if(words.length>4 && line.includes(",")){
-
-let potong=line.indexOf(",")
-
-dalang=cleanText(line.substring(0,potong))
-lokasi=cleanText(line.substring(potong+1))
-
-}
-
-else{
-
-for(let j=i+1;j<=i+6;j++){
+for(let j=i+1;j<=i+5;j++){
 
 let cek=text[j] || ""
 
 if(/^(ki|nyi)\s/i.test(cek)) break
 
-if(isLokasi(cek)){
-lokasi=cleanText(cek)
+if(cek.length>5){
+lokasi=cek
 break
 }
 
@@ -268,12 +269,10 @@ break
 
 }
 
-}
-
 database.push({
-tanggal: tanggal,
-dalang: dalang,
-lokasi: lokasi
+tanggal:tanggal,
+dalang:hasil.dalang,
+lokasi:lokasi
 })
 
 }
