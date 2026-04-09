@@ -187,6 +187,25 @@ textarea{
 .wa-btn:hover{
   transform:translateY(-2px);
 }
+
+  <div style="
+  margin-top:12px;
+  padding:12px;
+  border-radius:12px;
+  background:#2c2c2c;
+  color:#fff;
+  font-size:13px;
+  line-height:1.6;
+">
+
+<b>NO REKENING PEMBAYARAN:</b><br>
+BRI 31645643464616516516<br>
+MANDIRI 5616165134631564<br>
+BNI 5664564646464<br><br>
+
+<i>Note: Sertakan bukti transfer di WhatsApp setelah melakukan pemesanan</i>
+
+</div>
   
 /* DESKTOP */
 @media(min-width:768px){
@@ -237,6 +256,18 @@ textarea{
 
   <div id="cartList"></div>
   <div id="total"></div>
+
+    <div style="margin-top:10px;">
+  <b>METODE PEMBAYARAN</b><br>
+
+  <label>
+    <input type="radio" name="bayar" value="Cash"> Cash
+  </label><br>
+
+  <label>
+    <input type="radio" name="bayar" value="Transfer"> Transfer
+  </label>
+</div>
 
   <button class="wa-btn" onclick="sendWA()">Pesan via WhatsApp</button>
 </div>
@@ -385,7 +416,7 @@ function sendWA(){
   let hp = document.getElementById("hp").value.trim();
 
   if(!nama || !alamat || !hp){
-    alert("Harap isi Nama, Alamat, dan No HP terlebih dahulu!");
+    alert("Harap isi Nama, Alamat, dan No HP!");
     return;
   }
 
@@ -394,9 +425,15 @@ function sendWA(){
     return;
   }
 
-  let metode = document.querySelector('input[name="kirim"]:checked');
-  if(!metode){
+  let kirim = document.querySelector('input[name="kirim"]:checked');
+  if(!kirim){
     alert("Pilih metode pengiriman!");
+    return;
+  }
+
+  let bayar = document.querySelector('input[name="bayar"]:checked');
+  if(!bayar){
+    alert("Pilih metode pembayaran!");
     return;
   }
 
@@ -412,9 +449,9 @@ function sendWA(){
     text += `Rp${sub}\n\n`;
   });
 
-  text += `Metode: ${metode.value}\n`;
+  text += `Metode Pengiriman: ${kirim.value}\n`;
 
-  if(metode.value === "Diantar"){
+  if(kirim.value === "Diantar"){
     let antar = document.getElementById("alamatAntar").value.trim();
     if(!antar){
       alert("Isi alamat pengantaran!");
@@ -423,7 +460,7 @@ function sendWA(){
     text += `Alamat Antar: ${antar}\n`;
   }
 
-  if(metode.value === "COD"){
+  if(kirim.value === "COD"){
     let loc = document.getElementById("lokasi").value.trim();
     if(!loc){
       alert("Isi lokasi COD!");
@@ -431,6 +468,8 @@ function sendWA(){
     }
     text += `Lokasi COD: ${loc}\n`;
   }
+
+  text += `Metode Pembayaran: ${bayar.value}\n`;
 
   text += `\nTotal: Rp${total}`;
 
