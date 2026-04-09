@@ -2,152 +2,126 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Nawolo Winamp</title>
+<title>Nawolo Radio</title>
 
 <style>
 body {
-  margin: 0;
-  height: 100vh;
+  background: #1b1b1b;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #0a0a0a;
-  font-family: Tahoma, sans-serif;
+  height: 100vh;
+  margin: 0;
+  font-family: Tahoma;
 }
 
-/* BOX UTAMA */
-.player {
-  width: 360px;
-  background: #2b2b2b;
-  border: 2px solid #000;
-  box-shadow: 0 0 20px #000;
+/* RADIO BODY */
+.radio {
+  width: 700px;
+  background: #3b2b1f;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 30px #000;
 }
 
-/* TITLE BAR */
-.titlebar {
-  background: linear-gradient(#3a3a3a, #1a1a1a);
-  padding: 4px;
-  font-size: 12px;
-  color: #0f0;
+/* TOP */
+.top {
   display: flex;
-  justify-content: space-between;
+  gap: 10px;
 }
 
-/* DISPLAY */
-.display {
-  background: #001100;
-  color: #00ff66;
-  font-family: monospace;
-  padding: 6px;
-  font-size: 12px;
+/* VIDEO (KIRI) */
+.video {
+  width: 50%;
+  background: #000;
 }
 
-/* VIDEO */
 .video iframe {
   width: 100%;
-  height: 120px;
+  height: 200px;
   border: none;
 }
 
-/* CONTROLS */
-.controls {
-  display: flex;
-  justify-content: center;
-  padding: 5px;
-  gap: 5px;
+/* DISPLAY (KANAN) */
+.display {
+  width: 50%;
+  background: #111;
+  color: #f5d97a;
+  padding: 10px;
+  font-family: monospace;
+  font-size: 14px;
 }
 
-.btn {
-  width: 30px;
-  height: 20px;
-  background: #444;
-  border: 1px solid #111;
+/* SEARCH */
+.search {
+  margin-top: 10px;
+  display: flex;
+}
+
+.search input {
+  flex: 1;
+  padding: 8px;
+  border: none;
+}
+
+.search button {
+  padding: 8px;
   cursor: pointer;
-  text-align: center;
-  line-height: 20px;
-  font-size: 12px;
-}
-
-.btn:hover {
-  background: #666;
-}
-
-/* EQUALIZER */
-.eq {
-  display: flex;
-  justify-content: center;
-  padding: 5px;
-  gap: 2px;
-  border-top: 1px solid #000;
-  border-bottom: 1px solid #000;
-}
-
-.eq span {
-  width: 4px;
-  background: #0f0;
-  animation: eq 0.4s infinite alternate;
-}
-
-@keyframes eq {
-  from { height: 5px; }
-  to { height: 25px; }
 }
 
 /* PLAYLIST */
 .playlist {
-  max-height: 150px;
+  margin-top: 10px;
+  max-height: 200px;
   overflow-y: auto;
-  font-size: 12px;
+  background: #222;
 }
 
-.playlist div {
-  padding: 5px;
-  border-bottom: 1px solid #111;
+/* ITEM */
+.item {
+  padding: 8px;
+  border-bottom: 1px solid #333;
+  display: flex;
+  justify-content: space-between;
   cursor: pointer;
 }
 
-.playlist div:hover {
+.item:hover {
   background: #444;
+}
+
+.delete {
+  color: red;
 }
 </style>
 </head>
 
 <body>
 
-<div class="player">
+<div class="radio">
 
-  <!-- TITLE -->
-  <div class="titlebar">
-    <span>🎧 NAWOLO</span>
-    <span>_ □ X</span>
+  <div class="top">
+
+    <!-- VIDEO -->
+    <div class="video">
+      <iframe id="yt"
+        src="https://www.youtube.com/embed/kTJczUoc26U?mute=1"
+        allow="autoplay">
+      </iframe>
+    </div>
+
+    <!-- DISPLAY -->
+    <div class="display" id="display">
+      📻 NAWOLO RADIO<br>
+      Ready...
+    </div>
+
   </div>
 
-  <!-- DISPLAY -->
-  <div class="display" id="display">
-    Ready...
-  </div>
-
-  <!-- VIDEO (SUDAH ADA DEFAULT) -->
-  <div class="video">
-    <iframe id="yt"
-      src="https://www.youtube.com/embed/kTJczUoc26U?mute=1"
-      allow="autoplay; encrypted-media"
-      allowfullscreen>
-    </iframe>
-  </div>
-
-  <!-- CONTROLS -->
-  <div class="controls">
-    <div class="btn" onclick="prev()">⏮</div>
-    <div class="btn" onclick="playCurrent()">▶</div>
-    <div class="btn" onclick="pause()">⏸</div>
-    <div class="btn" onclick="next()">⏭</div>
-  </div>
-
-  <!-- EQUALIZER -->
-  <div class="eq">
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
+  <!-- SEARCH -->
+  <div class="search">
+    <input id="q" placeholder="Cari lagu / artis">
+    <button onclick="search()">SEARCH</button>
   </div>
 
   <!-- PLAYLIST -->
@@ -156,50 +130,52 @@ body {
 </div>
 
 <script>
-let list = [
-  {id:"kTJczUoc26U", title:"Sheila On 7 - Dan"},
-  {id:"y6120QOlsfU", title:"Darude - Sandstorm"},
-  {id:"3JZ_D3ELwOQ", title:"Uptown Funk"},
-  {id:"fLexgOxsZu0", title:"24K Magic"}
+let db = [
+  {title:"Sheila On 7 - Dan", id:"kTJczUoc26U"},
+  {title:"Dewa 19 - Kangen", id:"fJ9rUzIMcZQ"},
+  {title:"Ungu - Demi Waktu", id:"RgKAFK5djSk"},
+  {title:"NOAH - Separuh Aku", id:"OPf0YbXqDm0"}
 ];
 
+let list = [...db];
 let current = 0;
 
+/* RENDER */
 function render(){
   let html="";
   list.forEach((item,i)=>{
-    html += `<div onclick="play(${i})">${item.title}</div>`;
+    html += `
+    <div class="item">
+      <span onclick="play('${item.id}','${item.title}')">${item.title}</span>
+      <span class="delete" onclick="remove(${i})">✖</span>
+    </div>`;
   });
+
   document.getElementById("playlist").innerHTML = html;
 }
 
-function play(i){
-  current = i;
-  let item = list[i];
-
+/* PLAY */
+function play(id,title){
   document.getElementById("yt").src =
-    `https://www.youtube.com/embed/${item.id}?autoplay=1&mute=1&rel=0`;
+    `https://www.youtube.com/embed/${id}?autoplay=1&mute=1`;
 
-  document.getElementById("display").innerText = item.title;
+  document.getElementById("display").innerHTML =
+    `📻 NAWOLO RADIO<br>Now Playing:<br>${title}`;
 }
 
-function playCurrent(){
-  play(current);
+/* SEARCH (LOCAL) */
+function search(){
+  let q = document.getElementById("q").value.toLowerCase();
+
+  list = db.filter(x => x.title.toLowerCase().includes(q));
+
+  render();
 }
 
-function next(){
-  current = (current+1) % list.length;
-  play(current);
-}
-
-function prev(){
-  current = (current-1+list.length) % list.length;
-  play(current);
-}
-
-function pause(){
-  document.getElementById("yt").src =
-    `https://www.youtube.com/embed/${list[current].id}?mute=1`;
+/* DELETE */
+function remove(i){
+  list.splice(i,1);
+  render();
 }
 
 render();
