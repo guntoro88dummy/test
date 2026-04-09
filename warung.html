@@ -122,11 +122,16 @@ textarea{
 
 /* OPSI */
 .opsi{
-  background:white;
+  background:linear-gradient(135deg,#fff3e0,#f1f1f1);
   margin:10px;
-  padding:10px;
-  border-radius:10px;
-  box-shadow:0 5px 10px rgba(0,0,0,0.1);
+  padding:12px;
+  border-radius:12px;
+  box-shadow:0 6px 15px rgba(0,0,0,0.1);
+  border-left:5px solid orange;
+}
+
+.opsi label{
+  font-weight:500;
 }
 
 /* NOTA */
@@ -184,10 +189,20 @@ textarea{
   <div class="menu" id="menu"></div>
 
   <div class="cart">
-    <div id="cartList"></div>
-    <div id="total"></div>
-    <button class="wa-btn" onclick="sendWA()">Pesan via WhatsApp</button>
+
+  <div style="margin-bottom:10px;">
+    <b>Data Pemesan</b><br><br>
+
+    <input id="nama" placeholder="Nama Pemesan" style="width:100%;margin-bottom:5px;padding:6px;">
+    <input id="alamat" placeholder="Alamat Pemesan" style="width:100%;margin-bottom:5px;padding:6px;">
+    <input id="hp" placeholder="No Telp" style="width:100%;margin-bottom:5px;padding:6px;">
   </div>
+
+  <div id="cartList"></div>
+  <div id="total"></div>
+
+  <button class="wa-btn" onclick="sendWA()">Pesan via WhatsApp</button>
+</div>
 </div>
 
 <script>
@@ -298,30 +313,36 @@ function renderCart(){
 }
 
 function sendWA(){
-  let text="Halo, saya ingin pesan:\n\n";
-  let total=0;
+
+  let nama = document.getElementById("nama").value || "-";
+  let alamat = document.getElementById("alamat").value || "-";
+  let hp = document.getElementById("hp").value || "-";
+
+  let text = `Halo, saya ${nama}\nAlamat: ${alamat}\nNo HP: ${hp}\n\nPesan:\n\n`;
+
+  let total = 0;
 
   Object.values(cart).forEach((c,i)=>{
-    let sub=c.price*c.qty;
-    total+=sub;
+    let sub = c.price * c.qty;
+    total += sub;
 
-    text+=`${i+1}. ${c.name} (${c.qty}x)\n`;
-    if(c.note) text+=`- ${c.note}\n`;
-    text+=`Rp${sub}\n\n`;
+    text += `${i+1}. ${c.name} (${c.qty}x)\n`;
+    if(c.note) text += `- ${c.note}\n`;
+    text += `Rp${sub}\n\n`;
   });
 
-  let metode=document.querySelector('input[name="kirim"]:checked');
+  let metode = document.querySelector('input[name="kirim"]:checked');
   if(metode){
-    text+=`\nMetode: ${metode.value}\n`;
+    text += `Metode: ${metode.value}\n`;
     if(metode.value==="COD"){
-      let loc=document.getElementById("lokasi").value;
-      text+=`Lokasi: ${loc}\n`;
+      let loc = document.getElementById("lokasi").value;
+      text += `Lokasi COD: ${loc}\n`;
     }
   }
 
-  text+=`\nTotal: Rp${total}`;
+  text += `\nTotal: Rp${total}`;
 
-  window.open("https://wa.me/628xxxxxxxxxx?text="+encodeURIComponent(text));
+  window.open("https://wa.me/6285331314118?text=" + encodeURIComponent(text));
 }
 
 renderMenu();
