@@ -14,8 +14,6 @@ color:#eee;
 padding:30px;
 }
 
-.menu{margin-bottom:20px;}
-
 button{
 padding:10px 15px;
 margin:5px;
@@ -47,11 +45,9 @@ margin-top:15px;
 th,td{
 padding:8px;
 border:1px solid #444;
-font-size:14px;
 }
 
 th{background:#333;}
-td{background:#1b1b1b;}
 
 textarea{
 width:100%;
@@ -68,48 +64,17 @@ margin-top:10px;
 color:#00ff99;
 font-weight:bold;
 }
-
-.formManual{
-margin-top:15px;
-padding:15px;
-background:#1a1a1a;
-border:1px solid #333;
-}
 </style>
-
 </head>
 
 <body>
 
 <h1>DATABASE JADWAL WAYANG</h1>
 
-<div class="menu">
-
 <input id="manualLink" placeholder="Paste Link Artikel Kluban..." style="width:350px">
 
 <button onclick="grabFeed()">Grab Artikel</button>
-
 <button onclick="exportJS()">Export jadwal.js</button>
-
-<input type="file" id="fileImport" style="display:none" onchange="importJS(event)">
-
-<button onclick="document.getElementById('fileImport').click()">
-Import jadwal.js
-</button>
-
-</div>
-
-<div class="formManual">
-
-<h3>Tambah Manual</h3>
-
-<input id="tglManual" placeholder="Tanggal" style="width:200px">
-<input id="dalangManual" placeholder="Nama Dalang" style="width:250px">
-<input id="lokasiManual" placeholder="Lokasi" style="width:350px">
-
-<button onclick="tambahManual()">Tambah</button>
-
-</div>
 
 <div class="status" id="status"></div>
 
@@ -121,7 +86,6 @@ Import jadwal.js
 <th>Tanggal</th>
 <th>Dalang</th>
 <th>Lokasi</th>
-<th>Hapus</th>
 </tr>
 </thead>
 <tbody></tbody>
@@ -139,51 +103,47 @@ function log(msg){
 document.getElementById("status").innerText=msg
 }
 
-function clean(text){
-if(!text) return ""
-return text
+function clean(t){
+
+return t
 .replace(/[📍🎭✨🔥⭐]/g,"")
 .replace(/Lokasi:/gi,"")
 .replace(/Lakon.*/i,"")
 .replace(/Sinden.*/i,"")
 .replace(/Bintang.*/i,"")
 .replace(/Live.*/i,"")
-.replace(/YouTube.*/i,"")
-.replace(/Instagram.*/i,"")
 .replace(/\s+/g," ")
 .trim()
+
 }
 
 async function grabFeed(){
 
-log("Mengambil data...")
-
-try{
-
-let manual=document.getElementById("manualLink").value.trim()
-
-let target = manual || "https://www.kluban.net/feeds/posts/default"
+log("Mengambil feed...")
 
 let proxy="https://dawn-base-2f52.guntoro88.workers.dev/?url="
 
+let target=document.getElementById("manualLink").value.trim()
+
+if(!target){
+target="https://www.kluban.net/feeds/posts/default?alt=json"
+}
+
 let res=await fetch(proxy+encodeURIComponent(target))
 
-let html=await res.text()
+let data=await res.json()
 
-parseHTML(html)
-
-}catch(e){
-
-log("Gagal grab")
-console.error(e)
+parseFeed(data)
 
 }
 
-}
-
-function parseHTML(html){
+function parseFeed(feed){
 
 database=[]
+
+let entry=feed.feed.entry[0]
+
+let html=entry.content.$t
 
 let div=document.createElement("div")
 div.innerHTML=html
@@ -221,9 +181,9 @@ if(tanggal && dalang && lokasi===""){
 lokasi=text
 
 database.push({
-tanggal:tanggal,
-dalang:dalang,
-lokasi:lokasi
+tanggal,
+dalang,
+lokasi
 })
 
 }
@@ -237,29 +197,12 @@ log("Data ditemukan : "+database.length)
 
 }
 
-function tambahManual(){
-
-let tgl=document.getElementById("tglManual").value
-let dalang=document.getElementById("dalangManual").value
-let lokasi=document.getElementById("lokasiManual").value
-
-database.push({
-tanggal:tgl,
-dalang:dalang,
-lokasi:lokasi
-})
-
-renderTable()
-generateJS()
-
-}
-
 function renderTable(){
 
 let tbody=document.querySelector("#preview tbody")
 tbody.innerHTML=""
 
-database.forEach((d,i)=>{
+database.forEach(d=>{
 
 let tr=document.createElement("tr")
 
@@ -267,20 +210,11 @@ tr.innerHTML=`
 <td>${d.tanggal}</td>
 <td>${d.dalang}</td>
 <td>${d.lokasi}</td>
-<td><button onclick="hapus(${i})">X</button></td>
 `
 
 tbody.appendChild(tr)
 
 })
-
-}
-
-function hapus(i){
-
-database.splice(i,1)
-renderTable()
-generateJS()
 
 }
 
@@ -320,31 +254,6 @@ let a=document.createElement("a")
 a.href=URL.createObjectURL(blob)
 a.download="jadwal.js"
 a.click()
-
-}
-
-function importJS(e){
-
-let file=e.target.files[0]
-
-let reader=new FileReader()
-
-reader.onload=function(){
-
-let text=reader.result
-
-let json=text
-.replace("const JADWAL_WAYANG =","")
-.replace(";","")
-
-database=JSON.parse(json)
-
-renderTable()
-generateJS()
-
-}
-
-reader.readAsText(file)
 
 }
 
