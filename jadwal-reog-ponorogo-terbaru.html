@@ -1,255 +1,91 @@
 <!DOCTYPE html>
-
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Jadwal Reog Ponorogo April 2026 terbaru | Ajimangkara Channel</title>
-
-<meta name="description" content="Jadwal reog ponorogo bulan April 2026 terbaru lengkap dengan lokasi pentas terbaru.">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<title>Jadwal Reog Ponorogo April 2026</title>
 
 <style>
+body{margin:0;font-family:Arial;background:#0f0f0f;color:white;}
+.header{position:fixed;top:0;width:100%;height:60px;background:#111;display:flex;align-items:center;padding:0 20px;}
+.layout{max-width:1200px;margin:auto;padding:90px 20px;}
+.title{text-align:center;font-size:28px;margin-bottom:20px;}
 
-body{
-margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#0f0f0f;
-color:white;
-}
-
-.header{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:60px;
-background:#111;
-display:flex;
-align-items:center;
-padding:0 20px;
-z-index:9999;
-}
-
-.header img{
-height:24px;
-margin-right:10px;
-}
-
-.layout{
-max-width:1200px;
-margin:auto;
-padding:90px 20px 40px;
-}
-
-.title{
-font-size:32px;
-text-align:center;
-font-weight:bold;
-margin-bottom:30px;
-}
-
-.top-buttons{
-display:flex;
-justify-content:center;
-gap:10px;
-margin-bottom:30px;
-flex-wrap:wrap;
-}
-
-.top-buttons a{
-background:#222;
-padding:10px 14px;
-border-radius:6px;
-text-decoration:none;
-color:white;
-font-size:13px;
-}
-
-/* ================= GRID ================= */
-
-#poster-grid{
-display:grid;
-grid-template-columns:repeat(6,1fr);
-gap:14px;
-}
-
-.poster-card{
-background:#1a1a1a;
-border-radius:12px;
-overflow:hidden;
-cursor:pointer;
-transition:.3s;
-}
-
-.poster-card img{
-width:100%;
-height:160px;
-object-fit:cover;
-display:block;
-}
-
-.poster-card:hover{
-transform:scale(1.08);
-box-shadow:0 10px 30px rgba(0,0,0,0.8);
-}
-
-/* ================= MODAL ================= */
-
-#poster-modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.95);
-display:none;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-z-index:99999;
-}
-
-#poster-modal img{
-max-width:90%;
-max-height:80vh;
-border-radius:10px;
-}
-
-#modal-info{
-margin-top:10px;
-text-align:center;
-}
-
-#modal-location{
-font-size:14px;
-color:#ccc;
-}
-
-#modal-close{
-position:absolute;
-top:20px;
-right:30px;
-font-size:30px;
-cursor:pointer;
-}
-
-/* MOBILE */
-
-@media(max-width:900px){
-
-#poster-grid{
-grid-template-columns:repeat(2,1fr);
-}
-
-.poster-card img{
-height:140px;
-}
-
-}
-
-.poster-card{
-position:relative;
-}
+#poster-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
+.poster-card{background:#1a1a1a;border-radius:12px;overflow:hidden;cursor:pointer;position:relative;}
+.poster-card img{width:100%;height:160px;object-fit:cover;}
+.poster-card:hover{transform:scale(1.05);}
 
 .badge-date{
-position:absolute;
-top:8px;
-right:8px;
-background:red;
-color:white;
-font-size:12px;
-font-weight:bold;
-width:34px;
-height:34px;
-display:flex;
-align-items:center;
-justify-content:center;
+position:absolute;top:8px;right:8px;
+background:red;color:white;font-weight:bold;
+width:34px;height:34px;display:flex;
+align-items:center;justify-content:center;
 border-radius:50%;
-}  
-
- .ads-label{
-position:absolute;
-top:6px;
-left:6px;
-background:yellow;
-color:black;
-font-size:10px;
-padding:2px 6px;
-border-radius:4px;
-font-weight:bold;
 }
 
-</style>
+.ads-label{
+position:absolute;top:6px;left:6px;
+background:yellow;color:black;
+font-size:10px;padding:2px 6px;
+border-radius:4px;font-weight:bold;
+}
 
+/* MODAL */
+#poster-modal{
+position:fixed;inset:0;
+background:rgba(0,0,0,0.95);
+display:none;align-items:center;justify-content:center;
+flex-direction:column;
+}
+#poster-modal img{max-width:90%;max-height:80vh;}
+#modal-close{position:absolute;top:20px;right:30px;font-size:30px;cursor:pointer;}
+
+@media(max-width:900px){
+#poster-grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
 </head>
 
 <body>
 
-<header class="header">
-<img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png">
-<b>AJI MANGKARA</b>
-</header>
+<div class="header"><b>AJI MANGKARA</b></div>
 
 <div class="layout">
-
-<div class="title">
-JADWAL REOG PONOROGO TERBARU APRIL 2026
-</div>
-
-<div class="top-buttons">
-<a href="/">🏠 HALAMAN DEPAN</a>
-<a href="#">📩 KIRIM JADWAL</a>
-<a href="#">⚠️ LAPOR ADMIN</a>
-</div>
-
+<div class="title">JADWAL REOG PONOROGO</div>
 <div id="poster-grid"></div>
-
 </div>
-
-<!-- MODAL -->
 
 <div id="poster-modal">
 <span id="modal-close">✕</span>
 <img id="modal-img">
-<div id="modal-info">
 <div id="modal-title"></div>
 <div id="modal-location"></div>
-</div>
 </div>
 
 <script>
 
-/* DATABASE EVENT */
-
-const events=[
-
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Ponorogo",location:"Ponorogo",date:"2026-04-01"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Festival Reog",location:"Madiun",date:"2026-04-02"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Night Show",location:"Solo",date:"2026-04-03"},
-{img:"https://picsum.photos/400/300?4",title:"Reog Budaya",location:"Magetan",date:"2026-04-04"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Nusantara",location:"Kediri",date:"2026-04-05"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Culture",location:"Ngawi",date:"2026-04-06"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Show",location:"Pacitan",date:"2026-04-07"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Festival",location:"Blitar",date:"2026-04-08"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Night",location:"Malang",date:"2026-04-09"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Stage",location:"Trenggalek",date:"2026-04-10"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Live",location:"Nganjuk",date:"2026-04-11"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Art",location:"Tulungagung",date:"2026-04-12"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Event",location:"Surabaya",date:"2026-04-13"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Festival",location:"Sidoarjo",date:"2026-04-14"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Show",location:"Jombang",date:"2026-04-15"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Night",location:"Gresik",date:"2026-04-16"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Art",location:"Lamongan",date:"2026-04-17"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Culture",location:"Bojonegoro",date:"2026-04-18"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Nusantara",location:"Tubam",date:"2026-04-19"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Stage",location:"Pasuruan",date:"2026-04-20"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Show",location:"Probolinggo",date:"2026-04-21"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Night",location:"Bondowoso",date:"2026-04-22"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Festival",location:"Situbondo",date:"2026-04-23"},
-{img:"https://scontent.fsub9-1.fna.fbcdn.net/v/t39.30808-6/668557530_3526942024138895_31480691210490194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_eui2=AeFiMBxdPR3Uil-po24KZ8DkEYOJqiM_BqcRg4mqIz8GpxSCZmqxgOAj5bEhfoGhXQ4W46xFLNB4dERLsXkGXyJV&_nc_ohc=zRmHQpm42W0Q7kNvwGVcZ99&_nc_oc=AdpW-2rMUgTdomIBovvKQtmJm8HkDDDG6KInJEiWC5fanGCkvwClZFUrKF-5MDxQBBk&_nc_zt=23&_nc_ht=scontent.fsub9-1.fna&_nc_gid=dHOSTlbtosxaouKqF0QKVQ&_nc_ss=7a3a8&oh=00_Af1iJWMATO4j5Akknqg_AkZY4jNyYdHI02z9nAk9eZuE2Q&oe=69DE7AB5",title:"Reog Art",location:"Banyuwangi",date:"2026-04-24"}
+/* DATA IKLAN */
+const ADS_SIDEBAR = [
+{img:"https://down-id.img.susercontent.com/file/360979ecbac962bcbf9aa258a8e7b48f.webp",link:"#"},
+{img:"https://down-id.img.susercontent.com/file/id-11134207-7ra0u-mdsfybxcsbo284_tn",link:"#"},
+{img:"https://down-id.img.susercontent.com/file/sg-11134201-824ia-mf9e39mke42040_tn",link:"#"}
 ];
 
-/* SORT DATE */
+function getRandomAd(){
+return ADS_SIDEBAR[Math.floor(Math.random()*ADS_SIDEBAR.length)];
+}
+
+/* DATA EVENT */
+const events=[
+{img:"https://picsum.photos/400/300?1",title:"Reog",location:"Ponorogo",date:"2026-04-01"},
+{img:"https://picsum.photos/400/300?2",title:"Festival",location:"Madiun",date:"2026-04-02"},
+{img:"https://picsum.photos/400/300?3",title:"Show",location:"Solo",date:"2026-04-03"},
+{img:"https://picsum.photos/400/300?4",title:"Budaya",location:"Magetan",date:"2026-04-04"},
+{img:"https://picsum.photos/400/300?5",title:"Nusantara",location:"Kediri",date:"2026-04-05"},
+{img:"https://picsum.photos/400/300?6",title:"Culture",location:"Ngawi",date:"2026-04-06"}
+];
 
 events.sort((a,b)=>new Date(a.date)-new Date(b.date));
 
@@ -257,76 +93,55 @@ const grid=document.getElementById("poster-grid");
 
 events.forEach((e,index)=>{
 
-  // IKLAN
-  if(index > 0 && index % 3 === 0){
-    ...
-  }
+// IKLAN
+if(index>0 && index%3===0){
+const ad=getRandomAd();
 
-  // EVENT CARD
-  const card=document.createElement("div");
-  card.className="poster-card";
+const adCard=document.createElement("div");
+adCard.className="poster-card";
+adCard.innerHTML=`
+<a href="${ad.link}" target="_blank">
+<img src="${ad.img}">
+<div class="ads-label">IKLAN</div>
+</a>
+`;
+grid.appendChild(adCard);
+}
 
-  card.innerHTML=`
-    <img src="${e.img}" loading="lazy" alt="${e.title}">
-    <div class="badge-date">${new Date(e.date).getDate()}</div>
-  `;
-
-  card.onclick=function(){
-    document.getElementById("poster-modal").style.display="flex";
-    document.getElementById("modal-img").src=e.img;
-    document.getElementById("modal-title").innerText=e.title;
-    document.getElementById("modal-location").innerText=e.location;
-  };
-
-  grid.appendChild(card);
-
-});
-
+// EVENT
 const card=document.createElement("div");
 card.className="poster-card";
 
 card.innerHTML=`
-  <img src="${e.img}" loading="lazy" alt="${e.title}">
-  <div class="badge-date">${new Date(e.date).getDate()}</div>
+<img src="${e.img}" loading="lazy">
+<div class="badge-date">${new Date(e.date).getDate()}</div>
 `;
 
 card.onclick=function(){
-
 document.getElementById("poster-modal").style.display="flex";
 document.getElementById("modal-img").src=e.img;
 document.getElementById("modal-title").innerText=e.title;
 document.getElementById("modal-location").innerText=e.location;
-
 };
 
 grid.appendChild(card);
 
 });
 
-document.getElementById("modal-close").onclick=function(){
-document.getElementById("poster-modal").style.display="none";
+/* CLOSE MODAL */
+const modal=document.getElementById("poster-modal");
+
+document.getElementById("modal-close").onclick=()=>modal.style.display="none";
+
+modal.onclick=function(e){
+if(e.target===modal){modal.style.display="none";}
 };
 
-const modal = document.getElementById("poster-modal");
-
-modal.onclick = function(e){
-  if(e.target === modal){
-    modal.style.display = "none";
-  }
-};
-document.addEventListener("keydown", function(e){
-  if(e.key === "Escape"){
-    modal.style.display = "none";
-  }
+document.addEventListener("keydown",function(e){
+if(e.key==="Escape"){modal.style.display="none";}
 });
 
-function getRandomAd(){
-  return ADS_SIDEBAR[Math.floor(Math.random()*ADS_SIDEBAR.length)];
-}
-
 </script>
-
-  
 
 </body>
 </html>
