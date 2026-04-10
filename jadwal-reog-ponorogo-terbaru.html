@@ -66,16 +66,18 @@ flex-direction:column;
 
 
   
-<script src="iklan.js"></script>
-<script>
+<script src="./iklan.js"></script>
 
-/* DATA IKLAN */
-const ADS_SIDEBAR = [ ... ];
+<script>
 
 function getRandomAd(){
   if(typeof ADS_SIDEBAR === "undefined") return null;
   return ADS_SIDEBAR[Math.floor(Math.random()*ADS_SIDEBAR.length)];
 }
+
+/* DATA EVENT */
+const events=[ ... ];
+
 
 /* DATA EVENT */
 const events=[
