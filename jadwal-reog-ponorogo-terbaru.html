@@ -147,6 +147,26 @@ height:140px;
 
 }
 
+.poster-card{
+position:relative;
+}
+
+.badge-date{
+position:absolute;
+top:8px;
+right:8px;
+background:red;
+color:white;
+font-size:12px;
+font-weight:bold;
+width:34px;
+height:34px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+}  
+
 </style>
 
 </head>
@@ -228,7 +248,10 @@ events.forEach(e=>{
 const card=document.createElement("div");
 card.className="poster-card";
 
-card.innerHTML=`<img src="${e.img}">`;
+card.innerHTML=`
+  <img src="${e.img}" loading="lazy" alt="${e.title}">
+  <div class="badge-date">${new Date(e.date).getDate()}</div>
+`;
 
 card.onclick=function(){
 
@@ -247,7 +270,22 @@ document.getElementById("modal-close").onclick=function(){
 document.getElementById("poster-modal").style.display="none";
 };
 
+const modal = document.getElementById("poster-modal");
+
+modal.onclick = function(e){
+  if(e.target === modal){
+    modal.style.display = "none";
+  }
+};
+document.addEventListener("keydown", function(e){
+  if(e.key === "Escape"){
+    modal.style.display = "none";
+  }
+});
+
 </script>
+
+  
 
 </body>
 </html>
