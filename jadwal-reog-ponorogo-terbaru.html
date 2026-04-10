@@ -64,17 +64,17 @@ flex-direction:column;
 <div id="modal-location"></div>
 </div>
 
+
+  
+<script src="iklan.js"></script>
 <script>
 
 /* DATA IKLAN */
-const ADS_SIDEBAR = [
-{img:"https://down-id.img.susercontent.com/file/360979ecbac962bcbf9aa258a8e7b48f.webp",link:"#"},
-{img:"https://down-id.img.susercontent.com/file/id-11134207-7ra0u-mdsfybxcsbo284_tn",link:"#"},
-{img:"https://down-id.img.susercontent.com/file/sg-11134201-824ia-mf9e39mke42040_tn",link:"#"}
-];
+const ADS_SIDEBAR = [ ... ];
 
 function getRandomAd(){
-return ADS_SIDEBAR[Math.floor(Math.random()*ADS_SIDEBAR.length)];
+  if(typeof ADS_SIDEBAR === "undefined") return null;
+  return ADS_SIDEBAR[Math.floor(Math.random()*ADS_SIDEBAR.length)];
 }
 
 /* DATA EVENT */
@@ -95,17 +95,21 @@ events.forEach((e,index)=>{
 
 // IKLAN
 if(index>0 && index%3===0){
-const ad=getRandomAd();
+  const ad = getRandomAd();
 
-const adCard=document.createElement("div");
-adCard.className="poster-card";
-adCard.innerHTML=`
-<a href="${ad.link}" target="_blank">
-<img src="${ad.img}">
-<div class="ads-label">IKLAN</div>
-</a>
-`;
-grid.appendChild(adCard);
+  if(ad){ // <-- penting
+    const adCard=document.createElement("div");
+    adCard.className="poster-card";
+
+    adCard.innerHTML=`
+    <a href="${ad.link}" target="_blank">
+      <img src="${ad.img}">
+      <div class="ads-label">IKLAN</div>
+    </a>
+    `;
+
+    grid.appendChild(adCard);
+  }
 }
 
 // EVENT
@@ -140,7 +144,7 @@ if(e.target===modal){modal.style.display="none";}
 document.addEventListener("keydown",function(e){
 if(e.key==="Escape"){modal.style.display="none";}
 });
-
+ 
 </script>
 
 </body>
