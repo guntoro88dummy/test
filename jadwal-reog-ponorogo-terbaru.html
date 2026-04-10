@@ -167,6 +167,18 @@ justify-content:center;
 border-radius:50%;
 }  
 
+ .ads-label{
+position:absolute;
+top:6px;
+left:6px;
+background:yellow;
+color:black;
+font-size:10px;
+padding:2px 6px;
+border-radius:4px;
+font-weight:bold;
+}
+
 </style>
 
 </head>
@@ -243,7 +255,32 @@ events.sort((a,b)=>new Date(a.date)-new Date(b.date));
 
 const grid=document.getElementById("poster-grid");
 
-events.forEach(e=>{
+events.forEach((e,index)=>{
+
+  // IKLAN
+  if(index > 0 && index % 3 === 0){
+    ...
+  }
+
+  // EVENT CARD
+  const card=document.createElement("div");
+  card.className="poster-card";
+
+  card.innerHTML=`
+    <img src="${e.img}" loading="lazy" alt="${e.title}">
+    <div class="badge-date">${new Date(e.date).getDate()}</div>
+  `;
+
+  card.onclick=function(){
+    document.getElementById("poster-modal").style.display="flex";
+    document.getElementById("modal-img").src=e.img;
+    document.getElementById("modal-title").innerText=e.title;
+    document.getElementById("modal-location").innerText=e.location;
+  };
+
+  grid.appendChild(card);
+
+});
 
 const card=document.createElement("div");
 card.className="poster-card";
@@ -282,6 +319,10 @@ document.addEventListener("keydown", function(e){
     modal.style.display = "none";
   }
 });
+
+function getRandomAd(){
+  return ADS_SIDEBAR[Math.floor(Math.random()*ADS_SIDEBAR.length)];
+}
 
 </script>
 
