@@ -426,106 +426,109 @@ display:none;
 display:grid;
 }
 
+  /* ============================= */
+/* EVENT POSTER GRID */
+/* ============================= */
+
+#poster-grid{
+display:grid;
+grid-template-columns:repeat(6,1fr);
+gap:14px;
+margin-top:20px;
 }
 
- /* Bagian kartu slide */  
+/* CARD */
 
-  .carousel-wrapper {
-  position: relative;
-  width: 800px;
+.poster-card{
+background:#1a1a1a;
+border-radius:14px;
+overflow:hidden;
+cursor:pointer;
+position:relative;
+transition:.3s;
 }
 
-.carousel-wrapper::before,
-.carousel-wrapper::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 120px;
-  height: 100%;
-  z-index: 10;
-  pointer-events: none;
+/* IMAGE */
+
+.poster-card img{
+width:100%;
+height:160px;
+object-fit:cover;
+display:block;
 }
 
-.carousel-wrapper::before {
-  left: 0;
-  background: linear-gradient(to right, #0f0f0f 20%, transparent);
+/* HOVER NETFLIX STYLE */
+
+.poster-card:hover{
+transform:scale(1.08);
+z-index:10;
+box-shadow:0 20px 40px rgba(0,0,0,0.8);
 }
 
-.carousel-wrapper::after {
-  right: 0;
-  background: linear-gradient(to left, #0f0f0f 20%, transparent);
+/* PULSE */
+
+.poster-card{
+animation:pulsePoster 6s infinite ease-in-out;
 }
 
-.swiper {
-  padding: 80px 0;
+@keyframes pulsePoster{
+0%{transform:scale(1)}
+50%{transform:scale(1.02)}
+100%{transform:scale(1)}
 }
 
-.swiper-slide {
-  position: relative;
-  width: 220px;
-  height: 320px;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 26px;
-  font-weight: bold;
-  color: white;
-  transition: all 0.4s ease;
-  cursor: pointer;
-  overflow: hidden;
+/* ============================= */
+/* MODAL FULLSCREEN */
+/* ============================= */
+
+#poster-modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.95);
+display:none;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+z-index:99999;
 }
 
-/* warna */
-.card1 { background: #FF6B6B; }
-.card2 { background: #4ECDC4; }
-.card3 { background: #FFD93D; color:#333; }
-.card4 { background: #1A535C; }
-.card5 { background: #FF9F1C; }
-
-/* overlay */
-.swiper-slide::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 60%;
-  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+#poster-modal img{
+max-width:90%;
+max-height:80vh;
+border-radius:10px;
 }
 
-/* default */
-.swiper-slide {
-  transform: scale(0.8);
-  opacity: 0.5;
+#modal-info{
+margin-top:12px;
+text-align:center;
+font-size:18px;
 }
 
-/* center */
-.swiper-slide-active {
-  transform: scale(1);
-  opacity: 1;
-  z-index: 10;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-  animation: pulse 2.5s infinite ease-in-out;
+#modal-location{
+font-size:14px;
+color:#ccc;
 }
 
-/* side */
-.swiper-slide-prev,
-.swiper-slide-next {
-  transform: scale(0.9);
-  opacity: 0.8;
+#modal-close{
+position:absolute;
+top:20px;
+right:30px;
+font-size:28px;
+cursor:pointer;
 }
 
-/* hover */
-.swiper-slide:hover {
-  transform: scale(1.08);
-  z-index: 20;
+/* MOBILE */
+
+@media(max-width:900px){
+
+#poster-grid{
+grid-template-columns:repeat(2,1fr);
 }
 
-/* pulse */
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-  100% { transform: scale(1); }
+.poster-card img{
+height:140px;
+}
+
 }
 
 </style>
@@ -605,40 +608,15 @@ JADWAL REOG PONOROGO TERBARU APRIL 2026
 </a>
 </div>
   
-<!-- SLIDE KARTU DISINI -->
+<div id="poster-grid"></div>
 
-<div class="carousel-wrapper">
-  <div class="swiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide card1">1</div>
-      <div class="swiper-slide card2">2</div>
-      <div class="swiper-slide card3">3</div>
-      <div class="swiper-slide card4">4</div>
-      <div class="swiper-slide card5">5</div>
-    </div>
-  </div>
-</div>
-
-<div id="modal" style="
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.8);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-">
-  <div style="
-    width: 400px;
-    height: 300px;
-    background: white;
-    border-radius: 20px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:20px;
-  ">
-    DETAIL CARD
+<!-- MODAL FULLSCREEN -->
+<div id="poster-modal">
+  <span id="modal-close">✕</span>
+  <img id="modal-img">
+  <div id="modal-info">
+    <div id="modal-title"></div>
+    <div id="modal-location"></div>
   </div>
 </div>
 
@@ -712,32 +690,74 @@ header.classList.remove("scrolled");
 });
   
 </script>
-  
+
+
 <script>
-const swiper = new Swiper('.swiper', {
-  centeredSlides: true,
-  slidesPerView: 3,
-  spaceBetween: 20,
-  loop: true,
-  speed: 800,
-  grabCursor: true,
+  
+/* ============================= */
+/* DATABASE EVENT */
+/* ============================= */
+  
+const events = [
 
-  // 🔥 INI KUNCINYA
-  slideToClickedSlide: true,
+{img:"https://picsum.photos/400/300?1",title:"Reog Ponorogo",location:"Ponorogo",date:"2026-04-01"},
+{img:"https://picsum.photos/400/300?2",title:"Festival Reog",location:"Madiun",date:"2026-04-02"},
+{img:"https://picsum.photos/400/300?3",title:"Reog Night Show",location:"Solo",date:"2026-04-03"},
+{img:"https://picsum.photos/400/300?4",title:"Reog Budaya",location:"Magetan",date:"2026-04-04"},
+{img:"https://picsum.photos/400/300?5",title:"Reog Nusantara",location:"Kediri",date:"2026-04-05"},
+{img:"https://picsum.photos/400/300?6",title:"Reog Culture",location:"Ngawi",date:"2026-04-06"},
+{img:"https://picsum.photos/400/300?7",title:"Reog Show",location:"Pacitan",date:"2026-04-07"},
+{img:"https://picsum.photos/400/300?8",title:"Reog Festival",location:"Blitar",date:"2026-04-08"},
+{img:"https://picsum.photos/400/300?9",title:"Reog Night",location:"Malang",date:"2026-04-09"},
+{img:"https://picsum.photos/400/300?10",title:"Reog Stage",location:"Trenggalek",date:"2026-04-10"},
+{img:"https://picsum.photos/400/300?11",title:"Reog Live",location:"Nganjuk",date:"2026-04-11"},
+{img:"https://picsum.photos/400/300?12",title:"Reog Art",location:"Tulungagung",date:"2026-04-12"},
+{img:"https://picsum.photos/400/300?13",title:"Reog Event",location:"Surabaya",date:"2026-04-13"},
+{img:"https://picsum.photos/400/300?14",title:"Reog Festival",location:"Sidoarjo",date:"2026-04-14"},
+{img:"https://picsum.photos/400/300?15",title:"Reog Show",location:"Jombang",date:"2026-04-15"},
+{img:"https://picsum.photos/400/300?16",title:"Reog Night",location:"Gresik",date:"2026-04-16"},
+{img:"https://picsum.photos/400/300?17",title:"Reog Art",location:"Lamongan",date:"2026-04-17"},
+{img:"https://picsum.photos/400/300?18",title:"Reog Culture",location:"Bojonegoro",date:"2026-04-18"},
+{img:"https://picsum.photos/400/300?19",title:"Reog Nusantara",location:"Tubam",date:"2026-04-19"},
+{img:"https://picsum.photos/400/300?20",title:"Reog Stage",location:"Pasuruan",date:"2026-04-20"},
+{img:"https://picsum.photos/400/300?21",title:"Reog Show",location:"Probolinggo",date:"2026-04-21"},
+{img:"https://picsum.photos/400/300?22",title:"Reog Night",location:"Bondowoso",date:"2026-04-22"},
+{img:"https://picsum.photos/400/300?23",title:"Reog Festival",location:"Situbondo",date:"2026-04-23"},
+{img:"https://picsum.photos/400/300?24",title:"Reog Art",location:"Banyuwangi",date:"2026-04-24"}
 
-  autoplay: {
-    delay: 2000,
-    disableOnInteraction: false,
-  },
+];
 
-  on: {
-    init(swiper) {
-      swiper.el.addEventListener('mouseenter', () => swiper.autoplay.stop());
-      swiper.el.addEventListener('mouseleave', () => swiper.autoplay.start());
-    }
-  }
+/* SORT BERDASAR TANGGAL */
+
+events.sort((a,b)=> new Date(a.date)-new Date(b.date));
+
+const grid=document.getElementById("poster-grid");
+
+events.forEach(e=>{
+
+const card=document.createElement("div");
+card.className="poster-card";
+
+card.innerHTML=`<img src="${e.img}">`;
+
+card.onclick=function(){
+
+document.getElementById("poster-modal").style.display="flex";
+document.getElementById("modal-img").src=e.img;
+document.getElementById("modal-title").innerText=e.title;
+document.getElementById("modal-location").innerText=e.location;
+
+}
+
+grid.appendChild(card)
+
 });
-</script>
+
+/* MODAL CLOSE */
+
+document.getElementById("modal-close").onclick=function(){
+document.getElementById("poster-modal").style.display="none";
+}  
 
 </body>
 </html>
