@@ -64,20 +64,16 @@ flex-direction:column;
 <div id="modal-location"></div>
 </div>
 
-
-  
+<!-- LOAD DATABASE IKLAN -->
 <script src="https://ajimangkara.com/iklan.js"></script>
 
 <script>
 
+/* AMBIL IKLAN RANDOM */
 function getRandomAd(){
-  if(typeof ADS_SIDEBAR === "undefined") return null;
+  if(typeof ADS_SIDEBAR === "undefined" || !ADS_SIDEBAR.length) return null;
   return ADS_SIDEBAR[Math.floor(Math.random()*ADS_SIDEBAR.length)];
 }
-
-/* DATA EVENT */
-const events=[ ... ];
-
 
 /* DATA EVENT */
 const events=[
@@ -89,64 +85,66 @@ const events=[
 {img:"https://picsum.photos/400/300?6",title:"Culture",location:"Ngawi",date:"2026-04-06"}
 ];
 
+/* SORT BY DATE */
 events.sort((a,b)=>new Date(a.date)-new Date(b.date));
 
 const grid=document.getElementById("poster-grid");
 
+/* RENDER GRID */
 events.forEach((e,index)=>{
 
-// IKLAN
-if(index>0 && index%3===0){
-  const ad = getRandomAd();
+  // IKLAN tiap 3 item
+  if(index>0 && index%3===0){
+    const ad = getRandomAd();
 
-  if(ad){ // <-- penting
-    const adCard=document.createElement("div");
-    adCard.className="poster-card";
+    if(ad){
+      const adCard=document.createElement("div");
+      adCard.className="poster-card";
 
-    adCard.innerHTML=`
-    <a href="${ad.link}" target="_blank">
-      <img src="${ad.img}">
-      <div class="ads-label">IKLAN</div>
-    </a>
-    `;
+      adCard.innerHTML=`
+      <a href="${ad.link}" target="_blank" rel="noopener">
+        <img src="${ad.img}" loading="lazy">
+        <div class="ads-label">IKLAN</div>
+      </a>
+      `;
 
-    grid.appendChild(adCard);
+      grid.appendChild(adCard);
+    }
   }
-}
 
-// EVENT
-const card=document.createElement("div");
-card.className="poster-card";
+  // EVENT
+  const card=document.createElement("div");
+  card.className="poster-card";
 
-card.innerHTML=`
-<img src="${e.img}" loading="lazy">
-<div class="badge-date">${new Date(e.date).getDate()}</div>
-`;
+  card.innerHTML=`
+  <img src="${e.img}" loading="lazy">
+  <div class="badge-date">${new Date(e.date).getDate()}</div>
+  `;
 
-card.onclick=function(){
-document.getElementById("poster-modal").style.display="flex";
-document.getElementById("modal-img").src=e.img;
-document.getElementById("modal-title").innerText=e.title;
-document.getElementById("modal-location").innerText=e.location;
-};
+  card.onclick=function(){
+    document.getElementById("poster-modal").style.display="flex";
+    document.getElementById("modal-img").src=e.img;
+    document.getElementById("modal-title").innerText=e.title;
+    document.getElementById("modal-location").innerText=e.location;
+  };
 
-grid.appendChild(card);
+  grid.appendChild(card);
 
 });
 
-/* CLOSE MODAL */
+/* MODAL CONTROL */
 const modal=document.getElementById("poster-modal");
 
 document.getElementById("modal-close").onclick=()=>modal.style.display="none";
 
 modal.onclick=function(e){
-if(e.target===modal){modal.style.display="none";}
+  if(e.target===modal){modal.style.display="none";}
 };
 
 document.addEventListener("keydown",function(e){
-if(e.key==="Escape"){modal.style.display="none";}
+  if(e.key==="Escape"){modal.style.display="none";}
 });
- 
+
 </script>
 
 </body>
