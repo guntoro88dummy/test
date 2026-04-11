@@ -341,11 +341,15 @@ font-weight:bold;
 position:fixed;
 inset:0;
 background:rgba(0,0,0,0.98);
-display:none;
+display:flex;
 align-items:center;
 justify-content:center;
 flex-direction:column;
 z-index:9999;
+
+opacity:0;
+pointer-events:none;
+transition:opacity .2s;
 }
 
 #poster-modal img{
@@ -667,14 +671,16 @@ const modalLocation = document.getElementById("modal-location");
 const closeBtn = document.getElementById("modal-close");
 
 function openModal(e){
-modal.style.display="flex";
+modal.style.opacity="1";
+modal.style.pointerEvents="auto";
 modalImg.src=e.img;
 modalTitle.innerText=e.title;
 modalLocation.innerText=e.location;
 }
 
 function closeModal(){
-modal.style.display="none";
+modal.style.opacity="0";
+modal.style.pointerEvents="none";
 }
 
 /* tombol close */
