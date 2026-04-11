@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Jadwal Reog Ponorogo April 2026</title>
+<title>JADWAL REOG PONOROGO APRIL 2026</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 body{
 margin:0;
-font-family:Arial;
+font-family:'Roboto', sans-serif;
 background:#0f0f0f;
 color:white;
 }
@@ -33,37 +34,75 @@ z-index:1000;
 max-width:1200px;
 margin:auto;
 padding:90px 20px;
+text-align:center;
 }
 
 .title{
-text-align:center;
 font-size:28px;
-margin-bottom:20px;
+font-weight:bold;
+margin-bottom:5px;
+letter-spacing:1px;
 }
 
-/* ===== CAROUSEL TODAY ===== */
+.subtitle{
+font-size:14px;
+letter-spacing:1px;
+margin-bottom:20px;
+opacity:0.7;
+}
+
+/* BUTTON */
+.button-group{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:25px;
+}
+
+.btn{
+display:flex;
+align-items:center;
+gap:6px;
+padding:10px 16px;
+border-radius:25px;
+font-size:13px;
+font-weight:bold;
+text-decoration:none;
+color:white;
+}
+
+.btn svg{width:16px;height:16px;}
+
+.btn-primary{background:#25D366;}
+.btn-warning{background:#ff9800;}
+.btn-secondary{background:#333;}
+
+/* TODAY BOX */
 .today-section{
+background:#1a1a1a;
+padding:15px;
+border-radius:14px;
 margin-bottom:30px;
 }
 
 .today-title{
-font-size:18px;
+font-size:16px;
 margin-bottom:10px;
 font-weight:bold;
 color:#ffcc00;
+letter-spacing:1px;
 }
 
 #today-carousel{
 display:flex;
 overflow-x:auto;
 gap:12px;
-padding-bottom:10px;
 scroll-snap-type:x mandatory;
 }
 
 .today-card{
 min-width:140px;
-flex-shrink:0;
 border-radius:12px;
 overflow:hidden;
 position:relative;
@@ -77,14 +116,13 @@ height:140px;
 object-fit:cover;
 }
 
-/* ===== GRID ===== */
+/* GRID */
 #poster-grid{
 display:grid;
 grid-template-columns:repeat(6,1fr);
 gap:14px;
 }
 
-/* CARD */
 .poster-card{
 background:#1a1a1a;
 border-radius:12px;
@@ -99,28 +137,22 @@ height:160px;
 object-fit:cover;
 }
 
-.poster-card:hover{
-transform:scale(1.05);
-}
-
-/* BADGE DATE */
+/* BADGE */
 .badge-date{
 position:absolute;
 top:8px;
 right:8px;
 background:red;
-color:white;
-font-weight:bold;
 width:34px;
 height:34px;
 display:flex;
 align-items:center;
 justify-content:center;
 border-radius:50%;
+font-weight:bold;
 z-index:2;
 }
 
-/* BADGE TRENDING */
 .badge-trending{
 position:absolute;
 top:8px;
@@ -128,9 +160,9 @@ left:8px;
 background:#ffcc00;
 color:black;
 font-size:11px;
-font-weight:bold;
 padding:4px 6px;
 border-radius:6px;
+font-weight:bold;
 z-index:2;
 animation:pulse 1s infinite;
 }
@@ -145,22 +177,17 @@ animation:pulse 1s infinite;
 .overlay{
 position:absolute;
 bottom:0;
-left:0;
 width:100%;
-color:white;
 text-align:center;
 font-weight:bold;
-letter-spacing:1px;
 }
 
-/* NORMAL */
 .overlay-normal{
 background:rgba(50,50,50,0.85);
 font-size:12px;
 padding:6px;
 }
 
-/* TRENDING */
 .overlay-hot{
 background:rgba(255,0,0,0.95);
 font-size:14px;
@@ -197,14 +224,6 @@ max-width:90%;
 max-height:80vh;
 }
 
-#modal-close{
-position:absolute;
-top:20px;
-right:30px;
-font-size:30px;
-cursor:pointer;
-}
-
 /* MOBILE */
 @media(max-width:900px){
 #poster-grid{
@@ -213,7 +232,6 @@ justify-content:center;
 }
 }
 </style>
-
 </head>
 
 <body>
@@ -223,22 +241,37 @@ justify-content:center;
 <div class="layout">
 
 <div class="title">JADWAL REOG PONOROGO</div>
+<div class="subtitle" id="today-date"></div>
 
-<!-- CAROUSEL TODAY -->
+<div class="button-group">
+
+<a class="btn btn-primary" href="https://wa.me/6281234567890?text=KIRIM%20JADWAL" target="_blank">
+<svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+KIRIM JADWAL
+</a>
+
+<a class="btn btn-warning" href="https://wa.me/6281234567890?text=LAPOR%20ADMIN" target="_blank">
+<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 15h-1v-2h2v2zm0-4h-1V7h2v6z"/></svg>
+LAPOR ADMIN
+</a>
+
+<a class="btn btn-secondary" href="/">
+<svg viewBox="0 0 24 24" fill="currentColor"><path d="M15 18l-6-6 6-6"/></svg>
+KEMBALI KE DEPAN
+</a>
+
+</div>
 
 <div class="today-section">
 <div class="today-title">🔥 EVENT HARI INI</div>
 <div id="today-carousel"></div>
 </div>
 
-<!-- GRID -->
-
 <div id="poster-grid"></div>
 
 </div>
 
 <!-- MODAL -->
-
 <div id="poster-modal">
 <span id="modal-close">✕</span>
 <img id="modal-img">
@@ -246,19 +279,29 @@ justify-content:center;
 <div id="modal-location"></div>
 </div>
 
-<!-- IKLAN -->
-
 <script src="https://ajimangkara.com/iklan.js"></script>
 
 <script>
 
+/* DATE FORMAT */
+const hari=["MINGGU","SENIN","SELASA","RABU","KAMIS","JUMAT","SABTU"];
+const bulan=["JANUARI","FEBRUARI","MARET","APRIL","MEI","JUNI","JULI","AGUSTUS","SEPTEMBER","OKTOBER","NOVEMBER","DESEMBER"];
+
+const now=new Date();
+document.getElementById("today-date").innerText=
+"HARI INI " + hari[now.getDay()] + ", " + now.getDate() + " " + bulan[now.getMonth()] + " " + now.getFullYear();
+
 /* IKLAN */
 function getRandomAd(){
-if(typeof ADS_SIDEBAR === "undefined" || !ADS_SIDEBAR.length) return null;
+if(typeof ADS_SIDEBAR==="undefined"||!ADS_SIDEBAR.length)return null;
 return ADS_SIDEBAR[Math.floor(Math.random()*ADS_SIDEBAR.length)];
 }
 
-/* DATA EVENT */
+function formatDate(d){
+return new Date(d).toISOString().slice(0,10);
+}
+
+/* DATA (ISI PUNYA KAMU) */
 const events=[
 {img:"https://picsum.photos/400/300?1",title:"Reog",location:"Ponorogo",date:"2026-04-08"},
 {img:"https://picsum.photos/400/300?2",title:"Festival",location:"Madiun",date:"2026-04-08"},
@@ -305,99 +348,70 @@ const events=[
 {img:"https://picsum.photos/400/300?10",title:"Budaya",location:"Magetan",date:"2026-04-14"},
 {img:"https://picsum.photos/400/300?11",title:"Nusantara",location:"Kediri",date:"2026-04-15"},
 {img:"https://picsum.photos/400/300?12",title:"Culture",location:"Ngawi",date:"2026-04-06"}
-];
+  ];
 
-/* SORT */
 events.sort((a,b)=>new Date(a.date)-new Date(b.date));
 
 const grid=document.getElementById("poster-grid");
 const todayContainer=document.getElementById("today-carousel");
+const today=formatDate(new Date());
 
-const today=new Date().toISOString().slice(0,10);
-
-/* LOOP */
 events.forEach((e,index)=>{
 
-const isToday = e.date === today;
+const isToday=formatDate(e.date)===today;
 
-/* === CAROUSEL TODAY === */
+/* CAROUSEL */
 if(isToday){
-const todayCard=document.createElement("div");
-todayCard.className="today-card";
-
-todayCard.innerHTML=`
+const c=document.createElement("div");
+c.className="today-card";
+c.innerHTML=`
 <img src="${e.img}">
 <div class="badge-date">${new Date(e.date).getDate()}</div>
 <div class="badge-trending">🔥 TRENDING</div>
-<div class="overlay overlay-hot">EVENT HARI INI</div>
-`;
-
-todayCard.onclick=function(){
-document.getElementById("poster-modal").style.display="flex";
-document.getElementById("modal-img").src=e.img;
-document.getElementById("modal-title").innerText=e.title;
-document.getElementById("modal-location").innerText=e.location;
-};
-
-todayContainer.appendChild(todayCard);
+<div class="overlay overlay-hot">EVENT HARI INI</div>`;
+c.onclick=()=>openModal(e);
+todayContainer.appendChild(c);
 }
 
-/* === IKLAN === */
-if((index + 1) % 3 === 0){
+/* IKLAN */
+if((index+1)%3===0){
 const ad=getRandomAd();
-
 if(ad){
 const adCard=document.createElement("div");
 adCard.className="poster-card";
-
-adCard.innerHTML=`
-<a href="${ad.link}" target="_blank">
+adCard.innerHTML=`<a href="${ad.link}" target="_blank">
 <img src="${ad.img}">
-<div class="ads-label">IKLAN</div>
-</a>
-`;
-
+<div class="ads-label">IKLAN</div></a>`;
 grid.appendChild(adCard);
 }
 }
 
-/* === GRID EVENT === */
+/* GRID */
 const card=document.createElement("div");
 card.className="poster-card";
-
 card.innerHTML=`
-<img src="${e.img}" loading="lazy">
+<img src="${e.img}">
 <div class="badge-date">${new Date(e.date).getDate()}</div>
-${isToday ? '<div class="badge-trending">🔥 TRENDING</div>' : ''}
-<div class="overlay ${isToday ? 'overlay-hot' : 'overlay-normal'}">
-${isToday ? 'EVENT HARI INI' : 'INFO LENGKAP KLIK'}
-</div>
-`;
-
-card.onclick=function(){
-document.getElementById("poster-modal").style.display="flex";
-document.getElementById("modal-img").src=e.img;
-document.getElementById("modal-title").innerText=e.title;
-document.getElementById("modal-location").innerText=e.location;
-};
-
+${isToday?'<div class="badge-trending">🔥 TRENDING</div>':''}
+<div class="overlay ${isToday?'overlay-hot':'overlay-normal'}">
+${isToday?'EVENT HARI INI':'INFO LENGKAP KLIK'}
+</div>`;
+card.onclick=()=>openModal(e);
 grid.appendChild(card);
 
 });
 
 /* MODAL */
-const modal=document.getElementById("poster-modal");
+function openModal(e){
+document.getElementById("poster-modal").style.display="flex";
+document.getElementById("modal-img").src=e.img;
+document.getElementById("modal-title").innerText=e.title;
+document.getElementById("modal-location").innerText=e.location;
+}
 
-document.getElementById("modal-close").onclick=()=>modal.style.display="none";
-
-modal.onclick=function(e){
-if(e.target===modal){modal.style.display="none";}
+document.getElementById("modal-close").onclick=()=>{
+document.getElementById("poster-modal").style.display="none";
 };
-
-document.addEventListener("keydown",function(e){
-if(e.key==="Escape"){modal.style.display="none";}
-});
-
 </script>
 
 </body>
