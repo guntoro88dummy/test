@@ -344,6 +344,35 @@ z-index:9999;
 max-width:90%;
 max-height:80vh;
 }
+/* MODAL */
+#poster-modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.98);
+display:none;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:9999;
+}
+
+#poster-modal img{
+max-width:90%;
+max-height:80vh;
+}
+
+/* CLOSE BUTTON */
+#modal-close{
+position:absolute;
+top:20px;
+right:20px;
+font-size:28px;
+cursor:pointer;
+background:rgba(0,0,0,0.6);
+padding:8px 12px;
+border-radius:50%;
+z-index:10000;
+}
 
 /* MOBILE */
 @media(max-width:900px){
@@ -601,30 +630,41 @@ grid.appendChild(card);
 });
 
 /* MODAL */
+
+const modal = document.getElementById("poster-modal");
+const modalImg = document.getElementById("modal-img");
+const modalTitle = document.getElementById("modal-title");
+const modalLocation = document.getElementById("modal-location");
+const closeBtn = document.getElementById("modal-close");
+
 function openModal(e){
-document.getElementById("poster-modal").style.display="flex";
-document.getElementById("modal-img").src=e.img;
-document.getElementById("modal-title").innerText=e.title;
-document.getElementById("modal-location").innerText=e.location;
+modal.style.display="flex";
+modalImg.src=e.img;
+modalTitle.innerText=e.title;
+modalLocation.innerText=e.location;
 }
 
-document.getElementById("modal-close").onclick=()=>{
-document.getElementById("poster-modal").style.display="none";
-};
-const modal = document.getElementById("poster-modal");
+function closeModal(){
+modal.style.display="none";
+}
 
-modal.onclick = function(e){
-  if(e.target === modal){
-    modal.style.display = "none";
-  }
-};
+/* tombol close */
+closeBtn.addEventListener("click", closeModal);
+closeBtn.addEventListener("touchstart", closeModal);
 
+/* klik background */
+modal.addEventListener("click", function(e){
+if(e.target === modal){
+closeModal();
+}
+});
+
+/* ESC keyboard */
 document.addEventListener("keydown", function(e){
-  if(e.key === "Escape"){
-    modal.style.display = "none";
-  }
-});  
-
+if(e.key === "Escape"){
+closeModal();
+}
+});
   
 </script>
 
