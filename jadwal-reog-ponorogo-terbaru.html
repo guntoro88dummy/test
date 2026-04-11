@@ -273,7 +273,7 @@ KEMBALI KE DEPAN
 
 <!-- MODAL -->
 <div id="poster-modal">
-<span id="modal-close">✕</span>
+<span id="modal-close">❌</span>
 <img id="modal-img">
 <div id="modal-title"></div>
 <div id="modal-location"></div>
@@ -412,6 +412,21 @@ document.getElementById("modal-location").innerText=e.location;
 document.getElementById("modal-close").onclick=()=>{
 document.getElementById("poster-modal").style.display="none";
 };
+const modal = document.getElementById("poster-modal");
+
+modal.onclick = function(e){
+  if(e.target === modal){
+    modal.style.display = "none";
+  }
+};
+
+document.addEventListener("keydown", function(e){
+  if(e.key === "Escape"){
+    modal.style.display = "none";
+  }
+});  
+
+  
 </script>
 
 </body>
