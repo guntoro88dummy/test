@@ -68,13 +68,13 @@ position:absolute;
 bottom:0;
 left:0;
 width:100%;
-background:linear-gradient(transparent, rgba(0,0,0,0.85));
+background:rgba(255,0,0,0.95); /* merah solid kayak contoh 1 */
 color:white;
-font-size:12px;
+font-size:14px;
 text-align:center;
-padding:6px 4px;
+padding:8px 4px;
 font-weight:bold;
-letter-spacing:0.5px;
+letter-spacing:1px;
 }
 
 .badge-trending{
@@ -83,10 +83,11 @@ top:8px;
 left:8px;
 background:#ffcc00;
 color:black;
-font-size:10px;
+font-size:11px;
 font-weight:bold;
-padding:3px 6px;
-border-radius:4px;
+padding:4px 6px;
+border-radius:6px;
+z-index:2;
 }
   
 .badge-trending{
@@ -196,12 +197,11 @@ card.innerHTML=`
 
 <div class="badge-date">${new Date(e.date).getDate()}</div>
 
-${isToday ? '<div class="badge-trending">TRENDING</div>' : ''}
+${isToday ? '<div class="badge-trending">🔥 TRENDING</div>' : ''}
 
 <div class="overlay-click">
-${isToday ? '🔥 EVENT HARI INI' : 'INFO LENGKAP KLIK'}
+${isToday ? 'EVENT HARI INI' : 'INFO LENGKAP KLIK'}
 </div>
-`;
 
   card.onclick=function(){
     document.getElementById("poster-modal").style.display="flex";
