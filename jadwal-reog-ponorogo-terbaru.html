@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -40,7 +41,43 @@ font-size:28px;
 margin-bottom:20px;
 }
 
-/* GRID */
+/* ===== CAROUSEL TODAY ===== */
+.today-section{
+margin-bottom:30px;
+}
+
+.today-title{
+font-size:18px;
+margin-bottom:10px;
+font-weight:bold;
+color:#ffcc00;
+}
+
+#today-carousel{
+display:flex;
+overflow-x:auto;
+gap:12px;
+padding-bottom:10px;
+scroll-snap-type:x mandatory;
+}
+
+.today-card{
+min-width:140px;
+flex-shrink:0;
+border-radius:12px;
+overflow:hidden;
+position:relative;
+cursor:pointer;
+scroll-snap-align:start;
+}
+
+.today-card img{
+width:100%;
+height:140px;
+object-fit:cover;
+}
+
+/* ===== GRID ===== */
 #poster-grid{
 display:grid;
 grid-template-columns:repeat(6,1fr);
@@ -116,14 +153,14 @@ font-weight:bold;
 letter-spacing:1px;
 }
 
-/* NORMAL (abu) */
+/* NORMAL */
 .overlay-normal{
 background:rgba(50,50,50,0.85);
 font-size:12px;
 padding:6px;
 }
 
-/* TRENDING (merah) */
+/* TRENDING */
 .overlay-hot{
 background:rgba(255,0,0,0.95);
 font-size:14px;
@@ -175,52 +212,8 @@ grid-template-columns:repeat(auto-fill, 140px);
 justify-content:center;
 }
 }
-.today-section{
-margin-bottom:30px;
-}
-
-.today-title{
-font-size:18px;
-margin-bottom:10px;
-font-weight:bold;
-color:#ffcc00;
-}
-
-/* CONTAINER SCROLL */
-#today-carousel{
-display:flex;
-overflow-x:auto;
-gap:12px;
-padding-bottom:10px;
-scroll-snap-type:x mandatory;
-}
-
-/* ITEM */
-.today-card{
-min-width:140px;
-flex-shrink:0;
-border-radius:12px;
-overflow:hidden;
-position:relative;
-cursor:pointer;
-scroll-snap-align:start;
-}
-
-.today-card img{
-width:100%;
-height:140px;
-object-fit:cover;
-}
-
-/* biar scrollbar halus */
-#today-carousel::-webkit-scrollbar{
-height:6px;
-}
-#today-carousel::-webkit-scrollbar-thumb{
-background:#444;
-border-radius:10px;
-}  
 </style>
+
 </head>
 
 <body>
@@ -228,15 +221,24 @@ border-radius:10px;
 <div class="header"><b>AJI MANGKARA</b></div>
 
 <div class="layout">
+
 <div class="title">JADWAL REOG PONOROGO</div>
+
+<!-- CAROUSEL TODAY -->
+
 <div class="today-section">
 <div class="today-title">🔥 EVENT HARI INI</div>
 <div id="today-carousel"></div>
 </div>
+
+<!-- GRID -->
+
 <div id="poster-grid"></div>
+
 </div>
 
 <!-- MODAL -->
+
 <div id="poster-modal">
 <span id="modal-close">✕</span>
 <img id="modal-img">
@@ -244,15 +246,16 @@ border-radius:10px;
 <div id="modal-location"></div>
 </div>
 
-<!-- IKLAN DATABASE -->
+<!-- IKLAN -->
+
 <script src="https://ajimangkara.com/iklan.js"></script>
 
 <script>
 
-/* IKLAN RANDOM */
+/* IKLAN */
 function getRandomAd(){
-  if(typeof ADS_SIDEBAR === "undefined" || !ADS_SIDEBAR.length) return null;
-  return ADS_SIDEBAR[Math.floor(Math.random()*ADS_SIDEBAR.length)];
+if(typeof ADS_SIDEBAR === "undefined" || !ADS_SIDEBAR.length) return null;
+return ADS_SIDEBAR[Math.floor(Math.random()*ADS_SIDEBAR.length)];
 }
 
 /* DATA EVENT */
@@ -308,65 +311,77 @@ const events=[
 events.sort((a,b)=>new Date(a.date)-new Date(b.date));
 
 const grid=document.getElementById("poster-grid");
-const today = new Date().toISOString().slice(0,10);
+const todayContainer=document.getElementById("today-carousel");
 
-/* RENDER */
+const today=new Date().toISOString().slice(0,10);
+
+/* LOOP */
 events.forEach((e,index)=>{
 
-  // IKLAN tiap 3
-  if((index + 1) % 3 === 0){
-    const ad = getRandomAd();
+const isToday = e.date === today;
 
-    if(ad){
-      const adCard=document.createElement("div");
-      adCard.className="poster-card";
+/* === CAROUSEL TODAY === */
+if(isToday){
+const todayCard=document.createElement("div");
+todayCard.className="today-card";
 
-      adCard.innerHTML=`
-      <a href="${ad.link}" target="_blank">
-        <img src="${ad.img}">
-        <div class="ads-label">IKLAN</div>
-      </a>
-      `;
+todayCard.innerHTML=`
+<img src="${e.img}">
+<div class="badge-date">${new Date(e.date).getDate()}</div>
+<div class="badge-trending">🔥 TRENDING</div>
+<div class="overlay overlay-hot">EVENT HARI INI</div>
+`;
 
-      grid.appendChild(adCard);
-    }
-  }
+todayCard.onclick=function(){
+document.getElementById("poster-modal").style.display="flex";
+document.getElementById("modal-img").src=e.img;
+document.getElementById("modal-title").innerText=e.title;
+document.getElementById("modal-location").innerText=e.location;
+};
 
-  const isToday = e.date === today;
- 
-  todayCard.onclick = function(){
-    document.getElementById("poster-modal").style.display="flex";
-    document.getElementById("modal-img").src=e.img;
-    document.getElementById("modal-title").innerText=e.title;
-    document.getElementById("modal-location").innerText=e.location;
-  };
-
-  todayContainer.appendChild(todayCard);
+todayContainer.appendChild(todayCard);
 }
 
-  const card=document.createElement("div");
-  card.className="poster-card";
+/* === IKLAN === */
+if((index + 1) % 3 === 0){
+const ad=getRandomAd();
 
-  card.innerHTML=`
-  <img src="${e.img}" loading="lazy">
+if(ad){
+const adCard=document.createElement("div");
+adCard.className="poster-card";
 
-  <div class="badge-date">${new Date(e.date).getDate()}</div>
+adCard.innerHTML=`
+<a href="${ad.link}" target="_blank">
+<img src="${ad.img}">
+<div class="ads-label">IKLAN</div>
+</a>
+`;
 
-  ${isToday ? '<div class="badge-trending">🔥 TRENDING</div>' : ''}
+grid.appendChild(adCard);
+}
+}
 
-  <div class="overlay ${isToday ? 'overlay-hot' : 'overlay-normal'}">
-    ${isToday ? 'EVENT HARI INI' : 'INFO LENGKAP KLIK'}
-  </div>
-  `;
+/* === GRID EVENT === */
+const card=document.createElement("div");
+card.className="poster-card";
 
-  card.onclick=function(){
-    document.getElementById("poster-modal").style.display="flex";
-    document.getElementById("modal-img").src=e.img;
-    document.getElementById("modal-title").innerText=e.title;
-    document.getElementById("modal-location").innerText=e.location;
-  };
+card.innerHTML=`
+<img src="${e.img}" loading="lazy">
+<div class="badge-date">${new Date(e.date).getDate()}</div>
+${isToday ? '<div class="badge-trending">🔥 TRENDING</div>' : ''}
+<div class="overlay ${isToday ? 'overlay-hot' : 'overlay-normal'}">
+${isToday ? 'EVENT HARI INI' : 'INFO LENGKAP KLIK'}
+</div>
+`;
 
-  grid.appendChild(card);
+card.onclick=function(){
+document.getElementById("poster-modal").style.display="flex";
+document.getElementById("modal-img").src=e.img;
+document.getElementById("modal-title").innerText=e.title;
+document.getElementById("modal-location").innerText=e.location;
+};
+
+grid.appendChild(card);
 
 });
 
@@ -382,10 +397,7 @@ if(e.target===modal){modal.style.display="none";}
 document.addEventListener("keydown",function(e){
 if(e.key==="Escape"){modal.style.display="none";}
 });
-  
- /* SLIDE ATAS */ 
-const todayContainer = document.getElementById("today-carousel");
- 
+
 </script>
 
 </body>
