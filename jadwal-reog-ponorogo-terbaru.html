@@ -250,6 +250,7 @@ border-radius:12px;
 overflow:hidden;
 cursor:pointer;
 position:relative;
+touch-action:manipulation;
 }
 
 .poster-card img{
@@ -383,8 +384,8 @@ z-index:10000;
 /* MOBILE */
 @media(max-width:900px){
 #poster-grid{
-grid-template-columns:repeat(auto-fill, 140px);
-justify-content:center;
+grid-template-columns:repeat(2, 1fr);
+gap:12px;
 }
 }
   
