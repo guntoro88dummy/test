@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Jadwal Reog Ponorogo April 2026</title>
-
-<!-- FONT ROBOTO -->
 
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
@@ -46,7 +43,6 @@ font-weight:bold;
 margin-bottom:5px;
 }
 
-/* SUBTITLE DATE */
 .subtitle{
 font-size:14px;
 letter-spacing:1px;
@@ -54,7 +50,7 @@ margin-bottom:15px;
 opacity:0.8;
 }
 
-/* BUTTON GROUP */
+/* BUTTON */
 .button-group{
 display:flex;
 justify-content:center;
@@ -75,16 +71,12 @@ text-decoration:none;
 color:white;
 }
 
-.btn svg{
-width:16px;
-height:16px;
-}
-
+.btn svg{width:16px;height:16px;}
 .btn-primary{background:#25D366;}
 .btn-warning{background:#ff9800;}
 .btn-secondary{background:#333;}
 
-/* TODAY SECTION BOX */
+/* TODAY BOX */
 .today-section{
 background:#1a1a1a;
 padding:15px;
@@ -237,7 +229,6 @@ justify-content:center;
 }
 }
 </style>
-
 </head>
 
 <body>
@@ -250,20 +241,9 @@ justify-content:center;
 <div class="subtitle" id="today-date"></div>
 
 <div class="button-group">
-<a class="btn btn-primary" href="https://wa.me/6281234567890?text=Saya%20ingin%20kirim%20jadwal" target="_blank">
-<svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
-KIRIM JADWAL
-</a>
-
-<a class="btn btn-warning" href="https://wa.me/6281234567890?text=Saya%20ingin%20lapor%20admin" target="_blank">
-<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 15h-1v-2h2v2zm0-4h-1V7h2v6z"/></svg>
-LAPOR ADMIN
-</a>
-
-<a class="btn btn-secondary" href="/">
-<svg viewBox="0 0 24 24" fill="currentColor"><path d="M15 18l-6-6 6-6"/></svg>
-KEMBALI
-</a>
+<a class="btn btn-primary" href="https://wa.me/6281234567890?text=KIRIM%20JADWAL" target="_blank">KIRIM JADWAL</a>
+<a class="btn btn-warning" href="https://wa.me/6281234567890?text=LAPOR%20ADMIN" target="_blank">LAPOR ADMIN</a>
+<a class="btn btn-secondary" href="/">KEMBALI</a>
 </div>
 
 <div class="today-section">
@@ -276,7 +256,6 @@ KEMBALI
 </div>
 
 <!-- MODAL -->
-
 <div id="poster-modal">
 <span id="modal-close">✕</span>
 <img id="modal-img">
@@ -289,8 +268,8 @@ KEMBALI
 <script>
 
 /* FORMAT DATE */
-const hari=["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
-const bulan=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const hari=["MINGGU","SENIN","SELASA","RABU","KAMIS","JUMAT","SABTU"];
+const bulan=["JANUARI","FEBRUARI","MARET","APRIL","MEI","JUNI","JULI","AGUSTUS","SEPTEMBER","OKTOBER","NOVEMBER","DESEMBER"];
 
 const now=new Date();
 document.getElementById("today-date").innerText=
@@ -302,64 +281,24 @@ if(typeof ADS_SIDEBAR==="undefined"||!ADS_SIDEBAR.length)return null;
 return ADS_SIDEBAR[Math.floor(Math.random()*ADS_SIDEBAR.length)];
 }
 
-/* DATA */
-const events=[
-{img:"https://picsum.photos/400/300?1",title:"Reog",location:"Ponorogo",date:"2026-04-08"},
-{img:"https://picsum.photos/400/300?2",title:"Festival",location:"Madiun",date:"2026-04-08"},
-{img:"https://picsum.photos/400/300?3",title:"Show",location:"Solo",date:"2026-04-01"},
-{img:"https://picsum.photos/400/300?4",title:"Budaya",location:"Magetan",date:"2026-04-02"},
-{img:"https://picsum.photos/400/300?5",title:"Nusantara",location:"Kediri",date:"2026-04-03"},
-{img:"https://picsum.photos/400/300?6",title:"Culture",location:"Ngawi",date:"2026-04-11"},
-{img:"https://picsum.photos/400/300?7",title:"Reog",location:"Ponorogo",date:"2026-04-11"},
-{img:"https://picsum.photos/400/300?8",title:"Festival",location:"Madiun",date:"2026-04-12"},
-{img:"https://picsum.photos/400/300?9",title:"Show",location:"Solo",date:"2026-04-13"},
-{img:"https://picsum.photos/400/300?10",title:"Budaya",location:"Magetan",date:"2026-04-4"},
-{img:"https://picsum.photos/400/300?11",title:"Nusantara",location:"Kediri",date:"2026-04-15"},
-{img:"https://picsum.photos/400/300?1",title:"Reog",location:"Ponorogo",date:"2026-04-06"},
-{img:"https://picsum.photos/400/300?2",title:"Festival",location:"Madiun",date:"2026-04-07"},
-{img:"https://picsum.photos/400/300?3",title:"Show",location:"Solo",date:"2026-04-09"},
-{img:"https://picsum.photos/400/300?4",title:"Budaya",location:"Magetan",date:"2026-04-12"},
-{img:"https://picsum.photos/400/300?5",title:"Nusantara",location:"Kediri",date:"2026-04-05"},
-{img:"https://picsum.photos/400/300?6",title:"Culture",location:"Ngawi",date:"2026-04-16"},
-{img:"https://picsum.photos/400/300?7",title:"Reog",location:"Ponorogo",date:"2026-04-17"},
-{img:"https://picsum.photos/400/300?8",title:"Festival",location:"Madiun",date:"2026-04-18"},
-{img:"https://picsum.photos/400/300?9",title:"Show",location:"Solo",date:"2026-04-19"},
-{img:"https://picsum.photos/400/300?10",title:"Budaya",location:"Magetan",date:"2026-04-20"},
-{img:"https://picsum.photos/400/300?11",title:"Nusantara",location:"Kediri",date:"2026-04-21"},
-{img:"https://picsum.photos/400/300?1",title:"Reog",location:"Ponorogo",date:"2026-04-22"},
-{img:"https://picsum.photos/400/300?2",title:"Festival",location:"Madiun",date:"2026-04-24"},
-{img:"https://picsum.photos/400/300?3",title:"Show",location:"Solo",date:"2026-04-25"},
-{img:"https://picsum.photos/400/300?4",title:"Budaya",location:"Magetan",date:"2026-04-26"},
-{img:"https://picsum.photos/400/300?5",title:"Nusantara",location:"Kediri",date:"2026-04-27"},
-{img:"https://picsum.photos/400/300?6",title:"Culture",location:"Ngawi",date:"2026-04-28"},
-{img:"https://picsum.photos/400/300?7",title:"Reog",location:"Ponorogo",date:"2026-04-29"},
-{img:"https://picsum.photos/400/300?8",title:"Festival",location:"Madiun",date:"2026-04-30"},
-{img:"https://picsum.photos/400/300?9",title:"Show",location:"Solo",date:"2026-04-13"},
-{img:"https://picsum.photos/400/300?10",title:"Budaya",location:"Magetan",date:"2026-04-14"},
-{img:"https://picsum.photos/400/300?11",title:"Nusantara",location:"Kediri",date:"2026-04-15"},
-{img:"https://picsum.photos/400/300?1",title:"Reog",location:"Ponorogo",date:"2026-04-08"},
-{img:"https://picsum.photos/400/300?2",title:"Festival",location:"Madiun",date:"2026-04-08"},
-{img:"https://picsum.photos/400/300?3",title:"Show",location:"Solo",date:"2026-04-09"},
-{img:"https://picsum.photos/400/300?4",title:"Budaya",location:"Magetan",date:"2026-04-11"},
-{img:"https://picsum.photos/400/300?5",title:"Nusantara",location:"Kediri",date:"2026-04-05"},
-{img:"https://picsum.photos/400/300?6",title:"Culture",location:"Ngawi",date:"2026-04-21"},
-{img:"https://picsum.photos/400/300?7",title:"Reog",location:"Ponorogo",date:"2026-04-10"},
-{img:"https://picsum.photos/400/300?8",title:"Festival",location:"Madiun",date:"2026-04-12"},
-{img:"https://picsum.photos/400/300?9",title:"Show",location:"Solo",date:"2026-04-13"},
-{img:"https://picsum.photos/400/300?10",title:"Budaya",location:"Magetan",date:"2026-04-14"},
-{img:"https://picsum.photos/400/300?11",title:"Nusantara",location:"Kediri",date:"2026-04-15"},
-{img:"https://picsum.photos/400/300?12",title:"Culture",location:"Ngawi",date:"2026-04-06"}
-];
+/* NORMALIZE DATE */
+function formatDate(d){
+return new Date(d).toISOString().slice(0,10);
+}
 
+/* DATA */
+const events=[ ... ]; // (biarkan data kamu tetap)
+
+/* SORT */
 events.sort((a,b)=>new Date(a.date)-new Date(b.date));
 
 const grid=document.getElementById("poster-grid");
 const todayContainer=document.getElementById("today-carousel");
-const today=new Date().toISOString().slice(0,10);
+const today=formatDate(new Date());
 
 events.forEach((e,index)=>{
 
-const isToday=e.date===today;
+const isToday=formatDate(e.date)===today;
 
 /* CAROUSEL */
 if(isToday){
@@ -410,7 +349,9 @@ document.getElementById("modal-title").innerText=e.title;
 document.getElementById("modal-location").innerText=e.location;
 }
 
-document.getElementById("modal-close").onclick=()=>poster-modal.style.display="none";
+document.getElementById("modal-close").onclick=()=>{
+document.getElementById("poster-modal").style.display="none";
+};
 </script>
 
 </body>
