@@ -422,7 +422,14 @@ min-width:0;
 margin-left:5px;
 margin-right:5px;
 }
- 
+  
+.poster-card,
+.today-card{
+cursor:pointer;
+-webkit-tap-highlight-color:transparent;
+touch-action:manipulation;
+}
+
 </style>
 </head>
 
@@ -603,8 +610,7 @@ c.innerHTML=`
 <div class="badge-date">${new Date(e.date).getDate()}</div>
 <div class="badge-trending">🔥 TRENDING</div>
 <div class="overlay overlay-hot">EVENT HARI INI</div>`;
-c.addEventListener("click", ()=>openModal(e));
-c.addEventListener("touchstart", ()=>openModal(e));
+c.dataset.index = index;
 todayContainer.appendChild(c);
 }
 
@@ -631,11 +637,24 @@ ${isToday?'<div class="badge-trending">🔥 TRENDING</div>':''}
 <div class="overlay ${isToday?'overlay-hot':'overlay-normal'}">
 ${isToday?'EVENT HARI INI':'INFO LENGKAP KLIK'}
 </div>`;
-card.addEventListener("click", ()=>openModal(e));
-card.addEventListener("touchstart", ()=>openModal(e));
+card.dataset.index = index;
 grid.appendChild(card);
 
 });
+
+document.addEventListener("click", function(e){
+
+const card = e.target.closest(".poster-card, .today-card");
+
+if(!card) return;
+
+const index = card.dataset.index;
+
+if(index !== undefined){
+openModal(events[index]);
+}
+
+});  
 
 /* MODAL */
 
