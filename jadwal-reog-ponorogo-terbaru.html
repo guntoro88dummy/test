@@ -258,6 +258,12 @@ height:160px;
 object-fit:cover;
 }
 
+ .poster-card,
+.today-card{
+cursor:pointer;
+-webkit-tap-highlight-color:transparent;
+}
+  
 /* BADGE */
 .badge-date{
 position:absolute;
@@ -597,7 +603,8 @@ c.innerHTML=`
 <div class="badge-date">${new Date(e.date).getDate()}</div>
 <div class="badge-trending">🔥 TRENDING</div>
 <div class="overlay overlay-hot">EVENT HARI INI</div>`;
-c.onclick=()=>openModal(e);
+c.addEventListener("click", ()=>openModal(e));
+c.addEventListener("touchstart", ()=>openModal(e));
 todayContainer.appendChild(c);
 }
 
@@ -624,7 +631,8 @@ ${isToday?'<div class="badge-trending">🔥 TRENDING</div>':''}
 <div class="overlay ${isToday?'overlay-hot':'overlay-normal'}">
 ${isToday?'EVENT HARI INI':'INFO LENGKAP KLIK'}
 </div>`;
-card.onclick=()=>openModal(e);
+card.addEventListener("click", ()=>openModal(e));
+card.addEventListener("touchstart", ()=>openModal(e));
 grid.appendChild(card);
 
 });
