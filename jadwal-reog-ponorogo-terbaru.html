@@ -42,6 +42,19 @@ flex-direction:column;
 #poster-modal img{max-width:90%;max-height:80vh;}
 #modal-close{position:absolute;top:20px;right:30px;font-size:30px;cursor:pointer;}
 
+.overlay-click{
+position:absolute;
+bottom:0;
+left:0;
+width:100%;
+background:linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+color:white;
+font-size:12px;
+text-align:center;
+padding:6px;
+font-weight:bold;
+}
+
 @media(max-width:900px){
 #poster-grid{
 display:grid;
@@ -167,6 +180,12 @@ document.addEventListener("keydown",function(e){
   if(e.key==="Escape"){modal.style.display="none";}
 });
 
+card.innerHTML=`
+<img src="${e.img}" loading="lazy">
+<div class="badge-date">${new Date(e.date).getDate()}</div>
+<div class="overlay-click">INFO LENGKAP KLIK</div>
+`;
+  
 </script>
 
 </body>
