@@ -607,7 +607,7 @@ c.innerHTML=`
 <div class="badge-date">${new Date(e.date).getDate()}</div>
 <div class="badge-trending">🔥 TRENDING</div>
 <div class="overlay overlay-hot">EVENT HARI INI</div>`;
-c.dataset.index = index;
+c.addEventListener("click", ()=>openModal(e));
 todayContainer.appendChild(c);
 }
 
@@ -634,24 +634,10 @@ ${isToday?'<div class="badge-trending">🔥 TRENDING</div>':''}
 <div class="overlay ${isToday?'overlay-hot':'overlay-normal'}">
 ${isToday?'EVENT HARI INI':'INFO LENGKAP KLIK'}
 </div>`;
-card.dataset.index = index;
+card.addEventListener("click", ()=>openModal(e));
 grid.appendChild(card);
 
 });
-
-document.addEventListener("click", function(e){
-
-const card = e.target.closest(".poster-card, .today-card");
-
-if(!card) return;
-
-const index = card.dataset.index;
-
-if(index !== undefined){
-openModal(events[index]);
-}
-
-});  
 
 /* MODAL */
 
