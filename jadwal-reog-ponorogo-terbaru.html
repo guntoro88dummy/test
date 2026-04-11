@@ -333,16 +333,7 @@ events.forEach((e,index)=>{
   }
 
   const isToday = e.date === today;
-  if(isToday){
-  const todayCard = document.createElement("div");
-  todayCard.className = "today-card";
-
-  todayCard.innerHTML = `
-    <img src="${e.img}">
-    <div class="badge-trending">🔥 TRENDING</div>
-    <div class="overlay overlay-hot">EVENT HARI INI</div>
-  `;
-
+ 
   todayCard.onclick = function(){
     document.getElementById("poster-modal").style.display="flex";
     document.getElementById("modal-img").src=e.img;
