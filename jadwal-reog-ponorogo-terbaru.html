@@ -352,6 +352,42 @@ grid-template-columns:repeat(auto-fill, 140px);
 justify-content:center;
 }
 }
+  
+  /* ============================= */
+/* MOBILE LAYOUT IMPROVEMENT     */
+/* ============================= */
+  
+@media (max-width:900px){
+
+/* HEADER SIMPLIFY */
+.voice-btn,
+.create-btn,
+.notif,
+.logo-area span{
+display:none;
+}
+
+/* pendekkan search bar */
+.search-ad{
+max-width:60%;
+margin-left:5px;
+margin-right:5px;
+}
+
+/* header tidak memaksa lebar */
+.header-bar{
+flex-wrap:nowrap;
+min-width:0;
+}
+
+/* search bar tidak memaksa lebar */
+.search-ad{
+max-width:50%;
+min-width:0;
+margin-left:5px;
+margin-right:5px;
+}
+ 
 </style>
 </head>
 
