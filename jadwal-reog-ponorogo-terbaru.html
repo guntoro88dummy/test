@@ -1,696 +1,681 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>JADWAL REOG PONOROGO APRIL 2026</title>
+  <title>JADWAL REOG PONOROGO APRIL 2026</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
-<style>
-body{
-margin:0;
-font-family:'Roboto', sans-serif;
-background:#0f0f0f;
-color:white;
-}
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-html{
-scroll-behavior:smooth;
-}
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
 
-/* HEADER UTAMA */
-.header{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-z-index:100;
-border-bottom:1px solid #222;
-background:rgba(15,15,15,0.85);
-backdrop-filter:blur(8px);
--webkit-backdrop-filter:blur(8px);
-transition:all .3s ease;
-}
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #0f0f0f;
+      color: white;
+    }
 
-/* SHADOW SAAT SCROLL */
-.header.scrolled{
-box-shadow:0 4px 15px rgba(0,0,0,0.6);
-border-bottom:1px solid #333;
-}
+    /* HEADER UTAMA */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      z-index: 100;
+      border-bottom: 1px solid #222;
+      background: rgba(15, 15, 15, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
 
-/* SCROLL LOCK HEADER FIX */
-.header-bar{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:10px 20px;
-}
+    /* SHADOW SAAT SCROLL */
+    .header.scrolled {
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+      border-bottom: 1px solid #333;
+    }
 
-.header{
-height:60px;
-}
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+    }
 
-/* LOGO */
+    /* LOGO */
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 700;
+    }
 
-.logo-area{
-display:flex;
-align-items:center;
-gap:10px;
-font-size:20px;
-font-weight:700;
-}
+    .logo-area img {
+      height: 24px;
+    }
 
-.logo-area img{
-height:24px;
-}
+    /* SEARCH BAR (AFFILIATE SLOT) */
+    .search-ad {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      border-radius: 20px;
+      background: #121212;
+      border: 1px solid #333;
+      color: #aaa;
+      max-width: 650px;
+      margin-left: 40px;
+      margin-right: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
 
-/* SEARCH BAR (AFFILIATE SLOT) */
+    /* VOICE BUTTON */
+    .voice-btn {
+      width: 40px;
+      height: 40px;
+      background: #181818;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 330px;
+    }
 
-.search-ad{
-flex:1;
-display:flex;
-align-items:center;
-justify-content:center;
-height:40px;
-border-radius:20px;
-background:#121212;
-border:1px solid #333;
-color:#aaa;
-max-width:650px;
-margin-left:40px;   /* dorong ke kanan */
-margin-right:10px;  /* dekatkan ke mic */
-cursor:pointer;
-transition:.2s;
-}
+    /* RIGHT MENU */
+    .right-menu {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
 
+    /* CREATE BUTTON */
+    .create-btn {
+      background: #272727;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+    }
 
-/* VOICE BUTTON */
+    /* NOTIFICATION */
+    .notif {
+      position: relative;
+      font-size: 18px;
+      cursor: pointer;
+    }
 
-.voice-btn{
-width:40px;
-height:40px;
-background:#181818;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-font-size:16px;
-margin-right:330px; /* jarak ke notif/menu */
-}
+    .notif-badge {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      background: red;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+    }
 
-/* RIGHT MENU */
+    /* AVATAR */
+    .channel-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
 
-.right-menu{
-display:flex;
-align-items:center;
-gap:18px;
-}
+    /* LAYOUT */
+    .layout {
+      max-width: 1200px;
+      margin: auto;
+      padding: 90px 20px;
+      text-align: center;
+    }
 
-/* CREATE BUTTON */
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      letter-spacing: 1px;
+    }
 
-.create-btn{
-background:#272727;
-border:none;
-color:white;
-padding:8px 16px;
-border-radius:20px;
-cursor:pointer;
-font-size:14px;
-}
+    .subtitle {
+      font-size: 14px;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      opacity: 0.7;
+    }
 
-/* NOTIFICATION */
+    /* BUTTON */
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
 
-.notif{
-position:relative;
-font-size:18px;
-cursor:pointer;
-}
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-radius: 25px;
+      font-size: 13px;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+    }
 
-.notif-badge{
-position:absolute;
-top:-6px;
-right:-8px;
-background:red;
-color:white;
-font-size:10px;
-padding:2px 6px;
-border-radius:10px;
-}
+    .btn svg {
+      width: 16px;
+      height: 16px;
+    }
 
-/* AVATAR */
+    .btn-primary {
+      background: #25D366;
+    }
 
-.channel-avatar{
-width:32px;
-height:32px;
-border-radius:50%;
-cursor:pointer;
-}
-  
-/* LAYOUT */
-.layout{
-max-width:1200px;
-margin:auto;
-padding:90px 20px;
-text-align:center;
-}
+    .btn-warning {
+      background: #ff9800;
+    }
 
-.title{
-font-size:28px;
-font-weight:bold;
-margin-bottom:5px;
-letter-spacing:1px;
-}
+    .btn-secondary {
+      background: #333;
+    }
 
-.subtitle{
-font-size:14px;
-letter-spacing:1px;
-margin-bottom:20px;
-opacity:0.7;
-}
+    /* TODAY BOX */
+    .today-section {
+      background: #1a1a1a;
+      padding: 15px;
+      border-radius: 14px;
+      margin-bottom: 30px;
+    }
 
-/* BUTTON */
-.button-group{
-display:flex;
-justify-content:center;
-gap:10px;
-flex-wrap:wrap;
-margin-bottom:25px;
-}
+    .today-title {
+      font-size: 16px;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #ffcc00;
+      letter-spacing: 1px;
+    }
 
-.btn{
-display:flex;
-align-items:center;
-gap:6px;
-padding:10px 16px;
-border-radius:25px;
-font-size:13px;
-font-weight:bold;
-text-decoration:none;
-color:white;
-}
+    #today-carousel {
+      display: flex;
+      overflow-x: auto;
+      gap: 12px;
+      scroll-snap-type: x mandatory;
+      touch-action: pan-x;
+    }
 
-.btn svg{width:16px;height:16px;}
+    .today-card {
+      min-width: 140px;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      scroll-snap-align: start;
+    }
 
-.btn-primary{background:#25D366;}
-.btn-warning{background:#ff9800;}
-.btn-secondary{background:#333;}
+    .today-card img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+    }
 
-/* TODAY BOX */
-.today-section{
-background:#1a1a1a;
-padding:15px;
-border-radius:14px;
-margin-bottom:30px;
-}
+    /* GRID */
+    #poster-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+    }
 
-.today-title{
-font-size:16px;
-margin-bottom:10px;
-font-weight:bold;
-color:#ffcc00;
-letter-spacing:1px;
-}
+    .poster-card {
+      background: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-#today-carousel{
-display:flex;
-overflow-x:auto;
-gap:12px;
-scroll-snap-type:x mandatory;
-touch-action:pan-x;
-}
+    .poster-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+    }
 
-.today-card{
-min-width:140px;
-border-radius:12px;
-overflow:hidden;
-position:relative;
-cursor:pointer;
-scroll-snap-align:start;
-}
+    .today-card {
+      -webkit-tap-highlight-color: transparent;
+    }
 
-.today-card img{
-width:100%;
-height:140px;
-object-fit:cover;
-}
+    /* BADGE */
+    .badge-date {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: red;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-weight: bold;
+      z-index: 2;
+      pointer-events: none;
+    }
 
-/* GRID */
-#poster-grid{
-display:grid;
-grid-template-columns:repeat(6,1fr);
-gap:14px;
-}
+    .badge-trending {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: #ffcc00;
+      color: black;
+      font-size: 11px;
+      padding: 4px 6px;
+      border-radius: 6px;
+      font-weight: bold;
+      z-index: 2;
+      animation: pulse 1s infinite;
+      pointer-events: none;
+    }
 
-.poster-card{
-background:#1a1a1a;
-border-radius:12px;
-overflow:hidden;
-cursor:pointer;
-position:relative;
-touch-action:manipulation;
-}
+    /* OVERLAY */
+    .overlay {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      font-weight: bold;
+      pointer-events: none;
+    }
 
-.poster-card img{
-width:100%;
-height:160px;
-object-fit:cover;
-}
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
 
- .poster-card,
-.today-card{
-cursor:pointer;
--webkit-tap-highlight-color:transparent;
-}
-  
-/* BADGE */
-.badge-date{
-position:absolute;
-top:8px;
-right:8px;
-background:red;
-width:34px;
-height:34px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:50%;
-font-weight:bold;
-z-index:2;
-pointer-events:none; /* FIX MOBILE */
-}
+    .overlay-normal {
+      background: rgba(50, 50, 50, 0.85);
+      font-size: 12px;
+      padding: 6px;
+    }
 
-.badge-trending{
-position:absolute;
-top:8px;
-left:8px;
-background:#ffcc00;
-color:black;
-font-size:11px;
-padding:4px 6px;
-border-radius:6px;
-font-weight:bold;
-z-index:2;
-animation:pulse 1s infinite;
-pointer-events:none; /* FIX MOBILE */
-}
+    .overlay-hot {
+      background: rgba(255, 0, 0, 0.95);
+      font-size: 14px;
+      padding: 8px;
+    }
 
-/* OVERLAY */
-.overlay{
-position:absolute;
-bottom:0;
-width:100%;
-text-align:center;
-font-weight:bold;
-pointer-events:none; /* FIX MOBILE */
-}
+    /* IKLAN */
+    .ads-label {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      background: yellow;
+      color: black;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+      z-index: 2;
+      pointer-events: none;
+    }
 
-@keyframes pulse{
-0%{transform:scale(1);}
-50%{transform:scale(1.1);}
-100%{transform:scale(1);}
-}
+    /* MODAL */
+    #poster-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.98);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      padding: 20px;
+      box-sizing: border-box;
+    }
 
-/* OVERLAY */
-.overlay{
-position:absolute;
-bottom:0;
-width:100%;
-text-align:center;
-font-weight:bold;
-pointer-events:none;
-}
+    #poster-modal img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 12px;
+    }
 
-.overlay-normal{
-background:rgba(50,50,50,0.85);
-font-size:12px;
-padding:6px;
-}
+    #modal-title,
+    #modal-location {
+      margin-top: 12px;
+      text-align: center;
+    }
 
-.overlay-hot{
-background:rgba(255,0,0,0.95);
-font-size:14px;
-padding:8px;
-}
+    /* CLOSE BUTTON */
+    #modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 8px 12px;
+      border-radius: 50%;
+      z-index: 10000;
+      user-select: none;
+    }
 
-/* IKLAN */
-.ads-label{
-position:absolute;
-top:6px;
-left:6px;
-background:yellow;
-color:black;
-font-size:10px;
-padding:2px 6px;
-border-radius:4px;
-font-weight:bold;
-}
+    /* MOBILE */
+    @media (max-width: 900px) {
+      #poster-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
 
-/* MODAL */
-#poster-modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.98);
-display:flex;
-align-items:center;
-justify-content:center;
-flex-direction:column;
-z-index:9999;
+      .voice-btn,
+      .create-btn,
+      .notif,
+      .logo-area span {
+        display: none;
+      }
 
-opacity:0;
-pointer-events:none;
-transition:opacity .2s;
-}
+      .header-bar {
+        flex-wrap: nowrap;
+        min-width: 0;
+      }
 
-#poster-modal img{
-max-width:90%;
-max-height:80vh;
-}
+      .search-ad {
+        max-width: 50%;
+        min-width: 0;
+        margin-left: 5px;
+        margin-right: 5px;
+      }
 
-/* CLOSE BUTTON */
-#modal-close{
-position:absolute;
-top:20px;
-right:20px;
-font-size:28px;
-cursor:pointer;
-background:rgba(0,0,0,0.6);
-padding:8px 12px;
-border-radius:50%;
-z-index:10000;
-}
+      .poster-card,
+      .today-card {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
 
-/* MOBILE */
-@media(max-width:900px){
-#poster-grid{
-grid-template-columns:repeat(2, 1fr);
-gap:12px;
-}
-}
-  
-  /* ============================= */
-/* MOBILE LAYOUT IMPROVEMENT     */
-/* ============================= */
-  
-@media (max-width:900px){
-
-/* HEADER SIMPLIFY */
-.voice-btn,
-.create-btn,
-.notif,
-.logo-area span{
-display:none;
-}
-
-/* pendekkan search bar */
-.search-ad{
-max-width:60%;
-margin-left:5px;
-margin-right:5px;
-}
-
-/* header tidak memaksa lebar */
-.header-bar{
-flex-wrap:nowrap;
-min-width:0;
-}
-
-/* search bar tidak memaksa lebar */
-.search-ad{
-max-width:50%;
-min-width:0;
-margin-left:5px;
-margin-right:5px;
-}
-  
-.poster-card,
-.today-card{
-cursor:pointer;
--webkit-tap-highlight-color:transparent;
-touch-action:manipulation;
-}
-
-.badge-date,
-.badge-trending,
-.overlay{
-pointer-events:none;
-}
-  
-</style>
+      .badge-date,
+      .badge-trending,
+      .overlay {
+        pointer-events: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <header class="header">
+    <div class="header-bar">
+      <div class="logo-area">
+        <div id="menu-toggle" class="menu-toggle">☰</div>
+        <a href="https://ajimangkara.com">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="Aji Mangkara">
+        </a>
+        <span>
+          <a href="http://ajimangkara.com" style="text-decoration: none; color: #FFFFFF;">
+            AJI MANGKARA
+          </a>
+        </span>
+      </div>
 
-<header class="header">
+      <a id="search-ad-link" href="#" class="search-ad" target="_blank"></a>
 
-<div class="header-bar">
+      <div class="voice-btn">
+        <i class="fa-solid fa-microphone"></i>
+      </div>
 
-<div class="logo-area">
-<div id="menu-toggle" class="menu-toggle">
-☰
-</div>
-<a href="https://ajimangkara.com">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="Aji Mangkara">
-</a>
-<span><a href="http://ajimangkara.com" style="text-decoration: none; color: #FFFFFF;">
-    AJI MANGKARA
-</a></span>
+      <div class="right-menu">
+        <button class="create-btn">
+          <i class="fa-solid fa-plus"></i> Create
+        </button>
 
-</div>
+        <div class="notif">
+          <i class="fa-solid fa-bell"></i>
+          <span class="notif-badge">9+</span>
+        </div>
 
-<a id="search-ad-link" href="#" class="search-ad" target="_blank">
-</a>
+        <img
+          class="channel-avatar"
+          src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160"
+          alt="Channel Avatar"
+        >
+      </div>
+    </div>
+  </header>
 
-<div class="voice-btn">
-<i class="fa-solid fa-microphone"></i>
-</div>
+  <div class="layout">
+    <div class="title">JADWAL REOG PONOROGO</div>
+    <div class="subtitle" id="today-date"></div>
 
-<div class="right-menu">
+    <div class="button-group">
+      <a class="btn btn-primary" href="https://wa.me/6281234567890?text=KIRIM%20JADWAL" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+        KIRIM JADWAL
+      </a>
 
-<button class="create-btn">
-<i class="fa-solid fa-plus"></i> Create
-</button>
+      <a class="btn btn-warning" href="https://wa.me/6281234567890?text=LAPOR%20ADMIN" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 15h-1v-2h2v2zm0-4h-1V7h2v6z"/></svg>
+        LAPOR ADMIN
+      </a>
 
-<div class="notif">
-<i class="fa-solid fa-bell"></i>
-<span class="notif-badge">9+</span>
-</div>
+      <a class="btn btn-secondary" href="/">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15 18l-6-6 6-6"/></svg>
+        KEMBALI KE DEPAN
+      </a>
+    </div>
 
-<img class="channel-avatar"
-src="https://yt3.googleusercontent.com/I0hZhWUt1nFTaHCpN_ZTko0C5yCDa_-ofvu78AK5mWNbgN9cuFKx9oNKRANomISQ34vraEXkIZQ=s160">
-  
-</div>
+    <div class="today-section">
+      <div class="today-title">🔥 EVENT HARI INI</div>
+      <div id="today-carousel"></div>
+    </div>
 
-</div>
-  
-</header>
+    <div id="poster-grid"></div>
+  </div>
 
-<div class="layout">
+  <!-- MODAL -->
+  <div id="poster-modal">
+    <span id="modal-close">❌</span>
+    <img id="modal-img" alt="Poster Event">
+    <div id="modal-title"></div>
+    <div id="modal-location"></div>
+  </div>
 
-<div class="title">JADWAL REOG PONOROGO</div>
-<div class="subtitle" id="today-date"></div>
+  <script src="https://ajimangkara.com/iklan.js"></script>
 
-<div class="button-group">
+  <script>
+    /* DATE FORMAT */
+    const hari = ["MINGGU", "SENIN", "SELASA", "RABU", "KAMIS", "JUMAT", "SABTU"];
+    const bulan = ["JANUARI", "FEBRUARI", "MARET", "APRIL", "MEI", "JUNI", "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DESEMBER"];
 
-<a class="btn btn-primary" href="https://wa.me/6281234567890?text=KIRIM%20JADWAL" target="_blank">
-<svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
-KIRIM JADWAL
-</a>
+    const now = new Date();
+    document.getElementById("today-date").innerText =
+      "HARI INI " + hari[now.getDay()] + ", " + now.getDate() + " " + bulan[now.getMonth()] + " " + now.getFullYear();
 
-<a class="btn btn-warning" href="https://wa.me/6281234567890?text=LAPOR%20ADMIN" target="_blank">
-<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 15h-1v-2h2v2zm0-4h-1V7h2v6z"/></svg>
-LAPOR ADMIN
-</a>
+    /* IKLAN */
+    function getRandomAd() {
+      if (typeof ADS_SIDEBAR === "undefined" || !ADS_SIDEBAR.length) return null;
+      return ADS_SIDEBAR[Math.floor(Math.random() * ADS_SIDEBAR.length)];
+    }
 
-<a class="btn btn-secondary" href="/">
-<svg viewBox="0 0 24 24" fill="currentColor"><path d="M15 18l-6-6 6-6"/></svg>
-KEMBALI KE DEPAN
-</a>
+    function formatDate(d) {
+      return new Date(d).toISOString().slice(0, 10);
+    }
 
-</div>
+    function bindOpen(el, data) {
+      el.addEventListener("click", () => openModal(data));
+      el.addEventListener("touchend", (ev) => {
+        ev.preventDefault();
+        openModal(data);
+      }, { passive: false });
+    }
 
-<div class="today-section">
-<div class="today-title">🔥 EVENT HARI INI</div>
-<div id="today-carousel"></div>
-</div>
+    /* DATA (ISI PUNYA KAMU) */
+    const events = [
+      { img: "https://picsum.photos/400/300?1", title: "Reog", location: "Ponorogo", date: "2026-04-08" },
+      { img: "https://picsum.photos/400/300?2", title: "Festival", location: "Madiun", date: "2026-04-08" },
+      { img: "https://picsum.photos/400/300?3", title: "Show", location: "Solo", date: "2026-04-01" },
+      { img: "https://picsum.photos/400/300?4", title: "Budaya", location: "Magetan", date: "2026-04-02" },
+      { img: "https://picsum.photos/400/300?5", title: "Nusantara", location: "Kediri", date: "2026-04-03" },
+      { img: "https://picsum.photos/400/300?6", title: "Culture", location: "Ngawi", date: "2026-04-11" },
+      { img: "https://picsum.photos/400/300?7", title: "Reog", location: "Ponorogo", date: "2026-04-11" },
+      { img: "https://picsum.photos/400/300?8", title: "Festival", location: "Madiun", date: "2026-04-12" },
+      { img: "https://picsum.photos/400/300?9", title: "Show", location: "Solo", date: "2026-04-13" },
+      { img: "https://picsum.photos/400/300?10", title: "Budaya", location: "Magetan", date: "2026-04-04" },
+      { img: "https://picsum.photos/400/300?11", title: "Nusantara", location: "Kediri", date: "2026-04-15" },
+      { img: "https://picsum.photos/400/300?1", title: "Reog", location: "Ponorogo", date: "2026-04-06" },
+      { img: "https://picsum.photos/400/300?2", title: "Festival", location: "Madiun", date: "2026-04-07" },
+      { img: "https://picsum.photos/400/300?3", title: "Show", location: "Solo", date: "2026-04-09" },
+      { img: "https://picsum.photos/400/300?4", title: "Budaya", location: "Magetan", date: "2026-04-12" },
+      { img: "https://picsum.photos/400/300?5", title: "Nusantara", location: "Kediri", date: "2026-04-05" },
+      { img: "https://picsum.photos/400/300?6", title: "Culture", location: "Ngawi", date: "2026-04-16" },
+      { img: "https://picsum.photos/400/300?7", title: "Reog", location: "Ponorogo", date: "2026-04-17" },
+      { img: "https://picsum.photos/400/300?8", title: "Festival", location: "Madiun", date: "2026-04-18" },
+      { img: "https://picsum.photos/400/300?9", title: "Show", location: "Solo", date: "2026-04-19" },
+      { img: "https://picsum.photos/400/300?10", title: "Budaya", location: "Magetan", date: "2026-04-20" },
+      { img: "https://picsum.photos/400/300?11", title: "Nusantara", location: "Kediri", date: "2026-04-21" },
+      { img: "https://picsum.photos/400/300?1", title: "Reog", location: "Ponorogo", date: "2026-04-22" },
+      { img: "https://picsum.photos/400/300?2", title: "Festival", location: "Madiun", date: "2026-04-24" },
+      { img: "https://picsum.photos/400/300?3", title: "Show", location: "Solo", date: "2026-04-25" },
+      { img: "https://picsum.photos/400/300?4", title: "Budaya", location: "Magetan", date: "2026-04-26" },
+      { img: "https://picsum.photos/400/300?5", title: "Nusantara", location: "Kediri", date: "2026-04-27" },
+      { img: "https://picsum.photos/400/300?6", title: "Culture", location: "Ngawi", date: "2026-04-28" },
+      { img: "https://picsum.photos/400/300?7", title: "Reog", location: "Ponorogo", date: "2026-04-29" },
+      { img: "https://picsum.photos/400/300?8", title: "Festival", location: "Madiun", date: "2026-04-30" },
+      { img: "https://picsum.photos/400/300?9", title: "Show", location: "Solo", date: "2026-04-13" },
+      { img: "https://picsum.photos/400/300?10", title: "Budaya", location: "Magetan", date: "2026-04-14" },
+      { img: "https://picsum.photos/400/300?11", title: "Nusantara", location: "Kediri", date: "2026-04-15" },
+      { img: "https://picsum.photos/400/300?1", title: "Reog", location: "Ponorogo", date: "2026-04-08" },
+      { img: "https://picsum.photos/400/300?2", title: "Festival", location: "Madiun", date: "2026-04-08" },
+      { img: "https://picsum.photos/400/300?3", title: "Show", location: "Solo", date: "2026-04-09" },
+      { img: "https://picsum.photos/400/300?4", title: "Budaya", location: "Magetan", date: "2026-04-11" },
+      { img: "https://picsum.photos/400/300?5", title: "Nusantara", location: "Kediri", date: "2026-04-05" },
+      { img: "https://picsum.photos/400/300?6", title: "Culture", location: "Ngawi", date: "2026-04-21" },
+      { img: "https://picsum.photos/400/300?7", title: "Reog", location: "Ponorogo", date: "2026-04-10" },
+      { img: "https://picsum.photos/400/300?8", title: "Festival", location: "Madiun", date: "2026-04-12" },
+      { img: "https://picsum.photos/400/300?9", title: "Show", location: "Solo", date: "2026-04-13" },
+      { img: "https://picsum.photos/400/300?10", title: "Budaya", location: "Magetan", date: "2026-04-14" },
+      { img: "https://picsum.photos/400/300?11", title: "Nusantara", location: "Kediri", date: "2026-04-15" },
+      { img: "https://picsum.photos/400/300?12", title: "Culture", location: "Ngawi", date: "2026-04-06" }
+    ];
 
-<div id="poster-grid"></div>
+    events.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-</div>
+    const grid = document.getElementById("poster-grid");
+    const todayContainer = document.getElementById("today-carousel");
+    const today = formatDate(new Date());
 
-<!-- MODAL -->
-<div id="poster-modal">
-<span id="modal-close">❌</span>
-<img id="modal-img">
-<div id="modal-title"></div>
-<div id="modal-location"></div>
-</div>
+    events.forEach((e, index) => {
+      const isToday = formatDate(e.date) === today;
 
-<script src="https://ajimangkara.com/iklan.js"></script>
+      /* CAROUSEL */
+      if (isToday) {
+        const c = document.createElement("div");
+        c.className = "today-card";
+        c.innerHTML = `
+          <img src="${e.img}" alt="${e.title}">
+          <div class="badge-date">${new Date(e.date).getDate()}</div>
+          <div class="badge-trending">🔥 TRENDING</div>
+          <div class="overlay overlay-hot">EVENT HARI INI</div>
+        `;
+        bindOpen(c, e);
+        todayContainer.appendChild(c);
+      }
 
-<script>
+      /* IKLAN */
+      if ((index + 1) % 3 === 0) {
+        const ad = getRandomAd();
+        if (ad) {
+          const adCard = document.createElement("div");
+          adCard.className = "poster-card";
+          adCard.innerHTML = `
+            <a href="${ad.link}" target="_blank" rel="noopener noreferrer">
+              <img src="${ad.img}" alt="Iklan">
+              <div class="ads-label">IKLAN</div>
+            </a>
+          `;
+          grid.appendChild(adCard);
+        }
+      }
 
-/* DATE FORMAT */
-const hari=["MINGGU","SENIN","SELASA","RABU","KAMIS","JUMAT","SABTU"];
-const bulan=["JANUARI","FEBRUARI","MARET","APRIL","MEI","JUNI","JULI","AGUSTUS","SEPTEMBER","OKTOBER","NOVEMBER","DESEMBER"];
+      /* GRID */
+      const card = document.createElement("div");
+      card.className = "poster-card";
+      card.innerHTML = `
+        <img src="${e.img}" alt="${e.title}">
+        <div class="badge-date">${new Date(e.date).getDate()}</div>
+        ${isToday ? '<div class="badge-trending">🔥 TRENDING</div>' : ''}
+        <div class="overlay ${isToday ? 'overlay-hot' : 'overlay-normal'}">
+          ${isToday ? 'EVENT HARI INI' : 'INFO LENGKAP KLIK'}
+        </div>
+      `;
+      bindOpen(card, e);
+      grid.appendChild(card);
+    });
 
-const now=new Date();
-document.getElementById("today-date").innerText=
-"HARI INI " + hari[now.getDay()] + ", " + now.getDate() + " " + bulan[now.getMonth()] + " " + now.getFullYear();
+    /* MODAL */
+    const modal = document.getElementById("poster-modal");
+    const modalImg = document.getElementById("modal-img");
+    const modalTitle = document.getElementById("modal-title");
+    const modalLocation = document.getElementById("modal-location");
+    const closeBtn = document.getElementById("modal-close");
 
-/* IKLAN */
-function getRandomAd(){
-if(typeof ADS_SIDEBAR==="undefined"||!ADS_SIDEBAR.length)return null;
-return ADS_SIDEBAR[Math.floor(Math.random()*ADS_SIDEBAR.length)];
-}
+    function openModal(e) {
+      modal.style.opacity = "1";
+      modal.style.pointerEvents = "auto";
+      modalImg.src = e.img;
+      modalTitle.innerText = e.title;
+      modalLocation.innerText = e.location;
+    }
 
-function formatDate(d){
-return new Date(d).toISOString().slice(0,10);
-}
+    function closeModal() {
+      modal.style.opacity = "0";
+      modal.style.pointerEvents = "none";
+    }
 
-/* DATA (ISI PUNYA KAMU) */
-const events=[
-{img:"https://picsum.photos/400/300?1",title:"Reog",location:"Ponorogo",date:"2026-04-08"},
-{img:"https://picsum.photos/400/300?2",title:"Festival",location:"Madiun",date:"2026-04-08"},
-{img:"https://picsum.photos/400/300?3",title:"Show",location:"Solo",date:"2026-04-01"},
-{img:"https://picsum.photos/400/300?4",title:"Budaya",location:"Magetan",date:"2026-04-02"},
-{img:"https://picsum.photos/400/300?5",title:"Nusantara",location:"Kediri",date:"2026-04-03"},
-{img:"https://picsum.photos/400/300?6",title:"Culture",location:"Ngawi",date:"2026-04-11"},
-{img:"https://picsum.photos/400/300?7",title:"Reog",location:"Ponorogo",date:"2026-04-11"},
-{img:"https://picsum.photos/400/300?8",title:"Festival",location:"Madiun",date:"2026-04-12"},
-{img:"https://picsum.photos/400/300?9",title:"Show",location:"Solo",date:"2026-04-13"},
-{img:"https://picsum.photos/400/300?10",title:"Budaya",location:"Magetan",date:"2026-04-4"},
-{img:"https://picsum.photos/400/300?11",title:"Nusantara",location:"Kediri",date:"2026-04-15"},
-{img:"https://picsum.photos/400/300?1",title:"Reog",location:"Ponorogo",date:"2026-04-06"},
-{img:"https://picsum.photos/400/300?2",title:"Festival",location:"Madiun",date:"2026-04-07"},
-{img:"https://picsum.photos/400/300?3",title:"Show",location:"Solo",date:"2026-04-09"},
-{img:"https://picsum.photos/400/300?4",title:"Budaya",location:"Magetan",date:"2026-04-12"},
-{img:"https://picsum.photos/400/300?5",title:"Nusantara",location:"Kediri",date:"2026-04-05"},
-{img:"https://picsum.photos/400/300?6",title:"Culture",location:"Ngawi",date:"2026-04-16"},
-{img:"https://picsum.photos/400/300?7",title:"Reog",location:"Ponorogo",date:"2026-04-17"},
-{img:"https://picsum.photos/400/300?8",title:"Festival",location:"Madiun",date:"2026-04-18"},
-{img:"https://picsum.photos/400/300?9",title:"Show",location:"Solo",date:"2026-04-19"},
-{img:"https://picsum.photos/400/300?10",title:"Budaya",location:"Magetan",date:"2026-04-20"},
-{img:"https://picsum.photos/400/300?11",title:"Nusantara",location:"Kediri",date:"2026-04-21"},
-{img:"https://picsum.photos/400/300?1",title:"Reog",location:"Ponorogo",date:"2026-04-22"},
-{img:"https://picsum.photos/400/300?2",title:"Festival",location:"Madiun",date:"2026-04-24"},
-{img:"https://picsum.photos/400/300?3",title:"Show",location:"Solo",date:"2026-04-25"},
-{img:"https://picsum.photos/400/300?4",title:"Budaya",location:"Magetan",date:"2026-04-26"},
-{img:"https://picsum.photos/400/300?5",title:"Nusantara",location:"Kediri",date:"2026-04-27"},
-{img:"https://picsum.photos/400/300?6",title:"Culture",location:"Ngawi",date:"2026-04-28"},
-{img:"https://picsum.photos/400/300?7",title:"Reog",location:"Ponorogo",date:"2026-04-29"},
-{img:"https://picsum.photos/400/300?8",title:"Festival",location:"Madiun",date:"2026-04-30"},
-{img:"https://picsum.photos/400/300?9",title:"Show",location:"Solo",date:"2026-04-13"},
-{img:"https://picsum.photos/400/300?10",title:"Budaya",location:"Magetan",date:"2026-04-14"},
-{img:"https://picsum.photos/400/300?11",title:"Nusantara",location:"Kediri",date:"2026-04-15"},
-{img:"https://picsum.photos/400/300?1",title:"Reog",location:"Ponorogo",date:"2026-04-08"},
-{img:"https://picsum.photos/400/300?2",title:"Festival",location:"Madiun",date:"2026-04-08"},
-{img:"https://picsum.photos/400/300?3",title:"Show",location:"Solo",date:"2026-04-09"},
-{img:"https://picsum.photos/400/300?4",title:"Budaya",location:"Magetan",date:"2026-04-11"},
-{img:"https://picsum.photos/400/300?5",title:"Nusantara",location:"Kediri",date:"2026-04-05"},
-{img:"https://picsum.photos/400/300?6",title:"Culture",location:"Ngawi",date:"2026-04-21"},
-{img:"https://picsum.photos/400/300?7",title:"Reog",location:"Ponorogo",date:"2026-04-10"},
-{img:"https://picsum.photos/400/300?8",title:"Festival",location:"Madiun",date:"2026-04-12"},
-{img:"https://picsum.photos/400/300?9",title:"Show",location:"Solo",date:"2026-04-13"},
-{img:"https://picsum.photos/400/300?10",title:"Budaya",location:"Magetan",date:"2026-04-14"},
-{img:"https://picsum.photos/400/300?11",title:"Nusantara",location:"Kediri",date:"2026-04-15"},
-{img:"https://picsum.photos/400/300?12",title:"Culture",location:"Ngawi",date:"2026-04-06"}
-  ];
+    /* tombol close */
+    closeBtn.addEventListener("click", closeModal);
+    closeBtn.addEventListener("touchstart", closeModal, { passive: true });
 
-events.sort((a,b)=>new Date(a.date)-new Date(b.date));
+    /* klik background */
+    modal.addEventListener("click", function (e) {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
 
-const grid=document.getElementById("poster-grid");
-const todayContainer=document.getElementById("today-carousel");
-const today=formatDate(new Date());
-
-events.forEach((e,index)=>{
-
-const isToday=formatDate(e.date)===today;
-
-/* CAROUSEL */
-if(isToday){
-const c=document.createElement("div");
-c.className="today-card";
-c.innerHTML=`
-<img src="${e.img}">
-<div class="badge-date">${new Date(e.date).getDate()}</div>
-<div class="badge-trending">🔥 TRENDING</div>
-<div class="overlay overlay-hot">EVENT HARI INI</div>`;
-c.addEventListener("click", ()=>openModal(e));
-todayContainer.appendChild(c);
-}
-
-/* IKLAN */
-if((index+1)%3===0){
-const ad=getRandomAd();
-if(ad){
-const adCard=document.createElement("div");
-adCard.className="poster-card";
-adCard.innerHTML=`<a href="${ad.link}" target="_blank">
-<img src="${ad.img}">
-<div class="ads-label">IKLAN</div></a>`;
-grid.appendChild(adCard);
-}
-}
-
-/* GRID */
-const card=document.createElement("div");
-card.className="poster-card";
-card.innerHTML=`
-<img src="${e.img}">
-<div class="badge-date">${new Date(e.date).getDate()}</div>
-${isToday?'<div class="badge-trending">🔥 TRENDING</div>':''}
-<div class="overlay ${isToday?'overlay-hot':'overlay-normal'}">
-${isToday?'EVENT HARI INI':'INFO LENGKAP KLIK'}
-</div>`;
-card.addEventListener("click", ()=>openModal(e));
-grid.appendChild(card);
-
-});
-
-/* MODAL */
-
-const modal = document.getElementById("poster-modal");
-const modalImg = document.getElementById("modal-img");
-const modalTitle = document.getElementById("modal-title");
-const modalLocation = document.getElementById("modal-location");
-const closeBtn = document.getElementById("modal-close");
-
-function openModal(e){
-modal.style.opacity="1";
-modal.style.pointerEvents="auto";
-modalImg.src=e.img;
-modalTitle.innerText=e.title;
-modalLocation.innerText=e.location;
-}
-
-function closeModal(){
-modal.style.opacity="0";
-modal.style.pointerEvents="none";
-}
-
-/* tombol close */
-closeBtn.addEventListener("click", closeModal);
-closeBtn.addEventListener("touchstart", closeModal);
-
-/* klik background */
-modal.addEventListener("click", function(e){
-if(e.target === modal){
-closeModal();
-}
-});
-
-/* ESC keyboard */
-document.addEventListener("keydown", function(e){
-if(e.key === "Escape"){
-closeModal();
-}
-});
-  
-</script>
-
+    /* ESC keyboard */
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    });
+  </script>
 </body>
 </html>
