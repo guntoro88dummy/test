@@ -105,7 +105,10 @@ button.hapus:hover{
 <input id="wa" placeholder="No WhatsApp (628xxxx)">
 
 <button onclick="tambah()">Tambah</button>
-
+  
+<button onclick="exportData()">Export Data</button>
+<input type="file" onchange="importData(event)">
+  
 <!-- TABLE -->
 <table>
 <thead>
@@ -124,7 +127,7 @@ button.hapus:hover{
 
 <script>
 
-let list = [];
+let list = JSON.parse(localStorage.getItem("pelanggan")) || [];
 
 function tambah(){
   let item = {
@@ -225,9 +228,35 @@ function hapusData(i){
     render();
   }
 }
+  
+localStorage.setItem("pelanggan", JSON.stringify(list));
+
+  function exportData(){
+  let dataStr = JSON.stringify(list, null, 2);
+
+  let blob = new Blob([dataStr], {type:"application/json"});
+  let url = URL.createObjectURL(blob);
+
+  let a = document.createElement("a");
+  a.href = url;
+  a.download = "pelanggan.json";
+  a.click();
+}
+  
+function importData(event){
+  let file = event.target.files[0];
+
+  let reader = new FileReader();
+
+  reader.onload = function(e){
+    list = JSON.parse(e.target.result);
+    render();
+  };
+
+  reader.readAsText(file);
+}
 
   
-
 </script>
 
 </body>
