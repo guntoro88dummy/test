@@ -175,6 +175,48 @@ textarea{
     overflow:auto;
   }
 }
+/* ================= PROMO SECTION ================= */
+.promo-section{
+  margin:15px;
+  padding:15px;
+  border-radius:18px;
+  background: linear-gradient(135deg, #fff6e5, #ffe0b2, #ffd180);
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+.promo-title{
+  font-weight:bold;
+  margin-bottom:10px;
+  font-size:16px;
+}
+
+/* CARD PROMO */
+.card.promo{
+  border:2px solid rgba(255,140,0,0.6);
+  position:relative;
+}
+
+/* BADGE */
+.badge{
+  position:absolute;
+  top:10px;
+  left:10px;
+  background:linear-gradient(45deg,#ff3d00,#ff9100);
+  color:white;
+  font-size:11px;
+  padding:4px 8px;
+  border-radius:8px;
+  font-weight:bold;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* TEXT KECIL */
+.promo-note{
+  font-size:11px;
+  color:#444;
+  margin-top:4px;
+}
+
 </style>
 </head>
 
@@ -250,6 +292,43 @@ let cart={};
 function renderMenu(){
 let cats=[...new Set(data.map(d=>d.cat))];
 let html="";
+
+/* ===== PROMO SECTION ===== */
+html += `
+<div class="promo-section">
+  <div class="promo-title">🔥 Menu Favorit Hari Ini</div>
+  <div class="menu-grid">
+
+    <div class="card promo">
+      <div class="badge">🔥 HOT</div>
+      <img src="${imgSample}">
+      <div class="card-body">
+        <b>Nasi Goreng Spesial</b><br>Rp15000
+        <div class="promo-note">🔥 Banyak dipesan hari ini</div>
+      </div>
+    </div>
+
+    <div class="card promo">
+      <div class="badge">💥 PROMO</div>
+      <img src="${imgSample}">
+      <div class="card-body">
+        <b>Sate Ayam</b><br>Rp20000
+        <div class="promo-note">💥 Promo terbatas hari ini</div>
+      </div>
+    </div>
+
+    <div class="card promo">
+      <div class="badge">⭐ FAVORIT</div>
+      <img src="${imgSample}">
+      <div class="card-body">
+        <b>Bakso Jumbo</b><br>Rp12000
+        <div class="promo-note">⭐ Menu favorit pelanggan</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+`;
 
 cats.forEach(cat=>{
 html+=`<h3 style="padding-left:10px">${cat}</h3><div class="menu-grid">`;
