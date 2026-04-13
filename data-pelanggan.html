@@ -58,7 +58,38 @@ th, td{
   transform:scale(1.15);
   background:rgba(37,211,102,0.3);
 }
- 
+
+.aksi{
+  display:flex;
+  gap:6px;
+}
+
+button.edit{
+  background:#2196f3;
+  border:none;
+  color:white;
+  padding:6px 8px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+button.hapus{
+  background:#f44336;
+  border:none;
+  color:white;
+  padding:6px 8px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+button.edit:hover{
+  background:#1976d2;
+}
+
+button.hapus:hover{
+  background:#d32f2f;
+}
+
 </style>
 </head>
 
@@ -85,6 +116,7 @@ th, td{
   <th>Expired</th>
   <th>Status</th>
   <th>WA</th>
+  <th>Aksi</th>
 </tr>
 </thead>
 <tbody id="data"></tbody>
@@ -127,7 +159,7 @@ function render(){
 
   let html = "";
 
-  list.forEach(d=>{
+list.forEach((d,i)=>{
 
     let status = getStatus(d.expired);
     let label = "";
@@ -136,23 +168,33 @@ function render(){
     else if(status=="warning") label = "⏳ Segera";
     else label = "✅ Aman";
 
-    html += `
-    <tr class="${status}">
-      <td>${d.nama}</td>
-      <td>${d.warung}</td>
-      <td>${d.order}</td>
-      <td>${d.expired}</td>
-      <td>${label}</td>
-      <td>
-  <a href="https://wa.me/${d.wa}" target="_blank" class="wa-btn">
-    <!-- ICON WA SVG -->
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366">
-      <path d="M20 3.5A11 11 0 0 0 3.5 20L2 22l2.6-1.4A11 11 0 1 0 20 3.5Z"/>
-    </svg>
-  </a>
-</td>
-    </tr>
-    `;
+  html += `
+<tr class="${status}">
+  <td>${d.nama}</td>
+  <td>${d.warung}</td>
+  <td>${d.order}</td>
+  <td>${d.expired}</td>
+  <td>${label}</td>
+
+  <!-- WA -->
+  <td>
+    <a href="https://wa.me/${d.wa}?text=${encodeURIComponent(
+      `Halo ${d.nama}, masa aktif website warung "${d.warung}" akan segera habis pada ${d.expired}.`
+    )}" target="_blank" class="wa-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366">
+        <path d="M20 3.5A11 11 0 0 0 3.5 20L2 22l2.6-1.4A11 11 0 1 0 20 3.5Z"/>
+      </svg>
+    </a>
+  </td>
+
+  <!-- AKSI -->
+  <td class="aksi">
+    <button class="edit" onclick="editData(${i})">✏️</button>
+    <button class="hapus" onclick="hapusData(${i})">🗑️</button>
+  </td>
+
+</tr>
+`;
   });
 
   data.innerHTML = html;
@@ -168,6 +210,23 @@ function getPriority(date){
   if(diff <= 7) return 2;
   return 3;
 }
+  
+function editData(i){
+  let baru = prompt("Edit tanggal expired:", list[i].expired);
+  if(baru){
+    list[i].expired = baru;
+    render();
+  }
+}
+
+function hapusData(i){
+  if(confirm("Hapus data ini?")){
+    list.splice(i,1);
+    render();
+  }
+}
+
+  
 
 </script>
 
