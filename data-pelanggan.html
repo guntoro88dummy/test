@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Data Pelanggan</title>
+
+<style>
+body{
+  font-family:sans-serif;
+  padding:20px;
+  background:#f5f5f5;
+}
+
+/* INPUT */
+input, button{
+  padding:8px;
+  margin:5px;
+}
+
+/* TABLE */
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:15px;
+  background:white;
+}
+
+th, td{
+  padding:10px;
+  border-bottom:1px solid #ddd;
+  text-align:left;
+}
+
+/* WARNA STATUS */
+.expired{
+  background:#ffcccc;
+}
+
+.warning{
+  background:#fff3cd;
+}
+
+.normal{
+  background:#ffffff;
+}
+  
+.wa-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(37,211,102,0.15);
+  padding:6px;
+  border-radius:8px;
+  transition:0.2s;
+}
+
+.wa-btn:hover{
+  transform:scale(1.15);
+  background:rgba(37,211,102,0.3);
+}
+ 
+</style>
+</head>
+
+<body>
+
+<h2>📋 Database Pelanggan</h2>
+
+<!-- INPUT -->
+<input id="nama" placeholder="Nama Client">
+<input id="warung" placeholder="Nama Warung">
+<input id="order" type="date">
+<input id="expired" type="date">
+<input id="wa" placeholder="No WhatsApp (628xxxx)">
+
+<button onclick="tambah()">Tambah</button>
+
+<!-- TABLE -->
+<table>
+<thead>
+<tr>
+  <th>Nama</th>
+  <th>Warung</th>
+  <th>Order</th>
+  <th>Expired</th>
+  <th>Status</th>
+  <th>WA</th>
+</tr>
+</thead>
+<tbody id="data"></tbody>
+</table>
+
+<script>
+
+let list = [];
+
+function tambah(){
+  let item = {
+    nama: nama.value,
+    warung: warung.value,
+    order: order.value,
+    expired: expired.value,
+    wa: wa.value
+  };
+
+  list.push(item);
+  render();
+}
+
+function getStatus(expiredDate){
+  let today = new Date();
+  let exp = new Date(expiredDate);
+
+  let diff = (exp - today) / (1000*60*60*24);
+
+  if(diff <= 2) return "expired";
+  if(diff <= 7) return "warning";
+  return "normal";
+}
+
+function render(){
+
+  // SORT PRIORITAS
+  list.sort((a,b)=>{
+    return getPriority(a.expired) - getPriority(b.expired);
+  });
+
+  let html = "";
+
+  list.forEach(d=>{
+
+    let status = getStatus(d.expired);
+    let label = "";
+
+    if(status=="expired") label = "⚠️ Hampir Habis";
+    else if(status=="warning") label = "⏳ Segera";
+    else label = "✅ Aman";
+
+    html += `
+    <tr class="${status}">
+      <td>${d.nama}</td>
+      <td>${d.warung}</td>
+      <td>${d.order}</td>
+      <td>${d.expired}</td>
+      <td>${label}</td>
+      <td>
+  <a href="https://wa.me/${d.wa}" target="_blank" class="wa-btn">
+    <!-- ICON WA SVG -->
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366">
+      <path d="M20 3.5A11 11 0 0 0 3.5 20L2 22l2.6-1.4A11 11 0 1 0 20 3.5Z"/>
+    </svg>
+  </a>
+</td>
+    </tr>
+    `;
+  });
+
+  data.innerHTML = html;
+}
+
+function getPriority(date){
+  let today = new Date();
+  let exp = new Date(date);
+
+  let diff = (exp - today) / (1000*60*60*24);
+
+  if(diff <= 2) return 1;
+  if(diff <= 7) return 2;
+  return 3;
+}
+
+</script>
+
+</body>
+</html>
