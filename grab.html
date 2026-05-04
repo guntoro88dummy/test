@@ -93,6 +93,11 @@
       background: var(--panel);
     }
 
+    td[contenteditable="true"] {
+      outline: 1px solid var(--accent);
+      background: #101010;
+    }
+
     textarea {
       width: 100%;
       height: 220px;
@@ -202,527 +207,590 @@
     <textarea id="output"></textarea>
   </div>
 
- <script>
-  const WORKER_PROXY = "https://dawn-base-2f52.guntoro88.workers.dev/?url=";
-  const DEFAULT_ARTICLE = "https://www.kluban.net/2026/03/jadwal-wayang-kulit-april-2026.html";
+  <script>
+    const WORKER_PROXY = "https://dawn-base-2f52.guntoro88.workers.dev/?url=";
+    const DEFAULT_ARTICLE = "https://www.kluban.net/2026/03/jadwal-wayang-kulit-april-2026.html";
 
-  let database = [];
-  let editMode = false;
+    let database = [];
+    let editMode = false;
 
-  const NAME_TAIL_WORDS = new Set([
-    "carito", "kusumo", "widodo", "pandoyo", "susilo", "ganendra", "asmorowati",
-    "prisdianto", "rahmadhan", "zaenuri", "canavaro", "sableng", "prabawa",
-    "nugroho", "suwaryo", "subarno", "zamroni", "nuha", "cokro", "hidayat",
-    "sri", "harti", "jabang", "kurniawan", "catur", "gunarto", "joko", "sigit",
-    "langgeng", "yusuf", "anshor", "eko", "atmo", "raden", "wisnu", "ulin",
-    "sasmito", "prof", "dr", "ma", "skar"
-  ]);
+    const NAME_TAIL_WORDS = new Set([
+      "carito", "kusumo", "widodo", "pandoyo", "susilo", "ganendra", "asmorowati",
+      "prisdianto", "rahmadhan", "zaenuri", "canavaro", "sableng", "prabawa",
+      "nugroho", "suwaryo", "subarno", "zamroni", "nuha", "cokro", "hidayat",
+      "sri", "harti", "jabang", "kurniawan", "catur", "gunarto", "joko", "sigit",
+      "langgeng", "yusuf", "anshor", "eko", "atmo", "raden", "wisnu", "ulin",
+      "sasmito", "prof", "dr", "ma", "skar"
+    ]);
 
-  const LOCATION_STARTERS = [
-    "Dusun", "Dsn", "Dk", "Ds", "Desa", "Kediaman", "Halaman", "Rumah", "Rmh",
-    "Pendopo", "Pendhopo", "Sanggar", "Griya", "Museum", "GOR", "Aula",
-    "Jln", "Jl", "RT", "Rw", "RW", "Kel", "Kec", "Kab", "Kota", "Lapangan",
-    "Pantai", "Balai", "Studio", "Terminal", "Pasar"
-  ];
+    const LOCATION_STARTERS = [
+      "Dusun", "Dsn", "Dk", "Ds", "Desa", "Kediaman", "Halaman", "Rumah", "Rmh",
+      "Pendopo", "Pendhopo", "Sanggar", "Griya", "Museum", "GOR", "Aula",
+      "Jln", "Jl", "RT", "Rw", "RW", "Kel", "Kec", "Kab", "Kota", "Lapangan",
+      "Pantai", "Balai", "Studio", "Terminal", "Pasar"
+    ];
 
-  function log(msg) {
-    document.getElementById("status").innerText = msg;
-  }
-
-  function normalizeSpace(text) {
-    let t = (text || "")
-      .replace(/\u00a0/g, " ")
-      .replace(/\u200b/g, "")
-      .replace(/[ \t]+/g, " ")
-      .replace(/\s+\n/g, "\n")
-      .replace(/\n\s+/g, "\n");
-
-    const starterPattern = LOCATION_STARTERS.join("|");
-    t = t.replace(new RegExp(`([A-Za-z\\)])(?=(${starterPattern})\\b)`, "g"), "$1 ");
-    t = t.replace(/([A-Za-z])(?=(RT\.?\s*\d|RW\.?\s*\d))/g, "$1 ");
-
-    return t.trim();
-  }
-
-  function cleanNoise(text) {
-    return normalizeSpace(text)
-      .replace(/[📍🎭✨🔥⭐🕰️📺]/g, "")
-      .replace(/^\s*lokasi\s*:\s*/i, "")
-      .replace(/^\s*tempat\s*:\s*/i, "")
-      .replace(/^\s*alamat\s*:\s*/i, "")
-      .replace(/\bLakon\b.*$/i, "")
-      .replace(/\bSinden\b.*$/i, "")
-      .replace(/\bBintang Tamu\b.*$/i, "")
-      .replace(/\bLive Streaming\b.*$/i, "")
-      .replace(/\bYoutube\b.*$/i, "")
-      .replace(/\bInstagram\b.*$/i, "")
-      .replace(/\bInfo\b.*$/i, "")
-      .replace(/\bHTM\b.*$/i, "")
-      .replace(/\bTiket\b.*$/i, "")
-      .replace(/\s{2,}/g, " ")
-      .trim();
-  }
-
-  function isNoiseLine(text) {
-    const t = cleanNoise(text).toLowerCase();
-    if (!t) return true;
-
-    return [
-      "lakon",
-      "sinden",
-      "bintang tamu",
-      "live streaming",
-      "youtube",
-      "instagram",
-      "subscribe",
-      "follow",
-      "share",
-      "komentar"
-    ].some((x) => t.includes(x));
-  }
-
-  function isDateLine(text) {
-    return /\b\d{1,2}\s+[A-Za-zÀ-ÿ]+\s+\d{4}\b/i.test(cleanNoise(text));
-  }
-
-  function extractDate(text) {
-    const t = cleanNoise(text);
-    const m = t.match(/\b\d{1,2}\s+[A-Za-zÀ-ÿ]+\s+\d{4}\b/i);
-    return m ? m[0].trim() : "";
-  }
-
-  function isLikelyDalang(text) {
-    return /^(ki|nyi)\s/i.test(cleanNoise(text));
-  }
-
-  function isLikelyLocation(text) {
-    const t = cleanNoise(text);
-    if (!t) return false;
-
-    const lower = t.toLowerCase();
-    const commaCount = (t.match(/,/g) || []).length;
-    const keywordHit = /\b(ds|desa|dk|dukuh|dsn|dusun|kec|kecamatan|kab|kabupaten|kota|rt|rw|jl|jalan|gang|blok|komplek|alun-alun|lapangan|pendopo|pendhopo|pendapa|balai|museum|sanggar|rumah|griya|halaman|pabrik|sekolah|sma|smk|universit|university|pantai|pasar|terminal|studio|gor|aula|kediaman|kel)\b/i.test(t);
-
-    if (lower.includes("lakon")) return false;
-    if (lower.includes("sinden")) return false;
-    if (lower.includes("bintang tamu")) return false;
-    if (lower.includes("live streaming")) return false;
-
-    return keywordHit || commaCount >= 1;
-  }
-
-  function cleanDalang(text) {
-    return cleanNoise(text)
-      .replace(/\s*[-|]\s*lokasi\s*:.*$/i, "")
-      .replace(/\s*[-|]\s*tempat\s*:.*$/i, "")
-      .replace(/\s*📍.*$/i, "")
-      .replace(/\s*lokasi\s*:.*$/i, "")
-      .replace(/\s*tempat\s*:.*$/i, "")
-      .replace(/\s{2,}/g, " ")
-      .trim();
-  }
-
-  function cleanLokasi(text, dalang = "") {
-    let t = cleanNoise(text)
-      .replace(/^lokasi\s*:\s*/i, "")
-      .replace(/^tempat\s*:\s*/i, "")
-      .replace(/^alamat\s*:\s*/i, "")
-      .replace(/\bBT\s*:.*$/i, "")
-      .replace(/\bBintang Tamu\b.*$/i, "")
-      .replace(/\bLakon\b.*$/i, "")
-      .replace(/\bSinden\b.*$/i, "")
-      .replace(/\bLive Streaming\b.*$/i, "")
-      .replace(/\bYoutube\b.*$/i, "")
-      .replace(/\bInstagram\b.*$/i, "")
-      .trim();
-
-    if (dalang) {
-      const escaped = dalang.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      t = t.replace(new RegExp(`^${escaped}\\s*`, "i"), "").trim();
-      t = t.replace(new RegExp(`\\s*-\\s*${escaped}\\s*$`, "i"), "").trim();
+    function log(msg) {
+      document.getElementById("status").innerText = msg;
     }
 
-    return t.replace(/\s{2,}/g, " ").replace(/\s+,/g, ",").trim();
-  }
+    function sentenceCaseMonth(month) {
+      const clean = (month || "").trim();
+      if (!clean) return "";
+      return clean.charAt(0).toUpperCase() + clean.slice(1).toLowerCase();
+    }
 
-  function splitDalangList(text) {
-    return cleanDalang(text)
-      .replace(/\)\s+(?=(Ki|Nyi)\s)/gi, ")|")
-      .split("|")
-      .map((x) => cleanDalang(x))
-      .filter(Boolean);
-  }
+    function normalizeDateText(text) {
+      return (text || "").replace(
+        /\b(\d{1,2})\s+([A-Za-zÀ-ÿ]+)\s+(\d{4})\b/i,
+        function (_, tanggal, bulan, tahun) {
+          return tanggal + " " + sentenceCaseMonth(bulan) + " " + tahun;
+        }
+      ).trim();
+    }
 
-  function isTitleSuffix(word) {
-    return /^(S\.?Sn|M\.?Sn|S\.?Kar|M\.?A|M\.?Hum|Sp\.?AK|Dr\.?|dr\.?|Prof\.?|RM|R\.?M\.?|Raden)$/i.test(
-      (word || "").replace(/,$/, "")
-    );
-  }
+    function normalizeRecord(item) {
+      return {
+        tanggal: normalizeDateText(item && item.tanggal ? item.tanggal : ""),
+        dalang: item && item.dalang ? String(item.dalang).trim() : "",
+        lokasi: item && item.lokasi ? String(item.lokasi).trim() : ""
+      };
+    }
 
-  function isNameConnector(word) {
-    return /^(dan|&|et)$/i.test((word || "").replace(/[.,]/g, ""));
-  }
+    function normalizeDatabase() {
+      database = database.map(normalizeRecord);
+    }
 
-  function isHardLocationStarter(word) {
-    return /^(ds|desa|dk|dukuh|dsn|dusun|kec|kecamatan|kab|kabupaten|kota|rt|rw|jl|jln|jalan|gang|blok|griya|sanggar|museum|pendopo|pendhopo|pendapa|lapangan|rumah|rmh|halaman|pantai|pabrik|studio|balai|pasar|terminal|gor|aula|kediaman|kel)$/i.test(
-      (word || "").replace(/[.,]/g, "")
-    );
-  }
+    function normalizeSpace(text) {
+      let t = (text || "")
+        .replace(/\u00a0/g, " ")
+        .replace(/\u200b/g, "")
+        .replace(/[ \t]+/g, " ")
+        .replace(/\s+\n/g, "\n")
+        .replace(/\n\s+/g, "\n");
 
-  function isLikelyNameWord(word) {
-    const clean = (word || "").replace(/[.,()]/g, "").toLowerCase();
-    if (!clean) return false;
-    if (NAME_TAIL_WORDS.has(clean)) return true;
-    if (/^(ki|nyi)$/i.test(clean)) return true;
-    if (isTitleSuffix(clean)) return true;
-    if (isNameConnector(clean)) return true;
-    return false;
-  }
+      const starterPattern = LOCATION_STARTERS.join("|");
+      t = t.replace(new RegExp("([A-Za-z\\)])(?=(" + starterPattern + ")\\b)", "g"), "$1 ");
+      t = t.replace(/([A-Za-z])(?=(RT\.?\s*\d|RW\.?\s*\d))/g, "$1 ");
 
-  function looksLikeCompleteDalang(text) {
-    const cleaned = cleanDalang(text);
-    if (!/^(ki|nyi)\s/i.test(cleaned)) return false;
+      return t.trim();
+    }
 
-    const words = cleaned.split(/\s+/);
-    if (words.length < 3) return false;
+    function cleanNoise(text) {
+      return normalizeSpace(text)
+        .replace(/[📍🎭✨🔥⭐🕰️📺]/g, "")
+        .replace(/^\s*lokasi\s*:\s*/i, "")
+        .replace(/^\s*tempat\s*:\s*/i, "")
+        .replace(/^\s*alamat\s*:\s*/i, "")
+        .replace(/\bLakon\b.*$/i, "")
+        .replace(/\bSinden\b.*$/i, "")
+        .replace(/\bBintang Tamu\b.*$/i, "")
+        .replace(/\bLive Streaming\b.*$/i, "")
+        .replace(/\bYoutube\b.*$/i, "")
+        .replace(/\bInstagram\b.*$/i, "")
+        .replace(/\bInfo\b.*$/i, "")
+        .replace(/\bHTM\b.*$/i, "")
+        .replace(/\bTiket\b.*$/i, "")
+        .replace(/\s{2,}/g, " ")
+        .trim();
+    }
 
-    const lastWord = (words[words.length - 1] || "").replace(/[.,]/g, "");
-    if (isTitleSuffix(lastWord)) return false;
-    if (isNameConnector(lastWord)) return false;
-    if (/^(ki|nyi)$/i.test(lastWord)) return false;
+    function isNoiseLine(text) {
+      const t = cleanNoise(text).toLowerCase();
+      if (!t) return true;
 
-    return true;
-  }
+      return [
+        "lakon",
+        "sinden",
+        "bintang tamu",
+        "live streaming",
+        "youtube",
+        "instagram",
+        "subscribe",
+        "follow",
+        "share",
+        "komentar"
+      ].some((x) => t.includes(x));
+    }
 
-  function findDirectMarkerSplit(raw) {
-    const directMarkers = ["📍", "Lokasi:", "lokasi:", "Tempat:", "tempat:", "Alamat:", "alamat:"];
-    for (const marker of directMarkers) {
-      const idx = raw.indexOf(marker);
-      if (idx > 0) {
+    function isDateLine(text) {
+      return /\b\d{1,2}\s+[A-Za-zÀ-ÿ]+\s+\d{4}\b/i.test(cleanNoise(text));
+    }
+
+    function extractDate(text) {
+      const t = cleanNoise(text);
+      const m = t.match(/\b(\d{1,2})\s+([A-Za-zÀ-ÿ]+)\s+(\d{4})\b/i);
+
+      if (!m) return "";
+
+      return m[1] + " " + sentenceCaseMonth(m[2]) + " " + m[3];
+    }
+
+    function isLikelyDalang(text) {
+      return /^(ki|nyi)\s/i.test(cleanNoise(text));
+    }
+
+    function isLikelyLocation(text) {
+      const t = cleanNoise(text);
+      if (!t) return false;
+
+      const lower = t.toLowerCase();
+      const commaCount = (t.match(/,/g) || []).length;
+      const keywordHit = /\b(ds|desa|dk|dukuh|dsn|dusun|kec|kecamatan|kab|kabupaten|kota|rt|rw|jl|jalan|gang|blok|komplek|alun-alun|lapangan|pendopo|pendhopo|pendapa|balai|museum|sanggar|rumah|griya|halaman|pabrik|sekolah|sma|smk|universit|university|pantai|pasar|terminal|studio|gor|aula|kediaman|kel)\b/i.test(t);
+
+      if (lower.includes("lakon")) return false;
+      if (lower.includes("sinden")) return false;
+      if (lower.includes("bintang tamu")) return false;
+      if (lower.includes("live streaming")) return false;
+
+      return keywordHit || commaCount >= 1;
+    }
+
+    function cleanDalang(text) {
+      return cleanNoise(text)
+        .replace(/\s*[-|]\s*lokasi\s*:.*$/i, "")
+        .replace(/\s*[-|]\s*tempat\s*:.*$/i, "")
+        .replace(/\s*📍.*$/i, "")
+        .replace(/\s*lokasi\s*:.*$/i, "")
+        .replace(/\s*tempat\s*:.*$/i, "")
+        .replace(/\s{2,}/g, " ")
+        .trim();
+    }
+
+    function cleanLokasi(text, dalang = "") {
+      let t = cleanNoise(text)
+        .replace(/^lokasi\s*:\s*/i, "")
+        .replace(/^tempat\s*:\s*/i, "")
+        .replace(/^alamat\s*:\s*/i, "")
+        .replace(/\bBT\s*:.*$/i, "")
+        .replace(/\bBintang Tamu\b.*$/i, "")
+        .replace(/\bLakon\b.*$/i, "")
+        .replace(/\bSinden\b.*$/i, "")
+        .replace(/\bLive Streaming\b.*$/i, "")
+        .replace(/\bYoutube\b.*$/i, "")
+        .replace(/\bInstagram\b.*$/i, "")
+        .trim();
+
+      if (dalang) {
+        const escaped = dalang.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        t = t.replace(new RegExp("^" + escaped + "\\s*", "i"), "").trim();
+        t = t.replace(new RegExp("\\s*-\\s*" + escaped + "\\s*$", "i"), "").trim();
+      }
+
+      return t.replace(/\s{2,}/g, " ").replace(/\s+,/g, ",").trim();
+    }
+
+    function splitDalangList(text) {
+      return cleanDalang(text)
+        .replace(/\)\s+(?=(Ki|Nyi)\s)/gi, ")|")
+        .split("|")
+        .map((x) => cleanDalang(x))
+        .filter(Boolean);
+    }
+
+    function isTitleSuffix(word) {
+      return /^(S\.?Sn|M\.?Sn|S\.?Kar|M\.?A|M\.?Hum|Sp\.?AK|Dr\.?|dr\.?|Prof\.?|RM|R\.?M\.?|Raden)$/i.test(
+        (word || "").replace(/,$/, "")
+      );
+    }
+
+    function isNameConnector(word) {
+      return /^(dan|&|et)$/i.test((word || "").replace(/[.,]/g, ""));
+    }
+
+    function isHardLocationStarter(word) {
+      return /^(ds|desa|dk|dukuh|dsn|dusun|kec|kecamatan|kab|kabupaten|kota|rt|rw|jl|jln|jalan|gang|blok|griya|sanggar|museum|pendopo|pendhopo|pendapa|lapangan|rumah|rmh|halaman|pantai|pabrik|studio|balai|pasar|terminal|gor|aula|kediaman|kel)$/i.test(
+        (word || "").replace(/[.,]/g, "")
+      );
+    }
+
+    function isLikelyNameWord(word) {
+      const clean = (word || "").replace(/[.,()]/g, "").toLowerCase();
+      if (!clean) return false;
+      if (NAME_TAIL_WORDS.has(clean)) return true;
+      if (/^(ki|nyi)$/i.test(clean)) return true;
+      if (isTitleSuffix(clean)) return true;
+      if (isNameConnector(clean)) return true;
+      return false;
+    }
+
+    function looksLikeCompleteDalang(text) {
+      const cleaned = cleanDalang(text);
+      if (!/^(ki|nyi)\s/i.test(cleaned)) return false;
+
+      const words = cleaned.split(/\s+/);
+      if (words.length < 3) return false;
+
+      const lastWord = (words[words.length - 1] || "").replace(/[.,]/g, "");
+      if (isTitleSuffix(lastWord)) return false;
+      if (isNameConnector(lastWord)) return false;
+      if (/^(ki|nyi)$/i.test(lastWord)) return false;
+
+      return true;
+    }
+
+    function findDirectMarkerSplit(raw) {
+      const directMarkers = ["📍", "Lokasi:", "lokasi:", "Tempat:", "tempat:", "Alamat:", "alamat:"];
+      for (const marker of directMarkers) {
+        const idx = raw.indexOf(marker);
+        if (idx > 0) {
+          return {
+            dalang: raw.slice(0, idx).trim(),
+            lokasi: raw.slice(idx).trim()
+          };
+        }
+      }
+      return null;
+    }
+
+    function findSmartSplit(line) {
+      const raw = cleanNoise(line);
+      if (!isLikelyDalang(raw)) return null;
+
+      const direct = findDirectMarkerSplit(raw);
+      if (direct) return direct;
+
+      const words = raw.split(/\s+/);
+      if (words.length < 4) {
+        return { dalang: raw, lokasi: "" };
+      }
+
+      for (let i = 2; i < words.length; i++) {
+        const currentWord = words[i];
+        if (!isHardLocationStarter(currentWord)) continue;
+
+        const before = words.slice(0, i).join(" ").trim();
+        const after = words.slice(i).join(" ").trim();
+
+        if (!looksLikeCompleteDalang(before)) continue;
+        if (!after) continue;
+
         return {
-          dalang: raw.slice(0, idx).trim(),
-          lokasi: raw.slice(idx).trim()
+          dalang: before,
+          lokasi: after
         };
       }
-    }
-    return null;
-  }
 
-  function findSmartSplit(line) {
-    const raw = cleanNoise(line);
-    if (!isLikelyDalang(raw)) return null;
+      for (let i = 2; i < words.length; i++) {
+        const currentWord = words[i];
+        const prevWord = words[i - 1] || "";
+        const before = words.slice(0, i).join(" ").trim();
+        const after = words.slice(i).join(" ").trim();
 
-    const direct = findDirectMarkerSplit(raw);
-    if (direct) return direct;
+        if (!before || !after) continue;
+        if (!looksLikeCompleteDalang(before)) continue;
+        if (isTitleSuffix(currentWord)) continue;
+        if (isNameConnector(currentWord)) continue;
+        if (/^(ki|nyi)$/i.test(currentWord.replace(/[.,]/g, ""))) continue;
+        if (isNameConnector(prevWord)) continue;
+        if (isLikelyNameWord(currentWord)) continue;
 
-    const words = raw.split(/\s+/);
-    if (words.length < 4) {
+        const currentLooksLikeLocation =
+          isLikelyLocation(after) &&
+          (
+            /,/.test(after) ||
+            /\b(rt|rw|desa|dusun|dukuh|kec|kab|kota|jl|jln|jalan|pendopo|pendhopo|sanggar|griya|halaman|rumah|kediaman|gor|aula|kel)\b/i.test(after)
+          );
+
+        if (!currentLooksLikeLocation) continue;
+
+        return {
+          dalang: before,
+          lokasi: after
+        };
+      }
+
       return { dalang: raw, lokasi: "" };
     }
 
-    for (let i = 2; i < words.length; i++) {
-      const currentWord = words[i];
-      if (!isHardLocationStarter(currentWord)) continue;
+    function splitDalangLokasi(line) {
+      const result = findSmartSplit(line);
+      if (!result) return null;
 
-      const before = words.slice(0, i).join(" ").trim();
-      const after = words.slice(i).join(" ").trim();
-
-      if (!looksLikeCompleteDalang(before)) continue;
-      if (!after) continue;
+      const dalangList = splitDalangList(result.dalang);
+      if (!dalangList.length) return null;
 
       return {
-        dalang: before,
-        lokasi: after
+        dalangList,
+        lokasi: cleanLokasi(result.lokasi, dalangList[0] || "")
       };
     }
 
-    for (let i = 2; i < words.length; i++) {
-      const currentWord = words[i];
-      const prevWord = words[i - 1] || "";
-      const before = words.slice(0, i).join(" ").trim();
-      const after = words.slice(i).join(" ").trim();
+    function extractArticleHTML(rawText) {
+      try {
+        const json = JSON.parse(rawText);
+        if (json.feed && json.feed.entry && json.feed.entry.length) {
+          const entry = json.feed.entry[0];
+          return (entry.content && entry.content.$t) || (entry.summary && entry.summary.$t) || "";
+        }
+      } catch (_) {}
 
-      if (!before || !after) continue;
-      if (!looksLikeCompleteDalang(before)) continue;
-      if (isTitleSuffix(currentWord)) continue;
-      if (isNameConnector(currentWord)) continue;
-      if (/^(ki|nyi)$/i.test(currentWord.replace(/[.,]/g, ""))) continue;
-      if (isNameConnector(prevWord)) continue;
-      if (isLikelyNameWord(currentWord)) continue;
+      const doc = new DOMParser().parseFromString(rawText, "text/html");
+      const selectors = [".post-body", ".post-body.entry-content", ".entry-content", "article", ".post"];
 
-      const currentLooksLikeLocation =
-        isLikelyLocation(after) &&
-        (
-          /,/.test(after) ||
-          /\b(rt|rw|desa|dusun|dukuh|kec|kab|kota|jl|jln|jalan|pendopo|pendhopo|sanggar|griya|halaman|rumah|kediaman|gor|aula|kel)\b/i.test(after)
-        );
-
-      if (!currentLooksLikeLocation) continue;
-
-      return {
-        dalang: before,
-        lokasi: after
-      };
-    }
-
-    return { dalang: raw, lokasi: "" };
-  }
-
-  function splitDalangLokasi(line) {
-    const result = findSmartSplit(line);
-    if (!result) return null;
-
-    const dalangList = splitDalangList(result.dalang);
-    if (!dalangList.length) return null;
-
-    return {
-      dalangList,
-      lokasi: cleanLokasi(result.lokasi, dalangList[0] || "")
-    };
-  }
-
-  function extractArticleHTML(rawText) {
-    try {
-      const json = JSON.parse(rawText);
-      if (json.feed?.entry?.length) {
-        const entry = json.feed.entry[0];
-        return entry.content?.$t || entry.summary?.$t || "";
+      for (const selector of selectors) {
+        const el = doc.querySelector(selector);
+        if (el && el.innerHTML.trim()) return el.innerHTML;
       }
-    } catch (_) {}
 
-    const doc = new DOMParser().parseFromString(rawText, "text/html");
-    const selectors = [".post-body", ".post-body.entry-content", ".entry-content", "article", ".post"];
-
-    for (const selector of selectors) {
-      const el = doc.querySelector(selector);
-      if (el && el.innerHTML.trim()) return el.innerHTML;
+      return rawText;
     }
 
-    return rawText;
-  }
+    function extractLines(html) {
+      const wrapper = document.createElement("div");
+      wrapper.innerHTML = html.replace(/<br\s*\/?>/gi, "<br>\n");
 
-  function extractLines(html) {
-    const wrapper = document.createElement("div");
-    wrapper.innerHTML = html.replace(/<br\s*\/?>/gi, "<br>\n");
+      const lines = [];
+      const blocks = wrapper.querySelectorAll("p, li, div");
 
-    const lines = [];
-    const blocks = wrapper.querySelectorAll("p, li, div");
-
-    if (blocks.length) {
-      blocks.forEach((node) => {
-        normalizeSpace(node.innerText).split(/\n+/).forEach((part) => {
+      if (blocks.length) {
+        blocks.forEach((node) => {
+          normalizeSpace(node.innerText).split(/\n+/).forEach((part) => {
+            const cleaned = cleanNoise(part);
+            if (cleaned && !isNoiseLine(cleaned)) {
+              lines.push(cleaned);
+            }
+          });
+        });
+      } else {
+        normalizeSpace(wrapper.innerText).split(/\n+/).forEach((part) => {
           const cleaned = cleanNoise(part);
           if (cleaned && !isNoiseLine(cleaned)) {
             lines.push(cleaned);
           }
         });
+      }
+
+      return lines.filter(Boolean);
+    }
+
+    function collectLocation(lines, startIndex) {
+      const parts = [];
+
+      for (let i = startIndex; i < Math.min(lines.length, startIndex + 4); i++) {
+        const line = cleanNoise(lines[i]);
+        if (!line) continue;
+        if (isDateLine(line)) break;
+        if (isLikelyDalang(line)) break;
+        if (isNoiseLine(line)) continue;
+
+        parts.push(cleanLokasi(line));
+        if (isLikelyLocation(line)) break;
+      }
+
+      return cleanLokasi(parts.join(", "));
+    }
+
+    function dedupeDatabase(data) {
+      const seen = new Set();
+
+      return data.filter((item) => {
+        const key = [
+          item.tanggal.trim().toLowerCase(),
+          item.dalang.trim().toLowerCase(),
+          item.lokasi.trim().toLowerCase()
+        ].join("|");
+
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
       });
-    } else {
-      normalizeSpace(wrapper.innerText).split(/\n+/).forEach((part) => {
-        const cleaned = cleanNoise(part);
-        if (cleaned && !isNoiseLine(cleaned)) {
-          lines.push(cleaned);
+    }
+
+    function parseHTML(html) {
+      database = [];
+
+      const lines = extractLines(html);
+      let tanggalAktif = "";
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+
+        if (isDateLine(line)) {
+          tanggalAktif = extractDate(line);
+          continue;
         }
-      });
-    }
 
-    return lines.filter(Boolean);
-  }
+        const parsed = splitDalangLokasi(line);
+        if (!parsed || !tanggalAktif) continue;
 
-  function collectLocation(lines, startIndex) {
-    const parts = [];
+        let lokasi = parsed.lokasi;
+        if (!lokasi) {
+          lokasi = collectLocation(lines, i + 1);
+        }
 
-    for (let i = startIndex; i < Math.min(lines.length, startIndex + 4); i++) {
-      const line = cleanNoise(lines[i]);
-      if (!line) continue;
-      if (isDateLine(line)) break;
-      if (isLikelyDalang(line)) break;
-      if (isNoiseLine(line)) continue;
+        parsed.dalangList.forEach((dalang) => {
+          const finalDalang = cleanDalang(dalang);
+          const finalLokasi = cleanLokasi(lokasi, finalDalang) || "-";
 
-      parts.push(cleanLokasi(line));
-      if (isLikelyLocation(line)) break;
-    }
+          if (!finalDalang) return;
 
-    return cleanLokasi(parts.join(", "));
-  }
-
-  function dedupeDatabase(data) {
-    const seen = new Set();
-
-    return data.filter((item) => {
-      const key = [
-        item.tanggal.trim().toLowerCase(),
-        item.dalang.trim().toLowerCase(),
-        item.lokasi.trim().toLowerCase()
-      ].join("|");
-
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
-  }
-
-  function parseHTML(html) {
-    database = [];
-
-    const lines = extractLines(html);
-    let tanggalAktif = "";
-
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-
-      if (isDateLine(line)) {
-        tanggalAktif = extractDate(line);
-        continue;
-      }
-
-      const parsed = splitDalangLokasi(line);
-      if (!parsed || !tanggalAktif) continue;
-
-      let lokasi = parsed.lokasi;
-      if (!lokasi) {
-        lokasi = collectLocation(lines, i + 1);
-      }
-
-      parsed.dalangList.forEach((dalang) => {
-        const finalDalang = cleanDalang(dalang);
-        const finalLokasi = cleanLokasi(lokasi, finalDalang) || "-";
-
-        if (!finalDalang) return;
-
-        database.push({
-          tanggal: tanggalAktif,
-          dalang: finalDalang,
-          lokasi: finalLokasi
-        });
-      });
-    }
-
-    database = dedupeDatabase(database);
-    renderTable();
-    generateJS();
-    log("Parse selesai. Total data: " + database.length);
-  }
-
-  async function grabFeed() {
-    log("Mengambil data artikel...");
-
-    try {
-      const manual = document.getElementById("manualLink").value.trim();
-      const target = manual || DEFAULT_ARTICLE;
-
-      const res = await fetch(WORKER_PROXY + encodeURIComponent(target));
-      const raw = await res.text();
-      const articleHTML = extractArticleHTML(raw);
-
-      if (!articleHTML || !articleHTML.trim()) {
-        throw new Error("Konten artikel kosong");
-      }
-
-      parseHTML(articleHTML);
-    } catch (err) {
-      console.error(err);
-      log("Gagal mengambil atau parse data");
-    }
-  }
-
-  function escapeHTML(text) {
-    return (text || "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-  }
-
-  function renderTable() {
-    const tbody = document.querySelector("#preview tbody");
-    tbody.innerHTML = "";
-
-    database.forEach((d, i) => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${escapeHTML(d.tanggal)}</td>
-        <td>${escapeHTML(d.dalang)}</td>
-        <td>${escapeHTML(d.lokasi)}</td>
-        <td><button onclick="hapusJadwal(${i})">X</button></td>
-      `;
-
-      if (editMode) {
-        tr.querySelectorAll("td").forEach((td, index) => {
-          if (index < 3) {
-            td.contentEditable = true;
-            td.oninput = () => {
-              if (index === 0) database[i].tanggal = td.innerText.trim();
-              if (index === 1) database[i].dalang = td.innerText.trim();
-              if (index === 2) database[i].lokasi = td.innerText.trim();
-              generateJS();
-            };
-          }
+          database.push({
+            tanggal: tanggalAktif,
+            dalang: finalDalang,
+            lokasi: finalLokasi
+          });
         });
       }
 
-      tbody.appendChild(tr);
-    });
-  }
+      normalizeDatabase();
+      database = dedupeDatabase(database);
+      renderTable();
+      generateJS();
+      log("Parse selesai. Total data: " + database.length);
+    }
 
-  function tambahJadwal() {
-    database.push({ tanggal: "", dalang: "", lokasi: "" });
-    renderTable();
-    generateJS();
-  }
+    async function grabFeed() {
+      log("Mengambil data artikel...");
 
-  function hapusJadwal(i) {
-    database.splice(i, 1);
-    renderTable();
-    generateJS();
-  }
-
-  function toggleEdit() {
-    editMode = !editMode;
-    renderTable();
-    log(editMode ? "Mode edit aktif" : "Mode edit mati");
-  }
-
-  function generateJS() {
-    document.getElementById("output").value =
-      "const JADWAL_WAYANG = " + JSON.stringify(database, null, 2) + ";";
-  }
-
-  function exportJS() {
-    const blob = new Blob([document.getElementById("output").value], {
-      type: "text/javascript"
-    });
-
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "jadwal.js";
-    a.click();
-    URL.revokeObjectURL(a.href);
-  }
-
-  function importJS(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function () {
       try {
-        const text = reader.result;
-        const json = text
-          .replace(/^const\s+JADWAL_WAYANG\s*=\s*/i, "")
-          .replace(/;?\s*$/, "");
+        const manual = document.getElementById("manualLink").value.trim();
+        const target = manual || DEFAULT_ARTICLE;
 
-        database = JSON.parse(json);
-        renderTable();
-        generateJS();
-        log("jadwal.js berhasil diimport");
+        const res = await fetch(WORKER_PROXY + encodeURIComponent(target));
+        const raw = await res.text();
+        const articleHTML = extractArticleHTML(raw);
+
+        if (!articleHTML || !articleHTML.trim()) {
+          throw new Error("Konten artikel kosong");
+        }
+
+        parseHTML(articleHTML);
       } catch (err) {
         console.error(err);
-        log("Import gagal. Format file tidak valid");
+        log("Gagal mengambil atau parse data");
       }
-    };
+    }
 
-    reader.readAsText(file);
-  }
-</script>
+    function escapeHTML(text) {
+      return (text || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    function renderTable() {
+      normalizeDatabase();
+
+      const tbody = document.querySelector("#preview tbody");
+      tbody.innerHTML = "";
+
+      database.forEach((d, i) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${escapeHTML(d.tanggal)}</td>
+          <td>${escapeHTML(d.dalang)}</td>
+          <td>${escapeHTML(d.lokasi)}</td>
+          <td><button class="danger-btn" onclick="hapusJadwal(${i})">X</button></td>
+        `;
+
+        if (editMode) {
+          tr.querySelectorAll("td").forEach((td, index) => {
+            if (index < 3) {
+              td.contentEditable = true;
+
+              td.oninput = () => {
+                if (index === 0) database[i].tanggal = td.innerText.trim();
+                if (index === 1) database[i].dalang = td.innerText.trim();
+                if (index === 2) database[i].lokasi = td.innerText.trim();
+                generateJS();
+              };
+
+              td.onblur = () => {
+                if (index === 0) {
+                  const fixedDate = normalizeDateText(td.innerText);
+                  database[i].tanggal = fixedDate;
+                  td.innerText = fixedDate;
+                  generateJS();
+                }
+              };
+            }
+          });
+        }
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    function tambahJadwal() {
+      database.push({ tanggal: "", dalang: "", lokasi: "" });
+
+      editMode = true;
+      renderTable();
+      generateJS();
+      log("Jadwal baru ditambahkan. Silakan isi tanggal, dalang, dan lokasi.");
+
+      const rows = document.querySelectorAll("#preview tbody tr");
+      const lastRow = rows[rows.length - 1];
+
+      if (lastRow && lastRow.children[0]) {
+        lastRow.children[0].focus();
+      }
+    }
+
+    function hapusJadwal(i) {
+      database.splice(i, 1);
+      renderTable();
+      generateJS();
+      log("Jadwal berhasil dihapus");
+    }
+
+    function toggleEdit() {
+      editMode = !editMode;
+      renderTable();
+      log(editMode ? "Mode edit aktif" : "Mode edit mati");
+    }
+
+    function generateJS() {
+      normalizeDatabase();
+
+      document.getElementById("output").value =
+        "const JADWAL_WAYANG = " + JSON.stringify(database, null, 2) + ";";
+    }
+
+    function exportJS() {
+      generateJS();
+
+      const blob = new Blob([document.getElementById("output").value], {
+        type: "text/javascript"
+      });
+
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "jadwal.js";
+      a.click();
+      URL.revokeObjectURL(a.href);
+
+      log("jadwal.js berhasil diexport");
+    }
+
+    function importJS(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function () {
+        try {
+          const text = reader.result;
+          const json = text
+            .replace(/^const\s+JADWAL_WAYANG\s*=\s*/i, "")
+            .replace(/;?\s*$/, "");
+
+          database = JSON.parse(json).map(normalizeRecord);
+          renderTable();
+          generateJS();
+          log("jadwal.js berhasil diimport dan tanggal sudah dinormalkan");
+        } catch (err) {
+          console.error(err);
+          log("Import gagal. Format file tidak valid");
+        }
+      };
+
+      reader.readAsText(file);
+      e.target.value = "";
+    }
+
+    generateJS();
+  </script>
 </body>
 </html>
