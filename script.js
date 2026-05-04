@@ -449,7 +449,7 @@ ${formatTanggalFull()}
 ${listHTML}
 </div>
 
-    <a href="jadwal/jadwal-wayang-april-2026.html" class="jadwal-btn">
+    <a href="jadwal/jadwal-wayang-mei-2026.html" class="jadwal-btn">
       LIHAT JADWAL TANGGAL LAIN →
     </a>
 
