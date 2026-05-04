@@ -823,7 +823,7 @@ const JADWAL_WAYANG = [
     "tanggal": "30 April 2026",
     "dalang": "Ki Aditya Sabda Anindhita",
     "lokasi": "Desa Dororejo, Kecamatan Doro, Kabupaten Pekalongan"
-  }
+  },
   {
     "tanggal": "01 MEI 2026",
     "dalang": "Ki Sigit Djono Saputra",
