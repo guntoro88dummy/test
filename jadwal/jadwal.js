@@ -2454,5 +2454,5 @@ const JADWAL_WAYANG = [
     "tanggal": "30 MEI 2026",
     "dalang": "Ki Blego Ardianto",
     "lokasi": "Seduri, Mojosari, Mojokerto"
-  },
+  }
  ];
